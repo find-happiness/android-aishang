@@ -1,13 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/line"
+    android:orientation="vertical">
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        android:text="@string/more"
+        android:textSize="30sp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textColor="@android:color/white"
+        android:gravity="center"/>
+
+    <com.aishang.app.widget.ItemMore
+        android:padding="10dp"
+        android:background="@android:color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:id="@+id/textView3"
-        android:layout_gravity="center_horizontal" />
+        app:img="@mipmap/iconfont_gengxin"
+        android:layout_marginTop="10dp"
+        app:text="@string/check_updata"></com.aishang.app.widget.ItemMore>
+
+    <com.aishang.app.widget.ItemMore
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:layout_marginTop="10dp"
+        app:img="@mipmap/iconfont_yijianfankui"
+        app:text="@string/yi_jian_fang_kui"></com.aishang.app.widget.ItemMore>
+
+    <com.aishang.app.widget.ItemMore
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/white"
+        app:img="@mipmap/iconfont_fenxiang"
+        app:text="@string/share_ai_shang"></com.aishang.app.widget.ItemMore>
+
+    <com.aishang.app.widget.ItemMore
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        app:img="@mipmap/iconfont_shezhi"
+        app:text="@string/setting"></com.aishang.app.widget.ItemMore>
+
 </LinearLayout>

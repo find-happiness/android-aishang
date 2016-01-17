@@ -3,32 +3,32 @@ package com.aishang.app.ui.main;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
-import java.util.Collections;
+import com.aishang.app.R;
+import com.aishang.app.data.model.Ribot;
+import com.aishang.app.ui.base.BaseActivity;
+import com.aishang.app.util.DialogFactory;
+import com.shizhefei.view.indicator.FixedIndicatorView;
+import com.shizhefei.view.indicator.IndicatorViewPager;
+import com.shizhefei.view.viewpager.SViewPager;
+
 import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import com.aishang.app.R;
-import com.aishang.app.data.SyncService;
-import com.aishang.app.data.model.Ribot;
-import com.aishang.app.ui.base.BaseActivity;
-import com.aishang.app.util.DialogFactory;
 
 public class MainActivity extends BaseActivity implements MainMvpView {
 
     private static final String EXTRA_TRIGGER_SYNC_FLAG =
             "uk.co.ribot.androidboilerplate.ui.main.MainActivity.EXTRA_TRIGGER_SYNC_FLAG";
-
+    private IndicatorViewPager indicatorViewPager;
     @Inject MainPresenter mMainPresenter;
-    @Inject RibotsAdapter mRibotsAdapter;
 
-    @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
+    @Bind(R.id.tabmain_viewPager)SViewPager mViewPager;
+    @Bind(R.id.tabmain_indicator)FixedIndicatorView mIndicator;
 
     /**
      * Return an Intent to start this Activity.
@@ -48,14 +48,10 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        mRecyclerView.setAdapter(mRibotsAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        indicatorViewPager = new IndicatorViewPager(mIndicator,mViewPager);
+        indicatorViewPager.setAdapter(new MainPageAdapter(getSupportFragmentManager(),this));
+        mViewPager.setCanScroll(true);
         mMainPresenter.attachView(this);
-        mMainPresenter.loadRibots();
-
-        if (getIntent().getBooleanExtra(EXTRA_TRIGGER_SYNC_FLAG, true)) {
-            startService(SyncService.getStartIntent(this));
-        }
     }
 
     @Override
@@ -66,24 +62,9 @@ public class MainActivity extends BaseActivity implements MainMvpView {
     }
 
     /***** MVP View methods implementation *****/
-
-    @Override
-    public void showRibots(List<Ribot> ribots) {
-        mRibotsAdapter.setRibots(ribots);
-        mRibotsAdapter.notifyDataSetChanged();
-    }
-
     @Override
     public void showError() {
         DialogFactory.createGenericErrorDialog(this, getString(R.string.error_loading_ribots))
                 .show();
     }
-
-    @Override
-    public void showRibotsEmpty() {
-        mRibotsAdapter.setRibots(Collections.<Ribot>emptyList());
-        mRibotsAdapter.notifyDataSetChanged();
-        Toast.makeText(this, R.string.empty_ribots, Toast.LENGTH_LONG).show();
-    }
-
 }

@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId 'com.aishang.app'
-        minSdkVersion 9
+        minSdkVersion 10
         targetSdkVersion 23
         testInstrumentationRunner "${applicationId}.runner.RxAndroidJUnitRunner"
         versionCode 1000
@@ -120,6 +120,10 @@ dependencies {
     compile 'com.github.navasmdc:MaterialDesign:1.5@aar'
     compile 'com.github.ksoichiro:android-observablescrollview:1.6.0'
     compile 'in.srain.cube:ultra-ptr:1.0.11'
+    compile project(':ViewPagerIndicator_Library')
+    compile 'com.bigkoo:convenientbanner:2.0.4'
+    compile 'com.github.frankiesardo:linearlistview:1.0.1@aar'
+    compile project(':pullzoomview')
 
     // Instrumentation test dependencies
     androidTestCompile jUnit

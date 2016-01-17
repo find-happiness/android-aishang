@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main_scrollview"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/blue"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:src="@mipmap/logo_main" />
+
+            <EditText
+                android:id="@+id/sreach"
+                style="@null"
+                android:focusableInTouchMode="true"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="5"
+                />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <com.bigkoo.convenientbanner.ConvenientBanner
+            android:id="@+id/convenientBanner"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:canLoop="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal">
+
+            <com.aishang.app.widget.ImgWithText
+                android:id="@+id/btn_huanzu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"></com.aishang.app.widget.ImgWithText>
+
+            <com.aishang.app.widget.ImgWithText
+                android:id="@+id/btn_zaishou"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"></com.aishang.app.widget.ImgWithText>
+
+            <com.aishang.app.widget.ImgWithText
+                android:id="@+id/btn_youji"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"></com.aishang.app.widget.ImgWithText>
+
+            <com.aishang.app.widget.ImgWithText
+                android:id="@+id/btn_xiangmuhezu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"></com.aishang.app.widget.ImgWithText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal">
+
+            <com.aishang.app.widget.ImgWithText
+                android:id="@+id/btn_dujiawu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"></com.aishang.app.widget.ImgWithText>
+
+            <com.aishang.app.widget.ImgWithText
+                android:id="@+id/btn_store"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"></com.aishang.app.widget.ImgWithText>
+
+            <com.aishang.app.widget.ImgWithText
+                android:id="@+id/btn_kanfangtuan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"></com.aishang.app.widget.ImgWithText>
+
+            <com.aishang.app.widget.ImgWithText
+                android:id="@+id/btn_fabuchuzu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"></com.aishang.app.widget.ImgWithText>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zaishou"
+                android:textSize="30sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:text="@string/look_more"
+                android:textSize="20sp" />
+        </RelativeLayout>
+
+        <!--
+        <include layout="@layout/item_in_sale" />
+
+        <include layout="@layout/item_in_sale" />
+
+        <include layout="@layout/item_in_sale" />
+        -->
+        <com.aishang.app.widget.NonScrollGridView
+            android:id="@+id/gridview_in_sale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="1"
+            android:stretchMode="columnWidth">
+        </com.aishang.app.widget.NonScrollGridView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hot_hotel"
+                android:textSize="30sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:text="@string/look_more"
+                android:textSize="20sp" />
+        </RelativeLayout>
+
+        <com.aishang.app.widget.NonScrollGridView
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:id="@+id/gridview_hot_hotel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="2"
+            android:horizontalSpacing="5dp"
+            android:stretchMode="columnWidth">
+        </com.aishang.app.widget.NonScrollGridView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/youji"
+                android:textSize="30sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:text="@string/look_more"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+        <com.aishang.app.widget.NonScrollGridView
+            android:id="@+id/gridview_hot_youji"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="1"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:stretchMode="columnWidth">
+        </com.aishang.app.widget.NonScrollGridView>
+    </LinearLayout>
+
+</ScrollView>

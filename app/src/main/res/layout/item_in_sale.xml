@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/contnet"
+        android:paddingLeft="10dp"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/img_in_sale"
+            android:layout_width="0dp"
+            android:adjustViewBounds="true"
+            android:layout_height="match_parent"
+            android:src="@mipmap/banner"
+            android:layout_weight="1"/>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:layout_weight="2">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/name"
+                android:textSize="25sp"
+                tools:text="宜春|曦园柳镇"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/price_text"
+                android:textSize="25sp"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/price"
+                tools:text="5.9万"/>
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/name"
+                android:layout_marginTop="5dp"
+                tools:text="交房时间：2015-12-13"/>
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/time"
+                android:layout_marginTop="5dp"
+                tools:text="交房时间：2015-12-13"/>
+            <TextView
+                android:id="@+id/tese"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/address"
+                android:layout_marginTop="5dp"
+                tools:text="交         间：2015-12-13"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contnet"
+        android:id="@+id/look"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        tools:text="@string/kanfangduan"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contnet"
+        android:id="@+id/youji"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/look"
+        tools:text="@string/youji"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contnet"
+        android:id="@+id/buy"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true"
+        tools:text="认购"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/darker_gray"
+        android:layout_below="@+id/look" />
+</RelativeLayout>

@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/gray"
-    tools:context=".MainActivity">
+    xmlns:indicator="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context="com.aishang.app.ui.main.MainActivity"
+    tools:ignore="MergeRootFrame">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <com.shizhefei.view.viewpager.SViewPager
+        android:id="@+id/tabmain_viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingBottom="6dp"
-        android:paddingTop="6dp"
-        android:scrollbars="vertical" />
+        android:layout_height="0dp"
+        android:background="#eee"
+        android:layout_weight="1" />
 
-</RelativeLayout>
+    <com.shizhefei.view.indicator.FixedIndicatorView
+        android:id="@+id/tabmain_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="65dp" />
+
+</LinearLayout>

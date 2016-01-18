@@ -128,30 +128,6 @@ public class MainFmFragment extends Fragment implements MainFmMvpView{
     private void initView()
     {
 
-        btnDuJiaWu.setImgDrawable(R.mipmap.dujiawu);
-        btnDuJiaWu.setText(R.string.dujiawu);
-
-        btnFaBuChuZu.setImgDrawable(R.mipmap.fabuchuzu);
-        btnFaBuChuZu.setText(R.string.fabuzushou);
-
-        btnHuanZu.setImgDrawable(R.mipmap.huanzu);
-        btnHuanZu.setText(R.string.huangzujiudian);
-
-        btnKanFangDuan.setImgDrawable(R.mipmap.kanfangtuan);
-        btnKanFangDuan.setText(R.string.kanfangduan);
-
-        btnStore.setImgDrawable(R.mipmap.business_store);
-        btnStore.setText(R.string.store);
-
-        btnXiangMuHeZuo.setImgDrawable(R.mipmap.xiangmuhezuo);
-        btnXiangMuHeZuo.setText(R.string.xiangmuhezuo);
-
-        btnYouJi.setImgDrawable(R.mipmap.youji);
-        btnYouJi.setText(R.string.youji);
-
-        btnZaiShou.setImgDrawable(R.mipmap.zaishou);
-        btnZaiShou.setText(R.string.zaishou);
-
         List<Integer> localImages = new ArrayList<>();
         localImages.add(R.mipmap.banner);
         localImages.add(R.mipmap.banner);

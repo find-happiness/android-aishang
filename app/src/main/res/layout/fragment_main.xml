@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/main_scrollview"
@@ -66,8 +65,10 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
+                app:img="@mipmap/huanzu"
+                app:text="@string/huangzujiudian"
                 android:paddingBottom="8dp"
-                android:paddingTop="8dp"></com.aishang.app.widget.ImgWithText>
+                android:paddingTop="8dp"/>
 
             <com.aishang.app.widget.ImgWithText
                 android:id="@+id/btn_zaishou"
@@ -75,9 +76,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
+                app:text="@string/zaishou"
+                app:img="@mipmap/zaishou"
                 android:gravity="center"
                 android:paddingBottom="8dp"
-                android:paddingTop="8dp"></com.aishang.app.widget.ImgWithText>
+                android:paddingTop="8dp"/>
 
             <com.aishang.app.widget.ImgWithText
                 android:id="@+id/btn_youji"
@@ -86,18 +89,22 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
+                app:img="@mipmap/youji"
+                app:text="@string/youji"
                 android:paddingBottom="8dp"
-                android:paddingTop="8dp"></com.aishang.app.widget.ImgWithText>
+                android:paddingTop="8dp"/>
 
             <com.aishang.app.widget.ImgWithText
                 android:id="@+id/btn_xiangmuhezu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:text="@string/xiangmuhezuo"
+                app:img="@mipmap/xiangmuhezuo"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:paddingBottom="8dp"
-                android:paddingTop="8dp"></com.aishang.app.widget.ImgWithText>
+                android:paddingTop="8dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -114,8 +121,10 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
+                app:img="@mipmap/dujiawu"
+                app:text="@string/dujiawu"
                 android:paddingBottom="8dp"
-                android:paddingTop="8dp"></com.aishang.app.widget.ImgWithText>
+                android:paddingTop="8dp"/>
 
             <com.aishang.app.widget.ImgWithText
                 android:id="@+id/btn_store"
@@ -123,9 +132,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
+                app:text="@string/store"
+                app:img="@mipmap/business_store"
                 android:gravity="center"
                 android:paddingBottom="8dp"
-                android:paddingTop="8dp"></com.aishang.app.widget.ImgWithText>
+                android:paddingTop="8dp"/>
 
             <com.aishang.app.widget.ImgWithText
                 android:id="@+id/btn_kanfangtuan"
@@ -134,8 +145,10 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
+                app:img="@mipmap/kanfangtuan"
+                app:text="@string/kanfangduan"
                 android:paddingBottom="8dp"
-                android:paddingTop="8dp"></com.aishang.app.widget.ImgWithText>
+                android:paddingTop="8dp"/>
 
             <com.aishang.app.widget.ImgWithText
                 android:id="@+id/btn_fabuchuzu"
@@ -143,9 +156,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
+                app:img="@mipmap/fabuchuzu"
+                app:text="@string/fabuzushou"
                 android:gravity="center"
                 android:paddingBottom="8dp"
-                android:paddingTop="8dp"></com.aishang.app.widget.ImgWithText>
+                android:paddingTop="8dp"/>
         </LinearLayout>
 
         <RelativeLayout

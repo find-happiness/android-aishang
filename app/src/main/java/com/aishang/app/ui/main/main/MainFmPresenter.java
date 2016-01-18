@@ -1,9 +1,13 @@
 package com.aishang.app.ui.main.main;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import com.aishang.app.data.DataManager;
 import com.aishang.app.data.model.Ribot;
 import com.aishang.app.ui.base.BasePresenter;
 
+import com.aishang.app.ui.insale.InSaleActivity;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -62,5 +66,15 @@ public class MainFmPresenter extends BasePresenter<MainFmMvpView> {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io());
         }
+    }
+
+    protected void IntentToZaiShou()
+    {
+        Activity content = ((MainFmFragment)mainFmMvpView).getActivity();
+
+        Intent intent = new Intent();
+        intent.setClass(content, InSaleActivity.class);
+        content.startActivity(intent);
+
     }
 }

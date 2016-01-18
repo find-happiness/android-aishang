@@ -1,29 +1,36 @@
 <resources>
-    <string name="app_name">AndroidBoilerPlate</string>
+  <string name="app_name">AndroidBoilerPlate</string>
 
-    <string name="action_settings">Settings</string>
+  <string name="action_settings">Settings</string>
 
-    <string name="dialog_action_ok">OK</string>
-    <string name="dialog_action_cancel">Cancel</string>
-    <string name="dialog_error_title">Sorry</string>
+  <string name="dialog_action_ok">OK</string>
+  <string name="dialog_action_cancel">Cancel</string>
+  <string name="dialog_error_title">Sorry</string>
 
-    <string name="empty_ribots">There aren\'t any ribots</string>
-    <string name="error_loading_ribots">There was a problem loading the ribots</string>
+  <string name="empty_ribots">There aren\'t any ribots</string>
+  <string name="error_loading_ribots">There was a problem loading the ribots</string>
 
-    <string name="huangzujiudian">换住酒店</string>
-    <string name="zaishou">在售产品</string>
-    <string name="youji">行程游记</string>
-    <string name="xiangmuhezuo">项目合作</string>
-     <string name="dujiawu">度假屋交换</string>
-    <string name="kanfangduan">看房团</string>
-    <string name="fabuzushou">发布租售</string>
-    <string name="store">商城</string>
-    <string name="look_more">查看更多</string>
-    <string name="hot_hotel">热门酒店</string>
-    <string name="book_hotel">预订</string>
-    <string name="yi_jian_fang_kui">意见反馈</string>
-    <string name="check_updata">检查更新</string>
-    <string name="share_ai_shang">分享爱尚旅居</string>
-    <string name="setting">设置</string>
-    <string name="more">更多</string>
+  <string name="cube_views_load_more_loading">loading...</string>
+  <string name="cube_views_load_more_click_to_load_more">Click to load more</string>
+  <string name="cube_views_load_more_loaded_no_more">All the data has been loaded</string>
+  <string name="cube_views_load_more_loaded_empty">It is empty. :(</string>
+  <string name="cube_views_load_more_error">Load error, click to retry</string>
+
+
+  <string name="huangzujiudian">换住酒店</string>
+  <string name="zaishou">在售产品</string>
+  <string name="youji">行程游记</string>
+  <string name="xiangmuhezuo">项目合作</string>
+  <string name="dujiawu">度假屋交换</string>
+  <string name="kanfangduan">看房团</string>
+  <string name="fabuzushou">发布租售</string>
+  <string name="store">商城</string>
+  <string name="look_more">查看更多</string>
+  <string name="hot_hotel">热门酒店</string>
+  <string name="book_hotel">预订</string>
+  <string name="yi_jian_fang_kui">意见反馈</string>
+  <string name="check_updata">检查更新</string>
+  <string name="share_ai_shang">分享爱尚旅居</string>
+  <string name="setting">设置</string>
+  <string name="more">更多</string>
 </resources>

@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ScrollView;
 
+import butterknife.OnClick;
 import com.aishang.app.R;
 import com.aishang.app.ui.base.BaseActivity;
 import com.aishang.app.ui.main.MainActivity;
@@ -45,30 +46,6 @@ public class MainFmFragment extends Fragment implements MainFmMvpView{
     HotHotelAdapter hotHotelAdapter;
     HotYouJiAdapter hotYouJiAdapter;
     ZaiShouAdapter zaiShouAdapter;
-
-    @Bind(R.id.btn_huanzu)
-    ImgWithText btnHuanZu;
-
-    @Bind(R.id.btn_zaishou)
-    ImgWithText btnZaiShou;
-
-    @Bind(R.id.btn_youji)
-    ImgWithText btnYouJi;
-
-    @Bind(R.id.btn_xiangmuhezu)
-    ImgWithText btnXiangMuHeZuo;
-
-    @Bind(R.id.btn_dujiawu)
-    ImgWithText btnDuJiaWu;
-
-    @Bind(R.id.btn_store)
-    ImgWithText btnStore;
-
-    @Bind(R.id.btn_kanfangtuan)
-    ImgWithText btnKanFangDuan;
-
-    @Bind(R.id.btn_fabuchuzu)
-    ImgWithText btnFaBuChuZu;
 
     @Bind(R.id.convenientBanner)
     ConvenientBanner banner;
@@ -165,11 +142,8 @@ public class MainFmFragment extends Fragment implements MainFmMvpView{
         hotHotelAdapter.setHotels(hotel);
         gvHotHotel.setAdapter(hotHotelAdapter);
         gvHotHotel.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return MotionEvent.ACTION_MOVE == event.getAction() ? true
-                        : false;
+            @Override public boolean onTouch(View v, MotionEvent event) {
+                return MotionEvent.ACTION_MOVE == event.getAction();
             }
         });
     }
@@ -185,10 +159,8 @@ public class MainFmFragment extends Fragment implements MainFmMvpView{
         gvInSale.setAdapter(zaiShouAdapter);
         gvInSale.setOnTouchListener(new View.OnTouchListener() {
 
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return MotionEvent.ACTION_MOVE == event.getAction() ? true
-                        : false;
+            @Override public boolean onTouch(View v, MotionEvent event) {
+                return MotionEvent.ACTION_MOVE == event.getAction();
             }
         });
     }
@@ -206,11 +178,47 @@ public class MainFmFragment extends Fragment implements MainFmMvpView{
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                return MotionEvent.ACTION_MOVE == event.getAction() ? true
-                        : false;
+                //return MotionEvent.ACTION_MOVE == event.getAction() ? true
+                //        : false;
+                return MotionEvent.ACTION_MOVE == event.getAction();
             }
         });
     }
+
+    @OnClick(R.id.btn_zaishou)
+    void OnZaiShouClick()
+    {
+        mMainPresenter.IntentToZaiShou();
+    }
+
+    @OnClick(R.id.btn_huanzu)
+    void onHuanZuClick()
+    {
+
+    }
+
+    @OnClick(R.id.btn_youji)
+    void onYouJiClick()
+    {
+
+    }
+
+    @OnClick(R.id.btn_xiangmuhezu)
+    void onXiangMuHeZuoClick(){
+
+    }
+
+    @OnClick(R.id.btn_dujiawu)
+    void btnDuJiaWu(){}
+
+    @OnClick(R.id.btn_store)
+    void btnStore(){}
+
+    @OnClick(R.id.btn_kanfangtuan)
+    void btnKanFangDuan(){}
+
+    @OnClick(R.id.btn_fabuchuzu)
+    void btnFaBuChuZu(){}
 
     public class LocalImageHolderView implements Holder<Integer> {
         private ImageView imageView;

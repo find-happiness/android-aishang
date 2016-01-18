@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#222222</color>
-    <color name="primary_dark">#000000</color>
+    <color name="primary">#45a5e2</color>
+    <color name="primary_dark">#45a5e2</color>
     <color name="accent">#FFFFFF</color>
     <color name="gray">#ffdfdfdf</color>
     <color name="blue">#45a5e2</color>
     <color name="price">#ff6600</color>
     <color name="line">#f5f5f5</color>
+    <color name="cube_mints_black">#000000</color>
 </resources>

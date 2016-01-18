@@ -17,13 +17,17 @@ import android.widget.ScrollView;
 
 import butterknife.OnClick;
 import com.aishang.app.R;
+import com.aishang.app.data.model.ViewModel;
 import com.aishang.app.ui.base.BaseActivity;
+import com.aishang.app.ui.insale.InSaleActivity;
+import com.aishang.app.ui.insaleDetail.InSaleDetailActivity;
 import com.aishang.app.ui.main.MainActivity;
 import com.aishang.app.widget.ImgWithText;
 import com.aishang.app.widget.NonScrollGridView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
+import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,6 +130,13 @@ public class MainFmFragment extends Fragment implements MainFmMvpView{
         //.setPageTransformer(Transformer.DefaultTransformer);    //集成特效之后会有白屏现象，新版已经分离，如果要集成特效的例子可以看Demo的点击响应。
 //        convenientBanner.setManualPageable(false);//设置不能手动影响
 
+
+        banner.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                InSaleDetailActivity.navigate((MainActivity)MainFmFragment.this.getActivity(), banner, new ViewModel("item","http://img5.imgtn.bdimg.com/it/u=236513344,827617441&fm=11&gp=0.jpg"));
+            }
+        });
 
         initGvHothotel();
         initGvYouJi();

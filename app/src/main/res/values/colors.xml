@@ -2,10 +2,12 @@
 <resources>
     <color name="primary">#45a5e2</color>
     <color name="primary_dark">#45a5e2</color>
-    <color name="accent">#FFFFFF</color>
+    <color name="accent">#45a5e2</color>
     <color name="gray">#ffdfdfdf</color>
     <color name="blue">#45a5e2</color>
     <color name="price">#ff6600</color>
     <color name="line">#f5f5f5</color>
     <color name="cube_mints_black">#000000</color>
+    <color name="accent_translucent">#80FFEB3B</color>
+    <color name="accent_bright">#FFF493</color>
 </resources>

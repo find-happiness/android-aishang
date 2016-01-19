@@ -47,7 +47,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             ext.betaDistributionReleaseNotesFilePath =
-                    file('../crashlytics_release_notes.txt').absolutePath
+                file('../crashlytics_release_notes.txt').absolutePath
         }
 
         debug {
@@ -127,6 +127,8 @@ dependencies {
     compile project(':pullzoomview')
     compile 'com.android.support:design:23.1.1'
     compile 'com.android.support:palette-v7:23.1.1'
+   // compile 'com.quinny898.library.persistentsearch:library:1.1.0-SNAPSHOT'
+    compile project(':PersistentSearchLibrary')
 
 
     // Instrumentation test dependencies

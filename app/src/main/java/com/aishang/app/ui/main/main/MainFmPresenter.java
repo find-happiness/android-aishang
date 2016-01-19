@@ -5,7 +5,9 @@ import android.content.Intent;
 
 import com.aishang.app.data.DataManager;
 import com.aishang.app.data.model.Ribot;
+import com.aishang.app.ui.HotelDetail.HotelDetailActivity;
 import com.aishang.app.ui.base.BasePresenter;
+import com.aishang.app.ui.hotel.HotelListActivity;
 import com.aishang.app.ui.insale.InSaleActivity;
 
 import java.util.List;
@@ -72,6 +74,15 @@ public class MainFmPresenter extends BasePresenter<MainFmMvpView> {
 
         Intent intent = new Intent();
         intent.setClass(content, InSaleActivity.class);
+        content.startActivity(intent);
+
+    }
+
+    protected void IntentToHuanZu() {
+        Activity content = ((MainFmFragment) mainFmMvpView).getActivity();
+
+        Intent intent = new Intent();
+        intent.setClass(content, HotelDetailActivity.class);
         content.startActivity(intent);
 
     }

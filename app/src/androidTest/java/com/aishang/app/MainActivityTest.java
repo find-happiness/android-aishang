@@ -16,7 +16,7 @@ import java.util.List;
 
 import rx.Observable;
 import com.aishang.app.data.model.Ribot;
-import com.aishnag.app.test.common.TestDataFactory;
+import com.aishang.app.test.common.TestDataFactory;
 import com.aishang.app.test.common.rules.TestComponentRule;
 import com.aishang.app.ui.main.MainActivity;
 
@@ -59,8 +59,8 @@ public class MainActivityTest {
 
         int position = 0;
         for (Ribot ribot : testDataRibots) {
-            onView(withId(R.id.recycler_view))
-                    .perform(RecyclerViewActions.scrollToPosition(position));
+//            onView(withId(R.id.recycler_view))
+//                    .perform(RecyclerViewActions.scrollToPosition(position));
             String name = String.format("%s %s", ribot.profile.name.first,
                     ribot.profile.name.last);
             onView(withText(name))

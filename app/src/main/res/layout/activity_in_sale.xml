@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primary_dark"
+    android:paddingTop="@dimen/padding_stutas_bar"
     tools:context="com.aishang.app.ui.insale.InSaleActivity">
 
     <android.support.v7.widget.Toolbar
@@ -21,10 +23,22 @@
             android:text="@string/zaishou" />
     </android.support.v7.widget.Toolbar>
 
+    <com.quinny898.library.persistentsearch.SearchBox
+        android:layout_width="wrap_content"
+        android:id="@+id/searchbox"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginTop="-6dp"
+        android:layout_marginLeft="-6dp"
+        android:layout_marginRight="-6dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" />
+
     <LinearLayout
         android:id="@+id/ll_sreach"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/white"
         android:layout_below="@id/toolbar"
         android:orientation="horizontal">
 
@@ -106,6 +120,7 @@
     <in.srain.cube.views.ptr.PtrClassicFrameLayout
         android:id="@+id/load_more_list_view_ptr_frame"
         android:layout_width="match_parent"
+        android:background="@android:color/white"
         android:layout_height="match_parent"
         android:layout_below="@id/view_line">
 

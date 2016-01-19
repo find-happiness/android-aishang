@@ -1,5 +1,8 @@
 package com.aishang.app.injection.component;
 
+import com.aishang.app.ui.HotelDetail.HotelDetailActivity;
+import com.aishang.app.ui.hotel.HotelListActivity;
+import com.aishang.app.ui.insaleDetail.InSaleDetailActivity;
 import dagger.Component;
 import com.aishang.app.injection.PerActivity;
 import com.aishang.app.injection.module.ActivityModule;
@@ -17,4 +20,7 @@ public interface ActivityComponent {
     void inject(MainActivity mainActivity);
     void inject(MainFmFragment mainFmFragment);
     void inject(InSaleActivity inSaleActivity);
+    void inject(InSaleDetailActivity activity);
+    void inject(HotelListActivity activity);
+    void inject(HotelDetailActivity activity);
 }

@@ -3,8 +3,10 @@ package com.aishang.app.util;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
+import android.view.View;
 
 import com.aishang.app.R;
 
@@ -26,6 +28,32 @@ public final class DialogFactory {
         return createSimpleOkErrorDialog(context,
                 context.getString(titleResource),
                 context.getString(messageResource));
+    }
+
+    public static Dialog createSimpleDialog(Context context, String title, String message,
+                                            String positiveText, String negativeText,
+                                            DialogInterface.OnClickListener okClick,
+                                            DialogInterface.OnClickListener cancelClick) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(positiveText, okClick)
+                .setNegativeButton(negativeText, cancelClick);
+
+        return alertDialog.create();
+    }
+
+    public static Dialog createSimpleDialog(Context context,  @StringRes int title, @StringRes int  message,
+                                            @StringRes int positiveText,  @StringRes int negativeText,
+                                            DialogInterface.OnClickListener okClick,
+                                            DialogInterface.OnClickListener cancelClick) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(positiveText, okClick)
+                .setNegativeButton(negativeText, cancelClick);
+
+        return alertDialog.create();
     }
 
     public static Dialog createGenericErrorDialog(Context context, String message) {

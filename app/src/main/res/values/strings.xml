@@ -50,10 +50,19 @@
   <string name="traffic_position">交通位置</string>
 
   <string name="newUpdateAvailable">发现新版本</string>
-  <string name="dialogPositiveButton">立即下载</string>
-  <string name="dialogNegativeButton">以后再说</string>
+  <string name="updata_now">立即下载</string>
+  <string name="updata_next">以后再说</string>
   <string name="app_no_new_update">没有发现新版本</string>
   <string name="download_progress">正在下载:%1$d%%</string>
   <string name="download_success">下载完成，点击安装</string>
+  <string name="ge_ren_zhong_xin">个人中心</string>
+  <string name="zhong_hu_zhong_xin">账户中心</string>
+  <string name="wo_de_ding_dang">我的订单</string>
+  <string name="wo_de_fang_chang">我的房产</string>
+  <string name="jin_ji_ren_zhong_xin">经纪人中心</string>
+  <string name="you_ji_shou_chang_jia">游记收藏夹</string>
+  <string name="chong_zi_ti_xian">充值体现</string>
+  <string name="wo_de_zu_shou">我的租售</string>
+  <string name="guan_yu_wo_men">关于我们</string>
 
 </resources>

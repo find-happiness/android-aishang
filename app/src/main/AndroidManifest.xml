@@ -3,45 +3,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.aishang.app">
 
-  <uses-permission android:name="android.permission.INTERNET"/>
-  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-  <application
-      android:allowBackup="false"
-      android:icon="@mipmap/ic_launcher"
-      android:label="@string/app_name"
-      android:name=".BoilerplateApplication"
-      android:theme="@style/AppTheme"
-      tools:replace="android:allowBackup">
-    <activity
+    <application
+        android:name=".BoilerplateApplication"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".ui.main.MainActivity"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-        android:windowSoftInputMode="stateHidden">
-    </activity>
+        android:theme="@style/AppTheme"
+        tools:replace="android:allowBackup">
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
 
-    <service android:name=".data.SyncService"/>
+        <service android:name=".data.SyncService" />
+        <service android:name=".util.DownloadService" />
 
-    <receiver
-        android:enabled="false"
-        android:name=".data.SyncService$SyncOnConnectionAvailable">
-      <intent-filter>
-        <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
-      </intent-filter>
-    </receiver>
+        <receiver
+            android:name=".data.SyncService$SyncOnConnectionAvailable"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
 
-    <activity android:name=".ui.insale.InSaleActivity"/>
-    <activity android:name=".ui.insaleDetail.InSaleDetailActivity"/>
-    <activity android:name=".ui.hotel.HotelListActivity"/>
-    <activity android:name=".ui.HotelDetail.HotelDetailActivity"/>
-    <activity android:name=".ui.login.LoginActivity">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
+        <activity android:name=".ui.insale.InSaleActivity" />
+        <activity android:name=".ui.insaleDetail.InSaleDetailActivity" />
+        <activity android:name=".ui.hotel.HotelListActivity" />
+        <activity android:name=".ui.HotelDetail.HotelDetailActivity" />
+        <activity android:name=".ui.login.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <category android:name="android.intent.category.LAUNCHER"/>
-      </intent-filter>
-    </activity>
-  </application>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.MemberCenter.MemberCenterActivity"></activity>
+    </application>
 
 </manifest>

@@ -9,7 +9,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import com.aishang.app.data.remote.RibotsService;
+import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.injection.ApplicationContext;
 
 /**
@@ -41,9 +41,8 @@ public class ApplicationModule {
     }
 
     @Provides
-    @Singleton
-    RibotsService provideRibotsService() {
-        return RibotsService.Creator.newRibotsService();
+    @Singleton AiShangService provideRibotsService() {
+        return AiShangService.Creator.newAiShangService();
     }
 
 }

@@ -8,6 +8,11 @@ import android.net.ConnectivityManager;
 import android.os.IBinder;
 
 import android.util.Log;
+import com.aishang.app.data.model.JMrePromResult;
+import com.aishang.app.data.model.JVersionCheckParam;
+import com.aishang.app.data.model.JVersionCheckResult;
+import com.aishang.app.util.CommonUtil;
+import com.google.gson.Gson;
 import javax.inject.Inject;
 
 import rx.Observer;
@@ -51,24 +56,27 @@ public class SyncService extends Service {
         }
 
         if (mSubscription != null && !mSubscription.isUnsubscribed()) mSubscription.unsubscribe();
-        mSubscription = mDataManager.syncRibots()
+
+        JVersionCheckParam param = new JVersionCheckParam();
+        param.setPlatform("android");
+        param.setScreen("phone");
+        param.setVersion(""+CommonUtil.getVersionCode(this));
+
+        mSubscription = mDataManager.syncVersionCheck(1,new Gson().toJson(param))
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Ribot>() {
-                    @Override
-                    public void onCompleted() {
-                        Log.i(TAG,"Synced successfully!");
-                        stopSelf(startId);
+                .subscribe(new Observer<JVersionCheckResult>() {
+                    @Override public void onCompleted() {
+                        //Log.i(TAG,"sync onCompleted...");
+                        stopSelf();
                     }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.w(TAG,e+ "Error syncing.");
-                        stopSelf(startId);
-
+                    @Override public void onError(Throwable e) {
+                        //Log.i(TAG,"sync onError..." + e.toString());
+                        stopSelf();
                     }
 
-                    @Override
-                    public void onNext(Ribot ribot) {
+                    @Override public void onNext(JVersionCheckResult jVersionCheckResult) {
+                        //Log.i(TAG,"sync onNext..." + jVersionCheckResult.toString());
                     }
                 });
 
@@ -98,5 +106,4 @@ public class SyncService extends Service {
             }
         }
     }
-
 }

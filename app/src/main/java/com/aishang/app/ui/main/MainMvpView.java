@@ -7,4 +7,7 @@ import com.aishang.app.ui.base.MvpView;
 
 public interface MainMvpView extends MvpView {
     void showError();
+    void showRibots(List<Ribot> ribots);
+    void showRibotsEmpty();
+    void upData(String apkUrl);
 }

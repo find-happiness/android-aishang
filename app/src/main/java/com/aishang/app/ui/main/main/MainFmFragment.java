@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ScrollView;
 
@@ -22,6 +23,7 @@ import com.aishang.app.ui.base.BaseActivity;
 import com.aishang.app.ui.insale.InSaleActivity;
 import com.aishang.app.ui.insaleDetail.InSaleDetailActivity;
 import com.aishang.app.ui.main.MainActivity;
+import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.LocalImageHolderView;
 import com.aishang.app.widget.ImgWithText;
 import com.aishang.app.widget.NonScrollGridView;
@@ -96,18 +98,29 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
   }
 
   private void initView() {
+    initBanner();
+    initGvHothotel();
+    initGvYouJi();
+    initGvZaiShou();
+  }
 
+  private void initBanner() {
     List<Integer> localImages = new ArrayList<>();
     localImages.add(R.mipmap.banner);
     localImages.add(R.mipmap.banner);
     localImages.add(R.mipmap.banner);
     localImages.add(R.mipmap.banner);
 
+    int[] size = CommonUtil.getHeightWithScreenWidth(this.getActivity(), 16, 9);
+    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(size[0], size[1]);
+
+    banner.setLayoutParams(layoutParams);
+
     banner.setPages(new CBViewHolderCreator<LocalImageHolderView>() {
-          @Override public LocalImageHolderView createHolder() {
-            return new LocalImageHolderView();
-          }
-        }, localImages)
+      @Override public LocalImageHolderView createHolder() {
+        return new LocalImageHolderView();
+      }
+    }, localImages)
         //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
         .setPageIndicator(new int[] { R.mipmap.ellipse_nomal, R.mipmap.ellipse_select })
             //设置指示器的方向
@@ -123,10 +136,6 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
                 "http://img5.imgtn.bdimg.com/it/u=236513344,827617441&fm=11&gp=0.jpg"));
       }
     });
-
-    initGvHothotel();
-    initGvYouJi();
-    initGvZaiShou();
   }
 
   private void initGvHothotel() {

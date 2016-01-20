@@ -14,7 +14,6 @@ public class DrawableCenterButton extends TextView {
 
     public DrawableCenterButton(Context context) {
         super(context);
-        // TODO Auto-generated constructor stub
     }
 
     public DrawableCenterButton(Context context, AttributeSet attrs,

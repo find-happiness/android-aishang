@@ -16,9 +16,6 @@ import android.widget.TextView;
 
 import com.aishang.app.R;
 
-/**
- * TODO: document your custom view class.
- */
 public class ImgWithText extends LinearLayout {
     private ImageView img;
     private TextView tvContent;

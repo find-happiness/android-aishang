@@ -14,7 +14,8 @@ public final class DialogFactory {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context)
                 .setTitle(title)
                 .setMessage(message)
-                .setNeutralButton(R.string.dialog_action_ok, null);
+                .setPositiveButton(R.string.dialog_action_ok, null);
+
         return alertDialog.create();
     }
 
@@ -31,7 +32,7 @@ public final class DialogFactory {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context)
                 .setTitle(context.getString(R.string.dialog_error_title))
                 .setMessage(message)
-                .setNeutralButton(R.string.dialog_action_ok, null);
+                .setPositiveButton(R.string.dialog_action_ok, null);
         return alertDialog.create();
     }
 

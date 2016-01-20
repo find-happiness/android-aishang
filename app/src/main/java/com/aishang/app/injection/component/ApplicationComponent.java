@@ -12,7 +12,7 @@ import com.aishang.app.data.DataManager;
 import com.aishang.app.data.SyncService;
 import com.aishang.app.data.local.DatabaseHelper;
 import com.aishang.app.data.local.PreferencesHelper;
-import com.aishang.app.data.remote.RibotsService;
+import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.injection.ApplicationContext;
 import com.aishang.app.injection.module.ApplicationModule;
 
@@ -24,7 +24,7 @@ public interface ApplicationComponent {
 
     @ApplicationContext Context context();
     Application application();
-    RibotsService ribotsService();
+    AiShangService ribotsService();
     PreferencesHelper preferencesHelper();
     DatabaseHelper databaseHelper();
     DataManager dataManager();

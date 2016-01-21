@@ -1,5 +1,6 @@
 package com.aishang.app.ui.MyBuyAndSale;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.aishang.app.R;
+import com.shizhefei.fragment.LazyFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,7 +21,7 @@ import com.aishang.app.R;
  * create an instance of this fragment.
  *
  */
-public class BuyFragment extends Fragment {
+public class BuyFragment extends LazyFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -61,11 +63,9 @@ public class BuyFragment extends Fragment {
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_buy, container, false);
+    @Override protected void onCreateViewLazy(Bundle savedInstanceState) {
+        super.onCreateViewLazy(savedInstanceState);
+        setContentView(R.layout.fragment_buy);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -76,7 +76,7 @@ public class BuyFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Activity context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;

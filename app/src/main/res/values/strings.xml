@@ -65,4 +65,7 @@
   <string name="wo_de_zu_shou">我的租售</string>
   <string name="guan_yu_wo_men">关于我们</string>
 
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

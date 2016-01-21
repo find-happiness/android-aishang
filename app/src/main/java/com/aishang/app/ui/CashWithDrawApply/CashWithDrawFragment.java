@@ -1,5 +1,6 @@
 package com.aishang.app.ui.CashWithDrawApply;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import butterknife.ButterKnife;
 import com.aishang.app.R;
+import com.shizhefei.fragment.LazyFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,7 +22,7 @@ import com.aishang.app.R;
  * create an instance of this fragment.
  *
  */
-public class CashWithDrawFragment extends Fragment {
+public class CashWithDrawFragment extends LazyFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -61,12 +64,6 @@ public class CashWithDrawFragment extends Fragment {
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cash_with_draw, container, false);
-    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -75,8 +72,15 @@ public class CashWithDrawFragment extends Fragment {
         }
     }
 
+    @Override protected void onCreateViewLazy(Bundle savedInstanceState) {
+        super.onCreateViewLazy(savedInstanceState);
+        setContentView(R.layout.fragment_cash_with_draw);
+        ButterKnife.bind(this,this.getContentView());
+
+    }
+
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Activity context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;

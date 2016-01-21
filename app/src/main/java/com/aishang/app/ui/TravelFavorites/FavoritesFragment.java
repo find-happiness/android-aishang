@@ -79,7 +79,7 @@ public class FavoritesFragment extends LazyFragment {
 
   @Override protected void onCreateViewLazy(Bundle savedInstanceState) {
     super.onCreateViewLazy(savedInstanceState);
-    setContentView(R.layout.fragment_recharge);
+    setContentView(R.layout.fragment_favorites);
     ButterKnife.bind(this, this.getContentView());
   }
 

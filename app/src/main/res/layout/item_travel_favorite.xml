@@ -1,7 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_head"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        tools:src="@mipmap/banner"/>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/spacing_large"
+        android:layout_toRightOf="@id/img_head"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/text_large_title"
+        tools:text="sdfsdsf"/>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/name"
+        android:layout_alignBottom="@id/img_head"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/text_title"
+        tools:text="sdfsdsf"/>
+
+      <TextView
+          android:layout_alignParentRight="true"
+          android:layout_alignBottom="@id/name"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          tools:text="2015-12-13"/>
+  </RelativeLayout>
+
+  <TextView
+      android:id="@+id/content"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textSize="@dimen/text_body"
+      android:maxLines="2"
+      android:ellipsize="end"
+      tools:text="但是逢山开路纠纷事件发生发生大幅就是客服端介绍了看见对方身上的快捷方式来看见对方脸上发生大幅就是老骥伏枥是"/>
+
+
+    <com.aishang.app.widget.NonScrollGridView
+        android:id="@+id/gridview_hot_youji"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="3"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:stretchMode="columnWidth"/>
 </LinearLayout>

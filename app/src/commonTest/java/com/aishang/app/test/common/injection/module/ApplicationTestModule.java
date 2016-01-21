@@ -3,6 +3,7 @@ package com.aishang.app.test.common.injection.module;
 import android.app.Application;
 import android.content.Context;
 
+import com.aishang.app.data.remote.AiShangService;
 import com.squareup.otto.Bus;
 
 import javax.inject.Singleton;
@@ -10,7 +11,6 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import com.aishang.app.data.DataManager;
-import com.aishang.app.data.remote.RibotsService;
 import com.aishang.app.injection.ApplicationContext;
 
 import static org.mockito.Mockito.mock;
@@ -54,9 +54,8 @@ public class ApplicationTestModule {
     }
 
     @Provides
-    @Singleton
-    RibotsService provideRibotsService() {
-        return mock(RibotsService.class);
+    @Singleton AiShangService provideRibotsService() {
+        return mock(AiShangService.class);
     }
 
 }

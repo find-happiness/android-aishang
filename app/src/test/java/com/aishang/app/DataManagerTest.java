@@ -15,7 +15,7 @@ import com.aishang.app.data.DataManager;
 import com.aishang.app.data.local.DatabaseHelper;
 import com.aishang.app.data.local.PreferencesHelper;
 import com.aishang.app.data.model.Ribot;
-import com.aishang.app.data.remote.RibotsService;
+import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.test.common.TestDataFactory;
 import com.aishang.app.util.EventPosterHelper;
 
@@ -37,13 +37,13 @@ public class DataManagerTest {
 
     @Mock DatabaseHelper mMockDatabaseHelper;
     @Mock PreferencesHelper mMockPreferencesHelper;
-    @Mock RibotsService mMockRibotsService;
+    @Mock AiShangService mMockAiShangService;
     @Mock EventPosterHelper mEventPosterHelper;
     private DataManager mDataManager;
 
     @Before
     public void setUp() {
-        mDataManager = new DataManager(mMockRibotsService, mMockPreferencesHelper,
+        mDataManager = new DataManager(mMockAiShangService, mMockPreferencesHelper,
                 mMockDatabaseHelper, mEventPosterHelper);
     }
 
@@ -67,24 +67,24 @@ public class DataManagerTest {
 
         mDataManager.syncRibots().subscribe();
         // Verify right calls to helper methods
-        verify(mMockRibotsService).getRibots();
+        verify(mMockAiShangService).getRibots();
         verify(mMockDatabaseHelper).setRibots(ribots);
     }
 
     @Test
     public void syncRibotsDoesNotCallDatabaseWhenApiFails() {
-        when(mMockRibotsService.getRibots())
+        when(mMockAiShangService.getRibots())
                 .thenReturn(Observable.<List<Ribot>>error(new RuntimeException()));
 
         mDataManager.syncRibots().subscribe(new TestSubscriber<Ribot>());
         // Verify right calls to helper methods
-        verify(mMockRibotsService).getRibots();
+        verify(mMockAiShangService).getRibots();
         verify(mMockDatabaseHelper, never()).setRibots(anyListOf(Ribot.class));
     }
 
     private void stubSyncRibotsHelperCalls(List<Ribot> ribots) {
         // Stub calls to the ribot service and database helper.
-        when(mMockRibotsService.getRibots())
+        when(mMockAiShangService.getRibots())
                 .thenReturn(Observable.just(ribots));
         when(mMockDatabaseHelper.setRibots(ribots))
                 .thenReturn(Observable.from(ribots));

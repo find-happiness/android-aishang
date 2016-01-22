@@ -43,8 +43,10 @@ public class MineFragment extends Fragment implements MineMvpView {
         View zoomView = LayoutInflater.from(this.getContext()).inflate(R.layout.profile_zoom_view, null, false);
         View contentView = LayoutInflater.from(this.getContext()).inflate(R.layout.profile_content_view, null, false);
 
-        ButterKnife.bind(this,contentView);
-        ButterKnife.bind(this,zoomView);
+        ViewHold hold = new ViewHold(contentView);
+
+        //ButterKnife.bind(this,contentView);
+        //ButterKnife.bind(this,zoomView);
 
         scrollView.setHeaderView(headView);
         scrollView.setZoomView(zoomView);
@@ -58,49 +60,55 @@ public class MineFragment extends Fragment implements MineMvpView {
         scrollView.setHeaderLayoutParams(localObject);
     }
 
-    @OnClick(R.id.btn_gen_ren_zhong_xin)
-    void geRenZhongXinClick()
-    {
+    class ViewHold{
+        @OnClick(R.id.btn_gen_ren_zhong_xin)
+        void geRenZhongXinClick()
+        {
 
-    }
-    @OnClick(R.id.btn_zhang_hu_zhong_xin)
-    void zhangHuZhongXinClick()
-    {
+        }
+        @OnClick(R.id.btn_zhang_hu_zhong_xin)
+        void zhangHuZhongXinClick()
+        {
 
-    }
-    @OnClick(R.id.btn_wo_de_ding_dang)
-    void woDeDingDanClick()
-    {
+        }
+        @OnClick(R.id.btn_wo_de_ding_dang)
+        void woDeDingDanClick()
+        {
 
-    }
-    @OnClick(R.id.btn_wo_de_fang_chang)
-    void woDeFangChangClick()
-    {
+        }
+        @OnClick(R.id.btn_wo_de_fang_chang)
+        void woDeFangChangClick()
+        {
 
-    }
-    @OnClick(R.id.btn_jin_ji_ren_zhong_xin)
-    void jinJiRenZhongXinClick()
-    {
+        }
+        @OnClick(R.id.btn_jin_ji_ren_zhong_xin)
+        void jinJiRenZhongXinClick()
+        {
 
-    }
-    @OnClick(R.id.btn_you_ji_shou_chang_jia)
-    void youJiShouChangJiaClick()
-    {
+        }
+        @OnClick(R.id.btn_you_ji_shou_chang_jia)
+        void youJiShouChangJiaClick()
+        {
 
-    }
-    @OnClick(R.id.btn_chong_zi_ti_xian)
-    void chongZiTiXianClick()
-    {
+        }
+        @OnClick(R.id.btn_chong_zi_ti_xian)
+        void chongZiTiXianClick()
+        {
 
-    }
-    @OnClick(R.id.btn_wo_de_zu_shou)
-    void woDeZuShouClick()
-    {
+        }
+        @OnClick(R.id.btn_wo_de_zu_shou)
+        void woDeZuShouClick()
+        {
 
-    }
-    @OnClick(R.id.btn_guan_yu_wo_men)
-    void guanYuWoMenClick()
-    {
+        }
+        @OnClick(R.id.btn_guan_yu_wo_men)
+        void guanYuWoMenClick()
+        {
 
+        }
+
+        public ViewHold(View view) {
+            ButterKnife.bind(this,view);
+        }
     }
 }

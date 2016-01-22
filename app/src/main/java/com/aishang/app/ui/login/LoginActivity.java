@@ -37,7 +37,6 @@ public class LoginActivity extends BaseActivity implements LoginMvpView{
     JMemberLoginParam param = new JMemberLoginParam();
     param.setMemberAccount("13883224451");
     param.setPassword(CommonUtil.getEncodeMD5("224451"));
-
     presenter.Login(2,new Gson().toJson(param));
   }
 

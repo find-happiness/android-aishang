@@ -61,6 +61,7 @@ import com.aishang.app.util.EventPosterHelper;
   }
 
   public Observable<JMemberLoginResult> syncLogin(int version, String json) {
+    Log.i(TAG, "syncLogin: v=" + version + "&q=" +json);
     return mAiShangService.login(version, json);
   }
 

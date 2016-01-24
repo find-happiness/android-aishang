@@ -1,18 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.aishang.app.ui.login.LoginActivity">
+    android:layout_height="match_parent">
 
-  <Button
-      android:id="@+id/btn_login"
-      android:layout_width="wrap_content"
-      android:background="@color/blue"
-      android:textColor="@android:color/white"
-      android:layout_height="wrap_content"
-      android:layout_centerInParent="true"
-      android:text="LOGIN"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/login_bg" />
 
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/padding_stutas_bar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:src="@mipmap/logo_login" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tl_login"
+            style="@null"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/logo"
+            android:layout_marginLeft="@dimen/spacing_xlarge"
+            android:layout_marginRight="@dimen/spacing_xlarge"
+            android:layout_marginTop="@dimen/spacing_large"
+            app:tabIndicatorHeight="4dp"
+            app:tabBackground="@android:color/transparent"
+            app:tabIndicatorColor="@color/blue" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/tl_login"
+            android:layout_marginLeft="@dimen/spacing_xlarge"
+            android:layout_marginRight="@dimen/spacing_xlarge"
+            android:background="@android:color/darker_gray" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tl_login"
+            android:layout_marginTop="@dimen/spacing_large" />
+
+    </RelativeLayout>
+
+</FrameLayout>

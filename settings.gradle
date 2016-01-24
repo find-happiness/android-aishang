@@ -1,4 +1,2 @@
-include ':app', ':pullzoomview', ':PersistentSearchLibrary', ':alterview', ':pickerview',
-    ':MaterialEditTextlibrary'
-include ':ViewPagerIndicator'
+include ':app', ':pullzoomview', ':PersistentSearchLibrary',':MaterialEditTextlibrary' ,':alterview',':pickerview'
 include ':ViewPagerIndicator_Library'

@@ -38,6 +38,12 @@ public class HotelListActivity extends BaseActivity {
     setContentView(R.layout.activity_hotel_list);
     ButterKnife.bind(this);
 
+    initToolbar();
+  }
+
+  private void initToolbar()
+  {
+    toolbar.setTitle("");
     this.setSupportActionBar(toolbar);
     toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
       @Override
@@ -48,6 +54,12 @@ public class HotelListActivity extends BaseActivity {
     });
 
     toolbar.setNavigationIcon(R.mipmap.iconfont_livesvg);
+    toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        onBackPressed();
+      }
+    });
   }
 
   @Override

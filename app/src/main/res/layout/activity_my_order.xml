@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:paddingTop="@dimen/padding_stutas_bar"
     android:layout_height="match_parent"
     android:background="@color/primary">
 
@@ -18,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/ge_ren_zhong_xin"
+            android:text="@string/wo_de_ding_dang"
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_title"/>
     </android.support.v7.widget.Toolbar>

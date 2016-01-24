@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import butterknife.Bind;
@@ -53,10 +54,15 @@ public class InSaleActivity extends BaseActivity implements InSaleMvpView{
     toolbar.setTitle("");
     this.setSupportActionBar(toolbar);
     toolbar.setNavigationIcon(R.mipmap.iconfont_livesvg);
+    toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        onBackPressed();
+      }
+    });
   }
 
   public void openSearch() {
-    toolbar.setTitle("");
     searchBox.revealFromMenuItem(R.id.action_search, this);
 //    for (int x = 0; x < 10; x++) {
 //      SearchResult option = new SearchResult("Result "

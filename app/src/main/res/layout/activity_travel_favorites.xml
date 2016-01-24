@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary"
+    android:paddingTop="@dimen/padding_stutas_bar"
     tools:context="com.aishang.app.ui.MemberCenter.MemberCenterActivity">
 
     <android.support.v7.widget.Toolbar
@@ -19,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/ge_ren_zhong_xin"
+            android:text="@string/you_ji_shou_chang_jia"
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_title"/>
     </android.support.v7.widget.Toolbar>

@@ -15,11 +15,12 @@
             android:id="@+id/btn_gen_ren_zhong_xin"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+
             android:layout_weight="1"
             android:gravity="center"
-            android:paddingBottom="5dp"
+            android:paddingBottom="@dimen/spacing_medium"
             custom:img="@mipmap/iconfont_gerenzhongxin"
-            custom:text="@string/ge_ren_zhong_xin"/>
+            custom:text="@string/ge_ren_zhong_xin" />
 
         <View
             android:layout_width="1dp"
@@ -33,7 +34,7 @@
             android:layout_weight="1"
             android:gravity="center"
             custom:img="@mipmap/iconfont_jinlingyingcaiwangtubiao"
-            custom:text="@string/zhong_hu_zhong_xin"/>
+            custom:text="@string/zhong_hu_zhong_xin" />
 
         <View
             android:layout_width="1dp"
@@ -47,14 +48,14 @@
             android:layout_weight="1"
             android:gravity="center"
             custom:img="@mipmap/iconfont_dingdan"
-            custom:text="@string/wo_de_ding_dang"/>
+            custom:text="@string/wo_de_ding_dang" />
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/line"  />
+        android:background="@color/line" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -67,9 +68,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:paddingBottom="5dp"
+            android:paddingBottom="@dimen/spacing_medium"
             custom:img="@mipmap/iconfont_fangchan"
-            custom:text="@string/wo_de_fang_chang"/>
+            custom:text="@string/wo_de_fang_chang" />
 
         <View
             android:layout_width="1dp"
@@ -83,7 +84,7 @@
             android:layout_weight="1"
             android:gravity="center"
             custom:img="@mipmap/iconfont_jinjirenzhongxin"
-            custom:text="@string/jin_ji_ren_zhong_xin"/>
+            custom:text="@string/jin_ji_ren_zhong_xin" />
 
         <View
             android:layout_width="1dp"
@@ -97,14 +98,14 @@
             android:layout_weight="1"
             android:gravity="center"
             custom:img="@mipmap/iconfont_shoucang"
-            custom:text="@string/you_ji_shou_chang_jia"/>
+            custom:text="@string/you_ji_shou_chang_jia" />
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/line"  />
+        android:background="@color/line" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -117,9 +118,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:paddingBottom="5dp"
+            android:paddingBottom="@dimen/spacing_medium"
             custom:img="@mipmap/iconfont_chongzhitixian"
-            custom:text="@string/chong_zi_ti_xian"/>
+            custom:text="@string/chong_zi_ti_xian" />
 
         <View
             android:layout_width="1dp"
@@ -133,7 +134,7 @@
             android:layout_weight="1"
             android:gravity="center"
             custom:img="@mipmap/iconfont_maifang"
-            custom:text="@string/wo_de_zu_shou"/>
+            custom:text="@string/wo_de_zu_shou" />
 
         <View
             android:layout_width="1dp"
@@ -147,12 +148,12 @@
             android:layout_weight="1"
             android:gravity="center"
             custom:img="@mipmap/iconfont_guanyuwomen"
-            custom:text="@string/guan_yu_wo_men"/>
+            custom:text="@string/guan_yu_wo_men" />
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/line"  />
+        android:background="@color/line" />
 </LinearLayout>

@@ -73,7 +73,7 @@ public class FavoritesFragment extends LazyFragment {
       mListener = (OnFragmentInteractionListener) context;
     } else {
       throw new RuntimeException(
-          context.toString() + " must implement OnFragmentInteractionListener");
+          context.toString() + " must implement OnPasswordFragmentInteractionListener");
     }
   }
 

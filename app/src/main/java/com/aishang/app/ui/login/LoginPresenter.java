@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import com.aishang.app.data.DataManager;
 import com.aishang.app.data.model.JMemberLoginResult;
+import com.aishang.app.ui.ForgetPossword.ForgetPosswordActivity;
 import com.aishang.app.ui.base.BasePresenter;
 import com.aishang.app.ui.main.MainActivity;
+import com.aishang.app.ui.register.RegisterActivity;
+
 import javax.inject.Inject;
 import rx.Subscriber;
 import rx.Subscription;
@@ -65,6 +68,20 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
   {
     Activity act = (LoginActivity) getMvpView();
     Intent intent = MainActivity.getStartIntent(act, true);
+    act.startActivity(intent);
+  }
+
+  public void intentToForgetPsw()
+  {
+    Activity act = (LoginActivity) getMvpView();
+    Intent intent = new Intent(act, ForgetPosswordActivity.class);
+    act.startActivity(intent);
+  }
+
+  public void intentToRegister()
+  {
+    Activity act = (LoginActivity) getMvpView();
+    Intent intent = new Intent(act, RegisterActivity.class);
     act.startActivity(intent);
   }
 }

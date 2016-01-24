@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/spacing_medium"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/spacing_xlarge"
+    android:paddingRight="@dimen/spacing_xlarge">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/btn_get_verification_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/gray"
+            android:text="获取验证码"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:layout_gravity="right"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_toLeftOf="@id/btn_get_verification_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/iconfont_shouji"
+            android:drawablePadding="@dimen/spacing_large"
+            android:hint="手机号码"
+            android:maxLength="11"
+            android:paddingTop="@dimen/spacing_xsmall"
+            android:phoneNumber="true"
+            app:met_clearButton="false"
+            app:met_singleLineEllipsis="true" />
+    </FrameLayout>
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@mipmap/iconfont_mima"
+        android:drawablePadding="@dimen/spacing_large"
+        android:hint="验证码"
+        android:paddingBottom="@dimen/spacing_large"
+        android:paddingTop="@dimen/spacing_xsmall"
+        android:layout_marginTop="-8dp"
+        android:numeric="integer"
+        app:met_clearButton="true"
+        app:met_singleLineEllipsis="true"
+        app:met_maxCharacters="6"
+        app:met_underlineColor="@color/gray" />
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_medium"
+        android:background="@mipmap/bg_logoin"
+        android:text="登录"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_medium"
+        android:text="注册即送50积分"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_medium"
+        android:background="@mipmap/bg_regester"
+        android:text="注册"
+        android:textColor="@android:color/white" />
+</LinearLayout>

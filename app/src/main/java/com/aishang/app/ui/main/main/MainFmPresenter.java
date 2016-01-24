@@ -6,6 +6,9 @@ import android.content.Intent;
 import com.aishang.app.data.DataManager;
 import com.aishang.app.data.model.Ribot;
 import com.aishang.app.ui.HotelDetail.HotelDetailActivity;
+import com.aishang.app.ui.KanFanTuan.KanFanTuanActivity;
+import com.aishang.app.ui.ProjectJoint.ProjectJointActivity;
+import com.aishang.app.ui.TravelList.TravelListActivity;
 import com.aishang.app.ui.base.BasePresenter;
 import com.aishang.app.ui.hotel.HotelListActivity;
 import com.aishang.app.ui.insale.InSaleActivity;
@@ -80,10 +83,30 @@ public class MainFmPresenter extends BasePresenter<MainFmMvpView> {
 
     protected void IntentToHuanZu() {
         Activity content = ((MainFmFragment) mainFmMvpView).getActivity();
-
         Intent intent = new Intent();
-        intent.setClass(content, HotelDetailActivity.class);
+        intent.setClass(content, HotelListActivity.class);
         content.startActivity(intent);
 
+    }
+
+    protected void IntentToTravelList() {
+        Activity content = ((MainFmFragment) mainFmMvpView).getActivity();
+        Intent intent = new Intent();
+        intent.setClass(content, TravelListActivity.class);
+        content.startActivity(intent);
+
+    }
+    protected void IntentToProjectJoint() {
+        Activity content = ((MainFmFragment) mainFmMvpView).getActivity();
+        Intent intent = new Intent();
+        intent.setClass(content, ProjectJointActivity.class);
+        content.startActivity(intent);
+    }
+
+    protected void IntentToKanFanTuan() {
+        Activity content = ((MainFmFragment) mainFmMvpView).getActivity();
+        Intent intent = new Intent();
+        intent.setClass(content, KanFanTuanActivity.class);
+        content.startActivity(intent);
     }
 }

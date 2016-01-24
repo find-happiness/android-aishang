@@ -1,6 +1,7 @@
 package com.aishang.app.injection.component;
 
 import com.aishang.app.ui.HotelDetail.HotelDetailActivity;
+import com.aishang.app.ui.TravelList.TravelListActivity;
 import com.aishang.app.ui.hotel.HotelListActivity;
 import com.aishang.app.ui.insaleDetail.InSaleDetailActivity;
 import com.aishang.app.ui.login.LoginActivity;
@@ -10,6 +11,8 @@ import com.aishang.app.injection.module.ActivityModule;
 import com.aishang.app.ui.insale.InSaleActivity;
 import com.aishang.app.ui.main.MainActivity;
 import com.aishang.app.ui.main.main.MainFmFragment;
+import com.aishang.app.ui.main.mine.MineFragment;
+import com.aishang.app.ui.main.more.MoreFragment;
 
 /**
  * This component inject dependencies to all Activities across the application
@@ -25,4 +28,7 @@ public interface ActivityComponent {
     void inject(HotelListActivity activity);
     void inject(HotelDetailActivity activity);
     void inject(LoginActivity activity);
+    void inject(TravelListActivity activity);
+    void inject(MineFragment fragment);
+    void inject(MoreFragment fragment);
 }

@@ -3,77 +3,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.aishang.app">
 
-  <uses-permission android:name="android.permission.INTERNET"/>
-  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-  <application
-      android:allowBackup="false"
-      android:icon="@mipmap/ic_launcher"
-      android:label="@string/app_name"
-      android:name=".BoilerplateApplication"
-      android:theme="@style/AppTheme"
-      tools:replace="android:allowBackup">
-    <activity
-        android:label="@string/app_name"
-        android:name=".ui.main.MainActivity"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-        android:windowSoftInputMode="stateHidden"/>
+    <application
+        android:name=".BoilerplateApplication"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:theme="@style/AppTheme"
+        tools:replace="android:allowBackup">
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-    <service android:name=".data.SyncService"/>
-    <service android:name=".util.DownloadService"/>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
-    <receiver
-        android:enabled="false"
-        android:name=".data.SyncService$SyncOnConnectionAvailable">
-      <intent-filter>
-        <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
-      </intent-filter>
-    </receiver>
+        <service android:name=".data.SyncService" />
+        <service android:name=".util.DownloadService" />
 
-    <activity android:name=".ui.insale.InSaleActivity"/>
-    <activity android:name=".ui.insaleDetail.InSaleDetailActivity"/>
-    <activity android:name=".ui.hotel.HotelListActivity"/>
-    <activity android:name=".ui.HotelDetail.HotelDetailActivity"/>
-    <activity android:name=".ui.login.LoginActivity">
-    </activity>
-    <activity android:name=".ui.MemberCenter.MemberCenterActivity"/>
-    <activity android:name=".ui.CashWithDrawApply.CashWithDrawApplyActivity">
-    </activity>
-    <activity android:name=".ui.BrokerCenter.BrokerCenterActivity">
-    </activity>
-    <activity android:name=".ui.RecommenCustomer.RecommenCustomerActivity">
-    </activity>
-    <activity android:name=".ui.MyOrder.MyOrderActivity">
-    </activity>
-    <activity android:name=".ui.MyHouse.MyHouseActivity">
-    </activity>
-    <activity android:name=".ui.MyBuyAndSale.BuyAndSaleActivity">
-    </activity>
-    <activity android:name=".ui.ChangePassword.ChangePasswordActivity">
-    </activity>
-    <activity android:name=".ui.bank.bankActivity">
-    </activity>
-    <activity android:name=".ui.TravelFavorites.TravelFavoritesActivity">
-    </activity>
-    <activity android:name=".ui.AccountCenter.AccountCenterActivity">
-    </activity>
-    <activity android:name=".ui.edit.EditActivity">
-    </activity>
-    <activity android:name=".ui.Setting.SettingActivity">
-    </activity>
-    <activity android:name=".ui.suggestion.SuggestionActivity">
-    </activity>
-    <activity android:name=".ui.about.AboutActivity">
-    </activity>
-    <activity android:name=".ui.guide.GuideActivity"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
+        <receiver
+            android:name=".data.SyncService$SyncOnConnectionAvailable"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
 
-        <category android:name="android.intent.category.LAUNCHER"/>
-      </intent-filter>
-    </activity>
-  </application>
+        <activity android:name=".ui.insale.InSaleActivity" />
+        <activity android:name=".ui.insaleDetail.InSaleDetailActivity" />
+        <activity android:name=".ui.hotel.HotelListActivity" />
+        <activity android:name=".ui.HotelDetail.HotelDetailActivity" />
+        <activity android:name=".ui.login.LoginActivity"></activity>
+        <activity android:name=".ui.MemberCenter.MemberCenterActivity" />
+        <activity android:name=".ui.CashWithDrawApply.CashWithDrawApplyActivity" />
+        <activity android:name=".ui.BrokerCenter.BrokerCenterActivity" />
+        <activity android:name=".ui.RecommenCustomer.RecommenCustomerActivity" />
+        <activity android:name=".ui.MyOrder.MyOrderActivity" />
+        <activity android:name=".ui.MyHouse.MyHouseActivity" />
+        <activity android:name=".ui.MyBuyAndSale.BuyAndSaleActivity" />
+        <activity android:name=".ui.ChangePassword.ChangePasswordActivity" />
+        <activity android:name=".ui.bank.bankActivity" />
+        <activity android:name=".ui.TravelFavorites.TravelFavoritesActivity" />
+        <activity android:name=".ui.AccountCenter.AccountCenterActivity" />
+        <activity android:name=".ui.edit.EditActivity" />
+        <activity android:name=".ui.Setting.SettingActivity" />
+        <activity android:name=".ui.suggestion.SuggestionActivity" />
+        <activity android:name=".ui.about.AboutActivity" />
+        <activity
+            android:name=".ui.guide.GuideActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" />
+        <activity android:name=".ui.TravelList.TravelListActivity" />
+        <activity android:name=".ui.ProjectJoint.ProjectJointActivity" />
+        <activity android:name=".ui.register.RegisterActivity" />
+        <activity android:name=".ui.ForgetPossword.ForgetPosswordActivity" />
+        <activity android:name=".ui.KanFanTuan.KanFanTuanActivity"></activity>
+    </application>
 
 </manifest>

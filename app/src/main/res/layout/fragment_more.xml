@@ -18,6 +18,7 @@
         android:gravity="center"/>
 
     <com.aishang.app.widget.ItemMore
+        android:id="@+id/btn_check_updata"
         android:padding="10dp"
         android:background="@android:color/white"
         android:layout_width="wrap_content"
@@ -32,6 +33,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/white"
         android:layout_marginTop="10dp"
+        android:id="@+id/btn_suggestion"
         app:img="@mipmap/iconfont_yijianfankui"
         app:text="@string/yi_jian_fang_kui"></com.aishang.app.widget.ItemMore>
 
@@ -42,6 +44,7 @@
         android:layout_marginTop="10dp"
         android:background="@android:color/white"
         app:img="@mipmap/iconfont_fenxiang"
+        android:id="@+id/btn_share"
         app:text="@string/share_ai_shang"></com.aishang.app.widget.ItemMore>
 
     <com.aishang.app.widget.ItemMore
@@ -50,6 +53,7 @@
         android:background="@android:color/white"
         android:layout_marginTop="10dp"
         android:padding="10dp"
+        android:id="@+id/btn_setting"
         app:img="@mipmap/iconfont_shezhi"
         app:text="@string/setting"></com.aishang.app.widget.ItemMore>
 

@@ -1,5 +1,8 @@
 package com.aishang.app.data.remote;
 
+import com.aishang.app.data.model.JHotelListResult;
+import com.aishang.app.data.model.JLoupanProductListParam;
+import com.aishang.app.data.model.JLoupanProductListResult;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JMrePromResult;
 import com.aishang.app.data.model.JVersionCheckResult;
@@ -22,15 +25,20 @@ public interface AiShangService {
   String ENDPOINT = "https://api.ribot.io/";
   String AiShangHost = "http://www.aishang67.com/";
 
-  @GET("mobile/member/memberLogin.ashx")
-  Observable<JMemberLoginResult> login(@Query(value = "v")int version,@Query(value = "q") String q);
+  @GET("mobile/member/memberLogin.ashx") Observable<JMemberLoginResult> login(
+      @Query(value = "v") int version, @Query(value = "q") String q);
 
-  @GET("mobile/other/mrePromList.ashx")
-  Observable<JMrePromResult> mreProm(@Query(value = "v")int version,@Query(value = "q") String q);
+  @GET("mobile/other/mrePromList.ashx") Observable<JMrePromResult> mreProm(
+      @Query(value = "v") int version, @Query(value = "q") String q);
 
-  @GET("mobile/versionCheck.ashx")
-  Observable<JVersionCheckResult> versionCheck(@Query(value = "v")int version,@Query(value = "q") String q);
+  @GET("mobile/versionCheck.ashx") Observable<JVersionCheckResult> versionCheck(
+      @Query(value = "v") int version, @Query(value = "q") String q);
 
+  @GET("mobile/loupan/loupanProductList.ashx") Observable<JLoupanProductListResult> loupanList(
+      @Query(value = "v") int version, @Query(value = "q") String q);
+
+  @GET("mobile/hotel/hotelList.ashx") Observable<JHotelListResult> hotelList(
+      @Query(value = "v") int version, @Query(value = "q") String q);
 
   @GET("ribots") Observable<List<Ribot>> getRibots();
 

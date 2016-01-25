@@ -1,6 +1,9 @@
 package com.aishang.app.data;
 
+import android.os.Debug;
 import android.util.Log;
+import com.aishang.app.data.model.JHotelListResult;
+import com.aishang.app.data.model.JLoupanProductListResult;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JMrePromResult;
 import com.aishang.app.data.model.JVersionCheckResult;
@@ -72,10 +75,25 @@ import com.aishang.app.util.EventPosterHelper;
   public Observable<JVersionCheckResult> syncVersionCheck(int version, String json) {
     return mAiShangService.versionCheck(version, json).doOnNext(new Action1<JVersionCheckResult>() {
       @Override public void call(JVersionCheckResult jVersionCheckResult) {
-        Log.i(TAG, "call: "+jVersionCheckResult.toString());
+        Log.i(TAG, "call: " + jVersionCheckResult.toString());
         mPreferencesHelper.setVersionCheck(new Gson().toJson(jVersionCheckResult));
       }
     });
+  }
+
+  public Observable<JLoupanProductListResult> syncLoupanList(int version, String json) {
+    return mAiShangService.loupanList(version, json);
+  }
+
+  public Observable<JHotelListResult> syncHotelList(int version, String json) {
+    return mAiShangService.hotelList(version, json);
+  }
+
+  public Observable<JMrePromResult> syncMreProm(int version, String json) {
+
+    Log.i(TAG, "syncMreProm: " + "?v=" + version+"&q="+ json);
+
+    return mAiShangService.mreProm(version, json);
   }
 
   public JVersionCheckResult getVersionCheck() {

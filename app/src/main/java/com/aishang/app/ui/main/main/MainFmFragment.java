@@ -66,7 +66,7 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
   @Bind(R.id.gridview_hot_hotel) NonScrollGridView gvHotHotel;
   @Bind(R.id.gridview_hot_youji) NonScrollGridView gvYouJi;
 
-  @Bind(R.id.main_scrollview) ScrollView scrollView;
+  //@Bind(R.id.main_scrollview) ScrollView scrollView;
 
   @Bind(R.id.edit_search) EditText editSearch;
 
@@ -101,7 +101,7 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
 
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    scrollView.scrollTo(0, 0);
+    //scrollView.scrollTo(0, 0);
   }
 
   @Override public void onResume() {

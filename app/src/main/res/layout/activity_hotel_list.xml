@@ -1,18 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:paddingTop="@dimen/padding_stutas_bar"
     android:layout_height="match_parent"
-    android:background="@color/primary"
-    tools:context="com.aishang.app.ui.hotel.HotelListActivity">
+    >
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+  <com.jcodecraeer.xrecyclerview.XRecyclerView
+      android:id="@+id/swipe_refresh"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+  </com.jcodecraeer.xrecyclerview.XRecyclerView>
+
+  <android.support.design.widget.AppBarLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/primary"
+      android:paddingTop="@dimen/padding_stutas_bar">
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:background="@color/primary"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
+
+      <android.support.v7.widget.Toolbar
+          android:id="@+id/toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="@color/primary">
+
         <TextView
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
@@ -21,28 +40,29 @@
             android:text="@string/huangzujiudian"
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_title"/>
-    </android.support.v7.widget.Toolbar>
+      </android.support.v7.widget.Toolbar>
 
-    <com.quinny898.library.persistentsearch.SearchBox
-        android:layout_width="wrap_content"
-        android:id="@+id/searchbox"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_marginTop="-6dp"
-        android:layout_marginLeft="-6dp"
-        android:layout_marginRight="-6dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
+      <com.quinny898.library.persistentsearch.SearchBox
+          android:id="@+id/searchbox"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentLeft="true"
+          android:layout_alignParentTop="true"
+          android:layout_marginLeft="-6dp"
+          android:layout_marginRight="-6dp"
+          android:layout_marginTop="-6dp"
+          android:visibility="gone"/>
 
-    <LinearLayout
-        android:id="@+id/ll_sreach"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:layout_below="@id/toolbar"
-        android:orientation="horizontal">
+      <LinearLayout
+          android:id="@+id/ll_sreach"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/toolbar"
+          android:background="@android:color/white"
+          android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/tv_position"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -53,14 +73,15 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:paddingTop="10dp"
-            android:text="@string/position" />
+            android:text="@string/position"/>
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@android:color/darker_gray" />
+            android:background="@android:color/darker_gray"/>
 
         <TextView
+            android:id="@+id/tv_check_in_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -71,14 +92,15 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:paddingTop="10dp"
-            android:text="@string/check_in_date" />
+            android:text="@string/check_in_date"/>
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@android:color/darker_gray" />
+            android:background="@android:color/darker_gray"/>
 
         <TextView
+            android:id="@+id/tv_check_out_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -89,14 +111,15 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:paddingTop="10dp"
-            android:text="@string/check_out_date" />
+            android:text="@string/check_out_date"/>
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@android:color/darker_gray" />
+            android:background="@android:color/darker_gray"/>
 
         <TextView
+            android:id="@+id/tv_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -107,41 +130,15 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:paddingTop="10dp"
-            android:text="@string/price" />
-    </LinearLayout>
+            android:text="@string/price"/>
+      </LinearLayout>
 
-    <View
-        android:id="@+id/view_line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/ll_sreach"
-        android:background="@android:color/darker_gray" />
-
-    <in.srain.cube.views.ptr.PtrClassicFrameLayout
-        android:id="@+id/load_more_list_view_ptr_frame"
-        android:layout_width="match_parent"
-        android:background="@android:color/white"
-        android:layout_height="match_parent"
-        android:layout_below="@id/view_line">
-
-        <com.aishang.app.widget.loadmore.LoadMoreListViewContainer
-            android:id="@+id/load_more_list_view_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ListView
-                android:id="@+id/load_more_small_image_list_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:divider="@null"
-                android:fadingEdge="none"
-                android:listSelector="@android:color/transparent"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:scrollbarStyle="outsideOverlay" />
-
-        </com.aishang.app.widget.loadmore.LoadMoreListViewContainer>
-    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
-
-
-</RelativeLayout>
+      <View
+          android:id="@+id/view_line"
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:layout_below="@id/ll_sreach"
+          android:background="@android:color/darker_gray"/>
+    </RelativeLayout>
+  </android.support.design.widget.AppBarLayout>
+</android.support.design.widget.CoordinatorLayout>

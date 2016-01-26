@@ -288,7 +288,7 @@
           android:layout_toLeftOf="@id/btn_city"
           android:layout_toRightOf="@id/logo"
           android:background="@drawable/bg_shape_corners"
-          android:hint="@string/search_hint"
+          android:hint="search"
           android:imeOptions="actionSearch"
           android:maxLength="10"
           android:singleLine="true"

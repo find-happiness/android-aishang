@@ -20,12 +20,15 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import butterknife.OnEditorAction;
 import com.aishang.app.R;
+import com.aishang.app.data.model.JLoupanProductListParam;
+import com.aishang.app.data.model.JLoupanProductListResult;
 import com.aishang.app.data.model.JMrePromParam;
 import com.aishang.app.data.model.JMrePromResult;
 import com.aishang.app.data.model.ViewModel;
 import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.ui.insaleDetail.InSaleDetailActivity;
 import com.aishang.app.ui.main.MainActivity;
+import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.LocalImageHolderView;
 import com.aishang.app.util.NetworkUtil;
@@ -89,12 +92,7 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
     initView();
 
     if (NetworkUtil.isNetworkConnected(getActivity())) {
-
-      JMrePromParam param = new JMrePromParam();
-      param.setLocation(11);
-      param.setCount(4);
-
-      mMainPresenter.loadBanner(false, 1, new Gson().toJson(param));
+      asynBanner();
     }
     return view;
   }
@@ -192,13 +190,6 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
   }
 
   private void initGvZaiShou() {
-    ArrayList<Integer> zaiShou = new ArrayList<>();
-    for (int i = 0; i < 3; i++) {
-      zaiShou.add(i);
-    }
-    zaiShouAdapter = new ZaiShouAdapter(getContext());
-    zaiShouAdapter.setZaiShous(zaiShou);
-    gvInSale.setAdapter(zaiShouAdapter);
     gvInSale.setOnTouchListener(new View.OnTouchListener() {
 
       @Override public boolean onTouch(View v, MotionEvent event) {
@@ -266,7 +257,13 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
         .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
   }
 
-  @Override public void showLoupan() {
+  @Override public void showLoupan(List<JLoupanProductListResult.Product> products,
+      List<JLoupanProductListResult.Loupan> loupans) {
+
+    zaiShouAdapter = new ZaiShouAdapter(getContext());
+    zaiShouAdapter.setLoupans(loupans);
+    zaiShouAdapter.setProducts(products);
+    gvInSale.setAdapter(zaiShouAdapter);
 
   }
 
@@ -292,6 +289,23 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
 
   @Override public void showError(String error) {
     Log.i(TAG, "showError: " + error);
+  }
+
+  private void asynBanner() {
+    JMrePromParam param = new JMrePromParam();
+    param.setLocation(11);
+    param.setCount(4);
+
+    mMainPresenter.loadBanner(false, 1, new Gson().toJson(param));
+  }
+
+  private void asynLoupan() {
+
+    String json =
+        AiShangUtil.generLoupanProductParam(0, 0, 0, 0, 3, 0, 0, "", 0, "", "", 1, 0, 0, 0, 0, 0,
+            "", "", "", 0);
+
+    mMainPresenter.loadLoupan(1,json);
   }
 
   public class LocalImageHolderView implements Holder<JMrePromResult.Ad> {

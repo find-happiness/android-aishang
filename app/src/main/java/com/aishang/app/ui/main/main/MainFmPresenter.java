@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.aishang.app.data.DataManager;
+import com.aishang.app.data.model.JLoupanProductListResult;
 import com.aishang.app.data.model.JMrePromResult;
 import com.aishang.app.data.model.Ribot;
 import com.aishang.app.ui.KanFanTuan.KanFanTuanActivity;
@@ -75,15 +76,55 @@ public class MainFmPresenter extends BasePresenter<MainFmMvpView> {
           }
 
           @Override public void onError(Throwable e) {
-            getMvpView().showError("网络异常:" +e.toString());
+            getMvpView().showError("网络异常:" + e.toString());
           }
 
           @Override public void onNext(JMrePromResult jMrePromResult) {
-            if (jMrePromResult.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
+            if (jMrePromResult.getResult()
+                .toUpperCase()
+                .equals(Constants.RESULT_SUCCESS.toUpperCase())) {
               getMvpView().showBanner(
                   new ArrayList<JMrePromResult.Ad>(Arrays.asList(jMrePromResult.getAdList())));
             } else {
               getMvpView().showError(jMrePromResult.getResult());
+            }
+          }
+        });
+  }
+
+  public void loadLoupan(int version, String json) {
+    loadLoupan(false, version, json);
+  }
+
+  public void loadLoupan(boolean allowMemoryCacheVersion, int version, String json) {
+    checkViewAttached();
+
+    if (mLoupanSubscription != null && !mLoupanSubscription.isUnsubscribed()) {
+      mLoupanSubscription.unsubscribe();
+    }
+
+    mLoupanSubscription = mDataManager.syncLoupanList(version, json)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(Schedulers.io())
+        .subscribe(new Subscriber<JLoupanProductListResult>() {
+          @Override public void onCompleted() {
+
+          }
+
+          @Override public void onError(Throwable e) {
+            getMvpView().showError("网络异常:" + e.toString());
+          }
+
+          @Override public void onNext(JLoupanProductListResult loupanProductListResult) {
+            if (loupanProductListResult.getResult()
+                .toUpperCase()
+                .equals(Constants.RESULT_SUCCESS.toUpperCase())) {
+              getMvpView().showLoupan(new ArrayList<JLoupanProductListResult.Product>(
+                  Arrays.asList(loupanProductListResult.getProductList())),
+                  new ArrayList<JLoupanProductListResult.Loupan>(
+                      Arrays.asList(loupanProductListResult.getLoupanList())));
+            } else {
+              getMvpView().showError(loupanProductListResult.getResult());
             }
           }
         });

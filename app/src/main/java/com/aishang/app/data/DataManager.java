@@ -6,6 +6,7 @@ import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JLoupanProductListResult;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JMrePromResult;
+import com.aishang.app.data.model.JNewsListResult;
 import com.aishang.app.data.model.JVersionCheckResult;
 import com.aishang.app.data.remote.AiShangService;
 import com.google.gson.Gson;
@@ -87,6 +88,10 @@ import com.aishang.app.util.EventPosterHelper;
 
   public Observable<JHotelListResult> syncHotelList(int version, String json) {
     return mAiShangService.hotelList(version, json);
+  }
+
+  public Observable<JNewsListResult> syncTravel(int version, String json) {
+    return mAiShangService.newsList(version, json);
   }
 
   public Observable<JMrePromResult> syncMreProm(int version, String json) {

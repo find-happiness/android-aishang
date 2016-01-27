@@ -2,56 +2,64 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
+    android:background="@android:color/white"
     android:layout_height="wrap_content">
-    <ImageView
-        android:id="@+id/img_hot_hotel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:src="@mipmap/banner"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/name"
-        android:layout_below="@id/img_hot_hotel"
-        android:layout_marginLeft="10dp"
-        android:textSize="25sp"
-        tools:text="宜春|曦园柳镇"/>
+
+  <ImageView
+      android:id="@+id/img_hot_hotel"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:adjustViewBounds="true"
+      android:src="@mipmap/banner"/>
+
+  <TextView
+      android:id="@+id/name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/img_hot_hotel"
+      android:layout_marginLeft="10dp"
+      android:gravity="center_vertical"
+      android:lines="2"
+      android:textSize="@dimen/text_body"
+      tools:text="宜春|曦园柳镇"/>
+
+  <TextView
+      android:id="@+id/tese"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/name"
+      android:layout_marginLeft="10dp"
+      android:textSize="@dimen/text_small_body"
+      tools:text="宜春|曦园柳镇"/>
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/spacing_small"
+      android:layout_below="@id/tese">
 
     <TextView
+        android:id="@+id/book"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tese"
-        android:layout_below="@id/name"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/tu_stroke_corner"
+        android:textColor="@color/text_tu"
+        android:text="@string/book_hotel"
+        />
+
+    <TextView
+        android:id="@+id/price_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/book"
+        android:layout_alignParentLeft="true"
         android:layout_marginLeft="10dp"
-        android:textSize="20sp"
-        tools:text="宜春|曦园柳镇"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_below="@id/tese"
-        android:layout_height="wrap_content">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/book"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            tools:text="@string/book_hotel"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/price_text"
-            android:textSize="25sp"
-            android:layout_marginLeft="10dp"
-            android:layout_toLeftOf="@id/book"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:textColor="@color/price"
-            tools:text="5.9万"/>
-    </RelativeLayout>
-
-
+        android:layout_toLeftOf="@id/book"
+        android:textColor="@color/price"
+        android:textSize="@dimen/text_body"
+        tools:text="5.9万"/>
+  </RelativeLayout>
 </RelativeLayout>

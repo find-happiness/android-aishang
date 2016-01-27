@@ -2,8 +2,10 @@ package com.aishang.app.ui.main.main;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -15,40 +17,36 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
-
 import android.widget.TextView;
-import butterknife.OnEditorAction;
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.aishang.app.R;
-import com.aishang.app.data.model.JLoupanProductListParam;
+import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JLoupanProductListResult;
 import com.aishang.app.data.model.JMrePromParam;
 import com.aishang.app.data.model.JMrePromResult;
-import com.aishang.app.data.model.ViewModel;
+import com.aishang.app.data.model.JNewsListResult;
 import com.aishang.app.data.remote.AiShangService;
-import com.aishang.app.ui.insaleDetail.InSaleDetailActivity;
 import com.aishang.app.ui.main.MainActivity;
 import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
-import com.aishang.app.util.LocalImageHolderView;
 import com.aishang.app.util.NetworkUtil;
 import com.aishang.app.widget.NonScrollGridView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
-import com.bigkoo.convenientbanner.listener.OnItemClickListener;
-
 import com.google.gson.Gson;
-import com.quinny898.library.persistentsearch.SearchBox;
+import com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Observable;
+import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+import rx.Scheduler;
+import rx.functions.Action1;
+import rx.subjects.Subject;
 
 /**
  * Created by song on 2016/1/16.
@@ -56,6 +54,7 @@ import butterknife.OnClick;
 public class MainFmFragment extends Fragment implements MainFmMvpView {
 
   private static final String TAG = "MainFmFragment";
+  private static final int NET_COUNT = 4;
 
   @Inject MainFmPresenter mMainPresenter;
 
@@ -72,6 +71,16 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
   //@Bind(R.id.main_scrollview) ScrollView scrollView;
 
   @Bind(R.id.edit_search) EditText editSearch;
+  @Bind(R.id.avloadingIndicatorView_in_sale) AVLoadingIndicatorView avloadingIndicatorViewInSale;
+  @Bind(R.id.no_data_in_sale) TextView noDataInSale;
+  @Bind(R.id.avloadingIndicatorView_hotel) AVLoadingIndicatorView avloadingIndicatorViewHotel;
+  @Bind(R.id.no_data_hotel) TextView noDataHotel;
+  @Bind(R.id.avloadingIndicatorView_youji) AVLoadingIndicatorView avloadingIndicatorViewYouji;
+  @Bind(R.id.no_data_youji) TextView noDataYouji;
+  @Bind(R.id.btn_city) TextView btnCity;
+  @Bind(R.id.swipe_refresh) SwipeRefreshLayout swipeRefresh;
+
+  private int network = 0;
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -90,10 +99,6 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
     ButterKnife.bind(this, view);
     mMainPresenter.attachView(this);
     initView();
-
-    if (NetworkUtil.isNetworkConnected(getActivity())) {
-      asynBanner();
-    }
     return view;
   }
 
@@ -112,12 +117,153 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
     banner.stopTurning();
   }
 
+  @Override public void onDestroyView() {
+    super.onDestroyView();
+    ButterKnife.unbind(this);
+  }
+
+  @OnClick(R.id.btn_zaishou) void OnZaiShouClick() {
+    mMainPresenter.IntentToZaiShou();
+  }
+
+  @OnClick(R.id.btn_huanzu) void onHuanZuClick() {
+    mMainPresenter.IntentToHuanZu();
+  }
+
+  @OnClick(R.id.btn_youji) void onYouJiClick() {
+    mMainPresenter.IntentToTravelList();
+  }
+
+  @OnClick(R.id.btn_xiangmuhezu) void onXiangMuHeZuoClick() {
+    mMainPresenter.IntentToProjectJoint();
+  }
+
+  @OnClick(R.id.btn_dujiawu) void btnDuJiaWu() {
+  }
+
+  @OnClick(R.id.btn_store) void btnStore() {
+  }
+
+  @OnClick(R.id.btn_kanfangtuan) void btnKanFangDuan() {
+    mMainPresenter.IntentToKanFanTuan();
+  }
+
+  @OnClick(R.id.btn_fabuchuzu) void btnFaBuChuZu() {
+  }
+
+  @Override public void showBanner(List<JMrePromResult.Ad> ads) {
+    banner.setPages(new CBViewHolderCreator<LocalImageHolderView>() {
+      @Override public LocalImageHolderView createHolder() {
+        return new LocalImageHolderView();
+      }
+    }, ads)
+        //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
+        .setPageIndicator(new int[] { R.mipmap.ellipse_nomal, R.mipmap.ellipse_select })
+            //设置指示器的方向
+        .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
+  }
+
+  @Override public void showLoupan(List<JLoupanProductListResult.Product> products,
+      List<JLoupanProductListResult.Loupan> loupans) {
+    avloadingIndicatorViewInSale.setVisibility(View.GONE);
+    noDataInSale.setVisibility(View.GONE);
+    zaiShouAdapter = new ZaiShouAdapter(getContext());
+    zaiShouAdapter.setLoupans(loupans);
+    zaiShouAdapter.setProducts(products);
+    gvInSale.setAdapter(zaiShouAdapter);
+  }
+
+  @Override public void showHotel(List<JHotelListResult.Hotel> hotels) {
+
+    avloadingIndicatorViewHotel.setVisibility(View.GONE);
+    noDataHotel.setVisibility(View.GONE);
+    hotHotelAdapter = new HotHotelAdapter(getActivity());
+    hotHotelAdapter.setHotels(hotels);
+    gvHotHotel.setAdapter(hotHotelAdapter);
+  }
+
+  @Override public void showTrave(List<JNewsListResult.JNewsListItem> newsList) {
+    avloadingIndicatorViewYouji.setVisibility(View.GONE);
+    noDataYouji.setVisibility(View.GONE);
+    hotYouJiAdapter = new HotYouJiAdapter(getContext());
+    hotYouJiAdapter.setHotYouJis(newsList);
+    gvYouJi.setAdapter(hotYouJiAdapter);
+  }
+
+  @Override public void showTraveEmpty() {
+    avloadingIndicatorViewYouji.setVisibility(View.GONE);
+    noDataYouji.setVisibility(View.VISIBLE);
+    hotYouJiAdapter.clearData();
+    hotYouJiAdapter.notifyDataSetChanged();
+  }
+
+  @Override public void showBannerEmpty() {
+
+  }
+
+  @Override public void showLoupanEmpty() {
+    avloadingIndicatorViewHotel.setVisibility(View.GONE);
+    noDataInSale.setVisibility(View.VISIBLE);
+    zaiShouAdapter.clearData();
+    zaiShouAdapter.notifyDataSetChanged();
+  }
+
+  @Override public void showHotelEmpty() {
+    avloadingIndicatorViewHotel.setVisibility(View.GONE);
+    noDataHotel.setVisibility(View.VISIBLE);
+    hotHotelAdapter.clearData();
+    hotHotelAdapter.notifyDataSetChanged();
+  }
+
+  @Override public void showError(String error) {
+    Log.i(TAG, "showError: " + error);
+  }
+
+  @Override public void addNetCount() {
+    network++;
+
+    if (network % NET_COUNT == 0) {
+      swipeRefresh.setRefreshing(false);
+      network = 0;
+    }
+  }
+
   private void initView() {
     initBanner();
     initGvHothotel();
     initGvYouJi();
     initGvZaiShou();
     initSearch();
+    initSwipeRefresh();
+
+    new Handler().postDelayed(new Runnable() {
+      @Override public void run() {
+        swipeRefresh.setRefreshing(true);
+        loadData();
+      }
+    }, 100);
+  }
+
+  private void initSwipeRefresh() {
+    swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+      @Override public void onRefresh() {
+        loadData();
+      }
+    });
+  }
+
+  private void loadData() {
+    if (NetworkUtil.isNetworkConnected(getActivity())) {
+      avloadingIndicatorViewInSale.setVisibility(View.VISIBLE);
+      avloadingIndicatorViewHotel.setVisibility(View.VISIBLE);
+      avloadingIndicatorViewYouji.setVisibility(View.VISIBLE);
+      asynBanner();
+      asynLoupan();
+      asynHotel();
+      asynTrvael();
+    }
+
+    Log.i(TAG, "loadData: " + (swipeRefresh.isRefreshing()));
   }
 
   private void initSearch() {
@@ -175,13 +321,7 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
   }
 
   private void initGvHothotel() {
-    ArrayList<Integer> hotel = new ArrayList<>();
-    for (int i = 0; i < 6; i++) {
-      hotel.add(i);
-    }
-    hotHotelAdapter = new HotHotelAdapter(getActivity());
-    hotHotelAdapter.setHotels(hotel);
-    gvHotHotel.setAdapter(hotHotelAdapter);
+
     gvHotHotel.setOnTouchListener(new View.OnTouchListener() {
       @Override public boolean onTouch(View v, MotionEvent event) {
         return MotionEvent.ACTION_MOVE == event.getAction();
@@ -199,13 +339,6 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
   }
 
   private void initGvYouJi() {
-    ArrayList<Integer> youji = new ArrayList<>();
-    for (int i = 0; i < 3; i++) {
-      youji.add(i);
-    }
-    hotYouJiAdapter = new HotYouJiAdapter(getContext());
-    hotYouJiAdapter.setHotYouJis(youji);
-    gvYouJi.setAdapter(hotYouJiAdapter);
     gvYouJi.setOnTouchListener(new View.OnTouchListener() {
 
       @Override public boolean onTouch(View v, MotionEvent event) {
@@ -216,96 +349,32 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
     });
   }
 
-  @OnClick(R.id.btn_zaishou) void OnZaiShouClick() {
-    mMainPresenter.IntentToZaiShou();
-  }
-
-  @OnClick(R.id.btn_huanzu) void onHuanZuClick() {
-    mMainPresenter.IntentToHuanZu();
-  }
-
-  @OnClick(R.id.btn_youji) void onYouJiClick() {
-    mMainPresenter.IntentToTravelList();
-  }
-
-  @OnClick(R.id.btn_xiangmuhezu) void onXiangMuHeZuoClick() {
-    mMainPresenter.IntentToProjectJoint();
-  }
-
-  @OnClick(R.id.btn_dujiawu) void btnDuJiaWu() {
-  }
-
-  @OnClick(R.id.btn_store) void btnStore() {
-  }
-
-  @OnClick(R.id.btn_kanfangtuan) void btnKanFangDuan() {
-    mMainPresenter.IntentToKanFanTuan();
-  }
-
-  @OnClick(R.id.btn_fabuchuzu) void btnFaBuChuZu() {
-  }
-
-  @Override public void showBanner(List<JMrePromResult.Ad> ads) {
-    banner.setPages(new CBViewHolderCreator<LocalImageHolderView>() {
-      @Override public LocalImageHolderView createHolder() {
-        return new LocalImageHolderView();
-      }
-    }, ads)
-        //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
-        .setPageIndicator(new int[] { R.mipmap.ellipse_nomal, R.mipmap.ellipse_select })
-            //设置指示器的方向
-        .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
-  }
-
-  @Override public void showLoupan(List<JLoupanProductListResult.Product> products,
-      List<JLoupanProductListResult.Loupan> loupans) {
-
-    zaiShouAdapter = new ZaiShouAdapter(getContext());
-    zaiShouAdapter.setLoupans(loupans);
-    zaiShouAdapter.setProducts(products);
-    gvInSale.setAdapter(zaiShouAdapter);
-
-  }
-
-  @Override public void showHotel() {
-
-  }
-
-  @Override public void showTrave() {
-
-  }
-
-  @Override public void showBannerEmpty() {
-
-  }
-
-  @Override public void showLoupanEmpty() {
-
-  }
-
-  @Override public void showHotelEmpty() {
-
-  }
-
-  @Override public void showError(String error) {
-    Log.i(TAG, "showError: " + error);
-  }
-
   private void asynBanner() {
     JMrePromParam param = new JMrePromParam();
     param.setLocation(11);
     param.setCount(4);
 
-    mMainPresenter.loadBanner(false, 1, new Gson().toJson(param));
+    mMainPresenter.loadBanner(1, new Gson().toJson(param));
   }
 
   private void asynLoupan() {
-
     String json =
         AiShangUtil.generLoupanProductParam(0, 0, 0, 0, 3, 0, 0, "", 0, "", "", 1, 0, 0, 0, 0, 0,
             "", "", "", 0);
+    mMainPresenter.loadLoupan(1, json);
+  }
 
-    mMainPresenter.loadLoupan(1,json);
+  private void asynHotel() {
+    String json = AiShangUtil.generHotelParam(0, "", 0, 4, 0, AiShangUtil.gennerCheckinData(),
+        AiShangUtil.gennerCheckoutData(), 1, 0, 0, 0, 0, 0, "", 0, "", 0, 1);
+
+    mMainPresenter.loadHotel(1, json);
+  }
+
+  private void asynTrvael() {
+    String json = AiShangUtil.generNewsParam(0, 1, 0, 0, 0, "", "", 1, 3);
+
+    mMainPresenter.loadTravel(2, json);
   }
 
   public class LocalImageHolderView implements Holder<JMrePromResult.Ad> {

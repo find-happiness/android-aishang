@@ -37,7 +37,7 @@
     <string name="type">类型</string>
     <string name="price">价格</string>
     <string name="tese">特色</string>
-    <string name="look_youji">查看有机攻略</string>
+    <string name="look_youji">查看游记攻略</string>
     <string name="loupan_detail">楼盘简介</string>
     <string name="xiang_mu_te_se_jie_shao">项目特色介绍</string>
     <string name="can_tuan">报名参团</string>
@@ -67,5 +67,10 @@
 
     <string name="time">时间</string>
     <string name="city">城市</string>
+    <string name="move_in_date">交房日期:%s</string>
+    <string name="product_address">项目地址:%s</string>
+    <string name="promotion">特         色：%s</string>
+    <string name="no_data">暂无数据</string>
+    <string name="buy"></string>
 
 </resources>

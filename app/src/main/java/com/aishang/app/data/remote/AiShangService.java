@@ -5,6 +5,7 @@ import com.aishang.app.data.model.JLoupanProductListParam;
 import com.aishang.app.data.model.JLoupanProductListResult;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JMrePromResult;
+import com.aishang.app.data.model.JNewsListResult;
 import com.aishang.app.data.model.JVersionCheckResult;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -28,6 +29,7 @@ public interface AiShangService {
 
   String ENDPOINT = "https://api.ribot.io/";
   String AiShangHost = "http://www.aishang67.com/";
+  String IMG_URL = "http://www.aishang67.com";
 
   @Headers("connection:Keep-Alive")
   @GET("mobile/member/memberLogin.ashx") Observable<JMemberLoginResult> login(
@@ -47,6 +49,10 @@ public interface AiShangService {
 
   @Headers("connection:Keep-Alive")
   @GET("mobile/hotel/hotelList.ashx") Observable<JHotelListResult> hotelList(
+      @Query(value = "v") int version, @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive")
+  @GET("/mobile/NewsList.ashx") Observable<JNewsListResult> newsList(
       @Query(value = "v") int version, @Query(value = "q") String q);
 
   @GET("ribots") Observable<List<Ribot>> getRibots();

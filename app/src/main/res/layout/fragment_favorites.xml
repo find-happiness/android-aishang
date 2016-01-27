@@ -1,30 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <in.srain.cube.views.ptr.PtrClassicFrameLayout
-        android:id="@+id/load_more_list_view_ptr_frame"
-        android:layout_width="match_parent"
-        android:background="@android:color/white"
-        android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-        <com.aishang.app.widget.loadmore.LoadMoreListViewContainer
-            android:id="@+id/load_more_list_view_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ListView
-                android:id="@+id/load_more_small_image_list_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:divider="@null"
-                android:fadingEdge="none"
-                android:listSelector="@android:color/transparent"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"
-                android:scrollbarStyle="outsideOverlay" />
-
-        </com.aishang.app.widget.loadmore.LoadMoreListViewContainer>
-    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+  <com.jcodecraeer.xrecyclerview.XRecyclerView
+      android:id="@+id/swipe_refresh"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@id/view_line"
+      android:background="@android:color/white"/>
 </LinearLayout>

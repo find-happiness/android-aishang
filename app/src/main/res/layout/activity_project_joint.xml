@@ -1,11 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:paddingTop="@dimen/padding_stutas_bar"
     android:layout_height="match_parent"
     android:background="@color/primary">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@android:color/white"
+      android:orientation="vertical"
+      android:paddingTop="@dimen/stutas_bar_tool_bar">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+      <android.support.v4.widget.NestedScrollView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+          <ImageView
+              android:layout_width="match_parent"
+              android:layout_height="200dp"
+              android:src="@mipmap/banner"/>
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="1000dp"/>
+        </LinearLayout>
+
+      </android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+  </LinearLayout>
+
+
+  <android.support.design.widget.AppBarLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:paddingTop="@dimen/padding_stutas_bar">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -14,34 +53,14 @@
         android:background="@color/primary"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-        <TextView
-            android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/xiangmuhezuo"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_title"/>
+      <TextView
+          android:id="@+id/toolbar_title"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:text="@string/xiangmuhezuo"
+          android:textColor="@android:color/white"
+          android:textSize="@dimen/text_title"/>
     </android.support.v7.widget.Toolbar>
-
-    <in.srain.cube.views.ptr.PtrClassicFrameLayout
-        android:id="@+id/load_more_list_view_ptr_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/ll_tuijian"
-        android:layout_below="@+id/toolbar"
-        android:background="@color/gray">
-
-        <ListView
-            android:id="@+id/load_more_small_image_list_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@color/gray"
-            android:dividerHeight="@dimen/spacing_xsmall"
-            android:fadingEdge="none"
-            android:listSelector="@android:color/transparent"
-            android:scrollbarStyle="outsideOverlay"/>
-
-    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
-
-</RelativeLayout>
+  </android.support.design.widget.AppBarLayout>
+</FrameLayout>

@@ -121,7 +121,7 @@ dependencies {
     // compile 'com.quinny898.library.persistentsearch:library:1.1.0-SNAPSHOT'
     compile project(':PersistentSearchLibrary')
     compile project(':MaterialEditTextlibrary')
-
+    compile project(':xrecyclerview')
     // Instrumentation test dependencies
     androidTestCompile jUnit
     androidTestCompile mockito
@@ -166,9 +166,6 @@ dependencies {
     compile 'com.android.support:support-v4:23.1.1'
     compile "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
     compile "com.squareup.okhttp3:logging-interceptor:$OKHTTP_VERSION"
-
-    //compile project(':BGARefreshLayout')
-    compile 'com.jcodecraeer:xrecyclerview:1.2.6'
 
 }
 

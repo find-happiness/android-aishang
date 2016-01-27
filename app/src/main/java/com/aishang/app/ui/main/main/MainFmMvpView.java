@@ -1,7 +1,9 @@
 package com.aishang.app.ui.main.main;
 
+import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JLoupanProductListResult;
 import com.aishang.app.data.model.JMrePromResult;
+import com.aishang.app.data.model.JNewsListResult;
 import com.aishang.app.ui.base.MvpView;
 import java.util.List;
 
@@ -15,9 +17,11 @@ public interface MainFmMvpView extends MvpView {
   void showLoupan(List<JLoupanProductListResult.Product> products,
       List<JLoupanProductListResult.Loupan> loupans);
 
-  void showHotel();
+  void showHotel(List<JHotelListResult.Hotel> hotels);
 
-  void showTrave();
+  void showTrave(List<JNewsListResult.JNewsListItem> newsList);
+
+  void showTraveEmpty();
 
   void showBannerEmpty();
 
@@ -26,4 +30,6 @@ public interface MainFmMvpView extends MvpView {
   void showHotelEmpty();
 
   void showError(String error);
+
+  void addNetCount();
 }

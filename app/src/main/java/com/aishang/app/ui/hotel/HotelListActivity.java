@@ -163,8 +163,8 @@ public class HotelListActivity extends BaseActivity {
     layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
     mRecyclerView.setLayoutManager(layoutManager);
 
-    mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
-    //mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
+    mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallScaleRipple);
+    mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);
     //mRecyclerView.setArrowImageView(R.drawable.iconfont_downgrey);
     //
     //View header = LayoutInflater.from(this)
@@ -194,8 +194,9 @@ public class HotelListActivity extends BaseActivity {
           new Handler().postDelayed(new Runnable() {
             public void run() {
               mRecyclerView.loadMoreComplete();
+              int size = listData.size();
               for (int i = 0; i < 15; i++) {
-                listData.add("item" + (i + listData.size()));
+                listData.add("item" + (i + size));
               }
               mAdapter.notifyDataSetChanged();
               mRecyclerView.refreshComplete();
@@ -204,7 +205,6 @@ public class HotelListActivity extends BaseActivity {
         } else {
           new Handler().postDelayed(new Runnable() {
             public void run() {
-
               mAdapter.notifyDataSetChanged();
               mRecyclerView.loadMoreComplete();
             }
@@ -215,11 +215,11 @@ public class HotelListActivity extends BaseActivity {
     });
 
     listData = new ArrayList<String>();
-    for (int i = 0; i < 15; i++) {
-      listData.add("item" + (i + listData.size()));
-    }
+    //for (int i = 0; i < 15; i++) {
+    //  listData.add("item" + (i + listData.size()));
+    //}
     mAdapter = new RefreshAdapter(listData,this);
-
+    //
     mRecyclerView.setAdapter(mAdapter);
   }
 

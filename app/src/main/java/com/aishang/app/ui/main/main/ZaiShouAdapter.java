@@ -12,8 +12,10 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JLoupanProductListResult;
+import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.injection.ActivityContext;
 import com.aishang.app.ui.insaleDetail.InSaleDetailActivity;
+import com.aishang.app.util.Constants;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +58,11 @@ import javax.inject.Inject;
     this.products = products;
   }
 
+  public void clearData() {
+    products.clear();
+    loupans.clear();
+  }
+
   public List<JLoupanProductListResult.Product> getProducts() {
     return products;
   }
@@ -92,14 +99,15 @@ import javax.inject.Inject;
     });
 
     Picasso.with(activity)
-        .load(product.getImageUrl().replace("_237", "_800"))
+        .load(AiShangService.IMG_URL + product.getImageUrl())
         .error(R.mipmap.banner)
         .placeholder(R.mipmap.banner)
         .into(holder.imgInSale);
 
-    holder.priceText.setText(product.getPriceText());
-    holder.tese.setText(product.getPromotion());
+    holder.priceText.setText(loupan.getPriceText());
+    holder.tese.setText(loupan.getPromotion());
     holder.address.setText(loupan.getAddress());
+    holder.time.setText(loupan.getMoveInDate());
 
     convertView.setTag(holder);
 
@@ -119,9 +127,9 @@ import javax.inject.Inject;
     @Bind(R.id.time) TextView time;
     @Bind(R.id.address) TextView address;
     @Bind(R.id.tese) TextView tese;
-    @Bind(R.id.look) Button look;
-    @Bind(R.id.youji) Button youji;
-    @Bind(R.id.buy) Button buy;
+    @Bind(R.id.look) TextView look;
+    @Bind(R.id.youji) TextView youji;
+    @Bind(R.id.buy) TextView buy;
 
     public HotYouJiHolder(View itemView) {
       ButterKnife.bind(this, itemView);

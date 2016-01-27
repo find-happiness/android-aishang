@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.aishang.app.data.DataManager;
+import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JLoupanProductListResult;
 import com.aishang.app.data.model.JMrePromResult;
+import com.aishang.app.data.model.JNewsListResult;
 import com.aishang.app.data.model.Ribot;
 import com.aishang.app.ui.KanFanTuan.KanFanTuanActivity;
 import com.aishang.app.ui.ProjectJoint.ProjectJointActivity;
@@ -77,6 +79,7 @@ public class MainFmPresenter extends BasePresenter<MainFmMvpView> {
 
           @Override public void onError(Throwable e) {
             getMvpView().showError("网络异常:" + e.toString());
+            getMvpView().addNetCount();
           }
 
           @Override public void onNext(JMrePromResult jMrePromResult) {
@@ -88,6 +91,7 @@ public class MainFmPresenter extends BasePresenter<MainFmMvpView> {
             } else {
               getMvpView().showError(jMrePromResult.getResult());
             }
+            getMvpView().addNetCount();
           }
         });
   }
@@ -113,6 +117,7 @@ public class MainFmPresenter extends BasePresenter<MainFmMvpView> {
 
           @Override public void onError(Throwable e) {
             getMvpView().showError("网络异常:" + e.toString());
+            getMvpView().addNetCount();
           }
 
           @Override public void onNext(JLoupanProductListResult loupanProductListResult) {
@@ -120,12 +125,103 @@ public class MainFmPresenter extends BasePresenter<MainFmMvpView> {
                 .toUpperCase()
                 .equals(Constants.RESULT_SUCCESS.toUpperCase())) {
               getMvpView().showLoupan(new ArrayList<JLoupanProductListResult.Product>(
-                  Arrays.asList(loupanProductListResult.getProductList())),
+                      Arrays.asList(loupanProductListResult.getProductList())),
                   new ArrayList<JLoupanProductListResult.Loupan>(
                       Arrays.asList(loupanProductListResult.getLoupanList())));
             } else {
               getMvpView().showError(loupanProductListResult.getResult());
+              getMvpView().showLoupanEmpty();
             }
+            getMvpView().addNetCount();
+          }
+        });
+  }
+
+  public void loadHotel(int version, String json) {
+    loadHotel(false, version, json);
+  }
+
+  public void loadHotel(boolean allowMemoryCacheVersion, int version, String json) {
+    checkViewAttached();
+
+    if (mHotelSubscription != null && !mHotelSubscription.isUnsubscribed()) {
+      mHotelSubscription.unsubscribe();
+    }
+
+    mHotelSubscription = mDataManager.syncHotelList(version, json)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(Schedulers.io())
+        .subscribe(new Subscriber<JHotelListResult>() {
+          @Override public void onCompleted() {
+
+          }
+
+          @Override public void onError(Throwable e) {
+            getMvpView().showError("网络异常:" + e.toString());
+            getMvpView().addNetCount();
+          }
+
+          @Override public void onNext(JHotelListResult hotelListResult) {
+            if (hotelListResult.getResult()
+                .toUpperCase()
+                .equals(Constants.RESULT_SUCCESS.toUpperCase())) {
+              getMvpView().showHotel(new ArrayList<JHotelListResult.Hotel>(
+                  Arrays.asList(hotelListResult.getHotelList())));
+            } else {
+              getMvpView().showError(hotelListResult.getResult());
+              getMvpView().showHotelEmpty();
+            }
+            getMvpView().addNetCount();
+          }
+        });
+  }
+
+  public void loadTravel(int version, String json) {
+    loadTravel(false, version, json);
+  }
+
+  public void loadTravel(boolean allowMemoryCacheVersion, int version, String json) {
+    checkViewAttached();
+
+    if (mTraveSubscription != null && !mTraveSubscription.isUnsubscribed()) {
+      mTraveSubscription.unsubscribe();
+    }
+
+    mTraveSubscription = mDataManager.syncTravel(version, json)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(Schedulers.io())
+        .subscribe(new Subscriber<JNewsListResult>() {
+          @Override public void onCompleted() {
+
+          }
+
+          @Override public void onError(Throwable e) {
+            getMvpView().showError("网络异常:" + e.toString());
+            getMvpView().addNetCount();
+          }
+
+          @Override public void onNext(JNewsListResult newsListResult) {
+            if (newsListResult.getResult()
+                .toUpperCase()
+                .equals(Constants.RESULT_SUCCESS.toUpperCase())) {
+              JNewsListResult.JNewsCatListItem cat = null;
+              for (JNewsListResult.JNewsCatListItem item : newsListResult.getNewsCatList()) {
+                if (item.getCatID() == 2) {
+                  cat = item;
+                }
+              }
+
+              if (cat != null && cat.getNewsList().length > 0) {
+                getMvpView().showTrave(
+                    new ArrayList<JNewsListResult.JNewsListItem>(Arrays.asList(cat.getNewsList())));
+              } else {
+                getMvpView().showTraveEmpty();
+              }
+            } else {
+              getMvpView().showError(newsListResult.getResult());
+              getMvpView().showTraveEmpty();
+            }
+            getMvpView().addNetCount();
           }
         });
   }

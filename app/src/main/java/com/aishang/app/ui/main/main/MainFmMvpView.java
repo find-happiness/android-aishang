@@ -4,6 +4,7 @@ import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JLoupanProductListResult;
 import com.aishang.app.data.model.JMrePromResult;
 import com.aishang.app.data.model.JNewsListResult;
+import com.aishang.app.data.model.JSysZoneResult;
 import com.aishang.app.ui.base.MvpView;
 import java.util.List;
 
@@ -32,4 +33,6 @@ public interface MainFmMvpView extends MvpView {
   void showError(String error);
 
   void addNetCount();
+
+  void showSysZoneDialog(List<JSysZoneResult.Zone> zones);
 }

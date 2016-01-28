@@ -8,6 +8,7 @@ import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JLoupanProductListResult;
 import com.aishang.app.data.model.JMrePromResult;
 import com.aishang.app.data.model.JNewsListResult;
+import com.aishang.app.data.model.JSysZoneResult;
 import com.aishang.app.data.model.Ribot;
 import com.aishang.app.ui.KanFanTuan.KanFanTuanActivity;
 import com.aishang.app.ui.ProjectJoint.ProjectJointActivity;
@@ -39,6 +40,7 @@ public class MainFmPresenter extends BasePresenter<MainFmMvpView> {
   private Subscription mLoupanSubscription;
   private Subscription mHotelSubscription;
   private Subscription mTraveSubscription;
+  private Subscription mZoneSubscription;
 
   private List<Ribot> mCachedRibots;
 
@@ -56,6 +58,7 @@ public class MainFmPresenter extends BasePresenter<MainFmMvpView> {
     if (mLoupanSubscription != null) mLoupanSubscription.unsubscribe();
     if (mHotelSubscription != null) mHotelSubscription.unsubscribe();
     if (mTraveSubscription != null) mTraveSubscription.unsubscribe();
+    if (mZoneSubscription != null) mZoneSubscription.unsubscribe();
   }
 
   public void loadBanner(int version, String json) {
@@ -222,6 +225,39 @@ public class MainFmPresenter extends BasePresenter<MainFmMvpView> {
               getMvpView().showTraveEmpty();
             }
             getMvpView().addNetCount();
+          }
+        });
+  }
+
+  public void loadZone(boolean allowMemoryCacheVersion, int version, String json)
+  {
+    checkViewAttached();
+
+    if (mZoneSubscription != null && !mZoneSubscription.isUnsubscribed()) {
+      mZoneSubscription.unsubscribe();
+    }
+
+    mZoneSubscription = mDataManager.sysZone(version, json)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(Schedulers.io())
+        .subscribe(new Subscriber<JSysZoneResult>() {
+          @Override public void onCompleted() {
+
+          }
+
+          @Override public void onError(Throwable e) {
+            getMvpView().showError("网络异常:" + e.toString());
+          }
+
+          @Override public void onNext(JSysZoneResult zoneResult) {
+            if (zoneResult.getResult()
+                .toUpperCase()
+                .equals(Constants.RESULT_SUCCESS.toUpperCase())) {
+              getMvpView().showSysZoneDialog(
+                  new ArrayList<JSysZoneResult.Zone>(Arrays.asList(zoneResult.getZoneList())));
+            } else {
+              getMvpView().showError(zoneResult.getResult());
+            }
           }
         });
   }

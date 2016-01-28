@@ -59,6 +59,7 @@
                     android:layout_gravity="right"/>
 
                 <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/phone"
                     android:layout_toLeftOf="@id/btn_get_verification_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -73,6 +74,7 @@
             </FrameLayout>
 
             <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/verify_code"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@mipmap/iconfont_mima"
@@ -88,6 +90,7 @@
                 app:met_underlineColor="@color/gray" />
 
             <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@mipmap/iconfont_mima"
@@ -103,6 +106,7 @@
                 app:met_underlineColor="@color/gray" />
 
             <Button
+                android:id="@+id/btn_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_medium"

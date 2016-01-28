@@ -2,9 +2,13 @@ package com.aishang.app.util;
 
 import com.aishang.app.data.model.JHotelListParam;
 import com.aishang.app.data.model.JLoupanProductListParam;
+import com.aishang.app.data.model.JMemberLoginParam;
 import com.aishang.app.data.model.JNewsListParams;
+import com.aishang.app.data.model.JSysZoneParam;
 import com.google.gson.Gson;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by song on 2016/1/26.
@@ -124,7 +128,7 @@ public class AiShangUtil {
    * @param tagIDs tag的ID，采用”,”分割
    * @param fKeyWords 查找字符串。
    * @param fOrderType 排序类型：1—日期desc, 2—日期ASC, 3-点击DESC 4—点击ASC， 5—标题DESC，6—标题ASC
-   * @param  recCount 请求条数
+   * @param recCount 请求条数
    * @return 生成后的JSon
    */
   public static String generNewsParam(int recStart, int zoneID, int catID, int filterTypeID,
@@ -166,5 +170,21 @@ public class AiShangUtil {
     cal.setTimeInMillis(System.currentTimeMillis() + 2 * 86400000L);
     return String.format("%d-%02d-%02d", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
         cal.get(Calendar.DAY_OF_MONTH));
+  }
+
+  public static String gennerLogin(String psd,String phone)
+  {
+    JMemberLoginParam param = new JMemberLoginParam();
+    param.setMemberAccount(phone);
+    param.setPassword(CommonUtil.getEncodeMD5(psd));
+
+    return gson.toJson(param);
+  }
+
+  public static String gennerSysZone(int zoneID) {
+    JSysZoneParam p = new JSysZoneParam();
+    p.setZoneID(zoneID);
+    p.setLastUpdate("");
+    return gson.toJson(p);
   }
 }

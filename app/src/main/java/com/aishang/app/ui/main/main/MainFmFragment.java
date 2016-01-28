@@ -1,6 +1,8 @@
 package com.aishang.app.ui.main.main;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -27,10 +29,12 @@ import com.aishang.app.data.model.JLoupanProductListResult;
 import com.aishang.app.data.model.JMrePromParam;
 import com.aishang.app.data.model.JMrePromResult;
 import com.aishang.app.data.model.JNewsListResult;
+import com.aishang.app.data.model.JSysZoneResult;
 import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.ui.main.MainActivity;
 import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
+import com.aishang.app.util.DialogFactory;
 import com.aishang.app.util.NetworkUtil;
 import com.aishang.app.widget.NonScrollGridView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
@@ -77,10 +81,13 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
   @Bind(R.id.no_data_hotel) TextView noDataHotel;
   @Bind(R.id.avloadingIndicatorView_youji) AVLoadingIndicatorView avloadingIndicatorViewYouji;
   @Bind(R.id.no_data_youji) TextView noDataYouji;
-  @Bind(R.id.btn_city) TextView btnCity;
   @Bind(R.id.swipe_refresh) SwipeRefreshLayout swipeRefresh;
 
+  private Dialog progressDialog;
+
   private int network = 0;
+
+  private int selectZoneID = 1;
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -99,6 +106,7 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
     ButterKnife.bind(this, view);
     mMainPresenter.attachView(this);
     initView();
+    autoRefresh();
     return view;
   }
 
@@ -149,6 +157,46 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
   }
 
   @OnClick(R.id.btn_fabuchuzu) void btnFaBuChuZu() {
+  }
+
+  @OnClick(R.id.btn_city) void onClickCity() {
+    progressDialog = DialogFactory.createProgressDialog(getActivity(), R.string.listview_loading);
+    progressDialog.show();
+
+    mMainPresenter.loadZone(false, 0, AiShangUtil.gennerSysZone(2));
+  }
+
+  @Override public void showSysZoneDialog(final List<JSysZoneResult.Zone> zones) {
+
+    if (progressDialog != null && progressDialog.isShowing()) {
+      progressDialog.dismiss();
+    }
+
+    Log.i(TAG, "showSysZoneDialog: " + zones.size());
+    final String[] items = new String[zones.size() + 1];
+    items[0] = this.getString(R.string.unlimited);
+    int cur = 0;
+    int index = 0;
+    for (JSysZoneResult.Zone zone : zones) {
+      items[index + 1] = zone.getName();
+      if (selectZoneID == zone.getZoneID()) {
+        cur = index + 1;
+      }
+      index++;
+    }
+    Log.i(TAG, "showSysZoneDialog: item size :" + items.length);
+    DialogFactory.createSingleChoiceDialog(getActivity(), items, cur,
+        new DialogInterface.OnClickListener() {
+          @Override public void onClick(DialogInterface dialog, int which) {
+
+            int bakZoneID = selectZoneID;
+
+            selectZoneID = which == 0 ? 2 : zones.get(which - 1).getZoneID();
+            dialog.dismiss();
+
+            if (bakZoneID != selectZoneID) autoRefresh();
+          }
+        }, getString(R.string.zone_select)).show();
   }
 
   @Override public void showBanner(List<JMrePromResult.Ad> ads) {
@@ -235,13 +283,6 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
     initGvZaiShou();
     initSearch();
     initSwipeRefresh();
-
-    new Handler().postDelayed(new Runnable() {
-      @Override public void run() {
-        swipeRefresh.setRefreshing(true);
-        loadData();
-      }
-    }, 100);
   }
 
   private void initSwipeRefresh() {
@@ -359,22 +400,31 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
 
   private void asynLoupan() {
     String json =
-        AiShangUtil.generLoupanProductParam(0, 0, 0, 0, 3, 0, 0, "", 0, "", "", 1, 0, 0, 0, 0, 0,
-            "", "", "", 0);
+        AiShangUtil.generLoupanProductParam(0, 0, 0, 0, 3, 0, 0, "", 0, "", "", selectZoneID, 0, 0,
+            0, 0, 0, "", "", "", 0);
     mMainPresenter.loadLoupan(1, json);
   }
 
   private void asynHotel() {
     String json = AiShangUtil.generHotelParam(0, "", 0, 4, 0, AiShangUtil.gennerCheckinData(),
-        AiShangUtil.gennerCheckoutData(), 1, 0, 0, 0, 0, 0, "", 0, "", 0, 1);
+        AiShangUtil.gennerCheckoutData(), selectZoneID, 0, 0, 0, 0, 0, "", 0, "", 0, 1);
 
     mMainPresenter.loadHotel(1, json);
   }
 
   private void asynTrvael() {
-    String json = AiShangUtil.generNewsParam(0, 1, 0, 0, 0, "", "", 1, 3);
+    String json = AiShangUtil.generNewsParam(0, selectZoneID, 0, 0, 0, "", "", 1, 3);
 
     mMainPresenter.loadTravel(2, json);
+  }
+
+  private void autoRefresh() {
+    new Handler().postDelayed(new Runnable() {
+      @Override public void run() {
+        swipeRefresh.setRefreshing(true);
+        loadData();
+      }
+    }, 100);
   }
 
   public class LocalImageHolderView implements Holder<JMrePromResult.Ad> {

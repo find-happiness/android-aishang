@@ -3,6 +3,7 @@ package com.aishang.app.injection.component;
 import android.app.Application;
 import android.content.Context;
 
+import com.aishang.app.ui.login.LoginActivity;
 import com.squareup.otto.Bus;
 
 import javax.inject.Singleton;
@@ -21,6 +22,7 @@ import com.aishang.app.injection.module.ApplicationModule;
 public interface ApplicationComponent {
 
     void inject(SyncService syncService);
+    void inject(LoginActivity activity);
 
     @ApplicationContext Context context();
     Application application();

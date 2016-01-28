@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Environment;
+import android.support.annotation.StringRes;
+import android.support.design.widget.Snackbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.View;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -119,5 +122,13 @@ public class CommonUtil {
   private static boolean hasExternalStoragePermission(Context context) {
     int perm = context.checkCallingOrSelfPermission(EXTERNAL_STORAGE_PERMISSION);
     return perm == PackageManager.PERMISSION_GRANTED;
+  }
+
+  public static void showSnackbar(@StringRes int text, View rootView) {
+    Snackbar.make(rootView, text, Snackbar.LENGTH_LONG).show();
+  }
+
+  public static void showSnackbar(String text, View rootView) {
+    Snackbar.make(rootView, text, Snackbar.LENGTH_LONG).show();
   }
 }

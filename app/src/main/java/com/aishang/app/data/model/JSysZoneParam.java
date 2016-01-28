@@ -1,8 +1,18 @@
 package com.aishang.app.data.model;
 
-public class JHotelZoneListParam {
-	// {zoneID:2,lastUpdate:''}
+/**
+ * ajax loupan zone
+ * 
+ * version =1;
+ * 
+ * zoneID default 2;
+ * 
+ * @author wang
+ * 
+ */
+public class JSysZoneParam {
 
+	// {zoneID:2,lastUpdate:''}
 	private int zoneID;
 	private String lastUpdate;
 

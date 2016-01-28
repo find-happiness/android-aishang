@@ -16,6 +16,8 @@ import com.aishang.app.ui.TravelFavorites.TravelFavoritesActivity;
 import com.aishang.app.ui.about.AboutActivity;
 import com.aishang.app.ui.base.BasePresenter;
 
+import com.aishang.app.ui.login.LoginActivity;
+import com.aishang.app.ui.register.RegisterActivity;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -27,107 +29,111 @@ import rx.Subscription;
  */
 public class MinePresenter extends BasePresenter<MineMvpView> {
 
+  private final DataManager mDataManager;
+  private Subscription mSubscription;
 
-    private MineMvpView mineMvpView;
+  private List<Ribot> mCachedRibots;
 
-    private final DataManager mDataManager;
-    private Subscription mSubscription;
+  @Inject public MinePresenter(DataManager dataManager) {
+    mDataManager = dataManager;
+  }
 
-    private List<Ribot> mCachedRibots;
+  @Override public void attachView(MineMvpView mvpView) {
+    super.attachView(mvpView);
+  }
 
-    @Inject
-    public MinePresenter(DataManager dataManager) {
-        mDataManager = dataManager;
-    }
+  @Override public void detachView() {
+    super.detachView();
+    if (mSubscription != null) mSubscription.unsubscribe();
+  }
 
-    @Override
-    public void attachView(MineMvpView mvpView) {
-        mineMvpView = mvpView;
-    }
+  public void intentToMemberCenter() {
+    Activity act = ((MineFragment) getMvpView()).getActivity();
 
-    @Override
-    public void detachView() {
-        mineMvpView = null;
-        if (mSubscription != null) mSubscription.unsubscribe();
-    }
+    Intent intent = new Intent(act, MemberCenterActivity.class);
 
-    public void intentToMemberCenter()
-    {
-        Activity act = ((MineFragment) mineMvpView).getActivity();
+    act.startActivity(intent);
+  }
 
-        Intent intent = new Intent(act, MemberCenterActivity.class);
+  public void intentToAccoutCenter() {
+    Activity act = ((MineFragment) getMvpView()).getActivity();
 
-        act.startActivity(intent);
-    }
+    Intent intent = new Intent(act, AccountCenterActivity.class);
 
-    public void intentToAccoutCenter()
-    {
-        Activity act = ((MineFragment) mineMvpView).getActivity();
+    act.startActivity(intent);
+  }
 
-        Intent intent = new Intent(act, AccountCenterActivity.class);
+  public void intentToMyOrder() {
+    Activity act = ((MineFragment) getMvpView()).getActivity();
 
-        act.startActivity(intent);
-    }
+    Intent intent = new Intent(act, MyOrderActivity.class);
 
-    public void intentToMyOrder()
-    {
-        Activity act = ((MineFragment) mineMvpView).getActivity();
+    act.startActivity(intent);
+  }
 
-        Intent intent = new Intent(act, MyOrderActivity.class);
+  public void intentToMyHouse() {
+    Activity act = ((MineFragment) getMvpView()).getActivity();
 
-        act.startActivity(intent);
-    }
+    Intent intent = new Intent(act, MyHouseActivity.class);
 
-    public void intentToMyHouse()
-    {
-        Activity act = ((MineFragment) mineMvpView).getActivity();
+    act.startActivity(intent);
+  }
 
-        Intent intent = new Intent(act, MyHouseActivity.class);
+  public void intentToBrokerCenter() {
+    Activity act = ((MineFragment) getMvpView()).getActivity();
 
-        act.startActivity(intent);
-    }
+    Intent intent = new Intent(act, BrokerCenterActivity.class);
 
-    public void intentToBrokerCenter()
-    {
-        Activity act = ((MineFragment) mineMvpView).getActivity();
+    act.startActivity(intent);
+  }
 
-        Intent intent = new Intent(act, BrokerCenterActivity.class);
+  public void intentToTravelFavorites() {
+    Activity act = ((MineFragment) getMvpView()).getActivity();
 
-        act.startActivity(intent);
-    }
+    Intent intent = new Intent(act, TravelFavoritesActivity.class);
 
-    public void intentToTravelFavorites()
-    {
-        Activity act = ((MineFragment) mineMvpView).getActivity();
+    act.startActivity(intent);
+  }
 
-        Intent intent = new Intent(act, TravelFavoritesActivity.class);
+  public void intentToCashWithDrawApply() {
+    Activity act = ((MineFragment) getMvpView()).getActivity();
 
-        act.startActivity(intent);
-    }
+    Intent intent = new Intent(act, CashWithDrawApplyActivity.class);
 
-    public void intentToCashWithDrawApply()
-    {
-        Activity act = ((MineFragment) mineMvpView).getActivity();
+    act.startActivity(intent);
+  }
 
-        Intent intent = new Intent(act, CashWithDrawApplyActivity.class);
+  public void intentToMyBuyAndSale() {
+    Activity act = ((MineFragment) getMvpView()).getActivity();
 
-        act.startActivity(intent);
-    }
+    Intent intent = new Intent(act, BuyAndSaleActivity.class);
 
-    public void intentToMyBuyAndSale()
-    {
-        Activity act = ((MineFragment) mineMvpView).getActivity();
+    act.startActivity(intent);
+  }
 
-        Intent intent = new Intent(act, BuyAndSaleActivity.class);
+  public void intentToAbout() {
+    Activity act = ((MineFragment) getMvpView()).getActivity();
 
-        act.startActivity(intent);
-    }
-    public void intentToAbout()
-    {
-        Activity act = ((MineFragment) mineMvpView).getActivity();
+    Intent intent = new Intent(act, AboutActivity.class);
 
-        Intent intent = new Intent(act, AboutActivity.class);
+    act.startActivity(intent);
+  }
 
-        act.startActivity(intent);
-    }
+  public void intentToLogin()
+  {
+    Activity act = ((MineFragment) getMvpView()).getActivity();
+
+    Intent intent = new Intent(act, LoginActivity.class);
+
+    act.startActivity(intent);
+  }
+
+  public void intentToRegister()
+  {
+    Activity act = ((MineFragment) getMvpView()).getActivity();
+
+    Intent intent = new Intent(act, RegisterActivity.class);
+
+    act.startActivity(intent);
+  }
 }

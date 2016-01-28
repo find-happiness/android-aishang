@@ -7,7 +7,7 @@ package com.aishang.app.data.model;
  * @author wang
  *
  */
-public class JLoupanZoneListResult {
+public class JSysZoneResult {
 
 	// {
 	// "result": "success",

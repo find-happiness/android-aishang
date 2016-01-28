@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import com.aishang.app.data.DataManager;
 import com.aishang.app.data.model.JMemberLoginResult;
+import com.aishang.app.ui.ChangePassword.ChangePasswordActivity;
 import com.aishang.app.ui.ForgetPossword.ForgetPosswordActivity;
 import com.aishang.app.ui.base.BasePresenter;
 import com.aishang.app.ui.main.MainActivity;
@@ -53,35 +54,36 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
           }
 
           @Override public void onNext(JMemberLoginResult jMemberLoginResult) {
-            if(jMemberLoginResult.getResult().toUpperCase().equals("success".toUpperCase()))
-            {
-              getMvpView().loginScuess();
-            }
-            else {
-              getMvpView().showError(jMemberLoginResult.getResult());
+            if (jMemberLoginResult.getResult().toUpperCase().equals("success".toUpperCase())) {
+              getMvpView().loginScuess(jMemberLoginResult);
+            } else {
+              getMvpView().loginFaild(jMemberLoginResult.getResult());
             }
           }
         });
   }
 
-  public void intentToMain()
-  {
+  public void intentToMain() {
     Activity act = (LoginActivity) getMvpView();
     Intent intent = MainActivity.getStartIntent(act, true);
     act.startActivity(intent);
   }
 
-  public void intentToForgetPsw()
-  {
+  public void intentToForgetPsw() {
     Activity act = (LoginActivity) getMvpView();
     Intent intent = new Intent(act, ForgetPosswordActivity.class);
     act.startActivity(intent);
   }
 
-  public void intentToRegister()
-  {
+  public void intentToRegister() {
     Activity act = (LoginActivity) getMvpView();
     Intent intent = new Intent(act, RegisterActivity.class);
+    act.startActivity(intent);
+  }
+
+  public void intentToChangePsw() {
+    Activity act = (LoginActivity) getMvpView();
+    Intent intent = new Intent(act, ChangePasswordActivity.class);
     act.startActivity(intent);
   }
 }

@@ -111,6 +111,13 @@ import javax.inject.Inject;
 
     convertView.setTag(holder);
 
+    convertView.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        Intent intent = new Intent(activity, InSaleDetailActivity.class);
+        activity.startActivity(intent);
+      }
+    });
+
     return convertView;
   }
 

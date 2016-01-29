@@ -2,6 +2,7 @@ package com.aishang.app.ui.main.main;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.injection.ActivityContext;
 import com.aishang.app.injection.PerActivity;
+import com.aishang.app.ui.HotelDetail.HotelDetailActivity;
 import com.aishang.app.ui.main.MainActivity;
 
 import com.aishang.app.util.Constants;
@@ -101,6 +103,13 @@ import butterknife.ButterKnife;
           }
         });
     convertView.setTag(holder);
+
+    convertView.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        Intent intent = new Intent(activity, HotelDetailActivity.class);
+        activity.startActivity(intent);
+      }
+    });
 
     return convertView;
   }

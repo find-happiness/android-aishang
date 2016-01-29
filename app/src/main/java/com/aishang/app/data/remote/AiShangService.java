@@ -3,6 +3,8 @@ package com.aishang.app.data.remote;
 import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JLoupanProductListResult;
 import com.aishang.app.data.model.JMemberLoginResult;
+import com.aishang.app.data.model.JMemberProfileResult;
+import com.aishang.app.data.model.JMemberStatisticsResult;
 import com.aishang.app.data.model.JMrePromResult;
 import com.aishang.app.data.model.JNewsListResult;
 import com.aishang.app.data.model.JSysZoneResult;
@@ -27,33 +29,39 @@ public interface AiShangService {
   String AiShangHost = "http://www.aishang67.com/";
   String IMG_URL = "http://www.aishang67.com";
 
-  @Headers("connection:Keep-Alive")
-  @GET("mobile/member/memberLogin.ashx") Observable<JMemberLoginResult> login(
+  @Headers("connection:Keep-Alive") @GET("mobile/member/memberLogin.ashx")
+  Observable<JMemberLoginResult> login(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/other/mrePromList.ashx")
+  Observable<JMrePromResult> mreProm(@Query(value = "v") int version, @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/versionCheck.ashx")
+  Observable<JVersionCheckResult> versionCheck(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/loupan/loupanProductList.ashx")
+  Observable<JLoupanProductListResult> loupanList(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/hotel/hotelList.ashx")
+  Observable<JHotelListResult> hotelList(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/NewsList.ashx")
+  Observable<JNewsListResult> newsList(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/sysZone.ashx") Observable<JSysZoneResult> sysZone(
       @Query(value = "v") int version, @Query(value = "q") String q);
 
-  @Headers("connection:Keep-Alive")
-  @GET("mobile/other/mrePromList.ashx") Observable<JMrePromResult> mreProm(
-      @Query(value = "v") int version, @Query(value = "q") String q);
+  @Headers("connection:Keep-Alive") @GET("mobile/member/memberProfile.ashx")
+  Observable<JMemberProfileResult> memberProfile(@Query(value = "v") int version,
+      @Query(value = "q") String q);
 
-  @Headers("connection:Keep-Alive")
-  @GET("mobile/versionCheck.ashx") Observable<JVersionCheckResult> versionCheck(
-      @Query(value = "v") int version, @Query(value = "q") String q);
-
-  @Headers("connection:Keep-Alive")
-  @GET("mobile/loupan/loupanProductList.ashx") Observable<JLoupanProductListResult> loupanList(
-      @Query(value = "v") int version, @Query(value = "q") String q);
-
-  @Headers("connection:Keep-Alive")
-  @GET("mobile/hotel/hotelList.ashx") Observable<JHotelListResult> hotelList(
-      @Query(value = "v") int version, @Query(value = "q") String q);
-
-  @Headers("connection:Keep-Alive")
-  @GET("/mobile/NewsList.ashx") Observable<JNewsListResult> newsList(
-      @Query(value = "v") int version, @Query(value = "q") String q);
-
-  @Headers("connection:Keep-Alive")
-  @GET("/mobile/sysZone.ashx") Observable<JSysZoneResult> sysZone(
-      @Query(value = "v") int version, @Query(value = "q") String q);
+  @Headers("connection:Keep-Alive") @GET("mobile/member/memberStatistics.ashx.ashx")
+  Observable<JMemberStatisticsResult> memberStatistics(@Query(value = "v") int version,
+      @Query(value = "q") String q);
 
   @GET("ribots") Observable<List<Ribot>> getRibots();
 

@@ -10,4 +10,5 @@ public interface LoginMvpView  extends MvpView{
   void showError(String error);
   void loginScuess(JMemberLoginResult result);
   void loginFaild(String str);
+  void saveLoginData(String phone,String psw);
 }

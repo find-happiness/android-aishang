@@ -3,6 +3,7 @@ package com.aishang.app.util;
 import com.aishang.app.data.model.JHotelListParam;
 import com.aishang.app.data.model.JLoupanProductListParam;
 import com.aishang.app.data.model.JMemberLoginParam;
+import com.aishang.app.data.model.JMemberStatisticsParam;
 import com.aishang.app.data.model.JNewsListParams;
 import com.aishang.app.data.model.JSysZoneParam;
 import com.google.gson.Gson;
@@ -177,6 +178,15 @@ public class AiShangUtil {
     JMemberLoginParam param = new JMemberLoginParam();
     param.setMemberAccount(phone);
     param.setPassword(CommonUtil.getEncodeMD5(psd));
+
+    return gson.toJson(param);
+  }
+
+  public static String gennerMemberStatistics(String psd,String phone)
+  {
+    JMemberStatisticsParam param = new JMemberStatisticsParam();
+    param.setMemberAccount(phone);
+    param.setPassword(psd);
 
     return gson.toJson(param);
   }

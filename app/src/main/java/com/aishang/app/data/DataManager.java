@@ -3,6 +3,8 @@ package com.aishang.app.data;
 import android.util.Log;
 import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JLoupanProductListResult;
+import com.aishang.app.data.model.JMemberProfileResult;
+import com.aishang.app.data.model.JMemberStatisticsResult;
 import com.aishang.app.data.model.JSysZoneParam;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JMrePromResult;
@@ -103,6 +105,15 @@ import com.aishang.app.util.EventPosterHelper;
   public Observable<JSysZoneResult> sysZone(int version, String json) {
     return mAiShangService.sysZone(version, json);
   }
+
+  public Observable<JMemberProfileResult> sysMemberProfile(int version, String json) {
+    return mAiShangService.memberProfile(version, json);
+  }
+
+  public Observable<JMemberStatisticsResult> syncMemberStatistics(int version, String json) {
+    return mAiShangService.memberStatistics(version, json);
+  }
+
 
   public JVersionCheckResult getVersionCheck() {
     String json = mPreferencesHelper.getVersionCheck();

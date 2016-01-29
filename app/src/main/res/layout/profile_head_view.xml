@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_view"
     android:layout_width="match_parent"
@@ -6,48 +7,55 @@
     android:layout_gravity="bottom"
     android:gravity="top">
 
-  <ImageView
-      android:id="@+id/iv_user_head"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+  <de.hdodenhof.circleimageview.CircleImageView
+      android:id="@+id/head_default"
+      android:layout_width="@dimen/head_medium"
+      android:layout_height="@dimen/head_medium"
       android:layout_centerHorizontal="true"
       android:layout_marginTop="50dp"
-      android:contentDescription="@string/app_name"
-      tools:src="@mipmap/ic_img_user_default"/>
+      android:src="@mipmap/img_head_default"/>
 
   <RelativeLayout
       android:id="@+id/rl_login_after"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_below="@id/iv_user_head"
-      android:visibility="gone">
+      android:layout_alignParentBottom="true"
+      android:visibility="visible">
 
-    <TextView
-        android:id="@+id/tv_user_name"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/ll_jifen_title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="2dp"
-        tools:text="qawdqwdqwdqwdwqd"
-        android:textColor="#ffffff"
-        android:textSize="16sp"/>
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
 
-    <TextView
-        android:id="@+id/tv_member_account"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_user_name"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="2dp"
-        tools:text="qawdqwdqwdqwdwqd"
-        android:textColor="#ffffff"
-        android:textSize="16sp"/>
+      <TextView
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:text="通用积分"
+          android:textColor="#ffffff"
+          android:textSize="18sp"/>
+
+      <TextView
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:text="换住积分"
+          android:textColor="#ffffff"
+          android:textSize="18sp"/>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_jifen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_member_account"
+        android:layout_above="@id/ll_jifen_title"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp">
 
@@ -75,33 +83,47 @@
           tools:text="4000"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv_member_account"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ll_jifen"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_above="@id/ll_jifen"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="2dp"
+        android:textColor="#ffffff"
+        android:textSize="16sp"
+        tools:text="qawdqwdqwdqwdwqd"/>
 
-      <TextView
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:layout_weight="1"
-          android:gravity="center"
-          android:text="通用积分"
-          android:textColor="#ffffff"
-          android:textSize="18sp"/>
+    <TextView
+        android:id="@+id/tv_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/tv_member_account"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="2dp"
+        android:textColor="#ffffff"
+        android:textSize="16sp"
+        tools:text="qawdqwdqwdqwdwqd"/>
 
-      <TextView
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:layout_weight="1"
-          android:gravity="center"
-          android:text="换住积分"
-          android:textColor="#ffffff"
-          android:textSize="18sp"/>
-    </LinearLayout>
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_user_head"
+        android:layout_width="@dimen/head_medium"
+        android:layout_height="@dimen/head_medium"
+        android:layout_above="@id/tv_user_name"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/app_name"
+        tools:src="@mipmap/ic_img_user_default"/>
+
+    <com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView
+        android:id="@+id/avloadingIndicatorView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:visibility="gone"
+        app:indicator="BallClipRotateMultiple"
+        app:indicator_color="@color/blue"
+        />
 
   </RelativeLayout>
 

@@ -16,6 +16,8 @@ public class BoilerplateApplication extends Application {
 
   ApplicationComponent mApplicationComponent;
   JMemberLoginResult memberLoginResult;
+  String memberAccount;
+  String memberPsw;
 
   @Override public void onCreate() {
     super.onCreate();
@@ -50,5 +52,21 @@ public class BoilerplateApplication extends Application {
 
   public void setMemberLoginResult(JMemberLoginResult memberLoginResult) {
     this.memberLoginResult = memberLoginResult;
+  }
+
+  public String getMemberAccount() {
+    return memberAccount;
+  }
+
+  public void setMemberAccount(String memberAccount) {
+    this.memberAccount = memberAccount;
+  }
+
+  public String getMemberPsw() {
+    return memberPsw;
+  }
+
+  public void setMemberPsw(String memberPsw) {
+    this.memberPsw = memberPsw;
   }
 }

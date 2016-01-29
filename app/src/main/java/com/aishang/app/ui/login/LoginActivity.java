@@ -105,16 +105,21 @@ public class LoginActivity extends BaseActivity
       //intentToChangePsw();
       Snackbar.make(layoutRoot, R.string.login_changePassword, Snackbar.LENGTH_LONG)
           .setAction(R.string.dialog_action_ok, new View.OnClickListener() {
-                @Override public void onClick(View v) {
-                  presenter.intentToChangePsw();
-                }
-              })
+            @Override public void onClick(View v) {
+              presenter.intentToChangePsw();
+            }
+          })
           .setDuration(Snackbar.LENGTH_LONG)
           .show();
     } else {
       //BaseHelper.toastError(this, errorStr);
       CommonUtil.showSnackbar(errorStr, layoutRoot);
     }
+  }
+
+  @Override public void saveLoginData(String phone, String psw) {
+    BoilerplateApplication.get(this).setMemberAccount(phone);
+    BoilerplateApplication.get(this).setMemberPsw(psw);
   }
 
   @Override public void onPswLogin(String phone, String psw) {

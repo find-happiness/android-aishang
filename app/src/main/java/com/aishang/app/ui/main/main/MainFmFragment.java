@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -43,14 +44,8 @@ import com.bigkoo.convenientbanner.holder.Holder;
 import com.google.gson.Gson;
 import com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView;
 import com.squareup.picasso.Picasso;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
-import rx.Scheduler;
-import rx.functions.Action1;
-import rx.subjects.Subject;
 
 /**
  * Created by song on 2016/1/16.
@@ -82,6 +77,7 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
   @Bind(R.id.avloadingIndicatorView_youji) AVLoadingIndicatorView avloadingIndicatorViewYouji;
   @Bind(R.id.no_data_youji) TextView noDataYouji;
   @Bind(R.id.swipe_refresh) SwipeRefreshLayout swipeRefresh;
+  @Bind(R.id.layoutRoot) CoordinatorLayout layoutRoot;
 
   private Dialog progressDialog;
 
@@ -295,6 +291,7 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
 
   private void loadData() {
     if (NetworkUtil.isNetworkConnected(getActivity())) {
+      swipeRefresh.setRefreshing(true);
       avloadingIndicatorViewInSale.setVisibility(View.VISIBLE);
       avloadingIndicatorViewHotel.setVisibility(View.VISIBLE);
       avloadingIndicatorViewYouji.setVisibility(View.VISIBLE);
@@ -302,9 +299,12 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
       asynLoupan();
       asynHotel();
       asynTrvael();
+    } else {
+      if (swipeRefresh.isRefreshing()) swipeRefresh.setRefreshing(false);
+      CommonUtil.showSnackbar(R.string.no_net, layoutRoot);
     }
 
-    Log.i(TAG, "loadData: " + (swipeRefresh.isRefreshing()));
+    //Log.i(TAG, "loadData: " + (swipeRefresh.isRefreshing()));
   }
 
   private void initSearch() {
@@ -421,7 +421,6 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
   private void autoRefresh() {
     new Handler().postDelayed(new Runnable() {
       @Override public void run() {
-        swipeRefresh.setRefreshing(true);
         loadData();
       }
     }, 100);

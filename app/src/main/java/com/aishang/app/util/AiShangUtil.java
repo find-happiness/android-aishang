@@ -7,7 +7,9 @@ import com.aishang.app.data.model.JMemberStatisticsParam;
 import com.aishang.app.data.model.JNewsListParams;
 import com.aishang.app.data.model.JSysZoneParam;
 import com.google.gson.Gson;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -171,6 +173,12 @@ public class AiShangUtil {
     cal.setTimeInMillis(System.currentTimeMillis() + 2 * 86400000L);
     return String.format("%d-%02d-%02d", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1,
         cal.get(Calendar.DAY_OF_MONTH));
+  }
+
+  public static String dateFormat(Date date)
+  {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    return sdf.format(date);
   }
 
   public static String gennerLogin(String psd,String phone)

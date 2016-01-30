@@ -20,6 +20,8 @@ public interface MainFmMvpView extends MvpView {
 
   void showHotel(List<JHotelListResult.Hotel> hotels);
 
+  void showError(String error);
+
   void showTrave(List<JNewsListResult.JNewsListItem> newsList);
 
   void showTraveEmpty();
@@ -29,8 +31,6 @@ public interface MainFmMvpView extends MvpView {
   void showLoupanEmpty();
 
   void showHotelEmpty();
-
-  void showError(String error);
 
   void addNetCount();
 

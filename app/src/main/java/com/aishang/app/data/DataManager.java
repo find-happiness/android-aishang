@@ -2,6 +2,7 @@ package com.aishang.app.data;
 
 import android.util.Log;
 import com.aishang.app.data.model.JHotelListResult;
+import com.aishang.app.data.model.JHotelPriceCatListResult;
 import com.aishang.app.data.model.JLoupanProductListResult;
 import com.aishang.app.data.model.JMemberProfileResult;
 import com.aishang.app.data.model.JMemberStatisticsResult;
@@ -114,6 +115,9 @@ import com.aishang.app.util.EventPosterHelper;
     return mAiShangService.memberStatistics(version, json);
   }
 
+  public Observable<JHotelPriceCatListResult> syncHotelPriceCatList(int version) {
+    return mAiShangService.hotelPriceCatList(version);
+  }
 
   public JVersionCheckResult getVersionCheck() {
     String json = mPreferencesHelper.getVersionCheck();

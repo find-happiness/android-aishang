@@ -1,144 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
-  <com.jcodecraeer.xrecyclerview.XRecyclerView
-      android:id="@+id/swipe_refresh"
+  <android.support.design.widget.CoordinatorLayout
+      android:id="@+id/layoutRoot"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      app:layout_behavior="@string/appbar_scrolling_view_behavior">
+      >
 
-  </com.jcodecraeer.xrecyclerview.XRecyclerView>
 
-  <android.support.design.widget.AppBarLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:background="@color/primary"
-      android:paddingTop="@dimen/padding_stutas_bar">
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <RelativeLayout
+    </com.jcodecraeer.xrecyclerview.XRecyclerView>
+
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
+        android:background="@color/primary"
+        android:paddingTop="@dimen/padding_stutas_bar">
 
-      <android.support.v7.widget.Toolbar
-          android:id="@+id/toolbar"
+      <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:background="@color/primary">
+          >
 
-        <TextView
-            android:id="@+id/toolbar_title"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primary">
+
+          <TextView
+              android:id="@+id/toolbar_title"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:text="@string/huangzujiudian"
+              android:textColor="@android:color/white"
+              android:textSize="@dimen/text_title"/>
+        </android.support.v7.widget.Toolbar>
+
+        <com.quinny898.library.persistentsearch.SearchBox
+            android:id="@+id/searchbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/huangzujiudian"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_title"/>
-      </android.support.v7.widget.Toolbar>
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="-6dp"
+            android:layout_marginRight="-6dp"
+            android:layout_marginTop="-6dp"
+            android:visibility="gone"/>
 
-      <com.quinny898.library.persistentsearch.SearchBox
-          android:id="@+id/searchbox"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignParentLeft="true"
-          android:layout_alignParentTop="true"
-          android:layout_marginLeft="-6dp"
-          android:layout_marginRight="-6dp"
-          android:layout_marginTop="-6dp"
-          android:visibility="gone"/>
-
-      <LinearLayout
-          android:id="@+id/ll_sreach"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_below="@id/toolbar"
-          android:background="@android:color/white"
-          android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tv_position"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/ll_sreach"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:drawableRight="@mipmap/jiantou"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="10dp"
-            android:text="@string/position"/>
+            android:layout_below="@id/toolbar"
+            android:background="@android:color/white"
+            android:orientation="horizontal">
+
+          <TextView
+              android:id="@+id/tv_position"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:layout_weight="1"
+              android:drawableRight="@mipmap/jiantou"
+              android:gravity="center"
+              android:paddingBottom="10dp"
+              android:paddingLeft="5dp"
+              android:paddingRight="5dp"
+              android:paddingTop="10dp"
+              android:text="@string/position"/>
+
+          <View
+              android:layout_width="1dp"
+              android:layout_height="match_parent"
+              android:background="@android:color/darker_gray"/>
+
+          <TextView
+              android:id="@+id/tv_check_in_date"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:layout_weight="1"
+              android:drawableRight="@mipmap/jiantou"
+              android:gravity="center"
+              android:paddingBottom="10dp"
+              android:paddingLeft="5dp"
+              android:paddingRight="5dp"
+              android:paddingTop="10dp"
+              android:text="@string/check_in_date"/>
+
+          <View
+              android:layout_width="1dp"
+              android:layout_height="match_parent"
+              android:background="@android:color/darker_gray"/>
+
+          <TextView
+              android:id="@+id/tv_check_out_date"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:layout_weight="1"
+              android:drawableRight="@mipmap/jiantou"
+              android:gravity="center"
+              android:paddingBottom="10dp"
+              android:paddingLeft="5dp"
+              android:paddingRight="5dp"
+              android:paddingTop="10dp"
+              android:text="@string/check_out_date"/>
+
+          <View
+              android:layout_width="1dp"
+              android:layout_height="match_parent"
+              android:background="@android:color/darker_gray"/>
+
+          <TextView
+              android:id="@+id/tv_price"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:layout_weight="1"
+              android:drawableRight="@mipmap/jiantou"
+              android:gravity="center"
+              android:paddingBottom="10dp"
+              android:paddingLeft="5dp"
+              android:paddingRight="5dp"
+              android:paddingTop="10dp"
+              android:text="@string/price"/>
+        </LinearLayout>
 
         <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
+            android:id="@+id/view_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/ll_sreach"
             android:background="@android:color/darker_gray"/>
+      </RelativeLayout>
+    </android.support.design.widget.AppBarLayout>
+  </android.support.design.widget.CoordinatorLayout>
 
-        <TextView
-            android:id="@+id/tv_check_in_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:drawableRight="@mipmap/jiantou"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="10dp"
-            android:text="@string/check_in_date"/>
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@android:color/darker_gray"/>
+    <com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView
+        android:id="@+id/avloadingIndicatorView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:indicator="LineScalePulseOutRapid"
+        app:indicator_color="@color/blue"/>
 
-        <TextView
-            android:id="@+id/tv_check_out_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:drawableRight="@mipmap/jiantou"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="10dp"
-            android:text="@string/check_out_date"/>
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@android:color/darker_gray"/>
-
-        <TextView
-            android:id="@+id/tv_price"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:drawableRight="@mipmap/jiantou"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="10dp"
-            android:text="@string/price"/>
-      </LinearLayout>
-
-      <View
-          android:id="@+id/view_line"
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:layout_below="@id/ll_sreach"
-          android:background="@android:color/darker_gray"/>
-    </RelativeLayout>
-  </android.support.design.widget.AppBarLayout>
-</android.support.design.widget.CoordinatorLayout>
+    <TextView
+        android:id="@+id/no_data_hotel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/no_data"
+        android:visibility="gone"/>
+  </RelativeLayout>
+</FrameLayout>

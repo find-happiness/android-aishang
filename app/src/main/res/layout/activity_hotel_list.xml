@@ -12,7 +12,6 @@
       android:layout_height="match_parent"
       >
 
-
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"

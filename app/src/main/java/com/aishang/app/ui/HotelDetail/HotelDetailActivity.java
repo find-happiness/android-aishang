@@ -139,8 +139,9 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
 
   @Override public void bindDataToView(JHotelDetailResult result) {
 
-    setWebViewContent(description, result.getDataSet().getBaseInfo().getDescription());
 
+
+    setWebViewContent(description, result.getDataSet().getBaseInfo().getDescription());
   }
 
   /**

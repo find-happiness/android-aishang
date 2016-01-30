@@ -11,7 +11,6 @@ import java.util.List;
  */
 public interface HotelMvpView extends MvpView {
   void refreshHotel(List<JHotelListResult.Hotel> hotels);
-
   void loadMoreHotel(List<JHotelListResult.Hotel> hotels,int total);
   void showSysZoneDialog(List<JSysZoneResult.Zone> zones);
   void showSysPriceDialog(List<JHotelPriceCatListResult.Cat> prices);

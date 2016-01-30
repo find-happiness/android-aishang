@@ -84,5 +84,6 @@
   <string name="member_account">旅居账号:%s</string>
   <string name="no_net">无网络连接</string>
   <string name="price_select">价格选择</string>
+  <string name="type_select">类型选择</string>
   <string name="date_error">退房日期必须大于入住日期</string>
 </resources>

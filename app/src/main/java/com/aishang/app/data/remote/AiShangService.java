@@ -3,6 +3,8 @@ package com.aishang.app.data.remote;
 import com.aishang.app.data.model.JHotelDetailResult;
 import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JHotelPriceCatListResult;
+import com.aishang.app.data.model.JLoupanPriceCatListResult;
+import com.aishang.app.data.model.JLoupanProductCatListResult;
 import com.aishang.app.data.model.JLoupanProductListResult;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JMemberProfileResult;
@@ -70,6 +72,12 @@ public interface AiShangService {
 
   @Headers("connection:Keep-Alive") @GET("mobile/hotel/hotelDetail.ashx")
   Observable<JHotelDetailResult> hotelDetail(@Query(value = "v") int version,@Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/loupan/loupanPriceCatList.ashx")
+  Observable<JLoupanPriceCatListResult> loupanPriceCatList(@Query(value = "v") int version,@Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/loupan/loupanProductCatList.ashx")
+  Observable<JLoupanProductCatListResult> loupanProductCatList(@Query(value = "v") int version);
 
   @GET("ribots") Observable<List<Ribot>> getRibots();
 

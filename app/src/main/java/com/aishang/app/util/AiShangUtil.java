@@ -2,6 +2,7 @@ package com.aishang.app.util;
 
 import com.aishang.app.data.model.JHotelDetailParam;
 import com.aishang.app.data.model.JHotelListParam;
+import com.aishang.app.data.model.JLoupanPriceCatListParam;
 import com.aishang.app.data.model.JLoupanProductListParam;
 import com.aishang.app.data.model.JMemberLoginParam;
 import com.aishang.app.data.model.JMemberStatisticsParam;
@@ -204,9 +205,9 @@ public class AiShangUtil {
     return gson.toJson(p);
   }
 
-  public static String generHotelDetailParam(int hotelID, int bGallery, int bSelectImage, int bRoomCat,
-      int bPriceList, int bBase, String checkinDate, String checkoutDate, int bHotelFaclilite,
-      int bHotelService, int bRoomFacilite, int bRoomService) {
+  public static String generHotelDetailParam(int hotelID, int bGallery, int bSelectImage,
+      int bRoomCat, int bPriceList, int bBase, String checkinDate, String checkoutDate,
+      int bHotelFaclilite, int bHotelService, int bRoomFacilite, int bRoomService) {
 
     JHotelDetailParam param = new JHotelDetailParam();
     param.setbGallery(bGallery);
@@ -222,5 +223,12 @@ public class AiShangUtil {
     param.setbHotelFaclilite(bRoomFacilite);
     param.setbHotelService(bHotelService);
     return gson.toJson(param);
+  }
+
+  public static String generLoupanPriceCatListParam(int filter) {
+    // gener param
+    JLoupanPriceCatListParam p = new JLoupanPriceCatListParam();
+    p.setFilter(filter);
+    return gson.toJson(p);
   }
 }

@@ -1,5 +1,6 @@
 package com.aishang.app.util;
 
+import com.aishang.app.data.model.JHotelDetailParam;
 import com.aishang.app.data.model.JHotelListParam;
 import com.aishang.app.data.model.JLoupanProductListParam;
 import com.aishang.app.data.model.JMemberLoginParam;
@@ -175,14 +176,12 @@ public class AiShangUtil {
         cal.get(Calendar.DAY_OF_MONTH));
   }
 
-  public static String dateFormat(Date date)
-  {
+  public static String dateFormat(Date date) {
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     return sdf.format(date);
   }
 
-  public static String gennerLogin(String psd,String phone)
-  {
+  public static String gennerLogin(String psd, String phone) {
     JMemberLoginParam param = new JMemberLoginParam();
     param.setMemberAccount(phone);
     param.setPassword(CommonUtil.getEncodeMD5(psd));
@@ -190,8 +189,7 @@ public class AiShangUtil {
     return gson.toJson(param);
   }
 
-  public static String gennerMemberStatistics(String psd,String phone)
-  {
+  public static String gennerMemberStatistics(String psd, String phone) {
     JMemberStatisticsParam param = new JMemberStatisticsParam();
     param.setMemberAccount(phone);
     param.setPassword(psd);
@@ -204,5 +202,25 @@ public class AiShangUtil {
     p.setZoneID(zoneID);
     p.setLastUpdate("");
     return gson.toJson(p);
+  }
+
+  public static String generHotelDetailParam(int hotelID, int bGallery, int bSelectImage, int bRoomCat,
+      int bPriceList, int bBase, String checkinDate, String checkoutDate, int bHotelFaclilite,
+      int bHotelService, int bRoomFacilite, int bRoomService) {
+
+    JHotelDetailParam param = new JHotelDetailParam();
+    param.setbGallery(bGallery);
+    param.setbPriceList(bPriceList);
+    param.setbRoomCat(bRoomCat);
+    param.setbSelectImage(bSelectImage);
+    param.setbBase(bBase);
+    param.setHotelID(hotelID);
+    param.setCheckInDate(checkinDate);
+    param.setCheckOutDate(checkoutDate);
+    param.setbHotelFaclilite(bHotelFaclilite);
+    param.setbHotelService(bHotelService);
+    param.setbHotelFaclilite(bRoomFacilite);
+    param.setbHotelService(bHotelService);
+    return gson.toJson(param);
   }
 }

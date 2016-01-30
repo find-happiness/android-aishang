@@ -75,6 +75,8 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
     checkInDate = new Date(System.currentTimeMillis() + 86400000L);
     checkOutDate = new Date(System.currentTimeMillis() + 2 * 86400000L);
 
+    hotelAdapter.setCheckInDate(checkInDate);
+    hotelAdapter.setCheckOutDate(checkOutDate);
     initToolbar();
     initRefreshLayout();
     proLoad();
@@ -280,6 +282,7 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
           CommonUtil.showSnackbar(R.string.date_error, layoutRoot);
         } else {
           checkInDate = date;
+          hotelAdapter.setCheckInDate(date);
           proLoad();
         }
       }
@@ -295,6 +298,7 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
           CommonUtil.showSnackbar(R.string.date_error, layoutRoot);
         } else {
           checkOutDate = date;
+          hotelAdapter.setCheckOutDate(date);
           proLoad();
         }
       }

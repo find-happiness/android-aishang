@@ -16,6 +16,5 @@ public interface HotelMvpView extends MvpView {
   void showSysZoneDialog(List<JSysZoneResult.Zone> zones);
   void showSysPriceDialog(List<JHotelPriceCatListResult.Cat> prices);
   void showError(String error);
-
   void showHotelEmpty();
 }

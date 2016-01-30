@@ -1,24 +1,22 @@
 package com.aishang.app.ui.hotel;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Build;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.remote.AiShangService;
+import com.aishang.app.ui.HotelDetail.HotelDetailActivity;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -26,6 +24,9 @@ import javax.inject.Inject;
  * Created by song on 2016/1/30.
  */
 public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> {
+
+  public Date checkInDate;
+  public Date checkOutDate;
 
   List<JHotelListResult.Hotel> hotels;
 
@@ -41,7 +42,7 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> 
 
   @Override public void onBindViewHolder(final ViewHolder holder, int position) {
 
-    JHotelListResult.Hotel hotel = hotels.get(position);
+    final JHotelListResult.Hotel hotel = hotels.get(position);
     Picasso.with(holder.getContext())
         .load(AiShangService.IMG_URL + hotel.getImageUrl())
         .error(R.mipmap.banner)
@@ -71,10 +72,24 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> 
     //        }
     //      }
     //    });
+
+    holder.itemView.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        intentToDetail(holder.getContext(), hotel.getHotelID(), hotel.getName());
+      }
+    });
   }
 
   @Override public int getItemCount() {
     return hotels.size();
+  }
+
+  public void setCheckInDate(Date checkInDate) {
+    this.checkInDate = checkInDate;
+  }
+
+  public void setCheckOutDate(Date checkOutDate) {
+    this.checkOutDate = checkOutDate;
   }
 
   public List<JHotelListResult.Hotel> getHotels() {
@@ -83,6 +98,13 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> 
 
   public void setHotels(List<JHotelListResult.Hotel> hotels) {
     this.hotels = hotels;
+  }
+
+  private void intentToDetail(Context ctx, int hotelID, String hotelName) {
+    Intent intent =
+        HotelDetailActivity.getStartIntent(ctx, hotelID, hotelName, checkInDate.getTime(),
+            checkOutDate.getTime());
+    ctx.startActivity(intent);
   }
 
   public class ViewHolder extends RecyclerView.ViewHolder {

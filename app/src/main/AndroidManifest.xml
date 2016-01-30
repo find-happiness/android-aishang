@@ -39,7 +39,9 @@
     <activity android:name=".ui.insale.InSaleActivity"/>
     <activity android:name=".ui.insaleDetail.InSaleDetailActivity"/>
     <activity android:name=".ui.hotel.HotelListActivity"/>
-    <activity android:name=".ui.HotelDetail.HotelDetailActivity"/>
+    <activity android:name=".ui.HotelDetail.HotelDetailActivity"
+        android:theme="@style/DetailTheme"/>
+
     <activity android:name=".ui.login.LoginActivity"/>
     <activity android:name=".ui.MemberCenter.MemberCenterActivity"/>
     <activity android:name=".ui.CashWithDrawApply.CashWithDrawApplyActivity"/>

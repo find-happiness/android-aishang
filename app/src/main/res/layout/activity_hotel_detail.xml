@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -93,7 +94,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:padding="@dimen/spacing_medium">
 
@@ -103,6 +104,7 @@
 
                     android:orientation="horizontal">
                     <com.aishang.app.widget.DrawableCenterButton
+                        android:id="@+id/tv_check_in_date"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         tools:text="2015-09-15"
@@ -114,6 +116,7 @@
                         android:layout_height="match_parent"
                         android:background="@color/gray"/>
                     <com.aishang.app.widget.DrawableCenterButton
+                        android:id="@+id/tv_check_out_date"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         tools:text="2015-09-15"
@@ -125,6 +128,7 @@
                         android:layout_height="match_parent"
                         android:background="@color/gray"/>
                     <com.aishang.app.widget.DrawableCenterButton
+                        android:id="@+id/room_num"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:drawablePadding="5dp"
@@ -139,40 +143,32 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLength="8"
-                        android:paddingBottom="@dimen/spacing_medium"
                         android:paddingLeft="@dimen/spacing_xsmall"
                         android:paddingTop="@dimen/spacing_medium"
                         android:singleLine="true"
+                        android:drawableLeft="@mipmap/line_red"
                         android:layout_marginRight="@dimen/spacing_medium"
                         android:textSize="@dimen/text_large_body"
                         tools:text="宜春|宜春宜春宜" />
 
                     <TextView
+                        android:id="@+id/btn_look_you_ji"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_gravity="bottom"
                         android:layout_marginLeft="@dimen/spacing_xlarge"
                         android:drawableRight="@mipmap/icon_arrow_right"
                         android:text="@string/look_youji"
                         android:textColor="@color/blue" />
                 </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_medium"
-                    android:drawableLeft="@mipmap/line_red"
-                    android:gravity="center"
-                    android:text="@string/loupan_detail"
-                    android:textSize="@dimen/text_body" />
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/spacing_medium"
                     android:background="@color/gray" />
 
                 <LinearLayout
@@ -272,13 +268,10 @@
                     android:layout_marginTop="@dimen/spacing_medium"
                     android:background="@color/gray" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_medium"
-                    android:text="sdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf"
-                    android:textSize="@dimen/text_body" />
-
+                <WebView
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -311,6 +304,7 @@
                     android:textSize="@dimen/text_body" />
 
                 <View
+                    android:id="@+id/map"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="@dimen/spacing_medium"

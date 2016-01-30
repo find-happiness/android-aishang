@@ -131,4 +131,17 @@ public class CommonUtil {
   public static void showSnackbar(String text, View rootView) {
     Snackbar.make(rootView, text, Snackbar.LENGTH_LONG).show();
   }
+
+  public static String htmldecode(String str) {
+    if (str == null || str == "") return "";
+    str = str.replace("&amp;", "&");
+    str = str.replace("&gt;", ">");
+    str = str.replace("&lt;", " <");
+    // str = str.replace("&nbsp;"," " );
+    // str = str.replace( " &nbsp;","  ");
+    str = str.replace("&quot;", "\"");
+    str = str.replace("&#39;", "\'");
+    str = str.replace("<br/>", "\n");
+    return str;
+  }
 }

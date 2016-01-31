@@ -86,4 +86,12 @@
   <string name="price_select">价格选择</string>
   <string name="type_select">类型选择</string>
   <string name="date_error">退房日期必须大于入住日期</string>
+  <string name="loupan_type">类&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;型:%s</string>
+  <string name="loupan_num">房&#160;&#160;&#160;&#160;号:%s</string>
+  <string name="loupan_move_in_date">交房时间:%s</string>
+  <string name="loupan_address">项目地址:%s</string>
+  <string name="loupan_price">价&#160;&#160;&#160;&#160;格:%s</string>
+  <string name="loupan_product_name">项目名称:%s</string>
+  <string name="loupan_price_jifen">换住积分:%s</string>
+  <string name="loupan_effective_year">房产证:%s</string>
 </resources>

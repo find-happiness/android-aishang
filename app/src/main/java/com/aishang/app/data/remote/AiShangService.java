@@ -5,6 +5,7 @@ import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JHotelPriceCatListResult;
 import com.aishang.app.data.model.JLoupanPriceCatListResult;
 import com.aishang.app.data.model.JLoupanProductCatListResult;
+import com.aishang.app.data.model.JLoupanProductDetailResult;
 import com.aishang.app.data.model.JLoupanProductListResult;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JMemberProfileResult;
@@ -71,13 +72,19 @@ public interface AiShangService {
   Observable<JHotelPriceCatListResult> hotelPriceCatList(@Query(value = "v") int version);
 
   @Headers("connection:Keep-Alive") @GET("mobile/hotel/hotelDetail.ashx")
-  Observable<JHotelDetailResult> hotelDetail(@Query(value = "v") int version,@Query(value = "q") String q);
+  Observable<JHotelDetailResult> hotelDetail(@Query(value = "v") int version,
+      @Query(value = "q") String q);
 
   @Headers("connection:Keep-Alive") @GET("mobile/loupan/loupanPriceCatList.ashx")
-  Observable<JLoupanPriceCatListResult> loupanPriceCatList(@Query(value = "v") int version,@Query(value = "q") String q);
+  Observable<JLoupanPriceCatListResult> loupanPriceCatList(@Query(value = "v") int version,
+      @Query(value = "q") String q);
 
   @Headers("connection:Keep-Alive") @GET("mobile/loupan/loupanProductCatList.ashx")
   Observable<JLoupanProductCatListResult> loupanProductCatList(@Query(value = "v") int version);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/loupan/loupanProductDetail.ashx")
+  Observable<JLoupanProductDetailResult> loupanProductDetail(@Query(value = "v") int version,
+      @Query(value = "q") String q);
 
   @GET("ribots") Observable<List<Ribot>> getRibots();
 

@@ -3,10 +3,14 @@ package com.aishang.app.ui.HotelDetail;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -14,17 +18,23 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JHotelDetailResult;
+import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.ui.base.BaseActivity;
 import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.NetworkUtil;
 import com.aishang.app.widget.DrawableCenterButton;
 import com.bigkoo.convenientbanner.ConvenientBanner;
+import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
+import com.bigkoo.convenientbanner.holder.Holder;
+import com.squareup.picasso.Picasso;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.inject.Inject;
 
 public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpView {
-
+  private static final String TAG = "HotelDetailActivity";
   public static final String HOTEL_ID = "hotel_id";
   public static final String HOTEL_NAME = "hotel_name";
   public static final String CHECK_IN_DATE = "check_in_date";
@@ -138,55 +148,56 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
   }
 
   @Override public void bindDataToView(JHotelDetailResult result) {
-
-
-
-    setWebViewContent(description, result.getDataSet().getBaseInfo().getDescription());
+    setGalleryImg(result);
+    AiShangUtil.setWebViewContent(description, result.getDataSet().getBaseInfo().getDescription());
   }
 
-  /**
-   * set webview content
-   * @param content content html
-   */
-  private void setWebViewContent(final WebView wv, String content) {
-    content = CommonUtil.htmldecode(content);
-    wv.getSettings().setDefaultTextEncodingName("utf-8");
-    wv.loadData(content, "text/html; charset=UTF-8", null);// 这种写法可以正确解码
+  private void setGalleryImg(JHotelDetailResult result) {
 
-    // updateExpandable(wv);
-
-    wv.setWebViewClient(new WebViewClient() {
-      boolean loadingFinished = true;
-      boolean redirect = false;
-
-      @Override public boolean shouldOverrideUrlLoading(WebView view, String urlNewString) {
-        if (!loadingFinished) {
-          redirect = true;
-        }
-
-        loadingFinished = false;
-        wv.loadUrl(urlNewString);
-        return true;
+    List<String> ads = new ArrayList<String>();
+    if (result.getDataSet().getBaseInfo().getImageTotal() > 0) {
+      for (JHotelDetailResult.Data.SelectImage img : result.getDataSet().getSelectImageList()) {
+        ads.add(img.getUrl());
       }
+    } else {
+      ads.add(result.getDataSet().getBaseInfo().getImageUrl());
+    }
 
-      public void onPageStarted(WebView view, String url) {
-        loadingFinished = false;
-        // SHOW LOADING IF IT ISNT ALREADY VISIBLE
+    //Log.i(TAG, "setGalleryImg: " + ads.size());
+
+    int[] size = CommonUtil.getHeightWithScreenWidth(this, 16, 9);
+    CollapsingToolbarLayout.LayoutParams layoutParams =
+        new CollapsingToolbarLayout.LayoutParams(size[0], size[1]);
+
+    convenientBanner.setLayoutParams(layoutParams);
+
+    convenientBanner.setPages(new CBViewHolderCreator<LocalImageHolderView>() {
+      @Override public LocalImageHolderView createHolder() {
+        return new LocalImageHolderView();
       }
+    }, ads)
+        //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
+        .setPageIndicator(new int[] { R.mipmap.ellipse_nomal, R.mipmap.ellipse_select })
+            //设置指示器的方向
+        .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
+  }
 
-      @Override public void onPageFinished(WebView view, String url) {
-        if (!redirect) {
-          loadingFinished = true;
-        }
+  public class LocalImageHolderView implements Holder<String> {
+    private ImageView imageView;
 
-        if (loadingFinished && !redirect) {
-          wv.setLayoutParams(
-              new android.widget.LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                  LinearLayout.LayoutParams.WRAP_CONTENT));
-        } else {
-          redirect = false;
-        }
-      }
-    });
+    public View createView(Context context) {
+      imageView = new ImageView(context);
+      imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+      return imageView;
+    }
+
+    @Override public void UpdateUI(Context context, int position, String url) {
+
+      Picasso.with(context)
+          .load(AiShangService.AiShangHost + url)
+          .error(R.mipmap.banner)
+          .placeholder(R.mipmap.banner)
+          .into(imageView);
+    }
   }
 }

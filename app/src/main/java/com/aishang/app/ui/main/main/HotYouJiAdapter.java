@@ -63,7 +63,7 @@ import javax.inject.Inject;
       holder = (ViewHolder) convertView.getTag();
     }
 
-    JNewsListResult.JNewsListItem item = hotYouJis.get(position);
+    final JNewsListResult.JNewsListItem item = hotYouJis.get(position);
 
     Picasso.with(activity)
         .load(AiShangService.IMG_URL + item.getImageUrl())
@@ -79,7 +79,10 @@ import javax.inject.Inject;
 
     convertView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        Intent intent = new Intent(activity, TravelDetailActivity.class);
+
+        Intent intent =
+            TravelDetailActivity.getStartIntent(activity, item.getNewsID(), item.getStaticUrl());
+
         activity.startActivity(intent);
       }
     });

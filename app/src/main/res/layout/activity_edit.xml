@@ -28,7 +28,8 @@
       android:layout_width="match_parent"
       android:layout_below="@id/toolbar"
       android:background="@color/gray"
-      android:layout_height="match_parent">
+      android:orientation="vertical"
+      android:layout_height="wrap_content">
 
       <LinearLayout
           android:layout_width="match_parent"
@@ -47,7 +48,6 @@
               android:background="@mipmap/edit_backgroud"
               android:hint="账户"
               app:met_hideUnderline="true"/>
-
       </LinearLayout>
   </LinearLayout>
 </RelativeLayout>

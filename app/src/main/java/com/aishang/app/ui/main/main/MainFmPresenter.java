@@ -1,8 +1,11 @@
 package com.aishang.app.ui.main.main;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 
+import android.util.Log;
+import android.widget.DatePicker;
 import com.aishang.app.data.DataManager;
 import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JLoupanProductListResult;
@@ -229,8 +232,7 @@ public class MainFmPresenter extends BasePresenter<MainFmMvpView> {
         });
   }
 
-  public void loadZone(boolean allowMemoryCacheVersion, int version, String json)
-  {
+  public void loadZone(boolean allowMemoryCacheVersion, int version, String json) {
     checkViewAttached();
 
     if (mZoneSubscription != null && !mZoneSubscription.isUnsubscribed()) {

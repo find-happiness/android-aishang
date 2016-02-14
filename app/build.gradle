@@ -122,7 +122,7 @@ dependencies {
     compile project(':PersistentSearchLibrary')
     compile project(':MaterialEditTextlibrary')
     compile project(':xrecyclerview')
-    compile project(':pickerview')
+    //compile project(':pickerview')
     // Instrumentation test dependencies
     androidTestCompile jUnit
     androidTestCompile mockito

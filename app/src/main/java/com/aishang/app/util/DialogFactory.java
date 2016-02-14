@@ -6,13 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
-import android.view.View;
-
-import android.widget.ListAdapter;
 import com.aishang.app.R;
-import com.bigkoo.pickerview.TimePickerView;
-import java.util.Date;
-import java.util.List;
 
 public final class DialogFactory {
 
@@ -93,28 +87,28 @@ public final class DialogFactory {
             .setTitle(title);
     return alertDialog.create();
   }
-
-  public static TimePickerView createTimePickView(Context ctx) {
-    //时间选择器
-    TimePickerView pvTime = new TimePickerView(ctx, TimePickerView.Type.YEAR_MONTH_DAY);
-    //控制时间范围
-    //        Calendar calendar = Calendar.getInstance();
-    //        pvTime.setRange(calendar.get(Calendar.YEAR) - 20, calendar.get(Calendar.YEAR));
-    pvTime.setTime(new Date());
-    pvTime.setCyclic(false);
-    pvTime.setCancelable(true);
-    return pvTime;
-  }
-
-  public static TimePickerView createTimePickView(Context ctx,Date date) {
-    //时间选择器
-    TimePickerView pvTime = new TimePickerView(ctx, TimePickerView.Type.YEAR_MONTH_DAY);
-    //控制时间范围
-    //        Calendar calendar = Calendar.getInstance();
-    //        pvTime.setRange(calendar.get(Calendar.YEAR) - 20, calendar.get(Calendar.YEAR));
-    pvTime.setTime(date);
-    pvTime.setCyclic(false);
-    pvTime.setCancelable(true);
-    return pvTime;
-  }
+  //
+  //public static TimePickerView createTimePickView(Context ctx) {
+  //  //时间选择器
+  //  TimePickerView pvTime = new TimePickerView(ctx, TimePickerView.Type.YEAR_MONTH_DAY);
+  //  //控制时间范围
+  //  //        Calendar calendar = Calendar.getInstance();
+  //  //        pvTime.setRange(calendar.get(Calendar.YEAR) - 20, calendar.get(Calendar.YEAR));
+  //  pvTime.setTime(new Date());
+  //  pvTime.setCyclic(false);
+  //  pvTime.setCancelable(true);
+  //  return pvTime;
+  //}
+  //
+  //public static TimePickerView createTimePickView(Context ctx,Date date) {
+  //  //时间选择器
+  //  TimePickerView pvTime = new TimePickerView(ctx, TimePickerView.Type.YEAR_MONTH_DAY);
+  //  //控制时间范围
+  //  //        Calendar calendar = Calendar.getInstance();
+  //  //        pvTime.setRange(calendar.get(Calendar.YEAR) - 20, calendar.get(Calendar.YEAR));
+  //  pvTime.setTime(date);
+  //  pvTime.setCyclic(false);
+  //  pvTime.setCancelable(true);
+  //  return pvTime;
+  //}
 }

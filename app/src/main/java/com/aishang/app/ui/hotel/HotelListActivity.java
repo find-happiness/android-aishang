@@ -1,5 +1,6 @@
 package com.aishang.app.ui.hotel;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,15 +15,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.TextView;
-import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JHotelPriceCatListResult;
-import com.aishang.app.data.model.JMemberProfileResult;
 import com.aishang.app.data.model.JSysZoneResult;
 import com.aishang.app.ui.base.BaseActivity;
 import com.aishang.app.util.AiShangUtil;
@@ -30,7 +30,6 @@ import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.DialogFactory;
 import com.aishang.app.util.NetWorkType;
 import com.aishang.app.util.NetworkUtil;
-import com.bigkoo.pickerview.TimePickerView;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView;
@@ -38,7 +37,9 @@ import com.quinny898.library.persistentsearch.SearchBox;
 import com.quinny898.library.persistentsearch.SearchResult;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -275,9 +276,15 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
   }
 
   @OnClick(R.id.tv_check_in_date) void checkInDateClick() {
-    TimePickerView tpView = DialogFactory.createTimePickView(this, checkInDate);
-    tpView.setOnTimeSelectListener(new TimePickerView.OnTimeSelectListener() {
-      @Override public void onTimeSelect(Date date) {
+    Calendar cal = Calendar.getInstance();
+    cal.setTimeInMillis(checkInDate.getTime());
+    DatePickerDialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+      @Override public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        Calendar temp = Calendar.getInstance();
+        temp.set(Calendar.YEAR, year);
+        temp.set(Calendar.MONTH, monthOfYear);
+        temp.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        Date date = new Date(temp.getTimeInMillis());
         if (date.after(checkOutDate)) {
           CommonUtil.showSnackbar(R.string.date_error, layoutRoot);
         } else {
@@ -286,14 +293,21 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
           proLoad();
         }
       }
-    });
-    tpView.show();
+    }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+    dialog.show();
   }
 
   @OnClick(R.id.tv_check_out_date) void checkOutDateClick() {
-    TimePickerView tpView = DialogFactory.createTimePickView(this, checkOutDate);
-    tpView.setOnTimeSelectListener(new TimePickerView.OnTimeSelectListener() {
-      @Override public void onTimeSelect(Date date) {
+
+    Calendar cal = Calendar.getInstance();
+    cal.setTimeInMillis(checkOutDate.getTime());
+    DatePickerDialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+      @Override public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        Calendar temp = Calendar.getInstance();
+        temp.set(Calendar.YEAR, year);
+        temp.set(Calendar.MONTH, monthOfYear);
+        temp.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        Date date = new Date(temp.getTimeInMillis());
         if (checkInDate.after(date)) {
           CommonUtil.showSnackbar(R.string.date_error, layoutRoot);
         } else {
@@ -302,8 +316,8 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
           proLoad();
         }
       }
-    });
-    tpView.show();
+    }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
+    dialog.show();
   }
 
   @OnClick(R.id.tv_price) void priceClick() {

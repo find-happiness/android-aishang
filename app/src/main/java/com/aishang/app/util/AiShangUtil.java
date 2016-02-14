@@ -1,13 +1,18 @@
 package com.aishang.app.util;
 
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 import com.aishang.app.data.model.JHotelDetailParam;
 import com.aishang.app.data.model.JHotelListParam;
 import com.aishang.app.data.model.JLoupanPriceCatListParam;
+import com.aishang.app.data.model.JLoupanProductDetailParam;
 import com.aishang.app.data.model.JLoupanProductListParam;
 import com.aishang.app.data.model.JMemberLoginParam;
 import com.aishang.app.data.model.JMemberStatisticsParam;
 import com.aishang.app.data.model.JNewsListParams;
 import com.aishang.app.data.model.JSysZoneParam;
+import com.aishang.app.data.remote.AiShangService;
 import com.google.gson.Gson;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -230,5 +235,61 @@ public class AiShangUtil {
     JLoupanPriceCatListParam p = new JLoupanPriceCatListParam();
     p.setFilter(filter);
     return gson.toJson(p);
+  }
+
+  public static String generLoupanProductDetail(int loupanProductID, int bTourist, int bGallery) {
+    JLoupanProductDetailParam param = new JLoupanProductDetailParam();
+    param.setbTourist(bTourist);
+    param.setbGallery(bGallery);
+    param.setLoupanProductID(loupanProductID);
+    return gson.toJson(param);
+  }
+
+  /**
+   * set webview content
+   *
+   * @param content content html
+   */
+  public static void setWebViewContent(final WebView wv, String content) {
+    content = CommonUtil.htmldecode(content);
+    wv.getSettings().setDefaultTextEncodingName("utf-8");
+    wv.loadDataWithBaseURL(AiShangService.AiShangHost, content, "text/html; charset=UTF-8", null,
+        null);// 这种写法可以正确解码
+
+    // updateExpandable(wv);
+
+    wv.setWebViewClient(new WebViewClient() {
+      boolean loadingFinished = true;
+      boolean redirect = false;
+
+      @Override public boolean shouldOverrideUrlLoading(WebView view, String urlNewString) {
+        if (!loadingFinished) {
+          redirect = true;
+        }
+
+        loadingFinished = false;
+        wv.loadUrl(urlNewString);
+        return true;
+      }
+
+      public void onPageStarted(WebView view, String url) {
+        loadingFinished = false;
+        // SHOW LOADING IF IT ISNT ALREADY VISIBLE
+      }
+
+      @Override public void onPageFinished(WebView view, String url) {
+        if (!redirect) {
+          loadingFinished = true;
+        }
+
+        if (loadingFinished && !redirect) {
+          wv.setLayoutParams(
+              new android.widget.LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                  LinearLayout.LayoutParams.WRAP_CONTENT));
+        } else {
+          redirect = false;
+        }
+      }
+    });
   }
 }

@@ -6,6 +6,7 @@ import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JHotelPriceCatListResult;
 import com.aishang.app.data.model.JLoupanPriceCatListResult;
 import com.aishang.app.data.model.JLoupanProductCatListResult;
+import com.aishang.app.data.model.JLoupanProductDetailResult;
 import com.aishang.app.data.model.JLoupanProductListResult;
 import com.aishang.app.data.model.JMemberProfileResult;
 import com.aishang.app.data.model.JMemberStatisticsResult;
@@ -132,6 +133,10 @@ import com.aishang.app.util.EventPosterHelper;
 
   public Observable<JLoupanProductCatListResult> syncLoupanProductCatList(int version) {
     return mAiShangService.loupanProductCatList(version);
+  }
+
+  public Observable<JLoupanProductDetailResult> syncLoupanProductDetail(int version, String json) {
+    return mAiShangService.loupanProductDetail(version, json);
   }
 
   public JVersionCheckResult getVersionCheck() {

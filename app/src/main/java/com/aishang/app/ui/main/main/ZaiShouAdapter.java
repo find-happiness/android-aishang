@@ -80,8 +80,8 @@ import javax.inject.Inject;
       holder = (HotYouJiHolder) convertView.getTag();
     }
 
-    JLoupanProductListResult.Loupan loupan = loupans.get(position);
-    int loupanid = loupan.getLoupanID();
+    final JLoupanProductListResult.Loupan loupan = loupans.get(position);
+    final int loupanid = loupan.getLoupanID();
     JLoupanProductListResult.Product product = null;
     for (JLoupanProductListResult.Product p : products) {
       if (p.getLoupanID() == loupanid) {
@@ -113,7 +113,7 @@ import javax.inject.Inject;
 
     convertView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        Intent intent = new Intent(activity, InSaleDetailActivity.class);
+        Intent intent = InSaleDetailActivity.getStartIntent(activity, loupanid, loupan.getName());
         activity.startActivity(intent);
       }
     });

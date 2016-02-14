@@ -21,9 +21,11 @@ import com.aishang.app.injection.PerActivity;
 import com.aishang.app.ui.HotelDetail.HotelDetailActivity;
 import com.aishang.app.ui.main.MainActivity;
 
+import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.Constants;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -74,7 +76,7 @@ import butterknife.ButterKnife;
     } else {
       holder = (HotHotelHolder) convertView.getTag();
     }
-    JHotelListResult.Hotel hotel = hotHotels.get(position);
+    final JHotelListResult.Hotel hotel = hotHotels.get(position);
     Picasso.with(activity)
         .load(AiShangService.IMG_URL + hotel.getImageUrl())
         .error(R.mipmap.banner)
@@ -106,7 +108,9 @@ import butterknife.ButterKnife;
 
     convertView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        Intent intent = new Intent(activity, HotelDetailActivity.class);
+        Intent intent =
+            HotelDetailActivity.getStartIntent(activity, hotel.getHotelID(), hotel.getName(),
+                System.currentTimeMillis() + 86400000L, System.currentTimeMillis() + 2 * 86400000L);
         activity.startActivity(intent);
       }
     });

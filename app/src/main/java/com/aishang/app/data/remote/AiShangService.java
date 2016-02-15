@@ -14,6 +14,7 @@ import com.aishang.app.data.model.JMemberStatisticsResult;
 import com.aishang.app.data.model.JMrePromResult;
 import com.aishang.app.data.model.JMyVacationApplyListResult;
 import com.aishang.app.data.model.JNewsListResult;
+import com.aishang.app.data.model.JResult;
 import com.aishang.app.data.model.JSysZoneResult;
 import com.aishang.app.data.model.JVersionCheckResult;
 import com.aishang.app.data.model.Ribot;
@@ -107,9 +108,13 @@ public interface AiShangService {
   @Headers("connection:Keep-Alive") @GET("mobile/member/myVacationApplyList.ashx")
   Observable<JMyVacationApplyListResult> sysMyVacationApplyList(@Query(value = "v") int version,
       @Query(value = "q") String q);
+
   @Headers("connection:Keep-Alive") @GET("mobile/member/businessList.ashx")
   Observable<JBusinessListResult> sysBusinessList(@Query(value = "v") int version,
       @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/member/contactsAdd.ashx")
+  Observable<JResult> sysContactsAdd(@Query(value = "v") int version, @Query(value = "q") String q);
 
   @GET("ribots") Observable<List<Ribot>> getRibots();
 

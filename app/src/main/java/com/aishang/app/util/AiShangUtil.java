@@ -6,6 +6,7 @@ import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import com.aishang.app.BoilerplateApplication;
 import com.aishang.app.data.model.JBusinessListParam;
+import com.aishang.app.data.model.JContactsAddParam;
 import com.aishang.app.data.model.JHotelDetailParam;
 import com.aishang.app.data.model.JHotelListParam;
 import com.aishang.app.data.model.JLoupanPriceCatListParam;
@@ -298,8 +299,8 @@ public class AiShangUtil {
     });
   }
 
-  public static String gennerMyOrderParam( int recStart,String startDate, String endDate, int status,
-      String cardID, String cookie, String memberAccount) {
+  public static String gennerMyOrderParam(int recStart, String startDate, String endDate,
+      int status, String cardID, String cookie, String memberAccount) {
 
     JMyVacationApplyListParams param = new JMyVacationApplyListParams();
     param.setCookie(cookie);
@@ -316,22 +317,10 @@ public class AiShangUtil {
 
   /**
    * 生成请求的参数
-   *
-   * @param memberAccount
-   * @param cookie
-   * @param filterType
-   * @param startDate
-   * @param endDate
-   * @param recStart
-   * @param recCount
-   * @param orderby
-   * @param memberLevel
-   * @param subMemberPhone
-   * @return
    */
-  public static String generBusinessListJson(String memberAccount, String cookie,
-      int filterType, String startDate, String endDate, int recStart,
-      int recCount, String orderby, int memberLevel, String subMemberPhone) {
+  public static String generBusinessListJson(String memberAccount, String cookie, int filterType,
+      String startDate, String endDate, int recStart, int recCount, String orderby, int memberLevel,
+      String subMemberPhone) {
 
     JBusinessListParam param = new JBusinessListParam();
     param.setMemberAccount(memberAccount);
@@ -347,6 +336,21 @@ public class AiShangUtil {
 
     return gson.toJson(param);
   }
+
+  public static String generContactsAddParam(String phone, String name, String cookie, String member) {
+
+    JContactsAddParam p = new JContactsAddParam();
+    p.setCookie(cookie);
+    p.setMemberAccount(member);
+
+    JContactsAddParam.Item[] item = new JContactsAddParam.Item[1];
+    item[0] = p.new Item();
+    item[0].setName(name);
+    item[0].setPhone(phone);
+    p.setItemList(item);
+    return new Gson().toJson(p);
+  }
+
   public static boolean checkMemberLogin(Activity ctx) {
 
     JMemberLoginResult result = BoilerplateApplication.get(ctx).getMemberLoginResult();

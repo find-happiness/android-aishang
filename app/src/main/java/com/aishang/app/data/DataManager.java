@@ -12,6 +12,7 @@ import com.aishang.app.data.model.JLoupanProductListResult;
 import com.aishang.app.data.model.JMemberProfileResult;
 import com.aishang.app.data.model.JMemberStatisticsResult;
 import com.aishang.app.data.model.JMyVacationApplyListResult;
+import com.aishang.app.data.model.JResult;
 import com.aishang.app.data.model.JSysZoneParam;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JMrePromResult;
@@ -152,6 +153,10 @@ import com.aishang.app.util.EventPosterHelper;
 
   public Observable<JBusinessListResult> sysBusinessList(int version, String json) {
     return mAiShangService.sysBusinessList(version, json);
+  }
+
+  public Observable<JResult> sysContactsAdd(int version, String json) {
+    return mAiShangService.sysContactsAdd(version, json);
   }
 
   public JVersionCheckResult getVersionCheck() {

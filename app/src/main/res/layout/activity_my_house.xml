@@ -3,40 +3,69 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:paddingTop="@dimen/padding_stutas_bar"
     android:layout_height="match_parent"
-    android:background="@color/primary">
+    android:id="@+id/layoutRoot"
+    android:background="@color/primary"
+    android:paddingTop="@dimen/padding_stutas_bar"
+    >
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/primary"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:background="@color/primary"
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+      >
 
-        <TextView
-            android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/wo_de_fang_chang"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_title"/>
-    </android.support.v7.widget.Toolbar>
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/wo_de_fang_chang"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_title"
+        />
+  </android.support.v7.widget.Toolbar>
 
-    <android.support.v4.widget.SwipeRefreshLayout
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@+id/toolbar"
+      android:background="@color/gray"
+      >
+
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/XRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
-        android:background="@android:color/white">
+        >
 
-        <android.support.v4.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    </com.jcodecraeer.xrecyclerview.XRecyclerView>
 
-        </android.support.v4.widget.NestedScrollView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
 
+      <com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView
+          android:id="@+id/avloadingIndicatorView"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerInParent="true"
+          app:indicator="LineScalePulseOutRapid"
+          app:indicator_color="@color/blue"
+          />
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+      <TextView
+          android:id="@+id/no_data_hotel"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerInParent="true"
+          android:text="@string/no_data"
+          android:visibility="gone"
+          />
+    </RelativeLayout>
+  </FrameLayout>
 
 </RelativeLayout>

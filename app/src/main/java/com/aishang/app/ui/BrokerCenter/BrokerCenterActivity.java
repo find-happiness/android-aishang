@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -190,7 +191,7 @@ public class BrokerCenterActivity extends BaseActivity implements BrokerCenterMv
     mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
       @Override public void onRefresh() {
         if (NetworkUtil.isNetworkConnected(BrokerCenterActivity.this)) {
-
+          asynBusiness(NetWorkType.refresh);
         } else {
           mRecyclerView.refreshComplete();
           CommonUtil.showSnackbar(R.string.no_net, layoutRoot);
@@ -199,7 +200,8 @@ public class BrokerCenterActivity extends BaseActivity implements BrokerCenterMv
 
       @Override public void onLoadMore() {
         if (NetworkUtil.isNetworkConnected(BrokerCenterActivity.this)) {
-
+          asynBusiness(0, "", "", adapter.getItems().size(), 10, "asc", 0, "",
+              NetWorkType.loadMore);
         } else {
           //mRecyclerView.loadMoreComplete();
           mRecyclerView.cancelLoadMore();

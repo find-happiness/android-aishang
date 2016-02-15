@@ -2,7 +2,9 @@ package com.aishang.app.injection.component;
 
 import com.aishang.app.ui.BrokerCenter.BrokerCenterActivity;
 import com.aishang.app.ui.HotelDetail.HotelDetailActivity;
+import com.aishang.app.ui.MyHouse.MyHouseActivity;
 import com.aishang.app.ui.MyOrder.MyOrderActivity;
+import com.aishang.app.ui.RecommenCustomer.RecommenCustomerActivity;
 import com.aishang.app.ui.TravelList.TravelListActivity;
 import com.aishang.app.ui.hotel.HotelListActivity;
 import com.aishang.app.ui.insaleDetail.InSaleDetailActivity;
@@ -48,4 +50,8 @@ public interface ActivityComponent {
   void inject(MyOrderActivity activity);
 
   void inject(BrokerCenterActivity activity);
+
+  void inject(RecommenCustomerActivity activity);
+
+  void inject(MyHouseActivity activity);
 }

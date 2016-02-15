@@ -154,7 +154,7 @@ public class MyOrderActivity extends BaseActivity implements MyOrderMvpView {
     mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
       @Override public void onRefresh() {
         if (NetworkUtil.isNetworkConnected(MyOrderActivity.this)) {
-
+          asynMyOrder(NetWorkType.refresh);
         } else {
           mRecyclerView.refreshComplete();
           CommonUtil.showSnackbar(R.string.no_net, layoutRoot);
@@ -163,7 +163,7 @@ public class MyOrderActivity extends BaseActivity implements MyOrderMvpView {
 
       @Override public void onLoadMore() {
         if (NetworkUtil.isNetworkConnected(MyOrderActivity.this)) {
-
+          asynMyOrder(adapter.getItemCount(), "", "", 0, "", NetWorkType.loadMore);
         } else {
           //mRecyclerView.loadMoreComplete();
           mRecyclerView.cancelLoadMore();

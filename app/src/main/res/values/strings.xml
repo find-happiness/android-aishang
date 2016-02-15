@@ -106,7 +106,6 @@
   <string name="email">邮箱</string>
   <string name="change_pwd">修改密码</string>
   <string name="contacts_add">推荐客户</string>
-
-  <!-- TODO: Remove or change this placeholder text -->
-  <string name="hello_blank_fragment">Hello blank fragment</string>
+  <string name="push">提交</string>
+  <string name="no_name">名字不能为空</string>
 </resources>

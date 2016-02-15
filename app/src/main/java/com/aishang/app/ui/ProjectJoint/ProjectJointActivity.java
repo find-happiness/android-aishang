@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import com.aishang.app.R;
 import com.aishang.app.ui.base.BaseActivity;
 
@@ -15,6 +17,8 @@ public class ProjectJointActivity extends BaseActivity {
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
+    @Bind(R.id.webview)
+    WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +26,7 @@ public class ProjectJointActivity extends BaseActivity {
         setContentView(R.layout.activity_project_joint);
         ButterKnife.bind(this);
         initToolbar();
+        initWebView();
 
     }
 
@@ -32,10 +37,19 @@ public class ProjectJointActivity extends BaseActivity {
         toolbar.setNavigationIcon(R.mipmap.iconfont_livesvg);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            @Override public void onClick(View v) {
                 ProjectJointActivity.this.onBackPressed();
             }
         });
+    }
+
+    private void initWebView() {
+
+        webView.setVisibility(WebView.VISIBLE);
+        // wv.getSettings().setSupportZoom(true);
+        webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        // wv.getSettings().setBuiltInZoomControls(true);
+        webView.loadUrl("file:///android_asset/consociation.html");
+
     }
 }

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary"
+    android:id="@+id/layoutRoot"
     android:paddingTop="@dimen/padding_stutas_bar"
     tools:context="com.aishang.app.ui.MemberCenter.MemberCenterActivity">
 
@@ -34,6 +35,7 @@
       android:gravity="center">
 
     <Button
+        android:id="@+id/btn_contacts_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/blue"
@@ -42,25 +44,39 @@
         android:text="推荐客户"/>
   </LinearLayout>
 
-  <in.srain.cube.views.ptr.PtrClassicFrameLayout
-      android:id="@+id/load_more_list_view_ptr_frame"
+  <FrameLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_above="@id/ll_tuijian"
       android:layout_below="@+id/toolbar"
       android:background="@color/gray">
 
-    <ListView
-        android:id="@+id/load_more_small_image_list_view"
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@null"
-        android:fadingEdge="none"
-        android:listSelector="@android:color/transparent"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp"
-        android:scrollbarStyle="outsideOverlay"/>
+        android:layout_height="match_parent">
 
-  </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+    </com.jcodecraeer.xrecyclerview.XRecyclerView>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+      <com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView
+          android:id="@+id/avloadingIndicatorView"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerInParent="true"
+          app:indicator="LineScalePulseOutRapid"
+          app:indicator_color="@color/blue"/>
+
+      <TextView
+          android:id="@+id/no_data_hotel"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerInParent="true"
+          android:text="@string/no_data"
+          android:visibility="gone"/>
+    </RelativeLayout>
+  </FrameLayout>
 </RelativeLayout>

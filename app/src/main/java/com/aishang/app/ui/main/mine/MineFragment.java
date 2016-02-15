@@ -27,6 +27,7 @@ import com.aishang.app.ui.main.MainActivity;
 import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.Constants;
+import com.aishang.app.util.DialogFactory;
 import com.ecloud.pulltozoomview.PullToZoomBase;
 import com.ecloud.pulltozoomview.PullToZoomScrollViewEx;
 import com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView;
@@ -211,41 +212,50 @@ public class MineFragment extends Fragment implements MineMvpView {
     ButterKnife.unbind(this);
   }
 
+  private boolean checkLoginAndShowDialog() {
+    if (!AiShangUtil.checkMemberLogin(this.getActivity())) {
+      DialogFactory.createSimpleOkErrorDialog(this.getActivity(), R.string.dialog_error_title,
+          R.string.error_not_login).show();
+      return false;
+    }
+    return true;
+  }
+
   class ContentViewHolder {
     @OnClick(R.id.btn_gen_ren_zhong_xin) void geRenZhongXinClick() {
-      mMinePresenter.intentToMemberCenter();
+      if (checkLoginAndShowDialog()) mMinePresenter.intentToMemberCenter();
     }
 
     @OnClick(R.id.btn_zhang_hu_zhong_xin) void zhangHuZhongXinClick() {
-      mMinePresenter.intentToAccoutCenter();
+      if (checkLoginAndShowDialog()) mMinePresenter.intentToAccoutCenter();
     }
 
     @OnClick(R.id.btn_wo_de_ding_dang) void woDeDingDanClick() {
-      mMinePresenter.intentToMyOrder();
+      if (checkLoginAndShowDialog()) mMinePresenter.intentToMyOrder();
     }
 
     @OnClick(R.id.btn_wo_de_fang_chang) void woDeFangChangClick() {
-      mMinePresenter.intentToMyHouse();
+      if (checkLoginAndShowDialog()) mMinePresenter.intentToMyHouse();
     }
 
     @OnClick(R.id.btn_jin_ji_ren_zhong_xin) void jinJiRenZhongXinClick() {
-      mMinePresenter.intentToBrokerCenter();
+      if (checkLoginAndShowDialog()) mMinePresenter.intentToBrokerCenter();
     }
 
     @OnClick(R.id.btn_you_ji_shou_chang_jia) void youJiShouChangJiaClick() {
-      mMinePresenter.intentToTravelFavorites();
+      if (checkLoginAndShowDialog()) mMinePresenter.intentToTravelFavorites();
     }
 
     @OnClick(R.id.btn_chong_zi_ti_xian) void chongZiTiXianClick() {
-      mMinePresenter.intentToCashWithDrawApply();
+      if (checkLoginAndShowDialog()) mMinePresenter.intentToCashWithDrawApply();
     }
 
     @OnClick(R.id.btn_wo_de_zu_shou) void woDeZuShouClick() {
-      mMinePresenter.intentToMyBuyAndSale();
+      if (checkLoginAndShowDialog()) mMinePresenter.intentToMyBuyAndSale();
     }
 
     @OnClick(R.id.btn_guan_yu_wo_men) void guanYuWoMenClick() {
-      mMinePresenter.intentToAbout();
+      if (checkLoginAndShowDialog()) mMinePresenter.intentToAbout();
     }
 
     public ContentViewHolder(View view) {

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)file:///G:/Users/song/Downloads/consociation.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="keywords" content="旅游">
+    <meta name="description">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <link href="./consociation_files/pubic.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./consociation_files/common.css">
+    <link rel="stylesheet" href="./consociation_files/ChangeHotel.css">
+    <script src="./consociation_files/jquery-1.9.1.min.js"></script>
+    <script>
+
+        function submitConsociation() {
+            //项目名称
+            var projectName = $("#projectName").val();
+            //项目地址
+            var projectAddress = $("#projectAddress").val();
+            //项目类型
+            var type = $("#type").val();
+            //项目介绍
+            var remark = $("#remark").val();
+            //楼盘体量
+            var projectCount = $("#projectCount").val();
+            //联系人
+            var contacts = $("#contacts").val();
+            //联系人电话
+            var contactsPhone = $("#contactsPhone").val();
+            //联系人邮箱
+            var contactsEmail = $("#contactsEmail").val();
+            //特色
+            var special = $("#special").val();
+            if ($.trim(projectName) == "" || $.trim(projectAddress) == "") {
+                alert("请输入完整的信息");
+                return;
+            }
+            else {
+                if (/^1\d{10}$/g.test(contactsPhone.trim()) || /^0\d{10}$/g.test(contactsPhone.trim())) {
+                } else {
+                    alert("请输入中国大陆11位手机或者座机号码（区号+座机号）！例如：13888888888/01088888888/07558888888");
+                    $("#guestPhone").get(0).focus();
+                    return;
+                }
+            }
+            var ConsociationData = '{"projectName":"' + projectName + '",projectAddress:"' + projectAddress + '",projectCount:"' + projectCount + '",contacts:"' + contacts + '",contactsPhone:"' + contactsPhone + '",contactsEmail:"' + contactsEmail + '",special:"' + special + '"}';
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                data: { "q": ConsociationData },
+                url: "/mobile/projecCtooperation.ashx",
+                success: function (data) {
+                    if (data.result == "success") {
+                        alert("提交成功");
+                    }
+                    else {
+                        alert(data.result);
+                        alert("提交失败");
+                    }
+                }
+            });
+        }
+
+        $(function () {
+            $("#title dd").click(function () {
+                var index = $(this).index();
+                var curBox = $("#detail").children().get(index - 1);
+                $(this).addClass("selected").siblings().removeClass("selected");
+                $(curBox).addClass("current").siblings().removeClass("current");
+            });
+        });
+       
+    </script>
+</head>
+<body>
+    <div id="indexbox">
+        
+
+        <!--center-->
+        <div id="div_help">
+            
+
+            <div class="div_help">
+                <div class="exchange_title">
+                    项目合作
+                </div>
+                <p class="line"></p>
+                <div class="div_rule">
+                    <a class="online_title">【项目合作规则】</a>
+                    <div class="div_detial">
+                        <article>爱尚旅居——中国首个共权度假屋共享换住平台，由重庆耘目实业有限公司倾力打造，提供共权度假屋网上展示、申购、预订、换住以及出租、出售服务的共权度假屋综合服务网络平台。</article>
+                        <div class="exchange_fw">
+                            <a>项目合作服务</a>
+                            <p>
+                                1、乙方将房屋旺季的使用权交给甲方，由甲方进行运营，鉴于乙方房屋所处的区位及气候特点，人气居住率，运营等综合因素，甲方平台能接受的乙方房屋可交换权益为每天为多少积分。<br>
+                                2、甲方提供乙方在爱尚旅居平台免费度假交换权益为天（积分）。乙方登陆爱尚旅居平台账户后，仅需根据度假需求选择物业，凭积分预订入住即可。(注：积分换算公式 区域一个间夜价格X天数=换住积分。例 当地房屋间夜价格为300元/晚，权益为20天，则积分为：300X20=6000积分)<br>
+                                3、甲方运营期间，所产生的水、电、燃气、有线电视、电话、宽带等费用，由甲方承担。<br>
+                                注意：因为甲方已经给予乙方每年固定的交换度假权益，甲方运营期间内，房屋使用权益归甲方所有乙方不得入住。期间运营亏损归甲方承担，同理如产生收益也归甲方所有。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="div_rule">
+                    <a class="online_title">【加入我们】</a>
+                    <div class="online_detial" style="height:auto;">
+                        <div class="same"><span>项目名称：</span><input id="projectName" type="text"></div>
+                        <div class="same"><span>项目地址：</span><input id="projectAddress" type="text"></div>
+                        <div class="same">类型：<input id="type" type="text"></div>
+                        <div class="same"><span>楼盘体量：</span><input id="projectCount" type="text"></div>
+                        <div class="same"><span>联系人：</span><input id="contacts" type="text"></div>
+                        <div class="same">电话：<input id="contactsPhone" type="text"></div>
+                        <div class="same">邮件：<input id="contactsEmail" type="text"></div>
+                        <div class="same">特色：<input id="special" type="text"></div>
+                        <div class="csame">
+                            项目介绍：<textarea id="remark"></textarea>
+                        </div>
+                        <div style="text-align: right; margin-bottom: 0px;">
+                            <a class="a_phone">咨询电话：023-4001243</a>
+                            <input type="button" class="btn_submit" onclick="submitConsociation();" value="提交">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+        </div>
+        
+
+    </div>
+
+</body></html>

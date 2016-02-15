@@ -43,7 +43,6 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
   public void Login(int version, final String json) {
     checkViewAttached();
 
-    //TODO 密码错误的时候 json解析出错
     mSubscription = mDataManager.syncLogin(version, json)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())

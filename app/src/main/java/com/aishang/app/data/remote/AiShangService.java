@@ -1,5 +1,6 @@
 package com.aishang.app.data.remote;
 
+import com.aishang.app.data.model.JBusinessListResult;
 import com.aishang.app.data.model.JHotelDetailResult;
 import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JHotelPriceCatListResult;
@@ -11,15 +12,29 @@ import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JMemberProfileResult;
 import com.aishang.app.data.model.JMemberStatisticsResult;
 import com.aishang.app.data.model.JMrePromResult;
+import com.aishang.app.data.model.JMyVacationApplyListResult;
 import com.aishang.app.data.model.JNewsListResult;
 import com.aishang.app.data.model.JSysZoneResult;
 import com.aishang.app.data.model.JVersionCheckResult;
 import com.aishang.app.data.model.Ribot;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Collections;
 import java.util.List;
+import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
+import okio.BufferedSink;
+import okio.BufferedSource;
+import okio.Okio;
 import retrofit2.GsonConverterFactory;
 import retrofit2.Retrofit;
 import retrofit2.RxJavaCallAdapterFactory;
@@ -37,6 +52,9 @@ public interface AiShangService {
   @Headers("connection:Keep-Alive") @GET("mobile/member/memberLogin.ashx")
   Observable<JMemberLoginResult> login(@Query(value = "v") int version,
       @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/member/memberLogin.ashx")
+  Observable<String> login2(@Query(value = "v") int version, @Query(value = "q") String q);
 
   @Headers("connection:Keep-Alive") @GET("mobile/other/mrePromList.ashx")
   Observable<JMrePromResult> mreProm(@Query(value = "v") int version, @Query(value = "q") String q);
@@ -86,6 +104,13 @@ public interface AiShangService {
   Observable<JLoupanProductDetailResult> loupanProductDetail(@Query(value = "v") int version,
       @Query(value = "q") String q);
 
+  @Headers("connection:Keep-Alive") @GET("mobile/member/myVacationApplyList.ashx")
+  Observable<JMyVacationApplyListResult> sysMyVacationApplyList(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+  @Headers("connection:Keep-Alive") @GET("mobile/member/businessList.ashx")
+  Observable<JBusinessListResult> sysBusinessList(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
   @GET("ribots") Observable<List<Ribot>> getRibots();
 
   /******** Helper class that sets up a new services *******/
@@ -99,7 +124,6 @@ public interface AiShangService {
       logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
       OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-      // add your other interceptors …
 
       // add logging as last interceptor
       httpClient.interceptors().add(logging);  // <-- this is the important line!

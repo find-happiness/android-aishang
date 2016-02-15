@@ -18,6 +18,7 @@
         android:layout_gravity="center"
         android:layout_weight="1"
         android:text="名字"
+        android:id="@+id/name"
         android:textSize="@dimen/text_body"
         />
 
@@ -27,6 +28,7 @@
         android:layout_gravity="center"
         android:layout_weight="3"
         android:text="13333333333"
+        android:id="@+id/phone"
         android:textSize="@dimen/text_body"
         />
 
@@ -36,6 +38,7 @@
         android:layout_gravity="center"
         android:layout_weight="1"
         android:text="已预约"
+        android:id="@+id/status"
         android:textSize="@dimen/text_body"
         />
   </LinearLayout>
@@ -51,6 +54,7 @@
         android:layout_gravity="center"
         android:layout_weight="1"
         android:text="名字"
+        android:id="@+id/date"
         android:textSize="@dimen/text_body"
         />
 
@@ -60,6 +64,7 @@
         android:layout_gravity="center"
         android:layout_weight="3"
         android:text="13333333333"
+        android:id="@+id/time"
         android:textSize="@dimen/text_body"
         />
 
@@ -69,6 +74,7 @@
         android:layout_gravity="center"
         android:layout_weight="1"
         android:text="已预约"
+        android:id="@+id/price"
         android:textSize="@dimen/text_large_body"
         />
   </LinearLayout>

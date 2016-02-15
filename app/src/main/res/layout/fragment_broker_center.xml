@@ -1,0 +1,93 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/toolbar"
+    android:background="@color/gray"
+    android:scrollbars="none"
+    tools:context=".ui.RecommenCustomer.BrokerCenterFragment"
+    >
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/spacing_large"
+      android:orientation="vertical">
+
+    <com.aishang.app.widget.ClearEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/edit_backgroud"
+        android:hint="用户名"
+        android:singleLine="true"/>
+
+    <com.aishang.app.widget.ClearEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:background="@mipmap/edit_backgroud"
+        android:hint="电话"
+        android:singleLine="true"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:background="@mipmap/edit_backgroud"
+        android:drawableRight="@mipmap/iconfont_fanhuidingbu"
+        android:gravity="center_vertical"
+        android:hint="性别"
+        android:paddingRight="@dimen/spacing_large"/>
+
+    <com.aishang.app.widget.ClearEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:background="@mipmap/edit_backgroud"
+        android:hint="年龄"
+        android:singleLine="true"/>
+
+    <com.aishang.app.widget.ClearEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:background="@mipmap/edit_backgroud"
+        android:hint="职业"
+        android:singleLine="true"/>
+
+    <com.aishang.app.widget.ClearEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:background="@mipmap/edit_backgroud"
+        android:hint="地区（省/市/区）"
+        android:singleLine="true"/>
+
+    <com.aishang.app.widget.ClearEditText
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:background="@mipmap/edit_backgroud"
+        android:hint="意向项目"
+        android:singleLine="true"/>
+
+    <com.aishang.app.widget.ClearEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:background="@mipmap/edit_backgroud"
+        android:hint="意向价格"
+        android:singleLine="true"/>
+
+    <com.aishang.app.widget.ClearEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:background="@mipmap/edit_backgroud"
+        android:hint="备注"/>
+
+  </LinearLayout>
+</ScrollView>

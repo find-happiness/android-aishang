@@ -85,9 +85,7 @@ public class MinePresenter extends BasePresenter<MineMvpView> {
 
   public void intentToMemberCenter() {
     Activity act = ((MineFragment) getMvpView()).getActivity();
-
     Intent intent = new Intent(act, MemberCenterActivity.class);
-
     act.startActivity(intent);
   }
 

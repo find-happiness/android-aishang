@@ -1,15 +1,20 @@
 package com.aishang.app.util;
 
+import android.app.Activity;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
+import com.aishang.app.BoilerplateApplication;
+import com.aishang.app.data.model.JBusinessListParam;
 import com.aishang.app.data.model.JHotelDetailParam;
 import com.aishang.app.data.model.JHotelListParam;
 import com.aishang.app.data.model.JLoupanPriceCatListParam;
 import com.aishang.app.data.model.JLoupanProductDetailParam;
 import com.aishang.app.data.model.JLoupanProductListParam;
 import com.aishang.app.data.model.JMemberLoginParam;
+import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JMemberStatisticsParam;
+import com.aishang.app.data.model.JMyVacationApplyListParams;
 import com.aishang.app.data.model.JNewsListParams;
 import com.aishang.app.data.model.JSysZoneParam;
 import com.aishang.app.data.remote.AiShangService;
@@ -291,5 +296,65 @@ public class AiShangUtil {
         }
       }
     });
+  }
+
+  public static String gennerMyOrderParam( int recStart,String startDate, String endDate, int status,
+      String cardID, String cookie, String memberAccount) {
+
+    JMyVacationApplyListParams param = new JMyVacationApplyListParams();
+    param.setCookie(cookie);
+    param.setMemberAccount(memberAccount);
+    param.setRecCount(10);
+    param.setRecStart(recStart);
+    param.setFilterStartDate(startDate);
+    param.setFilerEndDate(endDate);
+    param.setFilterVACardID(cardID);
+    param.setStatus(status);
+
+    return gson.toJson(param);
+  }
+
+  /**
+   * 生成请求的参数
+   *
+   * @param memberAccount
+   * @param cookie
+   * @param filterType
+   * @param startDate
+   * @param endDate
+   * @param recStart
+   * @param recCount
+   * @param orderby
+   * @param memberLevel
+   * @param subMemberPhone
+   * @return
+   */
+  public static String generBusinessListJson(String memberAccount, String cookie,
+      int filterType, String startDate, String endDate, int recStart,
+      int recCount, String orderby, int memberLevel, String subMemberPhone) {
+
+    JBusinessListParam param = new JBusinessListParam();
+    param.setMemberAccount(memberAccount);
+    param.setCookie(cookie);
+    param.setFilterType(filterType);
+    param.setStartDate(startDate);
+    param.setEndDate(endDate);
+    param.setOrderby(orderby);
+    param.setRecStart(recStart);
+    param.setRecCount(recCount);
+    param.setMemberLevel(memberLevel);
+    param.setSubMemberPhone(subMemberPhone);
+
+    return gson.toJson(param);
+  }
+  public static boolean checkMemberLogin(Activity ctx) {
+
+    JMemberLoginResult result = BoilerplateApplication.get(ctx).getMemberLoginResult();
+
+    if (result == null) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }

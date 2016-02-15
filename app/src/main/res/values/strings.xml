@@ -94,4 +94,19 @@
   <string name="loupan_product_name">项目名称:%s</string>
   <string name="loupan_price_jifen">换住积分:%s</string>
   <string name="loupan_effective_year">房产证:%s</string>
+  <string name="error_not_login">您没有登录</string>
+  <string name="head_img">头像</string>
+  <string name="member_level">会员等级</string>
+  <string name="phone_num">电话号码</string>
+  <string name="member_name">呢称</string>
+  <string name="member_real_name">真实姓名</string>
+  <string name="birthday">出生日期</string>
+  <string name="gender">性别</string>
+  <string name="bank_member">银行帐号</string>
+  <string name="email">邮箱</string>
+  <string name="change_pwd">修改密码</string>
+  <string name="contacts_add">推荐客户</string>
+
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

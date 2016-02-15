@@ -39,14 +39,18 @@
     <activity android:name=".ui.insale.InSaleActivity"/>
     <activity android:name=".ui.insaleDetail.InSaleDetailActivity"/>
     <activity android:name=".ui.hotel.HotelListActivity"/>
-    <activity android:name=".ui.HotelDetail.HotelDetailActivity"
+    <activity
+        android:name=".ui.HotelDetail.HotelDetailActivity"
         android:theme="@style/DetailTheme"/>
 
     <activity android:name=".ui.login.LoginActivity"/>
     <activity android:name=".ui.MemberCenter.MemberCenterActivity"/>
     <activity android:name=".ui.CashWithDrawApply.CashWithDrawApplyActivity"/>
     <activity android:name=".ui.BrokerCenter.BrokerCenterActivity"/>
-    <activity android:name=".ui.RecommenCustomer.RecommenCustomerActivity"/>
+    <activity
+        android:name=".ui.RecommenCustomer.RecommenCustomerActivity"
+        android:windowSoftInputMode="stateHidden">
+    </activity>
     <activity android:name=".ui.MyOrder.MyOrderActivity"/>
     <activity android:name=".ui.MyHouse.MyHouseActivity"/>
     <activity android:name=".ui.MyBuyAndSale.BuyAndSaleActivity"/>

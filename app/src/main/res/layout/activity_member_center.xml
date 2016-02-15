@@ -8,364 +8,368 @@
     android:paddingTop="@dimen/padding_stutas_bar"
     tools:context="com.aishang.app.ui.MemberCenter.MemberCenterActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:background="@color/primary"
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/ge_ren_zhong_xin"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_title"/>
+  </android.support.v7.widget.Toolbar>
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@id/toolbar"
+      android:background="@color/gray">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/primary"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:background="@android:color/white"
+          android:paddingBottom="@dimen/spacing_xsmall"
+          android:paddingLeft="@dimen/spacing_large"
+          android:paddingRight="@dimen/spacing_large"
+          android:paddingTop="@dimen/spacing_xsmall">
 
         <TextView
-            android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/ge_ren_zhong_xin"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_title" />
-    </android.support.v7.widget.Toolbar>
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/text_body"
+            tools:text="@string/head_img"/>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
-        android:background="@color/gray">
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/jian_tou"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/iconfont_fanhuidingbu"/>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:paddingLeft="@dimen/spacing_large"
-                android:paddingRight="@dimen/spacing_large"
-                android:background="@android:color/white"
-                android:paddingBottom="@dimen/spacing_xsmall"
-                android:paddingTop="@dimen/spacing_xsmall">
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_image"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:layout_toLeftOf="@id/jian_tou"
+            android:src="@mipmap/zaishou"/>
+      </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:textSize="@dimen/text_body"
-                    tools:text="头像" />
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/gray"/>
 
-                <ImageView
-                    android:id="@+id/jian_tou"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/iconfont_fanhuidingbu" />
-                <!--
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:layout_toLeftOf="@id/jian_tou"
-                                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                                    android:id="@+id/profile_image"
-                                    android:layout_width="48dp"
-                                    android:layout_height="48dp"
-                                    android:layout_marginRight="@dimen/spacing_medium"
-                                    android:layout_centerVertical="true"
-                                    android:src="@mipmap/zaishou"/>-->
-            </RelativeLayout>
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:background="@android:color/white"
+          android:paddingBottom="@dimen/spacing_large"
+          android:paddingLeft="@dimen/spacing_large"
+          android:paddingRight="@dimen/spacing_large"
+          android:paddingTop="@dimen/spacing_large">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/text_body"
+            tools:text="@string/member_level"/>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:paddingLeft="@dimen/spacing_large"
-                android:paddingRight="@dimen/spacing_large"
-                android:background="@android:color/white"
-                android:paddingBottom="@dimen/spacing_large"
-                android:paddingTop="@dimen/spacing_large">
+        <ImageView
+            android:id="@id/jian_tou"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/iconfont_fanhuidingbu"
+            android:visibility="invisible"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:textSize="@dimen/text_body"
-                    tools:text="头像" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:layout_toLeftOf="@id/jian_tou"
+            android:src="@mipmap/zaishou"
+            android:text="核心会员"/>
+      </RelativeLayout>
 
-                <ImageView
-                    android:id="@id/jian_tou"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/iconfont_fanhuidingbu"
-                    android:visibility="invisible" />
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/gray"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/spacing_medium"
-                    android:layout_toLeftOf="@id/jian_tou"
-                    android:src="@mipmap/zaishou"
-                    android:text="核心会员" />
-            </RelativeLayout>
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:background="@android:color/white"
+          android:paddingBottom="@dimen/spacing_large"
+          android:paddingLeft="@dimen/spacing_large"
+          android:paddingRight="@dimen/spacing_large"
+          android:paddingTop="@dimen/spacing_large">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/text_body"
+            tools:text="@string/phone_num"/>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:paddingLeft="@dimen/spacing_large"
-                android:paddingRight="@dimen/spacing_large"
-                android:background="@android:color/white"
-                android:paddingBottom="@dimen/spacing_large"
-                android:paddingTop="@dimen/spacing_large">
+        <ImageView
+            android:id="@id/jian_tou"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/iconfont_fanhuidingbu"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:textSize="@dimen/text_body"
-                    tools:text="头像" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:layout_toLeftOf="@id/jian_tou"
+            android:src="@mipmap/zaishou"
+            android:text="13883224451"/>
+      </RelativeLayout>
 
-                <ImageView
-                    android:id="@id/jian_tou"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/iconfont_fanhuidingbu" />
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/spacing_large"
+          android:background="@color/gray"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/spacing_medium"
-                    android:layout_toLeftOf="@id/jian_tou"
-                    android:src="@mipmap/zaishou"
-                    android:text="13883224451" />
-            </RelativeLayout>
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:background="@android:color/white"
+          android:paddingBottom="@dimen/spacing_large"
+          android:paddingLeft="@dimen/spacing_large"
+          android:paddingRight="@dimen/spacing_large"
+          android:paddingTop="@dimen/spacing_large">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/spacing_large"
-                android:background="@color/gray" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/text_body"
+            tools:text="@string/member_name"/>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:paddingLeft="@dimen/spacing_large"
-                android:paddingRight="@dimen/spacing_large"
-                android:background="@android:color/white"
-                android:paddingBottom="@dimen/spacing_large"
-                android:paddingTop="@dimen/spacing_large">
+        <ImageView
+            android:id="@id/jian_tou"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/iconfont_fanhuidingbu"/>
+      </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:textSize="@dimen/text_body"
-                    tools:text="头像" />
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/gray"/>
 
-                <ImageView
-                    android:id="@id/jian_tou"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/iconfont_fanhuidingbu" />
-            </RelativeLayout>
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:background="@android:color/white"
+          android:paddingBottom="@dimen/spacing_large"
+          android:paddingLeft="@dimen/spacing_large"
+          android:paddingRight="@dimen/spacing_large"
+          android:paddingTop="@dimen/spacing_large">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/text_body"
+            tools:text="@string/member_real_name"/>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:paddingLeft="@dimen/spacing_large"
-                android:paddingRight="@dimen/spacing_large"
-                android:background="@android:color/white"
-                android:paddingBottom="@dimen/spacing_large"
-                android:paddingTop="@dimen/spacing_large">
+        <ImageView
+            android:id="@id/jian_tou"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/iconfont_fanhuidingbu"/>
+      </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:textSize="@dimen/text_body"
-                    tools:text="头像" />
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/gray"/>
 
-                <ImageView
-                    android:id="@id/jian_tou"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/iconfont_fanhuidingbu" />
-            </RelativeLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray" />
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:background="@android:color/white"
+          android:paddingBottom="@dimen/spacing_large"
+          android:paddingLeft="@dimen/spacing_large"
+          android:paddingRight="@dimen/spacing_large"
+          android:paddingTop="@dimen/spacing_large">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:paddingLeft="@dimen/spacing_large"
-                android:paddingRight="@dimen/spacing_large"
-                android:background="@android:color/white"
-                android:paddingBottom="@dimen/spacing_large"
-                android:paddingTop="@dimen/spacing_large">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/text_body"
+            tools:text="@string/birthday"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:textSize="@dimen/text_body"
-                    tools:text="头像" />
+        <ImageView
+            android:id="@id/jian_tou"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/iconfont_fanhuidingbu"/>
+      </RelativeLayout>
 
-                <ImageView
-                    android:id="@id/jian_tou"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/iconfont_fanhuidingbu" />
-            </RelativeLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray" />
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/gray"/>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:paddingLeft="@dimen/spacing_large"
-                android:paddingRight="@dimen/spacing_large"
-                android:background="@android:color/white"
-                android:paddingBottom="@dimen/spacing_large"
-                android:paddingTop="@dimen/spacing_large">
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:background="@android:color/white"
+          android:paddingBottom="@dimen/spacing_large"
+          android:paddingLeft="@dimen/spacing_large"
+          android:paddingRight="@dimen/spacing_large"
+          android:paddingTop="@dimen/spacing_large">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:textSize="@dimen/text_body"
-                    tools:text="头像" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/text_body"
+            tools:text="@string/gender"/>
 
-                <ImageView
-                    android:id="@id/jian_tou"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/iconfont_fanhuidingbu" />
-            </RelativeLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray" />
+        <ImageView
+            android:id="@id/jian_tou"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/iconfont_fanhuidingbu"/>
+      </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:paddingLeft="@dimen/spacing_large"
-                android:paddingRight="@dimen/spacing_large"
-                android:background="@android:color/white"
-                android:paddingBottom="@dimen/spacing_large"
-                android:paddingTop="@dimen/spacing_large">
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/gray"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:textSize="@dimen/text_body"
-                    tools:text="头像" />
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:background="@android:color/white"
+          android:paddingBottom="@dimen/spacing_large"
+          android:paddingLeft="@dimen/spacing_large"
+          android:paddingRight="@dimen/spacing_large"
+          android:paddingTop="@dimen/spacing_large">
 
-                <ImageView
-                    android:id="@id/jian_tou"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/iconfont_fanhuidingbu" />
-            </RelativeLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/gray" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/text_body"
+            tools:text="@string/bank_member"/>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:paddingLeft="@dimen/spacing_large"
-                android:paddingRight="@dimen/spacing_large"
-                android:background="@android:color/white"
-                android:paddingBottom="@dimen/spacing_large"
-                android:paddingTop="@dimen/spacing_large">
+        <ImageView
+            android:id="@id/jian_tou"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/iconfont_fanhuidingbu"/>
+      </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:textSize="@dimen/text_body"
-                    tools:text="头像" />
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/gray"/>
 
-                <ImageView
-                    android:id="@id/jian_tou"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/iconfont_fanhuidingbu" />
-            </RelativeLayout>
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:background="@android:color/white"
+          android:paddingBottom="@dimen/spacing_large"
+          android:paddingLeft="@dimen/spacing_large"
+          android:paddingRight="@dimen/spacing_large"
+          android:paddingTop="@dimen/spacing_large">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/spacing_large"
-                android:background="@color/gray" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/text_body"
+            tools:text="@string/email"/>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:paddingLeft="@dimen/spacing_large"
-                android:paddingRight="@dimen/spacing_large"
-                android:background="@android:color/white"
-                android:paddingBottom="@dimen/spacing_large"
-                android:paddingTop="@dimen/spacing_large">
+        <ImageView
+            android:id="@id/jian_tou"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/iconfont_fanhuidingbu"/>
+      </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:textSize="@dimen/text_body"
-                    tools:text="头像" />
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/spacing_large"
+          android:background="@color/gray"/>
 
-                <ImageView
-                    android:id="@id/jian_tou"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/iconfont_fanhuidingbu" />
-            </RelativeLayout>
-        </LinearLayout>
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:background="@android:color/white"
+          android:paddingBottom="@dimen/spacing_large"
+          android:paddingLeft="@dimen/spacing_large"
+          android:paddingRight="@dimen/spacing_large"
+          android:paddingTop="@dimen/spacing_large">
 
-    </ScrollView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/text_body"
+            tools:text="@string/change_pwd"/>
+
+        <ImageView
+            android:id="@id/jian_tou"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/iconfont_fanhuidingbu"/>
+      </RelativeLayout>
+    </LinearLayout>
+
+  </ScrollView>
 </RelativeLayout>

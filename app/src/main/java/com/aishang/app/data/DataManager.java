@@ -1,6 +1,7 @@
 package com.aishang.app.data;
 
 import android.util.Log;
+import com.aishang.app.data.model.JBusinessListResult;
 import com.aishang.app.data.model.JHotelDetailResult;
 import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JHotelPriceCatListResult;
@@ -10,6 +11,7 @@ import com.aishang.app.data.model.JLoupanProductDetailResult;
 import com.aishang.app.data.model.JLoupanProductListResult;
 import com.aishang.app.data.model.JMemberProfileResult;
 import com.aishang.app.data.model.JMemberStatisticsResult;
+import com.aishang.app.data.model.JMyVacationApplyListResult;
 import com.aishang.app.data.model.JSysZoneParam;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JMrePromResult;
@@ -77,6 +79,11 @@ import com.aishang.app.util.EventPosterHelper;
     return mAiShangService.login(version, json);
   }
 
+  public Observable<String> syncLogin2(int version, String json) {
+    //Log.i(TAG, "syncLogin: v=" + version + "&q=" +json);
+    return mAiShangService.login2(version, json);
+  }
+
   public Observable<JMrePromResult> syncProm(int version, String json) {
     return mAiShangService.mreProm(version, json);
   }
@@ -137,6 +144,14 @@ import com.aishang.app.util.EventPosterHelper;
 
   public Observable<JLoupanProductDetailResult> syncLoupanProductDetail(int version, String json) {
     return mAiShangService.loupanProductDetail(version, json);
+  }
+
+  public Observable<JMyVacationApplyListResult> sysMyVacationApplyList(int version, String json) {
+    return mAiShangService.sysMyVacationApplyList(version, json);
+  }
+
+  public Observable<JBusinessListResult> sysBusinessList(int version, String json) {
+    return mAiShangService.sysBusinessList(version, json);
   }
 
   public JVersionCheckResult getVersionCheck() {

@@ -2,11 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary"
     android:paddingTop="@dimen/padding_stutas_bar"
-    android:id="@+id/layoutRoot"
     tools:context="com.aishang.app.ui.MemberCenter.MemberCenterActivity"
     >
 
@@ -16,13 +16,15 @@
       android:layout_height="?attr/actionBarSize"
       android:background="@color/primary"
       app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+      app:theme="@style/ToolBarStyle"
       >
 
     <TextView
         android:id="@+id/toolbar_title"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:gravity="center"
         android:text="@string/contacts_add"
         android:textColor="@android:color/white"
         android:textSize="@dimen/text_title"
@@ -135,13 +137,14 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/spacing_large"
           android:background="@mipmap/edit_backgroud"
+          android:layout_marginBottom="@dimen/spacing_large"
           android:hint="备注"
           />
 
-      <View
-          android:layout_width="match_parent"
-          android:layout_height="@dimen/spacing_large"
-          />
+        <View
+            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacing_large"/>
     </LinearLayout>
   </ScrollView>
 </RelativeLayout>

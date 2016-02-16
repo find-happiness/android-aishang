@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
+    android:paddingLeft="@dimen/spacing_large"
+    android:paddingRight="@dimen/spacing_large"
     android:orientation="vertical"
     tools:context=".RechargeFragment">
 
@@ -11,26 +12,21 @@
 
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="@mipmap/edit_backgroud"
       android:hint="充值金额"
-      app:met_hideUnderline="true"/>
+      app:met_floatingLabel="normal"/>
 
-    <com.rengwuxian.materialedittext.MaterialEditText
+  <com.rengwuxian.materialedittext.MaterialEditText
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/spacing_large"
+      android:hint="开户行"
+      app:met_floatingLabel="normal"/>
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@mipmap/edit_backgroud"
-        android:layout_marginTop="@dimen/spacing_large"
-        android:hint="开户行"
-        app:met_hideUnderline="true"/>
-
-    <com.rengwuxian.materialedittext.MaterialEditText
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@mipmap/edit_backgroud"
-        android:layout_marginTop="@dimen/spacing_large"
-        android:hint="账户"
-        app:met_hideUnderline="true"/>
+  <com.rengwuxian.materialedittext.MaterialEditText
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/spacing_large"
+      android:hint="账户"
+      app:met_floatingLabel="normal"/>
 
 </LinearLayout>

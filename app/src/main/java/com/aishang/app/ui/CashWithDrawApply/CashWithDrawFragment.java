@@ -1,113 +1,173 @@
 package com.aishang.app.ui.CashWithDrawApply;
 
 import android.app.Activity;
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.ScrollView;
+import android.widget.TextView;
+import butterknife.Bind;
 import butterknife.ButterKnife;
+import com.aishang.app.BoilerplateApplication;
 import com.aishang.app.R;
+import com.aishang.app.util.AiShangUtil;
+import com.aishang.app.util.BusProvider;
+import com.aishang.app.util.CommonUtil;
+import com.aishang.app.util.DialogFactory;
+import com.rengwuxian.materialedittext.MaterialEditText;
 import com.shizhefei.fragment.LazyFragment;
+import com.squareup.otto.Subscribe;
+import javax.inject.Inject;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CashWithDrawFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link CashWithDrawFragment#newInstance} factory method to
  * create an instance of this fragment.
- *
  */
-public class CashWithDrawFragment extends LazyFragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class CashWithDrawFragment extends LazyFragment implements CashWithDrawApplyMvpView {
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+  private static final String TAG = "CashWithDrawFragment";
+  // TODO: Rename parameter arguments, choose names that match
+  // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+  private static final String ARG_PARAM1 = "param1";
+  private static final String ARG_PARAM2 = "param2";
 
-    private OnFragmentInteractionListener mListener;
+  @Inject CashWithDrawApplyPresenter presenter;
+  @Bind(R.id.tv_price_jifen) TextView tvPriceJifen;
+  @Bind(R.id.amount) MaterialEditText amount;
+  @Bind(R.id.bank) MaterialEditText bank;
+  @Bind(R.id.holder) MaterialEditText holder;
+  @Bind(R.id.accountNumber) MaterialEditText accountNumber;
+  @Bind(R.id.layoutRoot) ScrollView layoutRoot;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CashWithDrawFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CashWithDrawFragment newInstance(String param1, String param2) {
-        CashWithDrawFragment fragment = new CashWithDrawFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+  // TODO: Rename and change types of parameters
+  private String mParam1;
+  private String mParam2;
+
+  /**
+   * Use this factory method to create a new instance of
+   * this fragment using the provided parameters.
+   *
+   * @return A new instance of fragment CashWithDrawFragment.
+   */
+  // TODO: Rename and change types and number of parameters
+  public static CashWithDrawFragment newInstance() {
+    CashWithDrawFragment fragment = new CashWithDrawFragment();
+    return fragment;
+  }
+
+  public CashWithDrawFragment() {
+    // Required empty public constructor
+  }
+
+  @Override public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    ((CashWithDrawApplyActivity) getActivity()).getActivityComponent().inject(this);
+    presenter.attachView(this);
+
+    if (getArguments() != null) {
+      mParam1 = getArguments().getString(ARG_PARAM1);
+      mParam2 = getArguments().getString(ARG_PARAM2);
     }
-    public CashWithDrawFragment() {
-        // Required empty public constructor
+  }
+
+  @Override protected void onResumeLazy() {
+    super.onResumeLazy();
+    BusProvider.getInstance().register(this);
+  }
+
+  @Override protected void onPauseLazy() {
+    super.onPauseLazy();
+    BusProvider.getInstance().unregister(this);
+  }
+
+  @Override protected void onCreateViewLazy(Bundle savedInstanceState) {
+    super.onCreateViewLazy(savedInstanceState);
+    setContentView(R.layout.fragment_cash_with_draw);
+    ButterKnife.bind(this, this.getContentView());
+  }
+
+  @Override public void onAttach(Activity context) {
+    super.onAttach(context);
+  }
+
+  @Override public void onDetach() {
+    super.onDetach();
+  }
+
+  @Subscribe public void onPost(PostEvent event) {
+    Log.i(TAG, "onPost: CashWithDrawFragment------>" + event.getFragment());
+    if (event.getFragment() != 1) return;
+
+    if (isEmptyAccountNumber()) {
+      CommonUtil.showSnackbar("账号不能为空", layoutRoot);
+      return;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    if (isEmptyAmount()) {
+      CommonUtil.showSnackbar("提现金额不能为空", layoutRoot);
+      return;
     }
 
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    if (isEmptyBank()) {
+      CommonUtil.showSnackbar("开户行不能为空", layoutRoot);
+      return;
     }
 
-    @Override protected void onCreateViewLazy(Bundle savedInstanceState) {
-        super.onCreateViewLazy(savedInstanceState);
-        setContentView(R.layout.fragment_cash_with_draw);
-        ButterKnife.bind(this,this.getContentView());
-
+    if (isEmptyHolder()) {
+      CommonUtil.showSnackbar("持卡人不能为空", layoutRoot);
+      return;
     }
 
-    @Override
-    public void onAttach(Activity context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnPasswordFragmentInteractionListener");
-        }
-    }
+    asynPost();
+  }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
+  @Override public void onDestroyViewLazy() {
+    super.onDestroyViewLazy();
+    ButterKnife.unbind(this);
+  }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
+  public boolean isEmptyHolder() {
+    return TextUtils.isEmpty(holder.getText());
+  }
+
+  public boolean isEmptyBank() {
+    return TextUtils.isEmpty(bank.getText());
+  }
+
+  public boolean isEmptyAmount() {
+    return TextUtils.isEmpty(amount.getText());
+  }
+
+  public boolean isEmptyAccountNumber() {
+    return TextUtils.isEmpty(accountNumber.getText());
+  }
+
+  private void asynPost() {
+    String cookie = BoilerplateApplication.get(this.getActivity())
+        .getMemberLoginResult()
+        .getData()
+        .getCookies();
+    String member = BoilerplateApplication.get(this.getActivity()).getMemberAccount();
+    String json = AiShangUtil.generCashWithDrawApplyParam(accountNumber.getText().toString(),
+        amount.getText().toString(), holder.getText().toString(), bank.getText().toString(), member,
+        cookie);
+
+    presenter.postCashWithDrawApply(1, json);
+  }
+
+  @Override public void showError(String error) {
+    CommonUtil.showSnackbar(error, layoutRoot);
+  }
+
+  @Override public void showSuccess() {
+    DialogFactory.createGenericSuccessDialog(this.getActivity(), "提现申请成功提交").show();
+  }
 }

@@ -9,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -143,5 +144,13 @@ public class CommonUtil {
     str = str.replace("&#39;", "\'");
     str = str.replace("<br/>", "\n");
     return str;
+  }
+
+  public static void hideSoftInput(Context ctx) {
+    InputMethodManager imm =
+        (InputMethodManager) ctx.getSystemService(Context.INPUT_METHOD_SERVICE);
+    if (imm.isActive()) {
+      imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+    }
   }
 }

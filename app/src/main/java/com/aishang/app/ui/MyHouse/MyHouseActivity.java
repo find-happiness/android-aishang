@@ -13,6 +13,7 @@ import butterknife.OnClick;
 import com.aishang.app.BoilerplateApplication;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JBusinessListResult;
+import com.aishang.app.data.model.JMyBusinessBuyInListResult;
 import com.aishang.app.ui.base.BaseActivity;
 import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
@@ -48,6 +49,10 @@ public class MyHouseActivity extends BaseActivity implements MyHouseMvpView {
     ButterKnife.bind(this);
 
     initToolbar();
+
+    initRefreshLayout();
+
+    proLoad();
   }
 
   private void initToolbar() {
@@ -106,7 +111,7 @@ public class MyHouseActivity extends BaseActivity implements MyHouseMvpView {
     adapter.notifyDataSetChanged();
   }
 
-  @Override public void refreshList(JBusinessListResult.Business[] items) {
+  @Override public void refreshList(JMyBusinessBuyInListResult.BuyIn[] items) {
 
     if (avloadingIndicatorView.getVisibility() == View.VISIBLE) {
       avloadingIndicatorView.setVisibility(View.GONE);
@@ -117,19 +122,21 @@ public class MyHouseActivity extends BaseActivity implements MyHouseMvpView {
     }
 
     adapter.getItems().clear();
-    adapter.getItems().addAll(new ArrayList<JBusinessListResult.Business>(Arrays.asList(items)));
+    adapter.getItems()
+        .addAll(new ArrayList<JMyBusinessBuyInListResult.BuyIn>(Arrays.asList(items)));
     adapter.notifyDataSetChanged();
     mRecyclerView.refreshComplete();
   }
 
-  @Override public void loadMoreList(JBusinessListResult.Business[] items, int total) {
+  @Override public void loadMoreList(JMyBusinessBuyInListResult.BuyIn[] items, int total) {
 
     if (noDataHotel.getVisibility() == View.VISIBLE) {
       noDataHotel.setVisibility(View.GONE);
     }
 
     mRecyclerView.loadMoreComplete();
-    adapter.getItems().addAll(new ArrayList<JBusinessListResult.Business>(Arrays.asList(items)));
+    adapter.getItems()
+        .addAll(new ArrayList<JMyBusinessBuyInListResult.BuyIn>(Arrays.asList(items)));
     adapter.notifyDataSetChanged();
     mRecyclerView.refreshComplete();
 
@@ -137,10 +144,6 @@ public class MyHouseActivity extends BaseActivity implements MyHouseMvpView {
       adapter.notifyDataSetChanged();
       mRecyclerView.loadMoreComplete();
     }
-  }
-
-  @OnClick(R.id.btn_contacts_add) void contactsAdd() {
-    presenter.intentToContactsAdd();
   }
 
   private void proLoad() {
@@ -153,7 +156,7 @@ public class MyHouseActivity extends BaseActivity implements MyHouseMvpView {
         noDataHotel.setVisibility(View.GONE);
       }
 
-      asynBusiness(NetWorkType.refresh);
+      asynMyBusinessBuyInList(NetWorkType.refresh);
     } else {
 
       if (avloadingIndicatorView.getVisibility() == View.VISIBLE) {
@@ -188,7 +191,7 @@ public class MyHouseActivity extends BaseActivity implements MyHouseMvpView {
     mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
       @Override public void onRefresh() {
         if (NetworkUtil.isNetworkConnected(MyHouseActivity.this)) {
-          asynBusiness(NetWorkType.refresh);
+          asynMyBusinessBuyInList(NetWorkType.refresh);
         } else {
           mRecyclerView.refreshComplete();
           CommonUtil.showSnackbar(R.string.no_net, layoutRoot);
@@ -197,8 +200,7 @@ public class MyHouseActivity extends BaseActivity implements MyHouseMvpView {
 
       @Override public void onLoadMore() {
         if (NetworkUtil.isNetworkConnected(MyHouseActivity.this)) {
-          asynBusiness(0, "", "", adapter.getItems().size(), 10, "asc", 0, "",
-              NetWorkType.loadMore);
+          asynMyBusinessBuyInList("desc", adapter.getItems().size(), 10, NetWorkType.loadMore);
         } else {
           //mRecyclerView.loadMoreComplete();
           mRecyclerView.cancelLoadMore();
@@ -209,19 +211,17 @@ public class MyHouseActivity extends BaseActivity implements MyHouseMvpView {
     mRecyclerView.setAdapter(adapter);
   }
 
-  private void asynBusiness(NetWorkType type) {
-    asynBusiness(0, "", "", 0, 10, "asc", 0, "", type);
+  private void asynMyBusinessBuyInList(NetWorkType type) {
+    asynMyBusinessBuyInList("desc", 0, 10, type);
   }
 
-  private void asynBusiness(int filterType, String startDate, String endDate, int recStart,
-      int recCount, String orderby, int memberLevel, String subMemberPhone, NetWorkType type) {
+  private void asynMyBusinessBuyInList(String orderby, int start, int recCount, NetWorkType type) {
 
     String cookie = BoilerplateApplication.get(this).getMemberLoginResult().getData().getCookies();
     String member = BoilerplateApplication.get(this).getMemberAccount();
     String json =
-        AiShangUtil.generBusinessListJson(member, cookie, filterType, startDate, endDate, recStart,
-            recCount, orderby, memberLevel, subMemberPhone);
+        AiShangUtil.generMyBusinessBuyInListParam(orderby, start, recCount, cookie, member);
 
-    presenter.loadBusiness(3, json, type);
+    presenter.loadMyBusinessBuyInList(3, json, type);
   }
 }

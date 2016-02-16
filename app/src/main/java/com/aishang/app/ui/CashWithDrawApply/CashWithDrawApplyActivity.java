@@ -1,28 +1,45 @@
 package com.aishang.app.ui.CashWithDrawApply;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import com.aishang.app.BoilerplateApplication;
 import com.aishang.app.R;
+import com.aishang.app.data.DataManager;
+import com.aishang.app.data.model.JResult;
+import com.aishang.app.injection.component.ActivityComponent;
 import com.aishang.app.ui.base.BaseActivity;
 import com.aishang.app.ui.main.MainPageAdapter;
+import com.aishang.app.util.BusProvider;
+import com.aishang.app.util.CommonUtil;
+import com.aishang.app.util.EventPosterHelper;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
+import com.squareup.otto.Produce;
+import com.squareup.otto.Subscribe;
+import dagger.Provides;
+import javax.inject.Inject;
+import rx.Observable;
 
 public class CashWithDrawApplyActivity extends BaseActivity {
-
+  private static final String TAG = "CashWithDrawActivity";
   @Bind(R.id.toolbar) Toolbar toolbar;
   @Bind(R.id.moretab_indicator) ScrollIndicatorView mIndicator;
   @Bind(R.id.moretab_viewPager) ViewPager mViewPager;
@@ -32,12 +49,12 @@ public class CashWithDrawApplyActivity extends BaseActivity {
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
+    this.getActivityComponent().inject(this);
     setContentView(R.layout.activity_cash_with_draw_apply);
-
+    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     ButterKnife.bind(this);
     indicatorViewPager = new IndicatorViewPager(mIndicator, mViewPager);
-    mIndicator.setScrollBar(new ColorBar(this, Color.BLUE, 4));
+    mIndicator.setScrollBar(new ColorBar(this, Color.rgb(0x45, 0xa5, 0xe2), 4));
     indicatorViewPager.setAdapter(
         new IndicatorViewPager.IndicatorFragmentPagerAdapter(this.getSupportFragmentManager()) {
 
@@ -58,9 +75,9 @@ public class CashWithDrawApplyActivity extends BaseActivity {
 
           @Override public Fragment getFragmentForPage(int position) {
             if (position == 0) {
-              return new RechargeFragment();
+              return RechargeFragment.newInstance();
             } else {
-              return new CashWithDrawFragment();
+              return CashWithDrawFragment.newInstance();
             }
           }
         });
@@ -69,16 +86,26 @@ public class CashWithDrawApplyActivity extends BaseActivity {
     initToolbar();
   }
 
+  @Override protected void onResume() {
+    super.onResume();
+    BusProvider.getInstance().register(this);
+  }
+
+  @Override protected void onPause() {
+    super.onPause();
+    BusProvider.getInstance().unregister(this);
+  }
+
   private void initToolbar() {
     toolbar.setTitle("");
     this.setSupportActionBar(toolbar);
     toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
       @Override public boolean onMenuItemClick(MenuItem item) {
-       if(item.getItemId() == R.id.action_push)
-       {
-         //TODO push
-         return true;
-       }
+        Log.i(TAG, "onMenuItemClick: ----->");
+        if (item.getItemId() == R.id.action_push) {
+          BusProvider.getInstance().post(produceEvent());
+          return true;
+        }
         return false;
       }
     });
@@ -90,10 +117,19 @@ public class CashWithDrawApplyActivity extends BaseActivity {
     });
   }
 
+  @Override public void onBackPressed() {
+    super.onBackPressed();
+    CommonUtil.hideSoftInput(this);
+  }
+
   @Override public boolean onCreateOptionsMenu(Menu menu) {
     MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.menu_push, menu);
     return true;
   }
 
+  public PostEvent produceEvent() {
+    // Provide an initial value for location based on the last known position.
+    return new PostEvent(indicatorViewPager.getCurrentItem());
+  }
 }

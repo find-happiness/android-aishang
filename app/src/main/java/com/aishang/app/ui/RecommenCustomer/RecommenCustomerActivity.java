@@ -60,15 +60,15 @@ public class RecommenCustomerActivity extends BaseActivity implements RecommentM
   }
 
   @Override public void showSuccess() {
-    DialogFactory.createGenericErrorDialog(this, "添加成功").show();
+    DialogFactory.createGenericSuccessDialog(this, "添加成功").show();
   }
 
   @OnClick(R.id.gender) void genderClick() {
     DialogFactory.createSingleChoiceDialog(this, genders, 0, new DialogInterface.OnClickListener() {
       @Override public void onClick(DialogInterface dialog, int which) {
-
+        dialog.dismiss();
       }
-    }, getString(R.string.gender));
+    }, getString(R.string.gender)).show();
   }
 
   private void initToolbar() {

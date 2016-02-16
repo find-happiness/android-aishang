@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/primary"
     android:paddingTop="@dimen/padding_stutas_bar"
+    android:fitsSystemWindows="true"
     tools:context="com.aishang.app.ui.MemberCenter.MemberCenterActivity">
 
     <android.support.v7.widget.Toolbar
@@ -13,13 +14,15 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/primary"
+        app:theme="@style/ToolBarStyle"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
         <TextView
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:gravity="center_vertical"
             android:text="@string/chong_zi_ti_xian"
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_title"/>
@@ -38,5 +41,4 @@
         android:layout_below="@id/moretab_indicator"
         android:background="@color/gray"
         android:layout_height="match_parent"/>
-
 </RelativeLayout>

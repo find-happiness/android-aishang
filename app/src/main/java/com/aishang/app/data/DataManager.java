@@ -11,6 +11,7 @@ import com.aishang.app.data.model.JLoupanProductDetailResult;
 import com.aishang.app.data.model.JLoupanProductListResult;
 import com.aishang.app.data.model.JMemberProfileResult;
 import com.aishang.app.data.model.JMemberStatisticsResult;
+import com.aishang.app.data.model.JMyBusinessBuyInListResult;
 import com.aishang.app.data.model.JMyVacationApplyListResult;
 import com.aishang.app.data.model.JResult;
 import com.aishang.app.data.model.JSysZoneParam;
@@ -155,8 +156,16 @@ import com.aishang.app.util.EventPosterHelper;
     return mAiShangService.sysBusinessList(version, json);
   }
 
+  public Observable<JMyBusinessBuyInListResult> sysMyBusinessBuyInList(int version, String json) {
+    return mAiShangService.sysMyBusinessBuyInList(version, json);
+  }
+
   public Observable<JResult> sysContactsAdd(int version, String json) {
     return mAiShangService.sysContactsAdd(version, json);
+  }
+
+  public Observable<JResult> sysCashWithDrawApply(int version, String json) {
+    return mAiShangService.sysCashWithDrawApply(version, json);
   }
 
   public JVersionCheckResult getVersionCheck() {

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import com.aishang.app.data.DataManager;
 import com.aishang.app.data.model.JBusinessListResult;
+import com.aishang.app.data.model.JMyBusinessBuyInListResult;
 import com.aishang.app.ui.BrokerCenter.BrokerCenterActivity;
 import com.aishang.app.ui.BrokerCenter.BrokerCenterMvpView;
 import com.aishang.app.ui.ChangePassword.ChangePasswordActivity;
@@ -33,11 +34,11 @@ public class MyHousePresenter extends BasePresenter<MyHouseMvpView> {
     super.attachView(mvpView);
   }
 
-  public void loadBusiness(int version, String json, NetWorkType type) {
-    loadBusiness(false, version, json, type);
+  public void loadMyBusinessBuyInList(int version, String json, NetWorkType type) {
+    loadMyBusinessBuyInList(false, version, json, type);
   }
 
-  public void loadBusiness(boolean allowMemoryCacheVersion, int version, String json,
+  public void loadMyBusinessBuyInList(boolean allowMemoryCacheVersion, int version, String json,
       final NetWorkType type) {
     checkViewAttached();
 
@@ -45,10 +46,10 @@ public class MyHousePresenter extends BasePresenter<MyHouseMvpView> {
       subscription.unsubscribe();
     }
 
-    subscription = mDataManager.sysBusinessList(version, json)
+    subscription = mDataManager.sysMyBusinessBuyInList(version, json)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
-        .subscribe(new Subscriber<JBusinessListResult>() {
+        .subscribe(new Subscriber<JMyBusinessBuyInListResult>() {
           @Override public void onCompleted() {
 
           }
@@ -57,18 +58,18 @@ public class MyHousePresenter extends BasePresenter<MyHouseMvpView> {
             getMvpView().showError("网络异常");
           }
 
-          @Override public void onNext(JBusinessListResult result) {
+          @Override public void onNext(JMyBusinessBuyInListResult result) {
             if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
 
-              if (result.getBusinessList().length <= 0) {
+              if (result.getBuyinList().length <= 0) {
                 getMvpView().showEmpty();
               } else {
                 switch (type) {
                   case refresh:
-                    getMvpView().refreshList(result.getBusinessList());
+                    getMvpView().refreshList(result.getBuyinList());
                     break;
                   case loadMore:
-                    getMvpView().loadMoreList(result.getBusinessList(), result.getRecCount());
+                    getMvpView().loadMoreList(result.getBuyinList(), result.getTotalItem());
                     break;
                 }
               }

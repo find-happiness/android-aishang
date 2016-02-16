@@ -12,6 +12,7 @@ import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JMemberProfileResult;
 import com.aishang.app.data.model.JMemberStatisticsResult;
 import com.aishang.app.data.model.JMrePromResult;
+import com.aishang.app.data.model.JMyBusinessBuyInListResult;
 import com.aishang.app.data.model.JMyVacationApplyListResult;
 import com.aishang.app.data.model.JNewsListResult;
 import com.aishang.app.data.model.JResult;
@@ -115,6 +116,14 @@ public interface AiShangService {
 
   @Headers("connection:Keep-Alive") @GET("mobile/member/contactsAdd.ashx")
   Observable<JResult> sysContactsAdd(@Query(value = "v") int version, @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/member/myBusinessBuyInList.ashx")
+  Observable<JMyBusinessBuyInListResult> sysMyBusinessBuyInList(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/member/cashWithDrawApply.ashx")
+  Observable<JResult> sysCashWithDrawApply(@Query(value = "v") int version,
+      @Query(value = "q") String q);
 
   @GET("ribots") Observable<List<Ribot>> getRibots();
 

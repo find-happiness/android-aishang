@@ -6,6 +6,7 @@ import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import com.aishang.app.BoilerplateApplication;
 import com.aishang.app.data.model.JBusinessListParam;
+import com.aishang.app.data.model.JCashWithDrawApplyparam;
 import com.aishang.app.data.model.JContactsAddParam;
 import com.aishang.app.data.model.JHotelDetailParam;
 import com.aishang.app.data.model.JHotelListParam;
@@ -15,6 +16,7 @@ import com.aishang.app.data.model.JLoupanProductListParam;
 import com.aishang.app.data.model.JMemberLoginParam;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JMemberStatisticsParam;
+import com.aishang.app.data.model.JMyBusinessBuyInListParam;
 import com.aishang.app.data.model.JMyVacationApplyListParams;
 import com.aishang.app.data.model.JNewsListParams;
 import com.aishang.app.data.model.JSysZoneParam;
@@ -337,7 +339,8 @@ public class AiShangUtil {
     return gson.toJson(param);
   }
 
-  public static String generContactsAddParam(String phone, String name, String cookie, String member) {
+  public static String generContactsAddParam(String phone, String name, String cookie,
+      String member) {
 
     JContactsAddParam p = new JContactsAddParam();
     p.setCookie(cookie);
@@ -349,6 +352,36 @@ public class AiShangUtil {
     item[0].setPhone(phone);
     p.setItemList(item);
     return new Gson().toJson(p);
+  }
+
+  public static String generMyBusinessBuyInListParam(String orderby, int start, int recCount,
+      String cookie, String member) {
+
+    JMyBusinessBuyInListParam p = new JMyBusinessBuyInListParam();
+    p.setCookie(cookie);
+    p.setMemberAccount(member);
+    p.setOrderby(orderby);
+    p.setRecCount(recCount);
+    p.setRecStart(start);
+    return new Gson().toJson(p);
+  }
+
+  public static String generCashWithDrawApplyParam(String accountNumber,
+      String amount, String holder, String bankName,String member,String cookie) {
+
+    JCashWithDrawApplyparam param = new JCashWithDrawApplyparam();
+    param.setAccountNumber(accountNumber);
+    param.setAmount(Float.parseFloat(amount));
+    param.setBankName(bankName);
+    param.setCookie(cookie);
+    param.setGoogleLat(0.f);
+    param.setGoogleLng(0.f);
+    param.setHolder(holder);
+    param.setImei("");
+    param.setMemberAccount(member);
+
+    return gson.toJson(param);
+
   }
 
   public static boolean checkMemberLogin(Activity ctx) {

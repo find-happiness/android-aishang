@@ -15,6 +15,7 @@
   <string name="cube_views_load_more_loaded_no_more">All the data has been loaded</string>
   <string name="cube_views_load_more_loaded_empty">It is empty. :(</string>
   <string name="cube_views_load_more_error">Load error, click to retry</string>
+  <string name="dialog_Ok_title">成功</string>
 
 
   <string name="huangzujiudian">换住酒店</string>
@@ -61,7 +62,7 @@
   <string name="wo_de_fang_chang">我的房产</string>
   <string name="jin_ji_ren_zhong_xin">经纪人中心</string>
   <string name="you_ji_shou_chang_jia">游记收藏夹</string>
-  <string name="chong_zi_ti_xian">充值体现</string>
+  <string name="chong_zi_ti_xian">充值提现</string>
   <string name="wo_de_zu_shou">我的租售</string>
   <string name="guan_yu_wo_men">关于我们</string>
 

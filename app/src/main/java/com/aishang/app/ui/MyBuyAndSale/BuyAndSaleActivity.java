@@ -19,11 +19,8 @@ public class BuyAndSaleActivity extends BaseActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
     setContentView(R.layout.activity_buy_and_sale);
-
     ButterKnife.bind(this);
-
     initToolbar();
   }
 

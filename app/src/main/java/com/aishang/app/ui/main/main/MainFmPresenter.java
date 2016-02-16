@@ -276,7 +276,6 @@ public class MainFmPresenter extends BasePresenter<MainFmMvpView> {
 
   protected void IntentToZaiShou() {
     Activity content = ((MainFmFragment) getMvpView()).getActivity();
-
     Intent intent = new Intent();
     intent.setClass(content, InSaleActivity.class);
     content.startActivity(intent);

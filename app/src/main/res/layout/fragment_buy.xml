@@ -2,12 +2,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.aishang.app.ui.MyBuyAndSale.BuyFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.aishang.app.ui.MyBuyAndSale.BuyFragment"
+    >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.jcodecraeer.xrecyclerview.XRecyclerView
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="buy" />
+        >
+
+    </com.jcodecraeer.xrecyclerview.XRecyclerView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView
+            android:id="@+id/avloadingIndicatorView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            app:indicator="LineScalePulseOutRapid"
+            app:indicator_color="@color/blue"
+            />
+
+        <TextView
+            android:id="@+id/no_data_hotel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/no_data"
+            android:visibility="gone"
+            />
+    </RelativeLayout>
 
 </FrameLayout>

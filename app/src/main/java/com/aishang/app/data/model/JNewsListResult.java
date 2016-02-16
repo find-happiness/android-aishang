@@ -2,161 +2,168 @@ package com.aishang.app.data.model;
 
 /**
  * /mobile/NewsList.ashx version:V2
- * 
+ *
  * @author wang
- * 
  */
 public class JNewsListResult {
 
-	private String result;
-	private int totalCount;
-	private JNewsCatListItem[] newsCatList;
+  private String result;
+  private int totalCount;
+  private JNewsListItem[] newsList;
+  private JNewsCatListItem[] newsCatList;
 
-	public String getResult() {
-		return result;
-	}
+  public JNewsListItem[] getNewsList() {
+    return newsList;
+  }
 
-	public void setResult(String result) {
-		this.result = result;
-	}
+  public void setNewsList(JNewsListItem[] newsList) {
+    this.newsList = newsList;
+  }
 
-	public int getTotalCount() {
-		return totalCount;
-	}
+  public String getResult() {
+    return result;
+  }
 
-	public void setTotalCount(int totalCount) {
-		this.totalCount = totalCount;
-	}
+  public void setResult(String result) {
+    this.result = result;
+  }
 
-	public JNewsCatListItem[] getNewsCatList() {
-		return newsCatList;
-	}
+  public int getTotalCount() {
+    return totalCount;
+  }
 
-	public void setNewsCatList(JNewsCatListItem[] newsCatList) {
-		this.newsCatList = newsCatList;
-	}
+  public void setTotalCount(int totalCount) {
+    this.totalCount = totalCount;
+  }
 
-	public class JNewsCatListItem {
-		private int catID;
-		private String catName;
-		private int totalCount;
-		private JNewsListItem[] newsList;
+  public JNewsCatListItem[] getNewsCatList() {
+    return newsCatList;
+  }
 
-		public int getCatID() {
-			return catID;
-		}
+  public void setNewsCatList(JNewsCatListItem[] newsCatList) {
+    this.newsCatList = newsCatList;
+  }
 
-		public void setCatID(int catID) {
-			this.catID = catID;
-		}
+  public class JNewsCatListItem {
+    private int catID;
+    private String catName;
+    private int totalCount;
+    private JNewsListItem[] newsList;
 
-		public String getCatName() {
-			return catName;
-		}
+    public int getCatID() {
+      return catID;
+    }
 
-		public void setCatName(String catName) {
-			this.catName = catName;
-		}
+    public void setCatID(int catID) {
+      this.catID = catID;
+    }
 
-		public int getTotalCount() {
-			return totalCount;
-		}
+    public String getCatName() {
+      return catName;
+    }
 
-		public void setTotalCount(int totalCount) {
-			this.totalCount = totalCount;
-		}
+    public void setCatName(String catName) {
+      this.catName = catName;
+    }
 
-		public JNewsListItem[] getNewsList() {
-			return newsList;
-		}
+    public int getTotalCount() {
+      return totalCount;
+    }
 
-		public void setNewsList(JNewsListItem[] newsList) {
-			this.newsList = newsList;
-		}
+    public void setTotalCount(int totalCount) {
+      this.totalCount = totalCount;
+    }
 
-	}
+    public JNewsListItem[] getNewsList() {
+      return newsList;
+    }
 
-	public class JNewsListItem {
-		private int newsID;
-		private String newsGUID;
-		private String title;
-		private String shortDesc;
-		private String imageUrl;
-		private String date;
-		private int hits;
-		private int supports;
-		private String staticUrl;
+    public void setNewsList(JNewsListItem[] newsList) {
+      this.newsList = newsList;
+    }
+  }
 
-		public int getNewsID() {
-			return newsID;
-		}
+  public class JNewsListItem {
+    private int newsID;
+    private String newsGUID;
+    private String title;
+    private String shortDesc;
+    private String imageUrl;
+    private String date;
+    private int hits;
+    private int supports;
+    private String staticUrl;
 
-		public void setNewsID(int newsID) {
-			this.newsID = newsID;
-		}
+    public int getNewsID() {
+      return newsID;
+    }
 
-		public String getNewsGUID() {
-			return newsGUID;
-		}
+    public void setNewsID(int newsID) {
+      this.newsID = newsID;
+    }
 
-		public void setNewsGUID(String newsGUID) {
-			this.newsGUID = newsGUID;
-		}
+    public String getNewsGUID() {
+      return newsGUID;
+    }
 
-		public String getTitle() {
-			return title;
-		}
+    public void setNewsGUID(String newsGUID) {
+      this.newsGUID = newsGUID;
+    }
 
-		public void setTitle(String title) {
-			this.title = title;
-		}
+    public String getTitle() {
+      return title;
+    }
 
-		public String getShortDesc() {
-			return shortDesc;
-		}
+    public void setTitle(String title) {
+      this.title = title;
+    }
 
-		public void setShortDesc(String shortDesc) {
-			this.shortDesc = shortDesc;
-		}
+    public String getShortDesc() {
+      return shortDesc;
+    }
 
-		public String getImageUrl() {
-			return imageUrl;
-		}
+    public void setShortDesc(String shortDesc) {
+      this.shortDesc = shortDesc;
+    }
 
-		public void setImageUrl(String imageUrl) {
-			this.imageUrl = imageUrl;
-		}
+    public String getImageUrl() {
+      return imageUrl;
+    }
 
-		public String getDate() {
-			return date;
-		}
+    public void setImageUrl(String imageUrl) {
+      this.imageUrl = imageUrl;
+    }
 
-		public void setDate(String date) {
-			this.date = date;
-		}
+    public String getDate() {
+      return date;
+    }
 
-		public int getHits() {
-			return hits;
-		}
+    public void setDate(String date) {
+      this.date = date;
+    }
 
-		public void setHits(int hits) {
-			this.hits = hits;
-		}
+    public int getHits() {
+      return hits;
+    }
 
-		public int getSupports() {
-			return supports;
-		}
+    public void setHits(int hits) {
+      this.hits = hits;
+    }
 
-		public void setSupports(int supports) {
-			this.supports = supports;
-		}
+    public int getSupports() {
+      return supports;
+    }
 
-		public String getStaticUrl() {
-			return staticUrl;
-		}
+    public void setSupports(int supports) {
+      this.supports = supports;
+    }
 
-		public void setStaticUrl(String staticUrl) {
-			this.staticUrl = staticUrl;
-		}
-	}
+    public String getStaticUrl() {
+      return staticUrl;
+    }
+
+    public void setStaticUrl(String staticUrl) {
+      this.staticUrl = staticUrl;
+    }
+  }
 }

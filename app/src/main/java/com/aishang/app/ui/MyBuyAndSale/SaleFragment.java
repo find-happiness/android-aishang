@@ -5,49 +5,57 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.FrameLayout;
+import android.widget.TextView;
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.aishang.app.R;
+import com.aishang.app.data.model.JRentalListResult;
+import com.aishang.app.util.AiShangUtil;
+import com.aishang.app.util.CommonUtil;
+import com.aishang.app.util.NetWorkType;
+import com.aishang.app.util.NetworkUtil;
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView;
 import com.shizhefei.fragment.LazyFragment;
+import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
+import java.util.List;
+import javax.inject.Inject;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link SaleFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link SaleFragment#newInstance} factory method to
  * create an instance of this fragment.
  *
  */
-public class SaleFragment extends LazyFragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+public class SaleFragment extends LazyFragment implements RentSaleMvpView{
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
+    @Bind(R.id.swipe_refresh) XRecyclerView mRecyclerView;
+    @Bind(R.id.avloadingIndicatorView) AVLoadingIndicatorView avloadingIndicatorView;
+    @Bind(R.id.no_data_in_sale) TextView noData;
+    @Bind(R.id.layoutRoot) FrameLayout layoutRoot;
+    @Inject RentSalePresenter presenter;
+    @Inject RentAdapter adapter;
     private String mParam1;
     private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment SaleFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static SaleFragment newInstance(String param1, String param2) {
+    public static SaleFragment newInstance() {
         SaleFragment fragment = new SaleFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
     public SaleFragment() {
@@ -57,6 +65,8 @@ public class SaleFragment extends LazyFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((BuyAndSaleActivity) getActivity()).getActivityComponent().inject(this);
+        presenter.attachView(this);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -66,44 +76,147 @@ public class SaleFragment extends LazyFragment {
     @Override protected void onCreateViewLazy(Bundle savedInstanceState) {
         super.onCreateViewLazy(savedInstanceState);
         setContentView(R.layout.fragment_sale);
+
+        ButterKnife.bind(this, this.getContentView());
+        initRefreshLayout();
+        proLoad();
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Activity context) {
+    @Override public void onAttach(Activity context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnPasswordFragmentInteractionListener");
+    }
+
+    @Override public void onDetach() {
+        super.onDetach();
+    }
+
+    @Override public void showError(String error) {
+        CommonUtil.showSnackbar(error, layoutRoot);
+    }
+
+    @Override public void refreshList(List<JRentalListResult.RentalItem> items) {
+        if (avloadingIndicatorView.getVisibility() == View.VISIBLE) {
+            avloadingIndicatorView.setVisibility(View.GONE);
+        }
+
+        if (noData.getVisibility() == View.VISIBLE) {
+            noData.setVisibility(View.GONE);
+        }
+
+        adapter.getItems().clear();
+        adapter.getItems().addAll(items);
+        adapter.notifyDataSetChanged();
+        mRecyclerView.refreshComplete();
+    }
+
+    @Override public void showEmpty() {
+        if (avloadingIndicatorView.getVisibility() == View.VISIBLE) {
+            avloadingIndicatorView.setVisibility(View.GONE);
+        }
+
+        if (noData.getVisibility() != View.VISIBLE) {
+            noData.setVisibility(View.VISIBLE);
+        }
+
+        mRecyclerView.refreshComplete();
+        adapter.getItems().clear();
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override public void loadMoreList(List<JRentalListResult.RentalItem> items, int total) {
+
+        if (noData.getVisibility() == View.VISIBLE) {
+            noData.setVisibility(View.GONE);
+        }
+
+        mRecyclerView.loadMoreComplete();
+        adapter.getItems().addAll(items);
+        adapter.notifyDataSetChanged();
+        mRecyclerView.refreshComplete();
+
+        if (adapter.getItemCount() >= total) {
+            adapter.notifyDataSetChanged();
+            mRecyclerView.loadMoreComplete();
         }
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
+    private void asynRental(NetWorkType type) {
+        asynRental(1, "", 0, 10, 0, 0, 0, 0, 0, 0, type);
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    private void asynRental(int filterType, String filterWords, int recStart, int recCount,
+        int fZoneID, int fPriceCatID, float fPriceMin, float fPriceMax, int fRoomTypeID, int beDetail,
+        NetWorkType type) {
+
+        String json =
+            AiShangUtil.generRentalListParam(filterType, filterWords, recStart, recCount, fZoneID,
+                fPriceCatID, fPriceMin, fPriceMax, fRoomTypeID, beDetail);
+
+        presenter.loadRentSale(1, json, type);
+    }
+
+    private void initRefreshLayout() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(layoutManager);
+
+        mRecyclerView.addItemDecoration(
+            new HorizontalDividerItemDecoration.Builder(this.getActivity()).colorResId(
+                android.R.color.darker_gray).sizeResId(R.dimen.divider).build());
+        mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallScaleRipple);
+        mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);
+        //mRecyclerView.setArrowImageView(R.drawable.iconfont_downgrey);
+        //
+        //View header = LayoutInflater.from(this)
+        //    .inflate(R.layout.recyclerview_header, (ViewGroup) findViewById(android.R.id.content),
+        //        false);
+        // mRecyclerView.addHeaderView(header);
+
+        mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override public void onRefresh() {
+                if (NetworkUtil.isNetworkConnected(SaleFragment.this.getActivity())) {
+                    //asynBusiness(NetWorkType.refresh);
+                } else {
+                    mRecyclerView.refreshComplete();
+                    CommonUtil.showSnackbar(R.string.no_net, layoutRoot);
+                }
+            }
+
+            @Override public void onLoadMore() {
+                if (NetworkUtil.isNetworkConnected(SaleFragment.this.getActivity())) {
+                    //asynBusiness(0, "", "", adapter.getItems().size(), 10, "asc", 0, "",
+                    //    NetWorkType.loadMore);
+                } else {
+                    //mRecyclerView.loadMoreComplete();
+                    mRecyclerView.cancelLoadMore();
+                    CommonUtil.showSnackbar(R.string.no_net, layoutRoot);
+                }
+            }
+        });
+        mRecyclerView.setAdapter(adapter);
+    }
+
+    private void proLoad() {
+        if (NetworkUtil.isNetworkConnected(this.getActivity())) {
+            if (avloadingIndicatorView.getVisibility() != View.VISIBLE) {
+                avloadingIndicatorView.setVisibility(View.VISIBLE);
+            }
+
+            if (noData.getVisibility() == View.VISIBLE) {
+                noData.setVisibility(View.GONE);
+            }
+
+            asynRental(NetWorkType.refresh);
+        } else {
+
+            if (avloadingIndicatorView.getVisibility() == View.VISIBLE) {
+                avloadingIndicatorView.setVisibility(View.GONE);
+            }
+
+            if (noData.getVisibility() == View.VISIBLE) {
+                noData.setVisibility(View.GONE);
+            }
+            CommonUtil.showSnackbar(R.string.no_net, layoutRoot);
+        }
     }
 }

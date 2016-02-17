@@ -1,6 +1,7 @@
 package com.aishang.app.ui.login;
 
 import android.app.Application;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -34,6 +35,7 @@ public class LoginActivity extends BaseActivity
   @Bind(R.id.vp_content) ViewPager viewPager;
   @Bind(R.id.layoutRoot) CoordinatorLayout layoutRoot;
   @Bind(R.id.toolbar) Toolbar toolbar;
+  ProgressDialog progress;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -74,12 +76,20 @@ public class LoginActivity extends BaseActivity
 
   @Override public void showError(String error) {
     //Log.i(TAG, "showError: " + error);
+    if (progress != null && progress.isShowing()) {
+      progress.dismiss();
+    }
     DialogFactory.createSimpleOkErrorDialog(this, "SORRY", error).show();
   }
 
   @Override public void loginScuess(JMemberLoginResult result) {
     //Log.i(TAG, "loginScuess: " + "loginScuess");
     //presenter.intentToMain();
+
+    if (progress != null && progress.isShowing()) {
+      progress.dismiss();
+    }
+
     BoilerplateApplication.get(this).setMemberLoginResult(result);
     onBackPressed();
   }
@@ -88,6 +98,9 @@ public class LoginActivity extends BaseActivity
    * 普通用户和CRM用户登录失败后统一的的回调函数，根据错误做相应的处理
    */
   public void loginFaild(String errorStr) {
+    if (progress != null && progress.isShowing()) {
+      progress.dismiss();
+    }
     if (Constants.RESULT_MBNOTEXISTORPSWERROR.equals(errorStr)) {// 用户名或密码错误
 
       CommonUtil.showSnackbar(R.string.login_nameorpsw_wrong, layoutRoot);
@@ -123,6 +136,8 @@ public class LoginActivity extends BaseActivity
   }
 
   @Override public void onPswLogin(String phone, String psw) {
+    progress = DialogFactory.createProgressDialog(this, R.string.listview_loading);
+    progress.show();
     presenter.Login(2, AiShangUtil.gennerLogin(psw, phone));
   }
 

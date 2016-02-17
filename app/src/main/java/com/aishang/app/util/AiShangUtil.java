@@ -19,6 +19,8 @@ import com.aishang.app.data.model.JMemberStatisticsParam;
 import com.aishang.app.data.model.JMyBusinessBuyInListParam;
 import com.aishang.app.data.model.JMyVacationApplyListParams;
 import com.aishang.app.data.model.JNewsListParams;
+import com.aishang.app.data.model.JRentalListParam;
+import com.aishang.app.data.model.JRentalListResult;
 import com.aishang.app.data.model.JSysZoneParam;
 import com.aishang.app.data.remote.AiShangService;
 import com.google.gson.Gson;
@@ -366,8 +368,8 @@ public class AiShangUtil {
     return new Gson().toJson(p);
   }
 
-  public static String generCashWithDrawApplyParam(String accountNumber,
-      String amount, String holder, String bankName,String member,String cookie) {
+  public static String generCashWithDrawApplyParam(String accountNumber, String amount,
+      String holder, String bankName, String member, String cookie) {
 
     JCashWithDrawApplyparam param = new JCashWithDrawApplyparam();
     param.setAccountNumber(accountNumber);
@@ -381,7 +383,25 @@ public class AiShangUtil {
     param.setMemberAccount(member);
 
     return gson.toJson(param);
+  }
 
+  public static String generRentalListParam(int filterType, String filterWords, int recStart,
+      int recCount, int fZoneID, int fPriceCatID, float fPriceMin, float fPriceMax, int fRoomTypeID,
+      int beDetail) {
+
+    JRentalListParam param = new JRentalListParam();
+    param.setBeDetail(beDetail);
+    param.setRecStart(recStart);
+    param.setFilterType(filterType);
+    param.setFilterWords(filterWords);
+    param.setfPriceCatID(fPriceCatID);
+    param.setfPriceMax(fPriceMax);
+    param.setfPriceMin(fPriceMin);
+    param.setfRoomTypeID(fRoomTypeID);
+    param.setfZoneID(fZoneID);
+    param.setRecCount(recCount);
+
+    return gson.toJson(param);
   }
 
   public static boolean checkMemberLogin(Activity ctx) {

@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -14,6 +16,8 @@ import com.aishang.app.R;
 import com.aishang.app.data.model.JNewsListResult;
 import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.ui.TravelDetail.TravelDetailActivity;
+import com.aishang.app.util.CommonUtil;
+import com.aishang.app.util.ViewUtil;
 import com.squareup.picasso.Picasso;
 import de.hdodenhof.circleimageview.CircleImageView;
 import java.util.ArrayList;
@@ -26,6 +30,8 @@ import javax.inject.Inject;
 public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder> {
 
   List<JNewsListResult.JNewsListItem> items;
+  int imgWidth;
+  int imgHeight;
 
   @Inject public TravelAdapter() {
     items = new ArrayList<JNewsListResult.JNewsListItem>();
@@ -33,8 +39,18 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
 
   @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     View view =
-        LayoutInflater.from(parent.getContext()).inflate(R.layout.item_youji, parent, false);
-    return new ViewHolder(view);
+        LayoutInflater.from(parent.getContext()).inflate(R.layout.item_travel, parent, false);
+
+    ViewHolder holder = new ViewHolder(view);
+    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(imgWidth, imgHeight);
+    //layoutParams.setMargins(0, 0, ViewUtil.dpToPx(8), 0);
+    layoutParams.setMargins(0, 0, ViewUtil.dpToPx(8), 0);
+    holder.img1.setLayoutParams(layoutParams);
+    holder.img2.setLayoutParams(layoutParams);
+    LinearLayout.LayoutParams layoutParams2 = new LinearLayout.LayoutParams(imgWidth, imgHeight);
+    layoutParams2.setMargins(0, 0, 0, 0);
+    holder.img3.setLayoutParams(layoutParams2);
+    return holder;
   }
 
   @Override public void onBindViewHolder(final ViewHolder holder, int position) {
@@ -44,12 +60,25 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
         .load(AiShangService.IMG_URL + item.getImageUrl())
         .error(R.mipmap.banner)
         .placeholder(R.mipmap.banner)
-        .into(holder.imgHotYouji);
+        .into(holder.img1);
 
-    holder.shuoshuo.setText(item.getShortDesc() + "");
+    Picasso.with(holder.getContext())
+        .load(AiShangService.IMG_URL + item.getImageUrl())
+        .error(R.mipmap.banner)
+        .placeholder(R.mipmap.banner)
+        .into(holder.img2);
+
+    Picasso.with(holder.getContext())
+        .load(AiShangService.IMG_URL + item.getImageUrl())
+        .error(R.mipmap.banner)
+        .placeholder(R.mipmap.banner)
+        .into(holder.img3);
+
+    holder.shortDesc.setText(item.getShortDesc() + "");
     holder.dianzhang.setText(item.getHits() + "");
     holder.pinglun.setText(item.getSupports() + "");
     holder.reward.setText(item.getNewsID() + "");
+    holder.date.setText(item.getDate() + "");
 
     holder.itemView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
@@ -66,6 +95,11 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
     return items;
   }
 
+  public void setImgSize(int width, int height) {
+    this.imgWidth = width;
+    this.imgHeight = height;
+  }
+
   public void setItems(List<JNewsListResult.JNewsListItem> items) {
     this.items = items;
   }
@@ -78,13 +112,16 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
 
   public class ViewHolder extends RecyclerView.ViewHolder {
 
-    @Bind(R.id.img_hot_youji) ImageView imgHotYouji;
     @Bind(R.id.head) CircleImageView head;
-    @Bind(R.id.name) TextView name;
-    @Bind(R.id.shuoshuo) TextView shuoshuo;
-    @Bind(R.id.reward) TextView reward;
-    @Bind(R.id.pinglun) TextView pinglun;
+    @Bind(R.id.user_name) TextView userName;
+    @Bind(R.id.date) TextView date;
+    @Bind(R.id.short_desc) TextView shortDesc;
+    @Bind(R.id.img1) ImageView img1;
+    @Bind(R.id.img2) ImageView img2;
+    @Bind(R.id.img3) ImageView img3;
     @Bind(R.id.dianzhang) TextView dianzhang;
+    @Bind(R.id.pinglun) TextView pinglun;
+    @Bind(R.id.reward) TextView reward;
 
     public Context getContext() {
       return this.itemView.getContext();

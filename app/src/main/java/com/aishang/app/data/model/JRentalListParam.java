@@ -7,44 +7,121 @@ public class JRentalListParam {
   /// <summary>
   /// 租售类型  1租 2售
   /// </summary>
-  public int filterType ;
+  private int filterType;
   /// <summary>
   /// SQL条件
   /// </summary>
-  public String filterWords ;
+  private String filterWords;
   /// <summary>
   /// 记录开始位置
   /// </summary>
-  public int recStart ;
+  private int recStart;
   /// <summary>
   /// 获取多少条记录
   /// </summary>
-  public int recCount ;
+  private int recCount;
   /// <summary>
   /// 区域ID?
   /// </summary>
-  public int fZoneID ;
+  private int fZoneID;
   /// <summary>
   /// 价格ID?
   /// </summary>
-  public int fPriceCatID ;
+  private int fPriceCatID;
   /// <summary>
   /// 最小价格
   /// </summary>
-  public float fPriceMin ;
+  private float fPriceMin;
   /// <summary>
   /// 最大价格
   /// </summary>
-  public float fPriceMax ;
+  private float fPriceMax;
   /// <summary>
   /// 房间类型ID
   /// </summary>
-  public int fRoomTypeID ;
+  private int fRoomTypeID;
   /// <summary>
   /// 0—不返回 itemList，1—返回itemList
   /// </summary>
-  public int beDetail ;
+  private int beDetail;
 
+  public int getFilterType() {
+    return filterType;
+  }
 
+  public void setFilterType(int filterType) {
+    this.filterType = filterType;
+  }
 
+  public String getFilterWords() {
+    return filterWords;
+  }
+
+  public void setFilterWords(String filterWords) {
+    this.filterWords = filterWords;
+  }
+
+  public int getRecStart() {
+    return recStart;
+  }
+
+  public void setRecStart(int recStart) {
+    this.recStart = recStart;
+  }
+
+  public int getRecCount() {
+    return recCount;
+  }
+
+  public void setRecCount(int recCount) {
+    this.recCount = recCount;
+  }
+
+  public int getfZoneID() {
+    return fZoneID;
+  }
+
+  public void setfZoneID(int fZoneID) {
+    this.fZoneID = fZoneID;
+  }
+
+  public int getfPriceCatID() {
+    return fPriceCatID;
+  }
+
+  public void setfPriceCatID(int fPriceCatID) {
+    this.fPriceCatID = fPriceCatID;
+  }
+
+  public float getfPriceMin() {
+    return fPriceMin;
+  }
+
+  public void setfPriceMin(float fPriceMin) {
+    this.fPriceMin = fPriceMin;
+  }
+
+  public float getfPriceMax() {
+    return fPriceMax;
+  }
+
+  public void setfPriceMax(float fPriceMax) {
+    this.fPriceMax = fPriceMax;
+  }
+
+  public int getfRoomTypeID() {
+    return fRoomTypeID;
+  }
+
+  public void setfRoomTypeID(int fRoomTypeID) {
+    this.fRoomTypeID = fRoomTypeID;
+  }
+
+  public int getBeDetail() {
+    return beDetail;
+  }
+
+  public void setBeDetail(int beDetail) {
+    this.beDetail = beDetail;
+  }
 }

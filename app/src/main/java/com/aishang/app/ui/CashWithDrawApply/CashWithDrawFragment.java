@@ -46,6 +46,8 @@ public class CashWithDrawFragment extends LazyFragment implements CashWithDrawAp
   @Bind(R.id.accountNumber) MaterialEditText accountNumber;
   @Bind(R.id.layoutRoot) ScrollView layoutRoot;
 
+
+
   // TODO: Rename and change types of parameters
   private String mParam1;
   private String mParam2;

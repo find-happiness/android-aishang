@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,6 +24,7 @@ import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.DialogFactory;
 import com.aishang.app.util.NetWorkType;
 import com.aishang.app.util.NetworkUtil;
+import com.aishang.app.util.ViewUtil;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView;
@@ -38,6 +41,7 @@ import butterknife.ButterKnife;
 
 public class TravelListActivity extends BaseActivity implements TravelListMvpView {
 
+  private static final String TAG = "TravelListActivity";
   @Inject TravelListPresenter mPersenter;
 
   @Bind(R.id.toolbar) Toolbar toolbar;
@@ -64,6 +68,7 @@ public class TravelListActivity extends BaseActivity implements TravelListMvpVie
     mPersenter.attachView(this);
     initToolbar();
     initRefreshLayout();
+    setImageSizeToAdapter();
     proLoad();
   }
 
@@ -71,6 +76,15 @@ public class TravelListActivity extends BaseActivity implements TravelListMvpVie
     MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.menu_hotel, menu);
     return true;
+  }
+
+  private void setImageSizeToAdapter() {
+    DisplayMetrics localDisplayMetrics = new DisplayMetrics();
+    this.getWindowManager().getDefaultDisplay().getMetrics(localDisplayMetrics);
+    int mScreenWidth = localDisplayMetrics.widthPixels;
+    int pacing = ViewUtil.dpToPx(8);
+    int width = (mScreenWidth - 4 * pacing) / 3;
+    adapter.setImgSize(width, width * 3 / 4);
   }
 
   private void initToolbar() {

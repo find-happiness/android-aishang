@@ -95,7 +95,7 @@ public class InSalePresenter extends BasePresenter<InSaleMvpView> {
                     break;
                   case loadMore:
                     getMvpView().loadMoreLoupanProduct(loupanProducts,
-                        hotelListResult.getLoupanCount());
+                        hotelListResult.getProductCount());
                     break;
                 }
               }

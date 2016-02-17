@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -36,7 +37,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class InSaleActivity extends BaseActivity implements InSaleMvpView {
-
+  private static final String TAG = "InSaleActivity";
   @Inject InSalePresenter mPersenter;
 
   @Bind(R.id.toolbar) Toolbar toolbar;
@@ -46,7 +47,7 @@ public class InSaleActivity extends BaseActivity implements InSaleMvpView {
   @Bind(R.id.no_data_in_sale) TextView noDataInSale;
   @Bind(R.id.layoutRoot) FrameLayout layoutRoot;
 
-  private String filterWords="";
+  private String filterWords = "";
 
   @Inject LoupanProductAdapter adapter;
 
@@ -119,7 +120,7 @@ public class InSaleActivity extends BaseActivity implements InSaleMvpView {
 
       @Override public void onLoadMore() {
         if (NetworkUtil.isNetworkConnected(InSaleActivity.this)) {
-          asynLoupanProduct(adapter.getLoupanProducts().size() - 1, selectType, selectZoneID,
+          asynLoupanProduct(adapter.getItemCount(), selectType, selectZoneID,
               selectPrice, filterWords, NetWorkType.loadMore);
         } else {
           //mRecyclerView.loadMoreComplete();
@@ -207,8 +208,8 @@ public class InSaleActivity extends BaseActivity implements InSaleMvpView {
 
   private void asynLoupanProduct(int start, int selectType, int selectZoneID, int priceID,
       String filterWords, NetWorkType type) {
-    String json = AiShangUtil.generLoupanProductParam(0, 0, 0, 0, 10, 0, 0, filterWords, 0, "", "",
-        selectZoneID, 0, selectPrice, 0, 0, selectType, "", "", "", 0);
+    String json = AiShangUtil.generLoupanProductParam(0, 0, 0, start, 10, 0, 0, filterWords, 0, "", "",
+        selectZoneID, 0, priceID, 0, 0, selectType, "", "", "", 0);
 
     mPersenter.loadLoupanProduct(1, json, type);
   }
@@ -242,7 +243,14 @@ public class InSaleActivity extends BaseActivity implements InSaleMvpView {
     adapter.notifyDataSetChanged();
     mRecyclerView.refreshComplete();
 
+    Log.i(TAG, "loadMoreHotel: "
+        + loupanProducts.size()
+        + "  total "
+        + total
+        + "  "
+        + adapter.getItemCount());
     if (adapter.getLoupanProducts().size() >= total) {
+      mRecyclerView.loadMoreComplete();
       adapter.notifyDataSetChanged();
       mRecyclerView.loadMoreComplete();
     }

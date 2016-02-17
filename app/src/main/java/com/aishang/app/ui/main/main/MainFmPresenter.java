@@ -84,7 +84,7 @@ public class MainFmPresenter extends BasePresenter<MainFmMvpView> {
           }
 
           @Override public void onError(Throwable e) {
-            getMvpView().showError("网络异常:" + e.toString());
+            getMvpView().showError("网络异常");
             getMvpView().addNetCount();
           }
 
@@ -122,7 +122,7 @@ public class MainFmPresenter extends BasePresenter<MainFmMvpView> {
           }
 
           @Override public void onError(Throwable e) {
-            getMvpView().showError("网络异常:" + e.toString());
+            getMvpView().showError("网络异常");
             getMvpView().addNetCount();
           }
 
@@ -163,7 +163,7 @@ public class MainFmPresenter extends BasePresenter<MainFmMvpView> {
           }
 
           @Override public void onError(Throwable e) {
-            getMvpView().showError("网络异常:" + e.toString());
+            getMvpView().showError("网络异常");
             getMvpView().addNetCount();
           }
 
@@ -202,7 +202,7 @@ public class MainFmPresenter extends BasePresenter<MainFmMvpView> {
           }
 
           @Override public void onError(Throwable e) {
-            getMvpView().showError("网络异常:" + e.toString());
+            getMvpView().showError("网络异常");
             getMvpView().addNetCount();
           }
 
@@ -248,7 +248,7 @@ public class MainFmPresenter extends BasePresenter<MainFmMvpView> {
           }
 
           @Override public void onError(Throwable e) {
-            getMvpView().showError("网络异常:" + e.toString());
+            getMvpView().showError("网络异常");
           }
 
           @Override public void onNext(JSysZoneResult zoneResult) {

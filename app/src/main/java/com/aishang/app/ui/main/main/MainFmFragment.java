@@ -260,7 +260,7 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
   }
 
   @Override public void showError(String error) {
-    Log.i(TAG, "showError: " + error);
+    CommonUtil.showSnackbar(error, layoutRoot);
   }
 
   @Override public void addNetCount() {

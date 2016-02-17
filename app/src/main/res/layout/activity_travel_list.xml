@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layoutRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    tools:context="com.aishang.app.ui.TravelList.TravelListActivity">
+
   <RelativeLayout
-      xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:tools="http://schemas.android.com/tools"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:background="@color/primary"
       android:paddingTop="@dimen/padding_stutas_bar"
-      tools:context="com.aishang.app.ui.TravelList.TravelListActivity"
       >
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primary"
-        >
+        android:background="@color/primary">
 
       <TextView
           android:id="@+id/toolbar_title"
@@ -30,8 +28,7 @@
           android:layout_gravity="center"
           android:text="@string/youji"
           android:textColor="@android:color/white"
-          android:textSize="@dimen/text_title"
-          />
+          android:textSize="@dimen/text_title"/>
     </android.support.v7.widget.Toolbar>
 
     <com.quinny898.library.persistentsearch.SearchBox
@@ -43,8 +40,7 @@
         android:layout_marginLeft="-6dp"
         android:layout_marginRight="-6dp"
         android:layout_marginTop="-6dp"
-        android:visibility="gone"
-        />
+        android:visibility="gone"/>
 
     <LinearLayout
         android:id="@+id/ll_sreach"
@@ -52,8 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
         android:background="@android:color/white"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
       <TextView
           android:layout_width="0dp"
@@ -66,14 +61,12 @@
           android:paddingLeft="5dp"
           android:paddingRight="5dp"
           android:paddingTop="10dp"
-          android:text="国内"
-          />
+          android:text="国内"/>
 
       <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
-          android:background="@android:color/darker_gray"
-          />
+          android:background="@android:color/darker_gray"/>
 
       <TextView
           android:layout_width="0dp"
@@ -86,14 +79,12 @@
           android:paddingLeft="5dp"
           android:paddingRight="5dp"
           android:paddingTop="10dp"
-          android:text="日韩"
-          />
+          android:text="日韩"/>
 
       <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
-          android:background="@android:color/darker_gray"
-          />
+          android:background="@android:color/darker_gray"/>
 
       <TextView
           android:layout_width="0dp"
@@ -106,14 +97,12 @@
           android:paddingLeft="5dp"
           android:paddingRight="5dp"
           android:paddingTop="10dp"
-          android:text="欧美"
-          />
+          android:text="欧美"/>
 
       <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
-          android:background="@android:color/darker_gray"
-          />
+          android:background="@android:color/darker_gray"/>
 
       <TextView
           android:layout_width="0dp"
@@ -126,8 +115,7 @@
           android:paddingLeft="5dp"
           android:paddingRight="5dp"
           android:paddingTop="10dp"
-          android:text="新马泰"
-          />
+          android:text="新马泰"/>
     </LinearLayout>
 
     <View
@@ -135,16 +123,14 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/ll_sreach"
-        android:background="@android:color/darker_gray"
-        />
+        android:background="@android:color/darker_gray"/>
 
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/view_line"
-        android:background="@android:color/white"
-        />
+        android:background="@android:color/white"/>
   </RelativeLayout>
 
   <RelativeLayout
@@ -171,3 +157,4 @@
         />
   </RelativeLayout>
 </FrameLayout>
+

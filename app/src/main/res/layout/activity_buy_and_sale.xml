@@ -5,37 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary"
+    android:orientation="vertical"
     android:paddingTop="@dimen/padding_stutas_bar"
-    tools:context="com.aishang.app.ui.MemberCenter.MemberCenterActivity"
-    android:orientation="vertical">
+    tools:context="com.aishang.app.ui.MemberCenter.MemberCenterActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/primary"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:background="@color/primary"
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-        <TextView
-            android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/wo_de_zu_shou"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_title"/>
-    </android.support.v7.widget.Toolbar>
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/wo_de_zu_shou"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_title"/>
+  </android.support.v7.widget.Toolbar>
 
-    <com.shizhefei.view.viewpager.SViewPager
-        android:id="@+id/tabmain_viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="#eee"
-        android:layout_weight="1" />
+  <com.shizhefei.view.viewpager.SViewPager
+      android:id="@+id/tabmain_viewPager"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:background="#eee"/>
 
-    <com.shizhefei.view.indicator.FixedIndicatorView
-        android:id="@+id/tabmain_indicator"
-        android:layout_width="match_parent"
-        android:background="@android:color/white"
-        android:layout_height="65dp" />
+  <com.shizhefei.view.indicator.FixedIndicatorView
+      android:id="@+id/tabmain_indicator"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/tab_bg"/>
 </LinearLayout>

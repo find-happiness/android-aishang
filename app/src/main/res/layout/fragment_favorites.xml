@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:id="@+id/layoutRoot"
+    android:layout_height="match_parent">
 
   <com.jcodecraeer.xrecyclerview.XRecyclerView
       android:id="@+id/swipe_refresh"
@@ -10,4 +11,28 @@
       android:layout_height="match_parent"
       android:layout_below="@id/view_line"
       android:background="@android:color/white"/>
-</LinearLayout>
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+    <com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView
+        android:id="@+id/avloadingIndicatorView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:indicator="LineScalePulseOutRapid"
+        app:indicator_color="@color/blue"
+        />
+
+    <TextView
+        android:id="@+id/no_data_in_sale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/no_data"
+        android:visibility="gone"
+        />
+  </RelativeLayout>
+</FrameLayout>

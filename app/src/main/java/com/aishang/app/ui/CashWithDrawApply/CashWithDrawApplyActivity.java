@@ -1,8 +1,6 @@
 package com.aishang.app.ui.CashWithDrawApply;
 
-import android.content.Context;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -15,28 +13,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import com.aishang.app.BoilerplateApplication;
 import com.aishang.app.R;
-import com.aishang.app.data.DataManager;
-import com.aishang.app.data.model.JResult;
-import com.aishang.app.injection.component.ActivityComponent;
 import com.aishang.app.ui.base.BaseActivity;
-import com.aishang.app.ui.main.MainPageAdapter;
 import com.aishang.app.util.BusProvider;
 import com.aishang.app.util.CommonUtil;
-import com.aishang.app.util.EventPosterHelper;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
 import com.shizhefei.view.indicator.slidebar.ColorBar;
-import com.squareup.otto.Produce;
-import com.squareup.otto.Subscribe;
-import dagger.Provides;
-import javax.inject.Inject;
-import rx.Observable;
 
 public class CashWithDrawApplyActivity extends BaseActivity {
   private static final String TAG = "CashWithDrawActivity";

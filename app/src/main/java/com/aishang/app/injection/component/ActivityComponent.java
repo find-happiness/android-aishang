@@ -4,10 +4,12 @@ import com.aishang.app.ui.BrokerCenter.BrokerCenterActivity;
 import com.aishang.app.ui.CashWithDrawApply.CashWithDrawApplyActivity;
 import com.aishang.app.ui.CashWithDrawApply.CashWithDrawFragment;
 import com.aishang.app.ui.HotelDetail.HotelDetailActivity;
-import com.aishang.app.ui.KanFanTuan.KanFanTuanActivity;
+import com.aishang.app.ui.MyBuyAndSale.RentFragment;
+import com.aishang.app.ui.MyBuyAndSale.SaleFragment;
 import com.aishang.app.ui.MyHouse.MyHouseActivity;
 import com.aishang.app.ui.MyOrder.MyOrderActivity;
 import com.aishang.app.ui.RecommenCustomer.RecommenCustomerActivity;
+import com.aishang.app.ui.TravelFavorites.FavoritesFragment;
 import com.aishang.app.ui.TravelList.TravelListActivity;
 import com.aishang.app.ui.hotel.HotelListActivity;
 import com.aishang.app.ui.insaleDetail.InSaleDetailActivity;
@@ -62,5 +64,9 @@ public interface ActivityComponent {
 
   void inject(CashWithDrawFragment fragment);
 
-  void inject(KanFanTuanActivity fragment);
+  void inject(FavoritesFragment fragment);
+
+  void inject(RentFragment fragment);
+
+  void inject(SaleFragment fragment);
 }

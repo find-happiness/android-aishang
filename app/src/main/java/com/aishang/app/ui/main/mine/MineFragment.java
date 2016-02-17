@@ -251,7 +251,8 @@ public class MineFragment extends Fragment implements MineMvpView {
     }
 
     @OnClick(R.id.btn_wo_de_zu_shou) void woDeZuShouClick() {
-      if (checkLoginAndShowDialog()) mMinePresenter.intentToMyBuyAndSale();
+      //if (checkLoginAndShowDialog()) mMinePresenter.intentToMyBuyAndSale();
+      mMinePresenter.intentToMyBuyAndSale();
     }
 
     @OnClick(R.id.btn_guan_yu_wo_men) void guanYuWoMenClick() {

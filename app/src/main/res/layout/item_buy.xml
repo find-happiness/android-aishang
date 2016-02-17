@@ -1,62 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingLeft="@dimen/spacing_xlarge"
-    android:paddingRight="@dimen/spacing_xlarge"
-    android:layout_height="match_parent">
+    android:paddingRight="@dimen/spacing_xlarge">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            tools:text="海滨度假屋"
-            android:textSize="@dimen/text_headline"
-            android:layout_weight="3"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="@dimen/text_body"
-            tools:text="状态状态"/>
-    </LinearLayout>
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/name"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:text="海滨度假屋"
-        android:layout_marginTop="@dimen/spacing_medium"
-        android:textSize="@dimen/text_body"/>
+        android:layout_weight="3"
+        android:textSize="@dimen/text_headline"
+        tools:text="海滨度假屋"/>
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/status"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:text="海滨度假屋"
-        android:layout_marginTop="@dimen/spacing_medium"
-        android:textSize="@dimen/text_body"/>
+        android:layout_weight="1"
+        android:textSize="@dimen/text_body"
+        tools:text="状态状态"/>
+  </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+  <TextView
+      android:id="@+id/room_num"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/spacing_medium"
+      android:textSize="@dimen/text_body"
+      tools:text="海滨度假屋"/>
+
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textSize="@dimen/text_body"
+      android:id="@+id/rent_date"
+      tools:text="海滨度假屋"/>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+
+    <TextView
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            tools:text="海滨度假屋"
-            android:textSize="@dimen/text_body"
-            android:layout_weight="3"/>
+        android:layout_weight="3"
+        android:textSize="@dimen/text_body"
+        android:id="@+id/address"
+        tools:text="海滨度假屋"/>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="@dimen/text_large_body"
-            tools:text="$45220"/>
-    </LinearLayout>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="@dimen/text_large_body"
+        android:id="@+id/price"
+        tools:text="$45220"/>
+  </LinearLayout>
 
 </LinearLayout>

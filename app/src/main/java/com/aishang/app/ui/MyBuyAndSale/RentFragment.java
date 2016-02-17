@@ -1,21 +1,18 @@
 package com.aishang.app.ui.MyBuyAndSale;
 
 import android.app.Activity;
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JRentalListResult;
+import com.aishang.app.ui.TravelFavorites.TravelFavoritesActivity;
 import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.NetWorkType;
@@ -32,10 +29,11 @@ import javax.inject.Inject;
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
  * to handle interaction events.
- * Use the {@link SaleFragment#newInstance} factory method to
+ * Use the {@link RentFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SaleFragment extends LazyFragment implements RentSaleMvpView {
+public class RentFragment extends LazyFragment implements RentSaleMvpView {
+
   private static final String ARG_PARAM1 = "param1";
   private static final String ARG_PARAM2 = "param2";
   @Bind(R.id.swipe_refresh) XRecyclerView mRecyclerView;
@@ -44,6 +42,7 @@ public class SaleFragment extends LazyFragment implements RentSaleMvpView {
   @Bind(R.id.layoutRoot) FrameLayout layoutRoot;
   @Inject RentSalePresenter presenter;
   @Inject RentAdapter adapter;
+
   private String mParam1;
   private String mParam2;
 
@@ -51,14 +50,20 @@ public class SaleFragment extends LazyFragment implements RentSaleMvpView {
    * Use this factory method to create a new instance of
    * this fragment using the provided parameters.
    *
-   * @return A new instance of fragment SaleFragment.
+   * @param param1 Parameter 1.
+   * @param param2 Parameter 2.
+   * @return A new instance of fragment RentFragment.
    */
-  public static SaleFragment newInstance() {
-    SaleFragment fragment = new SaleFragment();
+  public static RentFragment newInstance(String param1, String param2) {
+    RentFragment fragment = new RentFragment();
+    Bundle args = new Bundle();
+    args.putString(ARG_PARAM1, param1);
+    args.putString(ARG_PARAM2, param2);
+    fragment.setArguments(args);
     return fragment;
   }
 
-  public SaleFragment() {
+  public RentFragment() {
     // Required empty public constructor
   }
 
@@ -74,7 +79,7 @@ public class SaleFragment extends LazyFragment implements RentSaleMvpView {
 
   @Override protected void onCreateViewLazy(Bundle savedInstanceState) {
     super.onCreateViewLazy(savedInstanceState);
-    setContentView(R.layout.fragment_sale);
+    setContentView(R.layout.fragment_buy);
 
     ButterKnife.bind(this, this.getContentView());
     initRefreshLayout();
@@ -141,7 +146,7 @@ public class SaleFragment extends LazyFragment implements RentSaleMvpView {
   }
 
   private void asynRental(NetWorkType type) {
-    asynRental(2, "", 0, 10, 0, 0, 0, 0, 0, 0, type);
+    asynRental(1, "", 0, 10, 0, 0, 0, 0, 0, 0, type);
   }
 
   private void asynRental(int filterType, String filterWords, int recStart, int recCount,
@@ -174,7 +179,7 @@ public class SaleFragment extends LazyFragment implements RentSaleMvpView {
 
     mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
       @Override public void onRefresh() {
-        if (NetworkUtil.isNetworkConnected(SaleFragment.this.getActivity())) {
+        if (NetworkUtil.isNetworkConnected(RentFragment.this.getActivity())) {
           asynRental(NetWorkType.refresh);
         } else {
           mRecyclerView.refreshComplete();
@@ -183,8 +188,8 @@ public class SaleFragment extends LazyFragment implements RentSaleMvpView {
       }
 
       @Override public void onLoadMore() {
-        if (NetworkUtil.isNetworkConnected(SaleFragment.this.getActivity())) {
-          asynRental(2, "", adapter.getItemCount(), 10, 0, 0, 0, 0, 0, 0, NetWorkType.loadMore);
+        if (NetworkUtil.isNetworkConnected(RentFragment.this.getActivity())) {
+          asynRental(1, "", adapter.getItemCount(), 10, 0, 0, 0, 0, 0, 0, NetWorkType.loadMore);
         } else {
           //mRecyclerView.loadMoreComplete();
           mRecyclerView.cancelLoadMore();

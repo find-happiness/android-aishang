@@ -15,6 +15,7 @@ import com.aishang.app.data.model.JMrePromResult;
 import com.aishang.app.data.model.JMyBusinessBuyInListResult;
 import com.aishang.app.data.model.JMyVacationApplyListResult;
 import com.aishang.app.data.model.JNewsListResult;
+import com.aishang.app.data.model.JRentalListResult;
 import com.aishang.app.data.model.JResult;
 import com.aishang.app.data.model.JSysZoneResult;
 import com.aishang.app.data.model.JVersionCheckResult;
@@ -48,8 +49,8 @@ import rx.Observable;
 public interface AiShangService {
 
   String ENDPOINT = "https://api.ribot.io/";
-  String AiShangHost = "http://www.aishang67.com/";
-  String IMG_URL = "http://www.aishang67.com";
+  String AiShangHost = "http://www.aishang67.cn/";
+  String IMG_URL = "http://www.aishang67.cn";
 
   @Headers("connection:Keep-Alive") @GET("mobile/member/memberLogin.ashx")
   Observable<JMemberLoginResult> login(@Query(value = "v") int version,
@@ -124,6 +125,11 @@ public interface AiShangService {
   @Headers("connection:Keep-Alive") @GET("mobile/member/cashWithDrawApply.ashx")
   Observable<JResult> sysCashWithDrawApply(@Query(value = "v") int version,
       @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/rentalList.ashx")
+  Observable<JRentalListResult> syncRentalList(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
 
   @GET("ribots") Observable<List<Ribot>> getRibots();
 

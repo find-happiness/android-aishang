@@ -63,6 +63,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
         indicatorViewPager = new IndicatorViewPager(mIndicator, mViewPager);
         indicatorViewPager.setAdapter(new MainPageAdapter(getSupportFragmentManager(), this));
+        indicatorViewPager.setPageOffscreenLimit(3);
         mViewPager.setCanScroll(true);
         mMainPresenter.attachView(this);
 

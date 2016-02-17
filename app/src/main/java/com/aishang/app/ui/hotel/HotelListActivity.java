@@ -237,7 +237,7 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
 
       @Override public void onLoadMore() {
         if (NetworkUtil.isNetworkConnected(HotelListActivity.this)) {
-          asynHotel(hotelAdapter.getHotels().size() - 1, AiShangUtil.dateFormat(checkInDate),
+          asynHotel(hotelAdapter.getHotels().size(), AiShangUtil.dateFormat(checkInDate),
               AiShangUtil.dateFormat(checkOutDate), selectZoneID, selectPrice, mFilterWords,
               NetWorkType.loadMore);
         } else {
@@ -350,14 +350,16 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
     if (noDataHotel.getVisibility() == View.VISIBLE) {
       noDataHotel.setVisibility(View.GONE);
     }
-
-    Log.i(TAG, "loadMoreHotel: " + hotels.size() + "  total " + total);
     mRecyclerView.loadMoreComplete();
     hotelAdapter.getHotels().addAll(hotels);
     hotelAdapter.notifyDataSetChanged();
     mRecyclerView.refreshComplete();
+    Log.i(TAG,
+        "loadMoreHotel: " + hotels.size() + "  total " + total + "  " + hotelAdapter.getHotels()
+            .size());
 
     if (hotelAdapter.getHotels().size() >= total) {
+      mRecyclerView.loadMoreComplete();
       hotelAdapter.notifyDataSetChanged();
       mRecyclerView.loadMoreComplete();
     }

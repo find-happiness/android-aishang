@@ -12,4 +12,5 @@
     <color name="accent_bright">#FFF493</color>
     <color name="text_gray">#c6c6c6</color>
     <color name="text_tu">#cda156</color>
+    <color name="tab_bg">#f4f4f4</color>
 </resources>

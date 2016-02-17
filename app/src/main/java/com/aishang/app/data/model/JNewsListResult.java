@@ -9,16 +9,8 @@ public class JNewsListResult {
 
   private String result;
   private int totalCount;
-  private JNewsListItem[] newsList;
   private JNewsCatListItem[] newsCatList;
-
-  public JNewsListItem[] getNewsList() {
-    return newsList;
-  }
-
-  public void setNewsList(JNewsListItem[] newsList) {
-    this.newsList = newsList;
-  }
+  private JNewsListItem[] newsList;
 
   public String getResult() {
     return result;
@@ -42,6 +34,14 @@ public class JNewsListResult {
 
   public void setNewsCatList(JNewsCatListItem[] newsCatList) {
     this.newsCatList = newsCatList;
+  }
+
+  public JNewsListItem[] getNewsList() {
+    return newsList;
+  }
+
+  public void setNewsList(JNewsListItem[] newsList) {
+    this.newsList = newsList;
   }
 
   public class JNewsCatListItem {

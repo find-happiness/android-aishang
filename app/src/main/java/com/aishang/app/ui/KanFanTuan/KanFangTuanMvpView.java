@@ -1,6 +1,6 @@
 package com.aishang.app.ui.KanFanTuan;
 
-import com.aishang.app.data.model.JBusinessListResult;
+import com.aishang.app.data.model.JMreActivityListResult;
 import com.aishang.app.ui.base.MvpView;
 
 /**
@@ -9,6 +9,6 @@ import com.aishang.app.ui.base.MvpView;
 public interface KanFangTuanMvpView extends MvpView{
   void showError(String error);
   void showEmpty();
-  void refreshList(JBusinessListResult.Business[] items);
-  void loadMoreList(JBusinessListResult.Business[] items, int total);
+  void refreshList(JMreActivityListResult.JActivityItem[] items);
+  void loadMoreList(JMreActivityListResult.JActivityItem[] items, int total);
 }

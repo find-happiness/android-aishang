@@ -1,12 +1,8 @@
 package com.aishang.app.ui.KanFanTuan;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.util.Log;
 import com.aishang.app.data.DataManager;
-import com.aishang.app.data.model.JBusinessListResult;
-import com.aishang.app.ui.BrokerCenter.BrokerCenterActivity;
-import com.aishang.app.ui.ChangePassword.ChangePasswordActivity;
-import com.aishang.app.ui.RecommenCustomer.RecommenCustomerActivity;
+import com.aishang.app.data.model.JMreActivityListResult;
 import com.aishang.app.ui.base.BasePresenter;
 import com.aishang.app.util.Constants;
 import com.aishang.app.util.NetWorkType;
@@ -21,6 +17,7 @@ import rx.schedulers.Schedulers;
  */
 public class KanFangTuanPresenter extends BasePresenter<KanFangTuanMvpView> {
 
+  private static final String TAG = "KanFangTuanPresenter";
   private final DataManager mDataManager;
   private Subscription subscription;
 
@@ -32,11 +29,11 @@ public class KanFangTuanPresenter extends BasePresenter<KanFangTuanMvpView> {
     super.attachView(mvpView);
   }
 
-  public void loadBusiness(int version, String json, NetWorkType type) {
-    loadBusiness(false, version, json, type);
+  public void MreActivityDetail(int version, String json, NetWorkType type) {
+    MreActivityDetail(false, version, json, type);
   }
 
-  public void loadBusiness(boolean allowMemoryCacheVersion, int version, String json,
+  public void MreActivityDetail(boolean allowMemoryCacheVersion, int version, String json,
       final NetWorkType type) {
     checkViewAttached();
 
@@ -44,33 +41,42 @@ public class KanFangTuanPresenter extends BasePresenter<KanFangTuanMvpView> {
       subscription.unsubscribe();
     }
 
-    subscription = mDataManager.sysBusinessList(version, json)
+    subscription = mDataManager.syncMreActivityDetail(version, json)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
-        .subscribe(new Subscriber<JBusinessListResult>() {
+        .subscribe(new Subscriber<JMreActivityListResult>() {
           @Override public void onCompleted() {
 
           }
 
           @Override public void onError(Throwable e) {
             getMvpView().showError("网络异常");
+            Log.e(TAG, "onError: " + e.toString());
           }
 
-          @Override public void onNext(JBusinessListResult result) {
+          @Override public void onNext(JMreActivityListResult result) {
             if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
 
-              if (result.getBusinessList().length <= 0) {
-                getMvpView().showEmpty();
-              } else {
-                switch (type) {
-                  case refresh:
-                    getMvpView().refreshList(result.getBusinessList());
-                    break;
-                  case loadMore:
-                    getMvpView().loadMoreList(result.getBusinessList(), result.getRecCount());
-                    break;
+              for (JMreActivityListResult.JActivityCatItem catItem : result.getActivityCatList()) {
+                if (catItem.getCatID() == 0) {//all
+                  if (catItem.getTotalCount() <= 0) {
+                    getMvpView().showEmpty();
+                  } else {
+                    switch (type) {
+                      case refresh:
+                        getMvpView().refreshList(catItem.getActivityList());
+                        break;
+                      case loadMore:
+                        getMvpView().loadMoreList(catItem.getActivityList(),
+                            catItem.getTotalCount());
+                        break;
+                    }
+                  }
+                  return;
                 }
               }
+
+              getMvpView().showEmpty();
             } else {
               getMvpView().showError(result.getResult());
               getMvpView().showEmpty();
@@ -82,18 +88,5 @@ public class KanFangTuanPresenter extends BasePresenter<KanFangTuanMvpView> {
   @Override public void detachView() {
     super.detachView();
     if (subscription != null) subscription.unsubscribe();
-  }
-
-  public void intentToChangePsw() {
-    Activity act = (BrokerCenterActivity) getMvpView();
-    Intent intent = new Intent(act, ChangePasswordActivity.class);
-    act.startActivity(intent);
-    act.finish();
-  }
-
-  public void intentToContactsAdd() {
-    Activity act = (BrokerCenterActivity) getMvpView();
-    Intent intent = new Intent(act, RecommenCustomerActivity.class);
-    act.startActivity(intent);
   }
 }

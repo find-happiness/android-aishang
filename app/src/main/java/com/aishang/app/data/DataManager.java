@@ -11,11 +11,11 @@ import com.aishang.app.data.model.JLoupanProductDetailResult;
 import com.aishang.app.data.model.JLoupanProductListResult;
 import com.aishang.app.data.model.JMemberProfileResult;
 import com.aishang.app.data.model.JMemberStatisticsResult;
+import com.aishang.app.data.model.JMreActivityListResult;
 import com.aishang.app.data.model.JMyBusinessBuyInListResult;
 import com.aishang.app.data.model.JMyVacationApplyListResult;
 import com.aishang.app.data.model.JRentalListResult;
 import com.aishang.app.data.model.JResult;
-import com.aishang.app.data.model.JSysZoneParam;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JMrePromResult;
 import com.aishang.app.data.model.JNewsListResult;
@@ -172,6 +172,11 @@ import com.aishang.app.util.EventPosterHelper;
   public Observable<JRentalListResult> syncRentalList(int version, String json) {
     return mAiShangService.syncRentalList(version, json);
   }
+
+  public Observable<JMreActivityListResult> syncMreActivityDetail(int version, String json) {
+    return mAiShangService.syncMreActivityDetail(version, json);
+  }
+
 
   public JVersionCheckResult getVersionCheck() {
     String json = mPreferencesHelper.getVersionCheck();

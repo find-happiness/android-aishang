@@ -6,13 +6,15 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JNewsListResult;
 import com.aishang.app.data.model.JSysZoneResult;
@@ -22,25 +24,20 @@ import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.DialogFactory;
 import com.aishang.app.util.NetWorkType;
 import com.aishang.app.util.NetworkUtil;
+import com.aishang.app.util.ViewUtil;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView;
 import com.quinny898.library.persistentsearch.SearchBox;
 import com.quinny898.library.persistentsearch.SearchResult;
-
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
-import java.util.ArrayList;
-
-import java.util.Arrays;
 import java.util.List;
 import javax.inject.Inject;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
+public class TravelListActivity extends BaseActivity implements TravelListMvpView {
 
-public class TravelListActivity extends BaseActivity implements TravelMvpView {
-
-  @Inject TravelPresenter mPersenter;
+  private static final String TAG = "TravelListActivity";
+  @Inject TravelListPresenter mPersenter;
 
   @Bind(R.id.toolbar) Toolbar toolbar;
   @Bind(R.id.searchbox) SearchBox searchBox;
@@ -53,7 +50,7 @@ public class TravelListActivity extends BaseActivity implements TravelMvpView {
 
   @Inject TravelAdapter adapter;
 
-  private int selectZoneID = 1;
+  private int selectZoneID = 0;
   private int selectType;
   private int selectPrice;
   private Dialog progressDialog;
@@ -66,6 +63,7 @@ public class TravelListActivity extends BaseActivity implements TravelMvpView {
     mPersenter.attachView(this);
     initToolbar();
     initRefreshLayout();
+    setImageSizeToAdapter();
     proLoad();
   }
 
@@ -73,6 +71,15 @@ public class TravelListActivity extends BaseActivity implements TravelMvpView {
     MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.menu_hotel, menu);
     return true;
+  }
+
+  private void setImageSizeToAdapter() {
+    DisplayMetrics localDisplayMetrics = new DisplayMetrics();
+    this.getWindowManager().getDefaultDisplay().getMetrics(localDisplayMetrics);
+    int mScreenWidth = localDisplayMetrics.widthPixels;
+    int pacing = ViewUtil.dpToPx(8);
+    int width = (mScreenWidth - 4 * pacing) / 3;
+    adapter.setImgSize(width, width * 3 / 4);
   }
 
   private void initToolbar() {
@@ -122,8 +129,8 @@ public class TravelListActivity extends BaseActivity implements TravelMvpView {
 
       @Override public void onLoadMore() {
         if (NetworkUtil.isNetworkConnected(TravelListActivity.this)) {
-          asynTravel(adapter.getItemList().size() - 1, selectZoneID, 0, 0, 0, "", filterWords,
-              1, 10, NetWorkType.loadMore);
+          asynTravel(adapter.getItemCount(), selectZoneID, 0, 0, 0, "", filterWords, 1, 10,
+              NetWorkType.loadMore);
         } else {
           //mRecyclerView.loadMoreComplete();
           mRecyclerView.cancelLoadMore();
@@ -201,7 +208,10 @@ public class TravelListActivity extends BaseActivity implements TravelMvpView {
   }
 
   private void asynTravel(NetWorkType type) {
-    asynTravel(0, selectZoneID, 0, 0, 0, "", "", 1, 10, type);
+    //        String param = AiShangUtil.generLoupanProductParam(0, 0, 0, 0, 10, 0,
+    //                0, filterWords, 0, "", "", selectZoneID, 0, selectPrice, 0,
+    //                0, selectType, "", "", "", 0);
+    asynTravel(0, selectZoneID, 0, 0, 0, "", filterWords, 1, 10, type);
   }
 
   private void asynTravel(int recStart, int zoneID, int catID, int filterTypeID, int beVIPHome,
@@ -213,7 +223,7 @@ public class TravelListActivity extends BaseActivity implements TravelMvpView {
     mPersenter.loadTravel(1, json, type);
   }
 
-  @Override public void refreshList(JNewsListResult.JNewsListItem[] newsList) {
+  @Override public void refreshList(List<JNewsListResult.JNewsListItem> loupanProducts) {
     if (avloadingIndicatorView.getVisibility() == View.VISIBLE) {
       avloadingIndicatorView.setVisibility(View.GONE);
     }
@@ -222,35 +232,34 @@ public class TravelListActivity extends BaseActivity implements TravelMvpView {
       noDataInSale.setVisibility(View.GONE);
     }
 
-    // Log.i(TAG, "refreshHotel: " + hotels.size());
+    // Log.i(TAG, "refreshHotel: " + items.size());
 
-    adapter.getItemList().clear();
-    adapter.getItemList()
-        .addAll(new ArrayList<JNewsListResult.JNewsListItem>(Arrays.asList(newsList)));
+    adapter.getItems().clear();
+    adapter.getItems().addAll(loupanProducts);
     adapter.notifyDataSetChanged();
     mRecyclerView.refreshComplete();
   }
 
-  @Override public void loadMoreList(JNewsListResult.JNewsListItem[] items, int total) {
+  @Override
+  public void loadMoreList(List<JNewsListResult.JNewsListItem> loupanProducts, int total) {
 
     if (noDataInSale.getVisibility() == View.VISIBLE) {
       noDataInSale.setVisibility(View.GONE);
     }
 
-    // Log.i(TAG, "loadMoreHotel: " + hotels.size() + "  total " + total);
+    // Log.i(TAG, "loadMoreHotel: " + items.size() + "  total " + total);
     mRecyclerView.loadMoreComplete();
-    adapter.getItemList()
-        .addAll(new ArrayList<JNewsListResult.JNewsListItem>(Arrays.asList(items)));
+    adapter.getItems().addAll(loupanProducts);
     adapter.notifyDataSetChanged();
     mRecyclerView.refreshComplete();
 
-    if (adapter.getItemList().size() >= total) {
+    if (adapter.getItems().size() >= total) {
       adapter.notifyDataSetChanged();
       mRecyclerView.loadMoreComplete();
     }
   }
 
-  public void showSysZoneDialog(final List<JSysZoneResult.Zone> zones) {
+  @Override public void showSysZoneDialog(final List<JSysZoneResult.Zone> zones) {
 
     if (progressDialog != null && progressDialog.isShowing()) {
       progressDialog.dismiss();
@@ -296,7 +305,13 @@ public class TravelListActivity extends BaseActivity implements TravelMvpView {
     }
 
     mRecyclerView.refreshComplete();
-    adapter.getItemList().clear();
+    adapter.getItems().clear();
     adapter.notifyDataSetChanged();
   }
+
+  //@OnClick(R.id.tv_zone) void onClickZone() {
+  //  progressDialog = DialogFactory.createProgressDialog(this, R.string.listview_loading);
+  //  progressDialog.show();
+  //  mPersenter.loadZone(false, 0, AiShangUtil.gennerSysZone(2));
+  //}
 }

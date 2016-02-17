@@ -16,19 +16,17 @@ import com.aishang.app.data.model.JLoupanProductListParam;
 import com.aishang.app.data.model.JMemberLoginParam;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JMemberStatisticsParam;
+import com.aishang.app.data.model.JMreActivityListParam;
 import com.aishang.app.data.model.JMyBusinessBuyInListParam;
 import com.aishang.app.data.model.JMyVacationApplyListParams;
 import com.aishang.app.data.model.JNewsListParams;
 import com.aishang.app.data.model.JRentalListParam;
-import com.aishang.app.data.model.JRentalListResult;
 import com.aishang.app.data.model.JSysZoneParam;
 import com.aishang.app.data.remote.AiShangService;
 import com.google.gson.Gson;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by song on 2016/1/26.
@@ -401,6 +399,21 @@ public class AiShangUtil {
     param.setfZoneID(fZoneID);
     param.setRecCount(recCount);
 
+    return gson.toJson(param);
+  }
+
+  public static String gennerMreActivityDetailParam(int corpID, int catID, int beAll,
+      String memberAccount, String cookie, int beEnrolled, int recStart, int recCount) {
+
+    JMreActivityListParam param = new JMreActivityListParam();
+    param.setBeAll(beAll);
+    param.setBeEnrolled(beEnrolled);
+    param.setCatID(catID);
+    param.setCookie(cookie);
+    param.setMemberAccount(memberAccount);
+    param.setCorpID(corpID);
+    param.setRecStart(recStart);
+    param.setRecCount(recCount);
     return gson.toJson(param);
   }
 

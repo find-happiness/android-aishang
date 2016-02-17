@@ -11,6 +11,7 @@ import com.aishang.app.data.model.JLoupanProductListResult;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JMemberProfileResult;
 import com.aishang.app.data.model.JMemberStatisticsResult;
+import com.aishang.app.data.model.JMreActivityListResult;
 import com.aishang.app.data.model.JMrePromResult;
 import com.aishang.app.data.model.JMyBusinessBuyInListResult;
 import com.aishang.app.data.model.JMyVacationApplyListResult;
@@ -22,22 +23,9 @@ import com.aishang.app.data.model.JVersionCheckResult;
 import com.aishang.app.data.model.Ribot;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Collections;
 import java.util.List;
-import okhttp3.Interceptor;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
-import okio.BufferedSink;
-import okio.BufferedSource;
-import okio.Okio;
 import retrofit2.GsonConverterFactory;
 import retrofit2.Retrofit;
 import retrofit2.RxJavaCallAdapterFactory;
@@ -130,6 +118,9 @@ public interface AiShangService {
   Observable<JRentalListResult> syncRentalList(@Query(value = "v") int version,
       @Query(value = "q") String q);
 
+  @Headers("connection:Keep-Alive") @GET("mobile/other/mreActivityList.ashx")
+  Observable<JMreActivityListResult> syncMreActivityDetail(@Query(value = "v") int version,
+      @Query(value = "q") String q);
 
   @GET("ribots") Observable<List<Ribot>> getRibots();
 

@@ -29,7 +29,7 @@ public class JMreActivityListResult {
   public class JActivityCatItem{
 
     private int catID ;
-    private int catName;
+    private String catName;
     private int totalCount;
     private JActivityItem[] activityList;
 
@@ -49,11 +49,11 @@ public class JMreActivityListResult {
       this.catID = catID;
     }
 
-    public int getCatName() {
+    public String getCatName() {
       return catName;
     }
 
-    public void setCatName(int catName) {
+    public void setCatName(String catName) {
       this.catName = catName;
     }
 
@@ -85,7 +85,7 @@ public class JMreActivityListResult {
     private String contactPhone;
     private int enrollStatus;
     private int beScored;
-    private int avgScores;
+    private String avgScores;
 
     public int getActivityID() {
       return activityID;
@@ -231,11 +231,11 @@ public class JMreActivityListResult {
       this.beScored = beScored;
     }
 
-    public int getAvgScores() {
+    public String getAvgScores() {
       return avgScores;
     }
 
-    public void setAvgScores(int avgScores) {
+    public void setAvgScores(String avgScores) {
       this.avgScores = avgScores;
     }
   }

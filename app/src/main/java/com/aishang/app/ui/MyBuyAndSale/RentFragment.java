@@ -139,6 +139,7 @@ public class RentFragment extends LazyFragment implements RentSaleMvpView {
     mRecyclerView.refreshComplete();
 
     if (adapter.getItemCount() >= total) {
+      mRecyclerView.loadMoreComplete();
       adapter.notifyDataSetChanged();
       mRecyclerView.loadMoreComplete();
     }
@@ -179,7 +180,7 @@ public class RentFragment extends LazyFragment implements RentSaleMvpView {
     mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
       @Override public void onRefresh() {
         if (NetworkUtil.isNetworkConnected(RentFragment.this.getActivity())) {
-          //asynBusiness(NetWorkType.refresh);
+          asynRental(NetWorkType.refresh);
         } else {
           mRecyclerView.refreshComplete();
           CommonUtil.showSnackbar(R.string.no_net, layoutRoot);
@@ -188,8 +189,7 @@ public class RentFragment extends LazyFragment implements RentSaleMvpView {
 
       @Override public void onLoadMore() {
         if (NetworkUtil.isNetworkConnected(RentFragment.this.getActivity())) {
-          //asynBusiness(0, "", "", adapter.getItems().size(), 10, "asc", 0, "",
-          //    NetWorkType.loadMore);
+          asynRental(1, "", adapter.getItemCount(), 10, 0, 0, 0, 0, 0, 0, NetWorkType.loadMore);
         } else {
           //mRecyclerView.loadMoreComplete();
           mRecyclerView.cancelLoadMore();

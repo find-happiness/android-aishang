@@ -34,189 +34,188 @@ import javax.inject.Inject;
  * to handle interaction events.
  * Use the {@link SaleFragment#newInstance} factory method to
  * create an instance of this fragment.
- *
  */
-public class SaleFragment extends LazyFragment implements RentSaleMvpView{
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    @Bind(R.id.swipe_refresh) XRecyclerView mRecyclerView;
-    @Bind(R.id.avloadingIndicatorView) AVLoadingIndicatorView avloadingIndicatorView;
-    @Bind(R.id.no_data_in_sale) TextView noData;
-    @Bind(R.id.layoutRoot) FrameLayout layoutRoot;
-    @Inject RentSalePresenter presenter;
-    @Inject RentAdapter adapter;
-    private String mParam1;
-    private String mParam2;
+public class SaleFragment extends LazyFragment implements RentSaleMvpView {
+  private static final String ARG_PARAM1 = "param1";
+  private static final String ARG_PARAM2 = "param2";
+  @Bind(R.id.swipe_refresh) XRecyclerView mRecyclerView;
+  @Bind(R.id.avloadingIndicatorView) AVLoadingIndicatorView avloadingIndicatorView;
+  @Bind(R.id.no_data_in_sale) TextView noData;
+  @Bind(R.id.layoutRoot) FrameLayout layoutRoot;
+  @Inject RentSalePresenter presenter;
+  @Inject RentAdapter adapter;
+  private String mParam1;
+  private String mParam2;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment SaleFragment.
-     */
-    public static SaleFragment newInstance() {
-        SaleFragment fragment = new SaleFragment();
-        return fragment;
+  /**
+   * Use this factory method to create a new instance of
+   * this fragment using the provided parameters.
+   *
+   * @return A new instance of fragment SaleFragment.
+   */
+  public static SaleFragment newInstance() {
+    SaleFragment fragment = new SaleFragment();
+    return fragment;
+  }
+
+  public SaleFragment() {
+    // Required empty public constructor
+  }
+
+  @Override public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    ((BuyAndSaleActivity) getActivity()).getActivityComponent().inject(this);
+    presenter.attachView(this);
+    if (getArguments() != null) {
+      mParam1 = getArguments().getString(ARG_PARAM1);
+      mParam2 = getArguments().getString(ARG_PARAM2);
     }
-    public SaleFragment() {
-        // Required empty public constructor
-    }
+  }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ((BuyAndSaleActivity) getActivity()).getActivityComponent().inject(this);
-        presenter.attachView(this);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+  @Override protected void onCreateViewLazy(Bundle savedInstanceState) {
+    super.onCreateViewLazy(savedInstanceState);
+    setContentView(R.layout.fragment_sale);
 
-    @Override protected void onCreateViewLazy(Bundle savedInstanceState) {
-        super.onCreateViewLazy(savedInstanceState);
-        setContentView(R.layout.fragment_sale);
+    ButterKnife.bind(this, this.getContentView());
+    initRefreshLayout();
+    proLoad();
+  }
 
-        ButterKnife.bind(this, this.getContentView());
-        initRefreshLayout();
-        proLoad();
-    }
+  @Override public void onAttach(Activity context) {
+    super.onAttach(context);
+  }
 
-    @Override public void onAttach(Activity context) {
-        super.onAttach(context);
-    }
+  @Override public void onDetach() {
+    super.onDetach();
+  }
 
-    @Override public void onDetach() {
-        super.onDetach();
-    }
+  @Override public void showError(String error) {
+    CommonUtil.showSnackbar(error, layoutRoot);
+  }
 
-    @Override public void showError(String error) {
-        CommonUtil.showSnackbar(error, layoutRoot);
-    }
-
-    @Override public void refreshList(List<JRentalListResult.RentalItem> items) {
-        if (avloadingIndicatorView.getVisibility() == View.VISIBLE) {
-            avloadingIndicatorView.setVisibility(View.GONE);
-        }
-
-        if (noData.getVisibility() == View.VISIBLE) {
-            noData.setVisibility(View.GONE);
-        }
-
-        adapter.getItems().clear();
-        adapter.getItems().addAll(items);
-        adapter.notifyDataSetChanged();
-        mRecyclerView.refreshComplete();
+  @Override public void refreshList(List<JRentalListResult.RentalItem> items) {
+    if (avloadingIndicatorView.getVisibility() == View.VISIBLE) {
+      avloadingIndicatorView.setVisibility(View.GONE);
     }
 
-    @Override public void showEmpty() {
-        if (avloadingIndicatorView.getVisibility() == View.VISIBLE) {
-            avloadingIndicatorView.setVisibility(View.GONE);
-        }
-
-        if (noData.getVisibility() != View.VISIBLE) {
-            noData.setVisibility(View.VISIBLE);
-        }
-
-        mRecyclerView.refreshComplete();
-        adapter.getItems().clear();
-        adapter.notifyDataSetChanged();
+    if (noData.getVisibility() == View.VISIBLE) {
+      noData.setVisibility(View.GONE);
     }
 
-    @Override public void loadMoreList(List<JRentalListResult.RentalItem> items, int total) {
+    adapter.getItems().clear();
+    adapter.getItems().addAll(items);
+    adapter.notifyDataSetChanged();
+    mRecyclerView.refreshComplete();
+  }
 
-        if (noData.getVisibility() == View.VISIBLE) {
-            noData.setVisibility(View.GONE);
-        }
-
-        mRecyclerView.loadMoreComplete();
-        adapter.getItems().addAll(items);
-        adapter.notifyDataSetChanged();
-        mRecyclerView.refreshComplete();
-
-        if (adapter.getItemCount() >= total) {
-            adapter.notifyDataSetChanged();
-            mRecyclerView.loadMoreComplete();
-        }
+  @Override public void showEmpty() {
+    if (avloadingIndicatorView.getVisibility() == View.VISIBLE) {
+      avloadingIndicatorView.setVisibility(View.GONE);
     }
 
-    private void asynRental(NetWorkType type) {
-        asynRental(1, "", 0, 10, 0, 0, 0, 0, 0, 0, type);
+    if (noData.getVisibility() != View.VISIBLE) {
+      noData.setVisibility(View.VISIBLE);
     }
 
-    private void asynRental(int filterType, String filterWords, int recStart, int recCount,
-        int fZoneID, int fPriceCatID, float fPriceMin, float fPriceMax, int fRoomTypeID, int beDetail,
-        NetWorkType type) {
+    mRecyclerView.refreshComplete();
+    adapter.getItems().clear();
+    adapter.notifyDataSetChanged();
+  }
 
-        String json =
-            AiShangUtil.generRentalListParam(filterType, filterWords, recStart, recCount, fZoneID,
-                fPriceCatID, fPriceMin, fPriceMax, fRoomTypeID, beDetail);
+  @Override public void loadMoreList(List<JRentalListResult.RentalItem> items, int total) {
 
-        presenter.loadRentSale(1, json, type);
+    if (noData.getVisibility() == View.VISIBLE) {
+      noData.setVisibility(View.GONE);
     }
 
-    private void initRefreshLayout() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(layoutManager);
+    mRecyclerView.loadMoreComplete();
+    adapter.getItems().addAll(items);
+    adapter.notifyDataSetChanged();
+    mRecyclerView.refreshComplete();
 
-        mRecyclerView.addItemDecoration(
-            new HorizontalDividerItemDecoration.Builder(this.getActivity()).colorResId(
-                android.R.color.darker_gray).sizeResId(R.dimen.divider).build());
-        mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallScaleRipple);
-        mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);
-        //mRecyclerView.setArrowImageView(R.drawable.iconfont_downgrey);
-        //
-        //View header = LayoutInflater.from(this)
-        //    .inflate(R.layout.recyclerview_header, (ViewGroup) findViewById(android.R.id.content),
-        //        false);
-        // mRecyclerView.addHeaderView(header);
-
-        mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
-            @Override public void onRefresh() {
-                if (NetworkUtil.isNetworkConnected(SaleFragment.this.getActivity())) {
-                    //asynBusiness(NetWorkType.refresh);
-                } else {
-                    mRecyclerView.refreshComplete();
-                    CommonUtil.showSnackbar(R.string.no_net, layoutRoot);
-                }
-            }
-
-            @Override public void onLoadMore() {
-                if (NetworkUtil.isNetworkConnected(SaleFragment.this.getActivity())) {
-                    //asynBusiness(0, "", "", adapter.getItems().size(), 10, "asc", 0, "",
-                    //    NetWorkType.loadMore);
-                } else {
-                    //mRecyclerView.loadMoreComplete();
-                    mRecyclerView.cancelLoadMore();
-                    CommonUtil.showSnackbar(R.string.no_net, layoutRoot);
-                }
-            }
-        });
-        mRecyclerView.setAdapter(adapter);
+    if (adapter.getItemCount() >= total) {
+      mRecyclerView.loadMoreComplete();
+      adapter.notifyDataSetChanged();
+      mRecyclerView.loadMoreComplete();
     }
+  }
 
-    private void proLoad() {
-        if (NetworkUtil.isNetworkConnected(this.getActivity())) {
-            if (avloadingIndicatorView.getVisibility() != View.VISIBLE) {
-                avloadingIndicatorView.setVisibility(View.VISIBLE);
-            }
+  private void asynRental(NetWorkType type) {
+    asynRental(2, "", 0, 10, 0, 0, 0, 0, 0, 0, type);
+  }
 
-            if (noData.getVisibility() == View.VISIBLE) {
-                noData.setVisibility(View.GONE);
-            }
+  private void asynRental(int filterType, String filterWords, int recStart, int recCount,
+      int fZoneID, int fPriceCatID, float fPriceMin, float fPriceMax, int fRoomTypeID, int beDetail,
+      NetWorkType type) {
 
-            asynRental(NetWorkType.refresh);
+    String json =
+        AiShangUtil.generRentalListParam(filterType, filterWords, recStart, recCount, fZoneID,
+            fPriceCatID, fPriceMin, fPriceMax, fRoomTypeID, beDetail);
+
+    presenter.loadRentSale(1, json, type);
+  }
+
+  private void initRefreshLayout() {
+    LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity());
+    layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+    mRecyclerView.setLayoutManager(layoutManager);
+
+    mRecyclerView.addItemDecoration(
+        new HorizontalDividerItemDecoration.Builder(this.getActivity()).colorResId(
+            android.R.color.darker_gray).sizeResId(R.dimen.divider).build());
+    mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallScaleRipple);
+    mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);
+    //mRecyclerView.setArrowImageView(R.drawable.iconfont_downgrey);
+    //
+    //View header = LayoutInflater.from(this)
+    //    .inflate(R.layout.recyclerview_header, (ViewGroup) findViewById(android.R.id.content),
+    //        false);
+    // mRecyclerView.addHeaderView(header);
+
+    mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
+      @Override public void onRefresh() {
+        if (NetworkUtil.isNetworkConnected(SaleFragment.this.getActivity())) {
+          asynRental(NetWorkType.refresh);
         } else {
-
-            if (avloadingIndicatorView.getVisibility() == View.VISIBLE) {
-                avloadingIndicatorView.setVisibility(View.GONE);
-            }
-
-            if (noData.getVisibility() == View.VISIBLE) {
-                noData.setVisibility(View.GONE);
-            }
-            CommonUtil.showSnackbar(R.string.no_net, layoutRoot);
+          mRecyclerView.refreshComplete();
+          CommonUtil.showSnackbar(R.string.no_net, layoutRoot);
         }
+      }
+
+      @Override public void onLoadMore() {
+        if (NetworkUtil.isNetworkConnected(SaleFragment.this.getActivity())) {
+          asynRental(2, "", adapter.getItemCount(), 10, 0, 0, 0, 0, 0, 0, NetWorkType.loadMore);
+        } else {
+          //mRecyclerView.loadMoreComplete();
+          mRecyclerView.cancelLoadMore();
+          CommonUtil.showSnackbar(R.string.no_net, layoutRoot);
+        }
+      }
+    });
+    mRecyclerView.setAdapter(adapter);
+  }
+
+  private void proLoad() {
+    if (NetworkUtil.isNetworkConnected(this.getActivity())) {
+      if (avloadingIndicatorView.getVisibility() != View.VISIBLE) {
+        avloadingIndicatorView.setVisibility(View.VISIBLE);
+      }
+
+      if (noData.getVisibility() == View.VISIBLE) {
+        noData.setVisibility(View.GONE);
+      }
+
+      asynRental(NetWorkType.refresh);
+    } else {
+
+      if (avloadingIndicatorView.getVisibility() == View.VISIBLE) {
+        avloadingIndicatorView.setVisibility(View.GONE);
+      }
+
+      if (noData.getVisibility() == View.VISIBLE) {
+        noData.setVisibility(View.GONE);
+      }
+      CommonUtil.showSnackbar(R.string.no_net, layoutRoot);
     }
+  }
 }

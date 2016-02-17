@@ -49,7 +49,7 @@ import rx.Observable;
 public interface AiShangService {
 
   String ENDPOINT = "https://api.ribot.io/";
-  String AiShangHost = "http://www.aishang67.cn:88/";
+  String AiShangHost = "http://www.aishang67.cn/";
   String IMG_URL = "http://www.aishang67.cn";
 
   @Headers("connection:Keep-Alive") @GET("mobile/member/memberLogin.ashx")

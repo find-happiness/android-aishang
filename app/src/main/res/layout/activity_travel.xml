@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary"
+    android:paddingTop="@dimen/padding_stutas_bar"
+    tools:context="com.aishang.app.ui.about.BorkerActivity">
+
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:background="@color/primary"
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="爱尚旅游团"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_title"/>
+  </android.support.v7.widget.Toolbar>
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@id/toolbar"
+      android:background="@android:color/white"
+      >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_medium"
+        android:orientation="vertical">
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="        爱尚旅游团希望提供给您的不仅仅是一次出游的经历，更是一次美好的回忆。"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_large"
+          android:drawableLeft="@mipmap/icon_1"
+          android:drawablePadding="@dimen/spacing_medium"
+          android:text="阳光行程  透明公开"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_title"/>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_large"
+          android:text="        所有项目在详情页公布，自愿参加，行程中绝无强迫购物。"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_large"
+          android:drawableLeft="@mipmap/icon_2"
+          android:drawablePadding="@dimen/spacing_medium"
+          android:text="阳光价格  明码实价"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_title"/>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_large"
+          android:text="        平台的价格为明码实价，且价格低，轻松拥有一次愉快的旅行。"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_large"
+          android:drawableLeft="@mipmap/icon_3"
+          android:drawablePadding="@dimen/spacing_medium"
+          android:text="阳光服务  便捷周到"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_title"/>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_large"
+          android:text="        在平台提交您的信息，我们将会最快时间联系您，并随时为您的旅途提供支持。"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+    </LinearLayout>
+  </ScrollView>
+</RelativeLayout>

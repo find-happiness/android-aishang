@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary"
+    android:paddingTop="@dimen/padding_stutas_bar"
+    tools:context="com.aishang.app.ui.about.MemberRuleActivity">
+
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:background="@color/primary"
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="会员手册"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_title"/>
+  </android.support.v7.widget.Toolbar>
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@id/toolbar"
+      android:background="@android:color/white"
+      android:scrollbars="none"
+      >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_medium"
+        android:layout_marginLeft="@dimen/spacing_large"
+        android:layout_marginRight="@dimen/spacing_large"
+        android:layout_marginTop="@dimen/spacing_medium"
+        android:orientation="vertical">
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:drawableLeft="@mipmap/icon_rule"
+          android:text="使用流程"
+          android:textColor="@android:color/black"
+          android:textSize="@dimen/text_title"/>
+      <!--  预定酒店/认购产品/报名参团 填写信息并提交 成功-->
+      <FrameLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_large">
+
+        <ImageView
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8sp"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginTop="8sp"
+            android:background="@mipmap/path_line"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/spacing_small"
+              android:drawableLeft="@mipmap/circle_tu"
+              android:drawablePadding="@dimen/spacing_large"
+              android:text="注册/登录"
+              android:textColor="@android:color/black"
+              android:textSize="@dimen/text_body"/>
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/spacing_small"
+              android:layout_marginTop="@dimen/spacing_large"
+              android:drawableLeft="@mipmap/circle_tu"
+              android:drawablePadding="@dimen/spacing_large"
+              android:text="浏览酒店/产品/旅游团信息"
+              android:textColor="@android:color/black"
+              android:textSize="@dimen/text_body"/>
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/spacing_small"
+              android:layout_marginTop="@dimen/spacing_large"
+              android:drawableLeft="@mipmap/circle_tu"
+              android:drawablePadding="@dimen/spacing_large"
+              android:text="预定酒店/认购产品/报名参团"
+              android:textColor="@android:color/black"
+              android:textSize="@dimen/text_body"/>
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/spacing_small"
+              android:layout_marginTop="@dimen/spacing_large"
+              android:drawableLeft="@mipmap/circle_tu"
+              android:drawablePadding="@dimen/spacing_large"
+              android:text="填写信息并提交"
+              android:textColor="@android:color/black"
+              android:textSize="@dimen/text_body"/>
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/spacing_small"
+              android:layout_marginTop="@dimen/spacing_large"
+              android:drawableLeft="@mipmap/circle_tu"
+              android:drawablePadding="@dimen/spacing_large"
+              android:text="成功"
+              android:textColor="@android:color/black"
+              android:textSize="@dimen/text_body"/>
+        </LinearLayout>
+      </FrameLayout>
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_small"
+          android:layout_marginTop="@dimen/spacing_large"
+          android:lineSpacingExtra="@dimen/spacing_small"
+          android:text="      平台交易均使用积分，积分又分为换住积分 和通用积分。消费时，1积分相当于1元。"
+          android:textColor="@android:color/black"
+          android:textSize="@dimen/text_body"/>
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_small"
+          android:layout_marginTop="@dimen/spacing_large"
+          android:drawableLeft="@mipmap/circle_tu"
+          android:drawablePadding="@dimen/spacing_large"
+          android:text="怎么获得积分？"
+          android:textColor="@android:color/black"
+          android:textSize="@dimen/text_body"/>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_xlarge"
+          android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_small"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:lineSpacingExtra="@dimen/spacing_small"
+            android:text="1.换住积分通过购买产品获得；"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_body"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_small"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:lineSpacingExtra="@dimen/spacing_small"
+            android:text="2.通用积分通过平台奖励（如发布游记、游记获得 评论及分享）、推荐客户或充值获得。"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_body"/>
+      </LinearLayout>
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_small"
+          android:layout_marginTop="@dimen/spacing_large"
+          android:drawableLeft="@mipmap/circle_tu"
+          android:drawablePadding="@dimen/spacing_large"
+          android:text="积分的使用"
+          android:textColor="@android:color/black"
+          android:textSize="@dimen/text_body"/>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/spacing_xlarge"
+          android:layout_marginLeft="@dimen/spacing_xlarge"
+          android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_small"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:lineSpacingExtra="@dimen/spacing_small"
+            android:text="1.换住积分仅能用于换住酒店；"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_body"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_small"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:lineSpacingExtra="@dimen/spacing_small"
+            android:text=" 2.通用积分可用于换住酒店或提现。"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_body"/>
+      </LinearLayout>
+    </LinearLayout>
+  </ScrollView>
+</RelativeLayout>

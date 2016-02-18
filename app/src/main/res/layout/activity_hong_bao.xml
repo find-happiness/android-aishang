@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary"
+    android:paddingTop="@dimen/padding_stutas_bar"
+    tools:context="com.aishang.app.ui.about.HongBaoActivity">
+
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:background="@color/primary"
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="爱尚游记红包"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_title"/>
+  </android.support.v7.widget.Toolbar>
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@id/toolbar"
+      android:background="@android:color/white"
+      android:scrollbars="none"
+      >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_medium"
+        android:orientation="vertical">
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="达人积分奖励规则"
+          android:textColor="@color/primary"
+          android:textSize="@dimen/text_title"/>
+
+      <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="达        人"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_small"
+            android:src="@mipmap/icon_da_kuo_hao"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="top"
+              android:text="游记发表:每2分/篇,每月无数量限制;"
+              android:textSize="@dimen/text_small_body"/>
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentBottom="true"
+              android:text="游记评论:每篇0.1分/条。"
+              android:textSize="@dimen/text_small_body"/>
+        </RelativeLayout>
+
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="王牌达人"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_small"
+            android:src="@mipmap/icon_da_kuo_hao"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="top"
+              android:text="游记发表:每3分/篇，每月不低于4篇;"
+              android:textSize="@dimen/text_small_body"/>
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentBottom="true"
+              android:singleLine="true"
+              android:text="游记评论:每篇0.2分/条,且每篇不低于50条。"
+              android:textSize="@dimen/text_small_body"/>
+        </RelativeLayout>
+
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="金牌达人"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_small"
+            android:src="@mipmap/icon_da_kuo_hao"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="top"
+              android:text="游记发表:每5分/篇,每月无数量限制;"
+              android:textSize="@dimen/text_small_body"/>
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentBottom="true"
+              android:text=" 游记评论:每篇0.5分/条。"
+              android:textSize="@dimen/text_small_body"/>
+        </RelativeLayout>
+
+      </LinearLayout>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_large"
+          android:text="游记分享:"
+          android:textColor="@color/primary"
+          android:textSize="@dimen/text_title"/>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_large"
+          android:text="游记每篇每分享一次，双方各奖励0.1分。"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_large"
+          android:text="奖励积分的标准:"
+          android:textColor="@color/primary"
+          android:textSize="@dimen/text_title"/>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_large"
+          android:text="1、以上奖励积分为通用积分; "
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:text="2、积分兑换比例：1分=1元; "
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:text="3、达人等级分为：达人、 王牌达人、  金牌达人; "
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:text="4、达人：指 通过网站、APP注册的用户;"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:text="    王牌达人：由 达人晋级而来;"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:text="    (晋级条件：达人每月发表游记不低于4篇，且总评论数不低于50条;)"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:text="    金牌达人：指购买产品的会员。"
+          android:textColor="#000000"
+          android:layout_marginBottom="@dimen/spacing_large"
+          android:textSize="@dimen/text_body"/>
+    </LinearLayout>
+  </ScrollView>
+</RelativeLayout>

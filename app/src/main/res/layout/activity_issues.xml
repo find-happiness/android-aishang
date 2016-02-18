@@ -1,0 +1,840 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary"
+    android:paddingTop="@dimen/padding_stutas_bar"
+    tools:context="com.aishang.app.ui.about.BorkerActivity">
+
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:background="@color/primary"
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="疑难解答"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_title"/>
+  </android.support.v7.widget.Toolbar>
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@id/toolbar"
+      android:background="@android:color/white"
+      >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginRight="@dimen/spacing_medium"
+          android:text="共权产权法律问题"
+          android:textColor="@color/primary"
+          android:textSize="@dimen/text_title"/>
+
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/head1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_small"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="1.一套房子12个份额产权符合国家法律吗？"
+            android:textColor="#000000"
+            android:textSize="@dimen/text_body"/>
+
+        <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+            android:id="@+id/expandableLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/head1"
+            app:ael_duration="400"
+            app:ael_expanded="false"
+            app:ael_orientation="vertical">
+
+          <View
+              android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:background="@color/gray"/>
+
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="@dimen/spacing_medium"
+              android:layout_marginLeft="@dimen/spacing_medium"
+              android:layout_marginRight="@dimen/spacing_medium"
+              android:layout_marginTop="@dimen/spacing_small"
+              android:text="     根据《物权法》第八章第九十三条、第九十四条规定：不动产或者动产可以由两个以上单位、个人共有。共有包括按份共有和共同共有。按份共有人对共有的不动产或者动产按照其份额享有所有权。因此，一套房子分成12个份额产权是符合国家法律，这个份额产权属于按份共有产权。"
+              android:textColor="@color/text_gray"
+              android:textSize="@dimen/text_body"/>
+        </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+      </RelativeLayout>
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/gray"/>
+
+      <TextView
+          android:id="@+id/head2"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/spacing_small"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginRight="@dimen/spacing_medium"
+          android:layout_marginTop="@dimen/spacing_small"
+          android:text="2.是否需要12个人凑满并同时到场才可以办理房产购买交易手续？"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+      <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+          android:id="@+id/expandableLayout2"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/head1"
+          app:ael_duration="400"
+          app:ael_expanded="false"
+          app:ael_orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="     不需要同时到场，您在购房时签署的是份额认购协议，凑满12份认购协议，开发商指定受托人将接受您的委托办理房产交易手续并负责后续的产证办理等事宜。"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"/>
+      </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/gray"/>
+
+      <TextView
+          android:id="@+id/head3"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/spacing_small"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginRight="@dimen/spacing_medium"
+          android:layout_marginTop="@dimen/spacing_small"
+          android:text="3.今后我的1/12份额产权可以二手交易吗？需要另外11个人同意并同时到场吗？"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+      <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+          android:id="@+id/expandableLayout3"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/head1"
+          app:ael_duration="400"
+          app:ael_expanded="false"
+          app:ael_orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="     根据《物权法》第一百零一条规定：按份共有人可以转让其享有的共有的不动产或者动产份额，其他共有人在同等条件下享有优先购买的权利。所以在购买共有产权时，每位购房者均会签署放弃优先认购权的协议并委托公证，以确保在二手交易时无需另外11人同意并同时到场。"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"/>
+      </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/gray"/>
+
+      <TextView
+          android:id="@+id/head4"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/spacing_small"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginRight="@dimen/spacing_medium"
+          android:layout_marginTop="@dimen/spacing_small"
+          android:text="4.我会拥有房产证吗？产证会在谁的手上？"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+      <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+          android:id="@+id/expandableLayout4"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/head1"
+          app:ael_duration="400"
+          app:ael_expanded="false"
+          app:ael_orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="     按份共有产权依据国家《物权法》设立，合法合理，因此按份共有产权人将拥有物业所在地房地主管部门颁发的房产证，房产证将由产权人共同委托开发商指定当地律师事务所托管或委托爱尚旅居交换平台托管。"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"/>
+      </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/gray"/>
+
+      <TextView
+          android:id="@+id/head5"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/spacing_small"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginRight="@dimen/spacing_medium"
+          android:layout_marginTop="@dimen/spacing_small"
+          android:text="5.共权度假和分时度假有何不同？"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+      <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+          android:id="@+id/expandableLayout5"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/head1"
+          app:ael_duration="400"
+          app:ael_expanded="false"
+          app:ael_orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="     共权度假和分时度假完全不同，主要表现在：
+(1) 分时度假，消费者购买的酒店、度假村物业只拥有一定时间使用权；共权度假，消费者购买的是旅游地产的物业按份共有产权，还拥有相应份额时段的度假时间。
+(2) 分时度假物业购买者不占有物业产权，因此不能转移物业的所有权，消费者的权利没有保障。共权度假物业购买者占有按份共有物业产权，物业的所有权可以转让、继承，消费者的权利有保障。
+(3) 分时度假是对度假时间的消费，固定年限后作废，分时度假无法实现增值；共权度假是对度假物业产权的按份占有，终身持有，是旅游地产的物业投资，最终可以实现出租、交易、增值。
+"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"/>
+      </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginRight="@dimen/spacing_medium"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:text="购房手续及相关税费"
+          android:textColor="@color/primary"
+          android:textSize="@dimen/text_title"/>
+
+      <TextView
+          android:id="@+id/head6"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/spacing_small"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginRight="@dimen/spacing_medium"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:text="1.如果是期房，验收、交房、办产证应该怎么办？"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+      <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+          android:id="@+id/expandableLayout6"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/head1"
+          app:ael_duration="400"
+          app:ael_expanded="false"
+          app:ael_orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="     根据《物权法》第八章第九十三条、第九十四条规定：不动产或者动产可以由两个以上单位、个人共有。共有包括按份共有和共同共有。按份共有人对共有的不动产或者动产按照其份额享有所有权。因此，一套房子分成12个份额产权是符合国家法律，这个份额产权属于按份共有产权。 您在签署购房的份额认购协议时，会同时签署委托酒店托管公司办理交房验收、委托开发商办理房产证的委托授权书，由第三方酒店托管公司及开发商授权代表代为办理交房验收、产证等相关事宜。"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"/>
+      </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/gray"/>
+
+      <TextView
+          android:id="@+id/head7"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/spacing_small"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginRight="@dimen/spacing_medium"
+          android:layout_marginTop="@dimen/spacing_small"
+          android:text="2.房产的契税、维修基金以及今后的物业管理费如何分担？"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+      <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+          android:id="@+id/expandableLayout7"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/head1"
+          app:ael_duration="400"
+          app:ael_expanded="false"
+          app:ael_orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="     因为是按份共有产权，每一位共有产权人拥有同等权利也承担同等义务。因此，度假屋的契税、维修基金以及今后的物业管理费由12位共权业主共同平均分摊并支付。"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"/>
+      </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/gray"/>
+
+      <TextView
+          android:id="@+id/head8"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/spacing_small"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginRight="@dimen/spacing_medium"
+          android:layout_marginTop="@dimen/spacing_small"
+          android:text="3.我需要本人到项目现场办理相关交易手续吗？"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+      <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+          android:id="@+id/expandableLayout8"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/head1"
+          app:ael_duration="400"
+          app:ael_expanded="false"
+          app:ael_orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="     因为是按份共有购买，因此您只需签署份额认购协议。您可以自行到售楼处办理相关交易手续，也可在开发商指定的签约受理点办理相关交易手续。"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"/>
+      </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/gray"/>
+
+      <TextView
+          android:id="@+id/head9"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/spacing_small"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginRight="@dimen/spacing_medium"
+          android:layout_marginTop="@dimen/spacing_small"
+          android:text="4.我想买的话是直接和开发商联系？还是可以在爱尚旅居网上认购？"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+      <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+          android:id="@+id/expandableLayout9"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/head1"
+          app:ael_duration="400"
+          app:ael_expanded="false"
+          app:ael_orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="     爱尚旅居是共权度假屋的共享换住平台，接受委托提供共权度假屋的展示申购、预订、换住、出租、出售服务。您可以在爱尚旅居交换平台提出申购预约，爱尚旅居将会在第一时间把您的申购需求转发给开发商专属的销售代表，为您办理共权度假屋的购买手续。"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"/>
+      </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginRight="@dimen/spacing_medium"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:text="共权度假屋托管及使用"
+          android:textColor="@color/primary"
+          android:textSize="@dimen/text_title"/>
+
+      <TextView
+          android:id="@+id/head10"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/spacing_small"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginRight="@dimen/spacing_medium"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:text="1.度假屋委托酒店管理公司托管，主要提供哪些日常托管服务？是否收费？"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+      <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+          android:id="@+id/expandableLayout10"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/head1"
+          app:ael_duration="400"
+          app:ael_expanded="false"
+          app:ael_orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="     度假屋委托专业酒店管理公司托管，提供日常托管服务，主要包括日常房屋的维护、房间清洁等服务，需要每年缴纳托管服务费。"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"/>
+      </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/gray"/>
+
+      <TextView
+          android:id="@+id/head11"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/spacing_small"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginRight="@dimen/spacing_medium"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:text="2.每年28天的居住时间可以保证吗？是否能确保我在旺季居住？"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+      <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+          android:id="@+id/expandableLayout11"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/head1"
+          app:ael_duration="400"
+          app:ael_expanded="false"
+          app:ael_orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="     平台保障每一位业主对于持有共权度假屋的居住权益，您将拥有每年28天的居住时间。对于旺季居住时间，平台将根据实际情况确定项目每年旺季时间所在月份，并按照旺季时间长短确订旺季预订时间的最高限定天数。"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"/>
+      </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/gray"/>
+
+      <TextView
+          android:id="@+id/head12"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/spacing_small"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginRight="@dimen/spacing_medium"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:text="3.同一套房子的共权业主如何安排各自的预订居住时间？"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+      <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+          android:id="@+id/expandableLayout12"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/head1"
+          app:ael_duration="400"
+          app:ael_expanded="false"
+          app:ael_orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="     爱尚旅居交换平台接受最早三个月的，您需要通过客户端或者网上平台发起下一年的预订申请，平台根据先订先得原则处理您的预订申请。同一项目同一户型所有共权业主享有同等预订居住权益，不会因为您是具体某物业的共权业主而有优先预订该具体物业的居住权利。"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"/>
+      </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/gray"/>
+
+      <TextView
+          android:id="@+id/head13"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/spacing_small"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginRight="@dimen/spacing_medium"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:text="4.入住时还有什么费用要支付吗？"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+      <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+          android:id="@+id/expandableLayout13"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/head1"
+          app:ael_duration="400"
+          app:ael_expanded="false"
+          app:ael_orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="     您是度假屋的共权业主，居住是免费的，但是居住期间实际发生的水电能耗费，布草换洗、清洁服务费、装修损耗折旧等费用，将按实结算支付。"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"/>
+      </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/gray"/>
+
+      <TextView
+          android:id="@+id/head15"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/spacing_small"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginRight="@dimen/spacing_medium"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:text="5.交换居住如何申请？交换后我当年的最大居住时间能够达到28天吗？"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+      <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+          android:id="@+id/expandableLayout15"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/head1"
+          app:ael_duration="400"
+          app:ael_expanded="false"
+          app:ael_orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="     爱尚旅居交换平台接受最早三个月的，您需要通过客户端或者网上平台发起申请，平台根据先订先得原则处理您的申请。由于您需要换住的度假屋项目等级、购买价格、房型面积、年平均出租价格、对外出售率、交换率、淡旺季长短以及城市热门程度等多种因素，因此您的换住将按照一定的交换系数实现。所以，根据您具体换住的项目和交换的天数，您的当年最大居住时间会有所不同。"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"/>
+      </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/gray"/>
+
+      <TextView
+          android:id="@+id/head16"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/spacing_small"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginRight="@dimen/spacing_medium"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:text="6.你们平台上有多少项目可以用来交换？会有海外的项目吗？"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+      <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+          android:id="@+id/expandableLayout16"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/head1"
+          app:ael_duration="400"
+          app:ael_expanded="false"
+          app:ael_orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="     爱尚旅居交换平台还处于开发建设阶段，目前平台可供交换的项目多位于国内热门的度假胜地，在不久的将来将积极开拓海外市场，推出海外共权度假物业，实现全球换住梦想。"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"/>
+      </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/gray"/>
+
+      <TextView
+          android:id="@+id/head17"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/spacing_small"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginRight="@dimen/spacing_medium"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:text="7.我多出的居住券如何委托爱尚旅居出租？如何分成？"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+      <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+          android:id="@+id/expandableLayout17"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/head1"
+          app:ael_duration="400"
+          app:ael_expanded="false"
+          app:ael_orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="     会员可以通过电话、官网、APP或微信服务号等渠道委托平台出租，爱尚旅居将通过平台及其他渠道对外出租，出租申请一经发出不可撤销。平台每天公示出租情况，在收取渠道费用、扣除酒店托管公司其他成本后，平台将把最终所得兑换成积分，委托出租的业主和托管公司将7:3分成。"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"/>
+      </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/gray"/>
+
+      <TextView
+          android:id="@+id/head18"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/spacing_small"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginRight="@dimen/spacing_medium"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:text="8.我怎么知道房间租掉了？"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+      <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+          android:id="@+id/expandableLayout18"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/head1"
+          app:ael_duration="400"
+          app:ael_expanded="false"
+          app:ael_orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="     爱尚旅居每天将公示当日度假屋出租情况，会员可通过会员中心后台了解。"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"/>
+      </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/gray"/>
+
+      <TextView
+          android:id="@+id/head19"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/spacing_small"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginRight="@dimen/spacing_medium"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:text="9.今后房子装修、家具、家电坏了维修翻新费用由谁支付？"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+      <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+          android:id="@+id/expandableLayout19"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/head1"
+          app:ael_duration="400"
+          app:ael_expanded="false"
+          app:ael_orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="     度假屋的居住以满足度假屋产权人预订居住及交换居住为主，因此度假屋日后的维修翻新、家电家具的更换等维修翻新费用将会以每天度假装修损耗折旧费的形式，由实际居住者按实际居住时间分摊。"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"/>
+      </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+
+    </LinearLayout>
+  </ScrollView>
+</RelativeLayout>

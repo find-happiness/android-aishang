@@ -42,7 +42,6 @@
     <activity
         android:name=".ui.HotelDetail.HotelDetailActivity"
         android:theme="@style/DetailTheme"/>
-
     <activity android:name=".ui.login.LoginActivity"/>
     <activity android:name=".ui.MemberCenter.MemberCenterActivity"/>
     <activity android:name=".ui.CashWithDrawApply.CashWithDrawApplyActivity"/>
@@ -71,6 +70,18 @@
     <activity android:name=".ui.ForgetPossword.ForgetPosswordActivity"/>
     <activity android:name=".ui.KanFanTuan.KanFanTuanActivity"/>
     <activity android:name=".ui.TravelDetail.TravelDetailActivity">
+    </activity>
+    <activity android:name=".ui.about.KnowWeActivity">
+    </activity>
+    <activity android:name=".ui.about.BrokerActivity">
+    </activity>
+    <activity android:name=".ui.about.TravelActivity">
+    </activity>
+    <activity android:name=".ui.about.IssuesActivity">
+    </activity>
+    <activity android:name=".ui.about.MemberRuleActivity">
+    </activity>
+    <activity android:name=".ui.about.HongBaoActivity">
     </activity>
   </application>
 

@@ -4,170 +4,188 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/padding_stutas_bar"
-    android:background="@color/primary">
+    android:background="@color/primary"
+    android:paddingTop="@dimen/padding_stutas_bar">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/primary"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:background="@color/primary"
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-        <TextView
-            android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/guan_yu_wo_men"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_title"/>
-    </android.support.v7.widget.Toolbar>
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/guan_yu_wo_men"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_title"/>
+  </android.support.v7.widget.Toolbar>
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@id/toolbar"
+      android:background="@color/gray">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
-        android:background="@color/gray"
         android:orientation="vertical">
 
-        <com.bigkoo.convenientbanner.ConvenientBanner
-            android:id="@+id/convenientBanner"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            app:canLoop="true" />
+      <ImageView
+          android:id="@+id/banner"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:scaleType="center"
+          android:src="@mipmap/banner_about_we"/>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+      <RelativeLayout
+          android:id="@+id/know_we"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:layout_marginTop="@dimen/spacing_large"
+          android:background="@android:color/white"
+          android:padding="@dimen/spacing_large">
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/spacing_large"
-            android:background="@android:color/white"
-            android:padding="@dimen/spacing_large">
+            android:layout_centerVertical="true"
+            android:text="了解我们"
+            android:textSize="@dimen/text_body"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:textSize="@dimen/text_body"
-                tools:text="了解我们"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/iconfont_fanhuidingbu"/>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:background="@android:color/white"
-            android:padding="@dimen/spacing_large">
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/iconfont_fanhuidingbu"/>
+      </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:textSize="@dimen/text_body"
-                tools:text="玩转游记"/>
+      <RelativeLayout
+          android:id="@+id/join_we"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:background="@android:color/white"
+          android:padding="@dimen/spacing_large">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/iconfont_fanhuidingbu"/>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="1dp"
-            android:background="@android:color/white"
-            android:padding="@dimen/spacing_large">
+            android:layout_centerVertical="true"
+            android:text="爱尚游记红包"
+            android:textSize="@dimen/text_body"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:textSize="@dimen/text_body"
-                tools:text="玩转经纪人"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/iconfont_fanhuidingbu"/>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="1dp"
-            android:background="@android:color/white"
-            android:padding="@dimen/spacing_large">
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/iconfont_fanhuidingbu"/>
+      </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:textSize="@dimen/text_body"
-                tools:text="加入我们"/>
+      <RelativeLayout
+          android:id="@+id/borker"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:layout_marginTop="1dp"
+          android:background="@android:color/white"
+          android:padding="@dimen/spacing_large">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/iconfont_fanhuidingbu"/>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:background="@android:color/white"
-            android:padding="@dimen/spacing_large">
+            android:layout_centerVertical="true"
+            android:text="爱尚经纪人"
+            android:textSize="@dimen/text_body"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:textSize="@dimen/text_body"
-                tools:text="疑难问题"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/iconfont_fanhuidingbu"/>
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:background="@android:color/white"
-            android:padding="@dimen/spacing_large">
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/iconfont_fanhuidingbu"/>
+      </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:textSize="@dimen/text_body"
-                tools:text="会员手册"/>
+      <RelativeLayout
+          android:id="@+id/play_travel"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:layout_marginTop="1dp"
+          android:background="@android:color/white"
+          android:padding="@dimen/spacing_large">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/iconfont_fanhuidingbu"/>
-        </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="爱尚旅游团"
+            android:textSize="@dimen/text_body"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/iconfont_fanhuidingbu"/>
+      </RelativeLayout>
+
+      <RelativeLayout
+          android:id="@+id/issues"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:background="@android:color/white"
+          android:padding="@dimen/spacing_large">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="疑难解答"
+            android:textSize="@dimen/text_body"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/iconfont_fanhuidingbu"/>
+      </RelativeLayout>
+
+      <RelativeLayout
+          android:id="@+id/member"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:background="@android:color/white"
+          android:padding="@dimen/spacing_large">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="会员手册"
+            android:textSize="@dimen/text_body"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/iconfont_fanhuidingbu"/>
+      </RelativeLayout>
     </LinearLayout>
+  </ScrollView>
+
 </RelativeLayout>

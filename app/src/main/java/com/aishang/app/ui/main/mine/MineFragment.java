@@ -256,7 +256,8 @@ public class MineFragment extends Fragment implements MineMvpView {
     }
 
     @OnClick(R.id.btn_guan_yu_wo_men) void guanYuWoMenClick() {
-      if (checkLoginAndShowDialog()) mMinePresenter.intentToAbout();
+      //if (checkLoginAndShowDialog()) mMinePresenter.intentToAbout();
+      mMinePresenter.intentToAbout();
     }
 
     public ContentViewHolder(View view) {

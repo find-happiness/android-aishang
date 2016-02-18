@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary"
+    android:paddingTop="@dimen/padding_stutas_bar"
+    tools:context="com.aishang.app.ui.about.BorkerActivity">
+
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:background="@color/primary"
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="爱尚经纪人"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_title"/>
+  </android.support.v7.widget.Toolbar>
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@id/toolbar"
+      android:background="@android:color/white"
+      >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_medium"
+
+        android:orientation="vertical">
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="    无论身份，地位，职业，年龄，性别，只要有时间、有兴趣、有资源就有高额佣金 ：推荐一位成交客户获得2000及以上丰厚的佣"
+          android:textColor="#000000"
+          android:textSize="@dimen/text_body"/>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:text="佣金奖励规则"
+          android:textColor="@color/primary"
+          android:textSize="@dimen/text_title"/>
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_medium">
+
+        <TextView
+            android:id="@+id/num1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1."
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"/>
+
+        <TextView
+            android:id="@+id/content1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/num1"
+            android:text="向好友推荐爱上旅居享受度假养生生活，既可得到成交额的百分之五佣金奖励。"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/content1"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="*如（50000X5% = 2500）"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/text_body"/>
+      </RelativeLayout>
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_large">
+
+        <TextView
+            android:id="@+id/num2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2."
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"/>
+
+        <TextView
+            android:id="@+id/content2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/num2"
+            android:text="加入爱上旅居成为爱尚旅居会员，享受度假养生生活的同时，既可得到成交额的百分之六的佣金奖励。"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/content2"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="*如（50000X1% = 500）"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/text_body"/>
+      </RelativeLayout>
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_large">
+
+        <TextView
+            android:id="@+id/num3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3."
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"/>
+
+        <TextView
+            android:id="@+id/content3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/num3"
+            android:text="亲。你所推荐成交爱尚旅居会员，再次推荐客户还有百分之一的奖励哦!"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/content3"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:text="*如（50000X1% = 500）"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/text_body"/>
+      </RelativeLayout>
+    </LinearLayout>
+  </ScrollView>
+</RelativeLayout>

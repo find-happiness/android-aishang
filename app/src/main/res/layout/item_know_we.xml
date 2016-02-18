@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+  <ImageView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:scaleType="centerCrop"
+      tools:src="@mipmap/konw_we_1"
+      />
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom"
+      android:layout_marginLeft="@dimen/spacing_xlarge"
+      android:layout_marginRight="@dimen/spacing_xlarge"
+      android:paddingBottom="64dp"
+      android:text="爱分享 爱参与 上爱尚旅居发表 赏现金 赏红包 赏积分 亲！上爱尚旅居网发表丶评论游记有红包哦，分享你的 所见所闻，所惑汇聚成文章或游记，在爱尚旅居发表参 与互动会获得大红包哦。"
+      android:textColor="@android:color/white"
+      android:textSize="@dimen/text_body"/>
+
+
+</FrameLayout>

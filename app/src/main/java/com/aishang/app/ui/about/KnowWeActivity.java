@@ -16,7 +16,7 @@ import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
 
 public class KnowWeActivity extends AppCompatActivity {
 
-  final int[] page = new int[] { R.mipmap.p1, R.mipmap.p2, R.mipmap.p3 };
+  final int[] page = new int[] { R.mipmap.konw_we_1, R.mipmap.konw_we_2, R.mipmap.konw_we_3 };
   @Bind(R.id.toolbar) Toolbar toolbar;
   @Bind(R.id.vertical_viewpager) RecyclerViewPager mRecyclerView;
 
@@ -43,28 +43,31 @@ public class KnowWeActivity extends AppCompatActivity {
     LinearLayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
     mRecyclerView.setLayoutManager(layout);
 
-    mRecyclerView.setAdapter(new RecyclerView.Adapter<ViewHolder>() {
-      @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ImageView iv = new ImageView(KnowWeActivity.this);
-        //iv.setImageResource(images[position]);
-        iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        return new ViewHolder(iv);
-      }
-
-      @Override public void onBindViewHolder(ViewHolder holder, int position) {
-        ((ImageView) holder.itemView).setImageResource(page[position]);
-      }
-
-      @Override public int getItemCount() {
-        return page.length;
-      }
-    });
+    mRecyclerView.setAdapter(new MyAdapter());
   }
 
   class ViewHolder extends RecyclerView.ViewHolder {
 
     public ViewHolder(View itemView) {
       super(itemView);
+    }
+  }
+
+  class MyAdapter extends RecyclerView.Adapter<ViewHolder> {
+
+    @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+      ImageView iv = new ImageView(KnowWeActivity.this);
+      //iv.setImageResource(images[position]);
+      iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+      return new ViewHolder(iv);
+    }
+
+    @Override public void onBindViewHolder(ViewHolder holder, int position) {
+      ((ImageView) holder.itemView).setImageResource(page[position]);
+    }
+
+    @Override public int getItemCount() {
+      return page.length;
     }
   }
 }

@@ -1,9 +1,11 @@
 package com.aishang.app.data.model;
 
+import java.io.Serializable;
+
 /**
  * Created by song on 2016/2/16.
  */
-public class JMreActivityListResult {
+public class JMreActivityListResult implements Serializable {
   /// <summary>
   /// 返回结果 success or 具体错误信息
   /// </summary>
@@ -26,9 +28,9 @@ public class JMreActivityListResult {
     this.activityCatList = activityCatList;
   }
 
-  public class JActivityCatItem{
+  public class JActivityCatItem implements Serializable {
 
-    private int catID ;
+    private int catID;
     private String catName;
     private int totalCount;
     private JActivityItem[] activityList;
@@ -66,7 +68,7 @@ public class JMreActivityListResult {
     }
   }
 
-  public class JActivityItem{
+  public class JActivityItem implements Serializable {
     private int activityID;
     private String title;
     private String shortDesc;

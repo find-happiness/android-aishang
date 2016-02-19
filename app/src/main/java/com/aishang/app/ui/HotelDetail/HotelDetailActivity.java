@@ -5,11 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -171,9 +168,9 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
 
     convenientBanner.setLayoutParams(layoutParams);
 
-    convenientBanner.setPages(new CBViewHolderCreator<LocalImageHolderView>() {
-      @Override public LocalImageHolderView createHolder() {
-        return new LocalImageHolderView();
+    convenientBanner.setPages(new CBViewHolderCreator<NetImageHolderView>() {
+      @Override public NetImageHolderView createHolder() {
+        return new NetImageHolderView();
       }
     }, ads)
         //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
@@ -182,7 +179,7 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
         .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
   }
 
-  public class LocalImageHolderView implements Holder<String> {
+  public class NetImageHolderView implements Holder<String> {
     private ImageView imageView;
 
     public View createView(Context context) {

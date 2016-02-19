@@ -23,7 +23,7 @@
   <string name="youji">行程游记</string>
   <string name="xiangmuhezuo">项目合作</string>
   <string name="dujiawu">度假屋交换</string>
-  <string name="kanfangduan">看房团</string>
+  <string name="kanfangduan">旅游团</string>
   <string name="fabuzushou">发布租售</string>
   <string name="store">商城</string>
   <string name="look_more">查看更多</string>
@@ -109,4 +109,7 @@
   <string name="contacts_add">推荐客户</string>
   <string name="push">提交</string>
   <string name="no_name">名字不能为空</string>
+  <string name="jianjie">简介</string>
+
+  <string name="posting">正在提交数据...</string>
 </resources>

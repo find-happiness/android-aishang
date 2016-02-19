@@ -3,11 +3,11 @@ package com.aishang.app.ui.KanFanTuan;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -15,8 +15,14 @@ import com.aishang.app.R;
 import com.aishang.app.data.model.JMreActivityListResult;
 import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.ui.HotelDetail.HotelDetailActivity;
+import com.aishang.app.ui.KanFangTuanDetail.KanFangTuanDetailActivity;
+import com.aishang.app.util.CommonUtil;
 import com.squareup.picasso.Picasso;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
@@ -51,15 +57,20 @@ public class KanFangTuanAdapter extends RecyclerView.Adapter<KanFangTuanAdapter.
         .placeholder(R.mipmap.banner)
         .into(holder.img);
 
+    holder.date.setText(formatDate(item.getStartTime().split(" ")[0]) + "-" + formatDate(
+        item.getEndTime().split(" ")[0]));
+    holder.enrollDate.setText(
+        formatDate(item.getEnrollStartTime().split(" ")[0]) + "-" + formatDate(
+            item.getEnrollEndTime().split(" ")[0]));
     holder.name.setText(item.getTitle());
     holder.address.setText(item.getPosition());
     holder.content.setText(item.getShortDesc());
-    holder.priceText.setText(item.getFee()+"");
-
+    holder.priceText.setText(item.getFee() + "元");
 
     holder.itemView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         //intentToDetail(holder.getContext(), hotel.getHotelID(), hotel.getName());
+        intentToDetail(holder.getContext(), item);
       }
     });
   }
@@ -76,11 +87,16 @@ public class KanFangTuanAdapter extends RecyclerView.Adapter<KanFangTuanAdapter.
     this.items = items;
   }
 
-  private void intentToDetail(Context ctx, int hotelID, String hotelName) {
-    Intent intent =
-        HotelDetailActivity.getStartIntent(ctx, hotelID, hotelName, checkInDate.getTime(),
-            checkOutDate.getTime());
+  private void intentToDetail(Context ctx, JMreActivityListResult.JActivityItem item) {
+    Intent intent = KanFangTuanDetailActivity.getStartIntent(ctx, item);
     ctx.startActivity(intent);
+  }
+
+  private String formatDate(String date) {
+    if (TextUtils.isEmpty(date)) return "";
+    String str[] = date.split("-");
+    if (str.length != 3) return "";
+    return str[0] + "年" + str[1] + "月" + str[2] + "日";
   }
 
   /**
@@ -95,10 +111,10 @@ public class KanFangTuanAdapter extends RecyclerView.Adapter<KanFangTuanAdapter.
     @Bind(R.id.img) ImageView img;
     @Bind(R.id.name) TextView name;
     @Bind(R.id.price_text) TextView priceText;
-    @Bind(R.id.road) TextView road;
-    @Bind(R.id.content) TextView content;
-    @Bind(R.id.tese) TextView tese;
+    @Bind(R.id.date) TextView date;
+    @Bind(R.id.enroll_date) TextView enrollDate;
     @Bind(R.id.address) TextView address;
+    @Bind(R.id.content) TextView content;
 
     public Context getContext() {
       return this.itemView.getContext();

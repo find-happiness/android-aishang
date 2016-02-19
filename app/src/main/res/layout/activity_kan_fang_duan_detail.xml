@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary"
+    android:paddingTop="@dimen/padding_stutas_bar">
+
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_title"
+        tools:text="edit activity"/>
+  </android.support.v7.widget.Toolbar>
+
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@id/toolbar">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+      <LinearLayout
+          android:id="@+id/ll_action_button"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_alignParentBottom="true"
+          android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/take_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/take_phone"/>
+
+        <ImageView
+            android:id="@+id/take_online"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/take_online"/>
+
+        <TextView
+            android:id="@+id/cantuan"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:background="@color/blue"
+            android:gravity="center"
+            android:text="@string/can_tuan"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_title"/>
+      </LinearLayout>
+
+      <android.support.v4.widget.NestedScrollView
+          android:id="@+id/scroll"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_above="@id/ll_action_button"
+          android:background="@android:color/white"
+          android:clipToPadding="false"
+          app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+          <com.bigkoo.convenientbanner.ConvenientBanner
+              android:id="@+id/convenientBanner"
+              android:layout_width="match_parent"
+              android:layout_height="200dp"
+              app:canLoop="true"/>
+
+          <TextView
+              android:id="@+id/tv_title_name"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:maxLength="8"
+              android:padding="@dimen/spacing_medium"
+              android:singleLine="true"
+              android:textSize="@dimen/text_large_body"
+              tools:text="宜春|宜春宜春宜"/>
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/spacing_medium"
+              android:layout_marginTop="@dimen/spacing_medium"
+              android:drawableLeft="@mipmap/line_red"
+              android:drawablePadding="@dimen/spacing_small"
+              android:gravity="center"
+              android:text="@string/jianjie"
+              android:textSize="@dimen/text_body"/>
+
+          <View
+              android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:layout_marginTop="@dimen/spacing_medium"
+              android:background="@color/gray"/>
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:padding="@dimen/spacing_medium">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:orientation="horizontal">
+
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textSize="@dimen/text_body"
+                  android:text="活动费用:"/>
+
+              <TextView
+                  android:id="@+id/price"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="@dimen/spacing_small"
+                  android:textColor="@color/price"
+                  android:textSize="@dimen/text_body"
+                  tools:text="100"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:orientation="horizontal">
+
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textSize="@dimen/text_body"
+                  android:text="报名时间:"/>
+
+              <TextView
+                  android:id="@+id/enrollTime"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="@dimen/spacing_small"
+                  android:singleLine="true"
+                  android:textSize="@dimen/text_body"
+                  tools:text="100"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:orientation="horizontal">
+
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textSize="@dimen/text_body"
+                  android:text="活动时间:"/>
+
+              <TextView
+                  android:id="@+id/time"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="@dimen/spacing_small"
+                  android:singleLine="true"
+                  android:textSize="@dimen/text_body"
+                  tools:text="100"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:orientation="horizontal">
+
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textSize="@dimen/text_body"
+                  android:text="地        点:"/>
+
+              <TextView
+                  android:id="@+id/postion"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="@dimen/spacing_small"
+                  android:singleLine="true"
+                  android:textSize="@dimen/text_body"
+                  tools:text="100"/>
+            </LinearLayout>
+
+          </LinearLayout>
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/spacing_medium"
+              android:drawableLeft="@mipmap/line_red"
+              android:drawablePadding="@dimen/spacing_small"
+              android:gravity="center"
+              android:text="行程详情"
+              android:textSize="@dimen/text_body"/>
+
+          <View
+              android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:layout_marginTop="@dimen/spacing_medium"
+              android:background="@color/gray"/>
+
+          <WebView
+              android:id="@+id/wv_description"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/spacing_medium"/>
+
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/spacing_medium"
+              android:drawablePadding="@dimen/spacing_small"
+              android:layout_marginTop="@dimen/spacing_medium"
+              android:drawableLeft="@mipmap/line_red"
+              android:gravity="center"
+              android:text="参团须知"
+              android:textSize="@dimen/text_body"/>
+
+          <View
+              android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:layout_marginTop="@dimen/spacing_medium"
+              android:background="@color/gray"/>
+            <WebView
+                android:id="@+id/wv_know"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_medium"/>
+          </LinearLayout>
+      </android.support.v4.widget.NestedScrollView>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_net_status"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:visibility="gone">
+
+      <com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView
+          android:id="@+id/avloadingIndicatorView"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerInParent="true"
+          app:indicator="LineScalePulseOutRapid"
+          app:indicator_color="@color/blue"/>
+
+      <TextView
+          android:id="@+id/no_data_hotel"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerInParent="true"
+          android:text="@string/no_data"
+          android:visibility="gone"/>
+    </RelativeLayout>
+  </FrameLayout>
+</RelativeLayout>
+

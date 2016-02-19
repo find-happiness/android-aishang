@@ -11,6 +11,7 @@ import com.aishang.app.data.model.JLoupanProductListResult;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JMemberProfileResult;
 import com.aishang.app.data.model.JMemberStatisticsResult;
+import com.aishang.app.data.model.JMreActivityDetailResult;
 import com.aishang.app.data.model.JMreActivityListResult;
 import com.aishang.app.data.model.JMrePromResult;
 import com.aishang.app.data.model.JMyBusinessBuyInListResult;
@@ -119,7 +120,15 @@ public interface AiShangService {
       @Query(value = "q") String q);
 
   @Headers("connection:Keep-Alive") @GET("mobile/other/mreActivityList.ashx")
-  Observable<JMreActivityListResult> syncMreActivityDetail(@Query(value = "v") int version,
+  Observable<JMreActivityListResult> syncMreActivityList(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/other/mreActivityDetail.ashx")
+  Observable<JMreActivityDetailResult> syncMreActivityDetail(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/other/mreActivityEnroll.ashx")
+  Observable<JResult> syncMreActivityEnroll(@Query(value = "v") int version,
       @Query(value = "q") String q);
 
   @GET("ribots") Observable<List<Ribot>> getRibots();

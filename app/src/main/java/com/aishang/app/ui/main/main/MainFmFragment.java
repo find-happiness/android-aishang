@@ -339,9 +339,9 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
     //localImages.add(R.mipmap.banner);
     //localImages.add(R.mipmap.banner);
     //
-    //banner.setPages(new CBViewHolderCreator<LocalImageHolderView>() {
-    //  @Override public LocalImageHolderView createHolder() {
-    //    return new LocalImageHolderView();
+    //banner.setPages(new CBViewHolderCreator<NetImageHolderView>() {
+    //  @Override public NetImageHolderView createHolder() {
+    //    return new NetImageHolderView();
     //  }
     //}, localImages)
     //    //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设

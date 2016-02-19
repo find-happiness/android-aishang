@@ -2,7 +2,9 @@ package com.aishang.app.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Environment;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
@@ -15,6 +17,10 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static android.os.Environment.MEDIA_MOUNTED;
 
@@ -152,5 +158,24 @@ public class CommonUtil {
     if (imm.isActive()) {
       imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
     }
+  }
+
+  public static Date stringToDate(String str) {
+    DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    Date date = null;
+    try {
+      // Fri Feb 24 00:00:00 CST 2012
+      date = format.parse(str);
+    } catch (ParseException e) {
+      e.printStackTrace();
+    }
+    return date;
+  }
+
+  public static void intentToCall(String phoneNumer, Context ctx) {
+    Intent intent = new Intent();
+    intent.setAction("android.intent.action.DIAL");
+    intent.setData(Uri.parse("tel:" + phoneNumer));
+    ctx.startActivity(intent);
   }
 }

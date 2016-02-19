@@ -83,6 +83,11 @@
     </activity>
     <activity android:name=".ui.about.HongBaoActivity">
     </activity>
+    <activity android:name=".ui.KanFangTuanDetail.KanFangTuanDetailActivity">
+    </activity>
+    <activity
+        android:name=".ui.CanTuan.CanTuanActivity">
+    </activity>
   </application>
 
 </manifest>

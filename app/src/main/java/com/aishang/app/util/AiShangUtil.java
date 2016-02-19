@@ -16,6 +16,7 @@ import com.aishang.app.data.model.JLoupanProductListParam;
 import com.aishang.app.data.model.JMemberLoginParam;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JMemberStatisticsParam;
+import com.aishang.app.data.model.JMreActivityEnrollParam;
 import com.aishang.app.data.model.JMreActivityListParam;
 import com.aishang.app.data.model.JMyBusinessBuyInListParam;
 import com.aishang.app.data.model.JMyVacationApplyListParams;
@@ -414,6 +415,23 @@ public class AiShangUtil {
     param.setCorpID(corpID);
     param.setRecStart(recStart);
     param.setRecCount(recCount);
+    return gson.toJson(param);
+  }
+
+  public static String generMreActivityEnrollParam(int activityID, String memberAccount,
+      String cookie, String userName, int gender, String userPhone, int guestCount,
+      String userComment) {
+
+    JMreActivityEnrollParam param = new JMreActivityEnrollParam();
+    param.setActivityID(activityID);
+    param.setMemberAccount(memberAccount);
+    param.setCookie(cookie);
+    param.setUserName(userName);
+    param.setGender(gender);
+    param.setUserPhone(userPhone);
+    param.setGuestCount(guestCount);
+    param.setUserComment(userComment);
+
     return gson.toJson(param);
   }
 

@@ -41,7 +41,7 @@ public class KanFangTuanPresenter extends BasePresenter<KanFangTuanMvpView> {
       subscription.unsubscribe();
     }
 
-    subscription = mDataManager.syncMreActivityDetail(version, json)
+    subscription = mDataManager.syncMreActivityList(version, json)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
         .subscribe(new Subscriber<JMreActivityListResult>() {

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary"
+    android:fitsSystemWindows="true"
+    android:paddingTop="@dimen/padding_stutas_bar">
+
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:layout_alignParentTop="true"
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+      app:theme="@style/ToolBarStyle">
+
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="报名参团"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_title"/>
+  </android.support.v7.widget.Toolbar>
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@id/toolbar"
+      android:background="@android:color/white"
+      tools:context="com.aishang.app.ui.CanTuan.CanTuanFragment"
+      >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+      <com.rengwuxian.materialedittext.MaterialEditText
+          android:id="@+id/name"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_xlarge"
+          android:layout_marginRight="@dimen/spacing_xlarge"
+          android:layout_marginTop="@dimen/spacing_large"
+          android:hint="请输入您的姓名"
+          android:singleLine="true"
+          android:textSize="@dimen/text_body"
+          app:met_clearButton="true"
+          app:met_floatingLabel="normal"
+          app:met_floatingLabelTextSize="@dimen/text_small_body"
+          app:met_textColorHint="@color/text_gray"/>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_xlarge"
+          android:layout_marginRight="@dimen/spacing_xlarge"
+          android:layout_marginTop="@dimen/spacing_large"
+          android:orientation="horizontal"
+          android:textSize="@dimen/text_body">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="性    别:"
+            android:textSize="@dimen/text_body"/>
+
+        <RadioGroup
+            android:id="@+id/sex"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_small"
+            android:orientation="horizontal">
+
+          <RadioButton
+              android:id="@+id/male"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:checked="true"
+              android:text="先生"/>
+
+          <RadioButton
+              android:id="@+id/female"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/spacing_medium"
+              android:text="女士"/>
+
+        </RadioGroup>
+      </LinearLayout>
+
+      <com.rengwuxian.materialedittext.MaterialEditText
+          android:id="@+id/phone"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_xlarge"
+          android:layout_marginRight="@dimen/spacing_xlarge"
+          android:layout_marginTop="@dimen/spacing_large"
+          android:hint="联系电话"
+          android:inputType="phone"
+          android:singleLine="true"
+          android:textSize="@dimen/text_body"
+          app:met_clearButton="true"
+          app:met_floatingLabel="normal"
+          app:met_floatingLabelTextSize="@dimen/text_small_body"
+          app:met_textColorHint="@color/text_gray"/>
+
+      <com.rengwuxian.materialedittext.MaterialEditText
+          android:id="@+id/num_person"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_xlarge"
+          android:layout_marginRight="@dimen/spacing_xlarge"
+          android:layout_marginTop="@dimen/spacing_large"
+          android:hint="报名人数"
+          android:inputType="numberSigned"
+          android:singleLine="true"
+          android:textSize="@dimen/text_body"
+          app:met_clearButton="true"
+          app:met_floatingLabel="normal"
+          app:met_floatingLabelTextSize="@dimen/text_small_body"
+          app:met_textColorHint="@color/text_gray"/>
+
+      <com.rengwuxian.materialedittext.MaterialEditText
+          android:id="@+id/commit"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_xlarge"
+          android:layout_marginRight="@dimen/spacing_xlarge"
+          android:layout_marginTop="@dimen/spacing_large"
+          android:gravity="top"
+          android:hint="备注信息"
+          android:inputType="text"
+          android:lines="5"
+          android:textSize="@dimen/text_body"
+          app:met_floatingLabel="normal"
+          app:met_floatingLabelTextSize="@dimen/text_small_body"
+          app:met_textColorHint="@color/text_gray"
+          />
+
+    </LinearLayout>
+  </ScrollView>
+</RelativeLayout>

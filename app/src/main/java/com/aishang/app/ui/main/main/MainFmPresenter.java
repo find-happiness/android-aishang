@@ -13,6 +13,7 @@ import com.aishang.app.data.model.JMrePromResult;
 import com.aishang.app.data.model.JNewsListResult;
 import com.aishang.app.data.model.JSysZoneResult;
 import com.aishang.app.data.model.Ribot;
+import com.aishang.app.ui.ExchangeHouse.ExchangeHouseActivity;
 import com.aishang.app.ui.KanFanTuan.KanFanTuanActivity;
 import com.aishang.app.ui.ProjectJoint.ProjectJointActivity;
 import com.aishang.app.ui.TravelList.TravelListActivity;
@@ -306,6 +307,13 @@ public class MainFmPresenter extends BasePresenter<MainFmMvpView> {
     Activity content = ((MainFmFragment) getMvpView()).getActivity();
     Intent intent = new Intent();
     intent.setClass(content, KanFanTuanActivity.class);
+    content.startActivity(intent);
+  }
+
+  protected void IntentToChangeHouse() {
+    Activity content = ((MainFmFragment) getMvpView()).getActivity();
+    Intent intent = new Intent();
+    intent.setClass(content, ExchangeHouseActivity.class);
     content.startActivity(intent);
   }
 }

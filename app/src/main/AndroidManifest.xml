@@ -85,8 +85,9 @@
     </activity>
     <activity android:name=".ui.KanFangTuanDetail.KanFangTuanDetailActivity">
     </activity>
-    <activity
-        android:name=".ui.CanTuan.CanTuanActivity">
+    <activity android:name=".ui.CanTuan.CanTuanActivity">
+    </activity>
+    <activity android:name=".ui.ExchangeHouse.ExchangeHouseActivity">
     </activity>
   </application>
 

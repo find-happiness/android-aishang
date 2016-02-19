@@ -143,6 +143,7 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
   }
 
   @OnClick(R.id.btn_dujiawu) void btnDuJiaWu() {
+    mMainPresenter.IntentToChangeHouse();
   }
 
   @OnClick(R.id.btn_store) void btnStore() {

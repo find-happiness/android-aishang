@@ -23,7 +23,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="项目合作"
+        android:text="报名参团"
         android:textColor="@android:color/white"
         android:textSize="@dimen/text_title"/>
   </android.support.v7.widget.Toolbar>
@@ -52,7 +52,7 @@
           android:layout_height="wrap_content"
           android:layout_marginLeft="@dimen/spacing_medium"
           android:layout_marginTop="@dimen/spacing_medium"
-          android:text="【项目合作规则】"
+          android:text="【度假屋上线规则】"
           android:textColor="@color/primary"
           android:textSize="@dimen/text_title"/>
 
@@ -72,6 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/spacing_medium"
             android:layout_marginRight="@dimen/spacing_medium"
+            android:text=""
             android:textColor="@color/text_gray"
             android:textSize="@dimen/text_body"/>
 
@@ -91,7 +92,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginLeft="@dimen/spacing_medium"
-          android:text="【加入我们】"
+          android:text="【度假屋上线详情】"
           android:textColor="@color/primary"
           android:textSize="@dimen/text_title"/>
 

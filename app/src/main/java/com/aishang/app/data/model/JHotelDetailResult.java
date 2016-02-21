@@ -1,12 +1,14 @@
 package com.aishang.app.data.model;
 
+import java.io.Serializable;
+
 /**
  * /** /mobile/hotel/hotelDetail.ashx version: 1
  * 
  * @author wang
  * 
  */
-public class JHotelDetailResult {
+public class JHotelDetailResult implements Serializable{
 	private String result;
 	private Data dataSet;
 
@@ -26,7 +28,7 @@ public class JHotelDetailResult {
 		this.dataSet = dataSet;
 	}
 
-	public class Data {
+	public class Data implements Serializable{
 
 		private BaseInfo baseInfo;
 		private ImageCat[] imageCatList;
@@ -41,7 +43,7 @@ public class JHotelDetailResult {
 			this.baseInfo = baseInfo;
 		}
 
-		public class BaseInfo {
+		public class BaseInfo implements Serializable{
 
 			private int hotelID;
 			private String name;
@@ -288,7 +290,7 @@ public class JHotelDetailResult {
 				this.promotionText = promotionText;
 			}
 
-			public class Faclilite {
+			public class Faclilite implements Serializable{
 
 				// imageUrl:string, name: string, enable:int
 
@@ -322,7 +324,7 @@ public class JHotelDetailResult {
 
 			}
 
-			public class Service {
+			public class Service implements Serializable{
 
 				private String imageUrl;
 				private String name;
@@ -372,7 +374,7 @@ public class JHotelDetailResult {
 			this.roomCatList = roomCatList;
 		}
 
-		public class RoomCat {
+		public class RoomCat implements Serializable{
 			private int id;
 			private String name;
 			private String basicPrice;
@@ -482,7 +484,7 @@ public class JHotelDetailResult {
 				this.priceList = priceList;
 			}
 
-			public class Price {
+			public class Price implements Serializable{
 
 				/**
 				 * "priceID": 11, "title": "大别墅", "desc": "暂无",
@@ -574,7 +576,7 @@ public class JHotelDetailResult {
 					this.dayPriceList = dayPriceList;
 				}
 
-				public class DayPrice {
+				public class DayPrice implements Serializable{
 
 					// "day": "2013-10-11",
 					// "priceCash": 1.00,
@@ -613,7 +615,7 @@ public class JHotelDetailResult {
 			}
 		}
 
-		public class SelectImage {
+		public class SelectImage implements Serializable{
 			private String url;
 			private String title;
 			private int pos;
@@ -651,7 +653,7 @@ public class JHotelDetailResult {
 			this.imageCatList = imageCatList;
 		}
 
-		public class ImageCat {
+		public class ImageCat implements Serializable{
 			private int catID;
 			private String name;
 			private int startPos;
@@ -690,7 +692,7 @@ public class JHotelDetailResult {
 				this.imageList = imageList;
 			}
 
-			public class Image {
+			public class Image implements Serializable{
 				// idx:int, priceID, catID:int ,url:string, title:string
 				private int idx;
 				private int priceID;

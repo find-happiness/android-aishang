@@ -18,10 +18,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JLoupanProductDetailResult;
 import com.aishang.app.data.model.ViewModel;
 import com.aishang.app.data.remote.AiShangService;
+import com.aishang.app.ui.BuyLouPan.BuyLouPanActivity;
 import com.aishang.app.ui.base.BaseActivity;
 import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
@@ -71,6 +73,8 @@ public class InSaleDetailActivity extends BaseActivity implements InSaleDetailMv
 
   private String loupanProductName;
   private int loupanProductID;
+
+  private JLoupanProductDetailResult loupan;
 
   public static void navigate(AppCompatActivity activity, View transitionImage,
       ViewModel viewModel) {
@@ -123,6 +127,15 @@ public class InSaleDetailActivity extends BaseActivity implements InSaleDetailMv
       return super.dispatchTouchEvent(motionEvent);
     } catch (NullPointerException e) {
       return false;
+    }
+  }
+
+  @OnClick(R.id.buy) void onclickBuy() {
+    if (loupan != null) {
+      Intent intent = BuyLouPanActivity.getStartIntent(this, loupan);
+      this.startActivity(intent);
+    } else {
+      CommonUtil.showSnackbar("未获取到数据，请稍后再试！", layoutRoot);
     }
   }
 
@@ -218,6 +231,8 @@ public class InSaleDetailActivity extends BaseActivity implements InSaleDetailMv
   }
 
   @Override public void bindDataToView(JLoupanProductDetailResult result) {
+
+    loupan = result;
 
     if (rlNetStatus.getVisibility() == View.VISIBLE) rlNetStatus.setVisibility(View.GONE);
 

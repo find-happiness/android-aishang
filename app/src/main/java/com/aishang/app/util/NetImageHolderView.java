@@ -27,5 +27,7 @@ public class NetImageHolderView implements Holder<String> {
         .error(R.mipmap.banner)
         .placeholder(R.mipmap.banner)
         .into(imageView);
+
+
   }
 }

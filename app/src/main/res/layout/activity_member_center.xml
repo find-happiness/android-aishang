@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:textSize="@dimen/text_body"
-            tools:text="@string/head_img"/>
+            android:text="@string/head_img"/>
 
         <ImageView
             android:id="@+id/jian_tou"
@@ -69,7 +69,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/spacing_medium"
             android:layout_toLeftOf="@id/jian_tou"
-            android:src="@mipmap/zaishou"/>
+            tools:src="@mipmap/zaishou"/>
       </RelativeLayout>
 
       <View
@@ -92,7 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:textSize="@dimen/text_body"
-            tools:text="@string/member_level"/>
+            android:text="@string/member_level"/>
 
         <ImageView
             android:id="@id/jian_tou"
@@ -133,7 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:textSize="@dimen/text_body"
-            tools:text="@string/phone_num"/>
+            android:text="@string/phone_num"/>
 
         <ImageView
             android:id="@id/jian_tou"
@@ -173,7 +173,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:textSize="@dimen/text_body"
-            tools:text="@string/member_name"/>
+            android:text="@string/member_name"/>
 
         <ImageView
             android:id="@id/jian_tou"
@@ -204,7 +204,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:textSize="@dimen/text_body"
-            tools:text="@string/member_real_name"/>
+            android:text="@string/member_real_name"/>
 
         <ImageView
             android:id="@id/jian_tou"
@@ -235,7 +235,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:textSize="@dimen/text_body"
-            tools:text="@string/birthday"/>
+            android:text="@string/birthday"/>
 
         <ImageView
             android:id="@id/jian_tou"
@@ -266,7 +266,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:textSize="@dimen/text_body"
-            tools:text="@string/gender"/>
+            android:text="@string/gender"/>
 
         <ImageView
             android:id="@id/jian_tou"
@@ -297,7 +297,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:textSize="@dimen/text_body"
-            tools:text="@string/bank_member"/>
+            android:text="@string/bank_member"/>
 
         <ImageView
             android:id="@id/jian_tou"
@@ -328,7 +328,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:textSize="@dimen/text_body"
-            tools:text="@string/email"/>
+            android:text="@string/email"/>
 
         <ImageView
             android:id="@id/jian_tou"

@@ -1,12 +1,16 @@
 package com.aishang.app.util;
 
+import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
+import android.widget.NumberPicker;
 import com.aishang.app.R;
+import java.util.Calendar;
 
 public final class DialogFactory {
 
@@ -95,6 +99,30 @@ public final class DialogFactory {
             .setTitle(title);
     return alertDialog.create();
   }
+
+  public static DatePickerDialog createDatePickerDialog(Activity ctx, Calendar calendar,
+      DatePickerDialog.OnDateSetListener callback) {
+
+    return new DatePickerDialog(ctx, callback, calendar.get(Calendar.YEAR),
+        calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+  }
+
+  public static AlertDialog createNumberPicker(Activity ctx, int number, int maxValue, int minValue,
+      String title, final NumberPickerDelegate callback) {
+    final NumberPicker numberPicker = new NumberPicker(ctx);
+    numberPicker.setValue(number);
+    numberPicker.setMaxValue(maxValue);
+    numberPicker.setMinValue(minValue);
+    AlertDialog.Builder alertDialog = new AlertDialog.Builder(ctx).setView(numberPicker)
+        .setTitle(title)
+        .setPositiveButton(R.string.dialog_action_ok, new DialogInterface.OnClickListener() {
+          @Override public void onClick(DialogInterface dialog, int which) {
+            callback.OnPick(numberPicker, numberPicker.getValue());
+          }
+        });
+    return alertDialog.create();
+  }
+
   //
   //public static TimePickerView createTimePickView(Context ctx) {
   //  //时间选择器

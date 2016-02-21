@@ -1,12 +1,14 @@
 package com.aishang.app.data.model;
 
+import java.io.Serializable;
+
 /**
  * /mobile/loupan/loupanProductDetail.ashx version:1
  * 
  * @author wang
  * 
  */
-public class JLoupanProductDetailResult {
+public class JLoupanProductDetailResult implements Serializable{
 	// {result: string,
 	// dataSet:
 	// { loupanProductID:int, title:string , imageUrl:string,
@@ -50,7 +52,7 @@ public class JLoupanProductDetailResult {
 		this.dataSet = dataSet;
 	}
 
-	public class Image {
+	public class Image implements Serializable{
 		private String title;
 		private String thumbUrl;
 		private String url;
@@ -90,7 +92,7 @@ public class JLoupanProductDetailResult {
 
 	}
 
-	public class Tourist {
+	public class Tourist implements Serializable{
 		private int id;
 		private String name;
 		private String subTitle;
@@ -148,7 +150,7 @@ public class JLoupanProductDetailResult {
 
 	}
 
-	public class Data {
+	public class Data implements Serializable{
 		private int loupanProductID;
 		private String title;
 		private String imageUrl;
@@ -340,7 +342,7 @@ public class JLoupanProductDetailResult {
 			this.loupanData = loupanData;
 		}
 
-		public class LoupanData {
+		public class LoupanData implements Serializable{
 			private int loupanID;
 			private String name;
 			private String imageUrl;

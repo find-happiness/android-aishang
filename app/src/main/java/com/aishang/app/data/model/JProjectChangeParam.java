@@ -4,18 +4,18 @@ package com.aishang.app.data.model;
  * Created by song on 2016/2/16.
  */
 public class JProjectChangeParam {
-  public String propertyOwner;
-  public String IDNumber;
-  public String houseAddress;
-  public String houseNumber;
-  public String roomType;
-  public float area;
-  public String resStartDate;
-  public String resEndDate;
-  public String contactsPhone;
-  public String contactsMobile;
-  public String Email;
-  public String Img;
+  private String propertyOwner;
+  private String IDNumber;
+  private String houseAddress;
+  private String houseNumber;
+  private String roomType;
+  private float area;
+  private String resStartDate;
+  private String resEndDate;
+  private String contactsPhone;
+  private String contactsMobile;
+  private String Email;
+  private String Img;
 
   public String getPropertyOwner() {
     return propertyOwner;

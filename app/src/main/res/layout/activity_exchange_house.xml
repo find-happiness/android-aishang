@@ -23,7 +23,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="报名参团"
+        android:text="度假屋交换"
         android:textColor="@android:color/white"
         android:textSize="@dimen/text_title"/>
   </android.support.v7.widget.Toolbar>
@@ -152,7 +152,7 @@
           android:layout_marginTop="@dimen/spacing_medium"
           android:gravity="top"
           android:hint="房号"
-          android:inputType="number"
+          android:inputType="text"
           android:textSize="@dimen/text_body"
           app:met_floatingLabel="normal"
           app:met_floatingLabelTextSize="@dimen/text_small_body"
@@ -239,6 +239,22 @@
           app:met_textColorHint="@color/text_gray"
           />
 
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/contactsMobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:gravity="top"
+            android:hint="手机"
+            android:inputType="phone"
+            android:textSize="@dimen/text_body"
+            app:met_floatingLabel="normal"
+            app:met_floatingLabelTextSize="@dimen/text_small_body"
+            app:met_textColorHint="@color/text_gray"
+            />
+
       <com.rengwuxian.materialedittext.MaterialEditText
           android:id="@+id/Email"
           android:layout_width="match_parent"
@@ -274,6 +290,7 @@
             android:textSize="@dimen/text_body"/>
 
         <ImageView
+            android:id="@+id/update_img"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="@dimen/spacing_medium"

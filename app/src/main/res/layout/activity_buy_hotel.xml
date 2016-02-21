@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary"
+    android:fitsSystemWindows="true"
+    android:paddingTop="@dimen/padding_stutas_bar"
+    >
+
+
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+
+      >
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="认购信息"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_title"
+        />
+  </android.support.v7.widget.Toolbar>
+
+  <ScrollView
+      android:id="@+id/scroll"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@id/toolbar"
+      android:background="@android:color/white"
+      android:clipToPadding="false"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior"
+      >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+      <com.bigkoo.convenientbanner.ConvenientBanner
+          android:id="@+id/convenientBanner"
+          android:layout_width="match_parent"
+          android:layout_height="200dp"
+          android:layout_below="@id/toolbar"
+          app:canLoop="true"
+          />
+      <TextView
+          android:id="@+id/name"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginRight="@dimen/spacing_medium"
+          android:ellipsize="end"
+          android:maxLength="12"
+          android:paddingTop="@dimen/spacing_medium"
+          android:singleLine="true"
+          android:textSize="@dimen/text_title"
+          tools:text="宜春|宜春宜春宜"
+          />
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/gray"
+          />
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:padding="@dimen/spacing_medium"
+          >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_xsmall"
+            android:orientation="horizontal"
+            >
+
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="2"
+              android:textSize="@dimen/text_body"
+              tools:text="项目名称:宜春|宜春宜春宜"
+              />
+
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:textSize="@dimen/text_body"
+              tools:text="价  格:15.90万"
+              />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_xsmall"
+            android:orientation="horizontal"
+            >
+
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="2"
+              android:textSize="@dimen/text_body"
+              tools:text="类        型:花园洋房"
+              />
+
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:textSize="@dimen/text_body"
+              tools:text="房  号:1栋3-11"
+              />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_body"
+            tools:text="交房时间:2015-12-13"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_xsmall"
+            android:orientation="horizontal"
+            >
+
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="2"
+              android:textSize="@dimen/text_body"
+              tools:text="换住积分:10000000分/年"
+              />
+
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:textSize="@dimen/text_body"
+              tools:text="房产证:40年"
+              />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_xsmall"
+            android:textSize="@dimen/text_body"
+            tools:text="项目地址:重庆重庆重庆重庆重庆重庆重庆重庆重庆重庆重庆重庆重庆"
+            />
+      </LinearLayout>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:background="@color/line"
+          android:gravity="left|center_vertical"
+          android:paddingBottom="@dimen/spacing_small"
+          android:paddingTop="@dimen/spacing_small"
+          android:text="认购信息"
+          android:textSize="@dimen/text_body"
+          />
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/spacing_medium"
+            android:paddingTop="@dimen/spacing_medium"
+            >
+          <TextView
+              android:id="@+id/title_1"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="您的预订:"
+              android:textSize="@dimen/text_body"
+              />
+          <TextView
+              android:id="@+id/et_room"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/spacing_medium"
+              android:layout_toRightOf="@id/title_1"
+              android:background="@android:color/transparent"
+              android:singleLine="true"
+              android:textSize="@dimen/text_body"
+              />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/spacing_medium"
+            android:paddingTop="@dimen/spacing_medium"
+            >
+          <TextView
+              android:id="@+id/title_2"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="入住人:"
+              android:textSize="@dimen/text_body"
+              />
+          <TextView
+              android:id="@+id/must_input2"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentRight="true"
+              android:layout_centerVertical="true"
+              android:text="*必填"
+              android:textColor="@color/primary"
+              android:textSize="@dimen/text_body"
+              />
+          <EditText
+              android:id="@+id/guest_name"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/spacing_medium"
+              android:layout_toLeftOf="@id/must_input2"
+              android:layout_toRightOf="@id/title_2"
+              android:background="@android:color/transparent"
+              android:hint="请输入入住人"
+              android:singleLine="true"
+              android:textColorHint="@color/text_gray"
+              android:textSize="@dimen/text_body"
+              />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"
+            />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/spacing_medium"
+            android:paddingTop="@dimen/spacing_medium"
+            >
+          <TextView
+              android:id="@+id/title_3"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="手 机 号:"
+              android:textSize="@dimen/text_body"
+              />
+          <TextView
+              android:id="@+id/must_input3"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentRight="true"
+              android:layout_centerVertical="true"
+              android:text="*必填"
+              android:textColor="@color/primary"
+              android:textSize="@dimen/text_body"
+              />
+          <EditText
+              android:id="@+id/phone"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/spacing_medium"
+              android:layout_toLeftOf="@id/must_input3"
+              android:layout_toRightOf="@id/title_3"
+              android:background="@android:color/transparent"
+              android:hint="请输入联系人手机号码"
+              android:inputType="phone"
+              android:singleLine="true"
+              android:textColorHint="@color/text_gray"
+              android:textSize="@dimen/text_body"
+              />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/spacing_medium"
+            android:paddingTop="@dimen/spacing_medium"
+            >
+          <TextView
+              android:id="@+id/title_4"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="电子邮箱:"
+              android:textSize="@dimen/text_body"
+              />
+          <EditText
+              android:id="@+id/email"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/spacing_medium"
+              android:layout_toRightOf="@id/title_4"
+              android:background="@android:color/transparent"
+              android:hint="请输入联系人手机号码"
+              android:inputType="textEmailAddress"
+              android:singleLine="true"
+              android:textColorHint="@color/text_gray"
+              android:textSize="@dimen/text_body"
+              />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"
+            />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/spacing_medium"
+            android:paddingTop="@dimen/spacing_medium"
+            >
+          <TextView
+              android:id="@+id/title_5"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="@string/hotel_checkin_rule"
+              android:textSize="@dimen/text_body"
+              />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"
+            />
+      </LinearLayout>
+
+      <Button
+          android:id="@+id/submint"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:layout_marginBottom="@dimen/spacing_large"
+          android:layout_marginTop="@dimen/spacing_large"
+          android:background="@color/primary"
+          android:paddingLeft="@dimen/spacing_xlarge"
+          android:paddingRight="@dimen/spacing_xlarge"
+          android:text="提交订购"
+          android:textColor="@android:color/white"
+          android:textSize="@dimen/text_title"
+          />
+
+    </LinearLayout>
+  </ScrollView>
+
+</RelativeLayout>
+

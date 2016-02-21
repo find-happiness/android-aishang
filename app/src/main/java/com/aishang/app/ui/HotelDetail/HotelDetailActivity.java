@@ -1,31 +1,41 @@
 package com.aishang.app.ui.HotelDetail;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JHotelDetailResult;
 import com.aishang.app.data.remote.AiShangService;
+import com.aishang.app.ui.BuyHotel.BuyHotelActivity;
+import com.aishang.app.ui.BuyLouPan.BuyLouPanActivity;
 import com.aishang.app.ui.base.BaseActivity;
 import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
+import com.aishang.app.util.DialogFactory;
 import com.aishang.app.util.NetworkUtil;
+import com.aishang.app.util.NumberPickerDelegate;
 import com.aishang.app.widget.DrawableCenterButton;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
@@ -52,6 +62,7 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
   private int hotelID;
   private long checkInDate;
   private long checkOutDate;
+  private int selectRoomNum = 1;
 
   /**
    * Return an Intent to start this Activity.
@@ -70,6 +81,8 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
 
   @Bind(R.id.toolbar) Toolbar toolbar;
 
+  private JHotelDetailResult hotel;
+
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     this.getActivityComponent().inject(this);
@@ -84,9 +97,19 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
     tvCheckInDate.setText(AiShangUtil.dateFormat(new Date(checkInDate)));
     tvCheckOutDate.setText(AiShangUtil.dateFormat(new Date(checkOutDate)));
     name.setText(hotelName);
-
+    roomNum.setText(selectRoomNum+"");
     initToolbar();
     proLoad();
+  }
+
+
+  @OnClick(R.id.buy) void onclickBuy() {
+    if (hotel != null) {
+      Intent intent = BuyHotelActivity.getStartIntent(this, hotel);
+      this.startActivity(intent);
+    } else {
+      CommonUtil.showSnackbar("未获取到数据，请稍后再试！", layoutRoot);
+    }
   }
 
   private void initToolbar() {
@@ -145,8 +168,47 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
   }
 
   @Override public void bindDataToView(JHotelDetailResult result) {
+
+    hotel = result;
+
     setGalleryImg(result);
     AiShangUtil.setWebViewContent(description, result.getDataSet().getBaseInfo().getDescription());
+  }
+
+  @OnClick(R.id.tv_check_out_date) void onClickCheckOutDate() {
+    final Calendar cal = Calendar.getInstance();
+    cal.setTimeInMillis(checkOutDate);
+    DialogFactory.createDatePickerDialog(this, cal, new DatePickerDialog.OnDateSetListener() {
+      @Override public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        cal.set(year, monthOfYear, dayOfMonth);
+
+        checkOutDate = cal.getTimeInMillis();
+      }
+    }).show();
+  }
+
+  @OnClick(R.id.tv_check_in_date) void onClickCheckInDate() {
+    final Calendar cal = Calendar.getInstance();
+    cal.setTimeInMillis(checkInDate);
+    DialogFactory.createDatePickerDialog(this, cal, new DatePickerDialog.OnDateSetListener() {
+      @Override public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        cal.set(year, monthOfYear, dayOfMonth);
+
+        checkInDate = cal.getTimeInMillis();
+      }
+    }).show();
+  }
+
+  @OnClick(R.id.room_num)
+  void onclickRoomNum()
+  {
+    DialogFactory.createNumberPicker(this, selectRoomNum, 100, 1, "订购房间数", new NumberPickerDelegate() {
+      @Override public void OnPick(NumberPicker picker, int num) {
+        selectRoomNum = num;
+        roomNum.setText(selectRoomNum+"");
+        Log.i(TAG, "OnPick: " + selectRoomNum);
+      }
+    }).show();
   }
 
   private void setGalleryImg(JHotelDetailResult result) {

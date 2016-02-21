@@ -32,6 +32,9 @@ import retrofit2.Retrofit;
 import retrofit2.RxJavaCallAdapterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
+import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -130,6 +133,9 @@ public interface AiShangService {
   @Headers("connection:Keep-Alive") @GET("mobile/other/mreActivityEnroll.ashx")
   Observable<JResult> syncMreActivityEnroll(@Query(value = "v") int version,
       @Query(value = "q") String q);
+
+  @Headers("Content-Type:application/json") @Multipart @POST("mobile/projecCtooperation.ashx")
+  Observable<JResult> syncProjecCtooperation(@Part("v") int version, @Part("q") String q);
 
   @GET("ribots") Observable<List<Ribot>> getRibots();
 

@@ -13,4 +13,5 @@
     <color name="text_gray">#c6c6c6</color>
     <color name="text_tu">#cda156</color>
     <color name="tab_bg">#f4f4f4</color>
+    <color name="photopicker_background">#000000</color>
 </resources>

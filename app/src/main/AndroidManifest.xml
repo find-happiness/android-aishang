@@ -3,19 +3,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.aishang.app">
 
+  <uses-permission android:name="android.permission.GET_TASKS"/>
   <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+  <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+  <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+  <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+
+  <activity
+      android:name=".wxapi.WXEntryActivity"
+      android:configChanges="keyboardHidden|orientation|screenSize"
+      android:exported="true"
+      android:screenOrientation="portrait"
+      android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
   <application
+      android:name=".BoilerplateApplication"
       android:allowBackup="false"
       android:icon="@mipmap/ic_launcher"
-      android:name=".BoilerplateApplication"
       android:theme="@style/AppTheme"
       tools:replace="android:allowBackup">
     <activity
-        android:label="@string/app_name"
         android:name=".ui.main.MainActivity"
+        android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:windowSoftInputMode="stateHidden">
       <intent-filter>
@@ -29,8 +42,8 @@
     <service android:name=".util.DownloadService"/>
 
     <receiver
-        android:enabled="false"
-        android:name=".data.SyncService$SyncOnConnectionAvailable">
+        android:name=".data.SyncService$SyncOnConnectionAvailable"
+        android:enabled="false">
       <intent-filter>
         <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
       </intent-filter>
@@ -88,6 +101,17 @@
     <activity android:name=".ui.CanTuan.CanTuanActivity">
     </activity>
     <activity android:name=".ui.ExchangeHouse.ExchangeHouseActivity">
+    </activity>
+    <activity
+        android:name="com.foamtrace.photopicker.PhotoPickerActivity"
+        android:configChanges="orientation|screenSize"
+        android:theme="@style/PhotoPickerTheme"/>
+    <activity
+        android:name="com.foamtrace.photopicker.PhotoPreviewActivity"
+        android:theme="@style/PhotoPickerTheme"/>
+    <activity android:name=".ui.BuyLouPan.BuyLouPanActivity">
+    </activity>
+    <activity android:name=".ui.BuyHotel.BuyHotelActivity">
     </activity>
   </application>
 

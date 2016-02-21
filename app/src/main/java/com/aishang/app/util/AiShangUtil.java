@@ -21,6 +21,8 @@ import com.aishang.app.data.model.JMreActivityListParam;
 import com.aishang.app.data.model.JMyBusinessBuyInListParam;
 import com.aishang.app.data.model.JMyVacationApplyListParams;
 import com.aishang.app.data.model.JNewsListParams;
+import com.aishang.app.data.model.JProjecCtooperationParam;
+import com.aishang.app.data.model.JProjectChangeParam;
 import com.aishang.app.data.model.JRentalListParam;
 import com.aishang.app.data.model.JSysZoneParam;
 import com.aishang.app.data.remote.AiShangService;
@@ -431,6 +433,42 @@ public class AiShangUtil {
     param.setUserPhone(userPhone);
     param.setGuestCount(guestCount);
     param.setUserComment(userComment);
+
+    return gson.toJson(param);
+  }
+
+  public static String generProjecCtooperationParam(String projectName, String projectAddress,
+      String projectCount, String contacts, String contactsPhone, String contactsEmail,
+      String special) {
+
+    JProjecCtooperationParam param = new JProjecCtooperationParam();
+    param.setProjectName(projectName);
+    param.setProjectAddress(projectAddress);
+    param.setProjectCount(projectCount);
+    param.setContacts(contacts);
+    param.setContactsPhone(contactsPhone);
+    param.setContactsEmail(contactsEmail);
+    param.setSpecial(special);
+    return gson.toJson(param);
+  }
+
+  public static String generProjectChangeParam(String propertyOwner, String IDNumber,
+      String houseAddress, String houseNumber, String roomType, float area, String resStartDate,
+      String resEndDate, String contactsPhone, String contactsMobile, String Email, String Img) {
+
+    JProjectChangeParam param = new JProjectChangeParam();
+    param.setPropertyOwner(propertyOwner);
+    param.setIDNumber(IDNumber);
+    param.setHouseAddress(houseAddress);
+    param.setHouseNumber(houseNumber);
+    param.setRoomType(roomType);
+    param.setArea(area);
+    param.setResStartDate(resStartDate);
+    param.setResEndDate(resEndDate);
+    param.setContactsPhone(contactsPhone);
+    param.setContactsMobile(contactsMobile);
+    param.setEmail(Email);
+    param.setImg(Img);
 
     return gson.toJson(param);
   }

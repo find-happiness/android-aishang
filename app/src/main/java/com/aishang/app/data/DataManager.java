@@ -186,6 +186,10 @@ import com.aishang.app.util.EventPosterHelper;
     return mAiShangService.syncMreActivityEnroll(version, json);
   }
 
+  public Observable<JResult> syncProjecCtooperation(int version, String json) {
+    return mAiShangService.syncProjecCtooperation(version, json);
+  }
+
   public JVersionCheckResult getVersionCheck() {
     String json = mPreferencesHelper.getVersionCheck();
 

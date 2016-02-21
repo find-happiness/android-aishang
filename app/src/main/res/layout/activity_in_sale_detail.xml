@@ -38,6 +38,7 @@
         android:background="@color/blue"
         android:gravity="center"
         android:text="@string/can_tuan"
+        android:visibility="gone"
         android:textColor="@android:color/white"
         android:textSize="@dimen/text_title"/>
 
@@ -51,7 +52,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:background="@color/blue"
         android:gravity="center"
         android:text="@string/buy_now"

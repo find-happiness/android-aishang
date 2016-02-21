@@ -96,44 +96,29 @@
           android:textSize="@dimen/text_title"/>
 
       <com.rengwuxian.materialedittext.MaterialEditText
-          android:id="@+id/owner"
+          android:id="@+id/name"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginLeft="@dimen/spacing_medium"
           android:layout_marginRight="@dimen/spacing_medium"
           android:layout_marginTop="@dimen/spacing_medium"
-          android:hint="产权人"
+          android:hint="项目名称"
           android:singleLine="true"
           android:textSize="@dimen/text_body"
+          android:inputType="text"
           app:met_clearButton="true"
           app:met_floatingLabel="normal"
           app:met_floatingLabelTextSize="@dimen/text_small_body"
           app:met_textColorHint="@color/text_gray"/>
 
       <com.rengwuxian.materialedittext.MaterialEditText
-          android:id="@+id/id_number"
+          android:id="@+id/address"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginLeft="@dimen/spacing_medium"
           android:layout_marginRight="@dimen/spacing_medium"
           android:layout_marginTop="@dimen/spacing_medium"
-          android:hint="身份证号"
-          android:inputType="numberSigned"
-          android:singleLine="true"
-          android:textSize="@dimen/text_body"
-          app:met_clearButton="true"
-          app:met_floatingLabel="normal"
-          app:met_floatingLabelTextSize="@dimen/text_small_body"
-          app:met_textColorHint="@color/text_gray"/>
-
-      <com.rengwuxian.materialedittext.MaterialEditText
-          android:id="@+id/house_address"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginLeft="@dimen/spacing_medium"
-          android:layout_marginRight="@dimen/spacing_medium"
-          android:layout_marginTop="@dimen/spacing_medium"
-          android:hint="房屋地址"
+          android:hint="项目地址"
           android:inputType="text"
           android:singleLine="true"
           android:textSize="@dimen/text_body"
@@ -143,79 +128,31 @@
           app:met_textColorHint="@color/text_gray"/>
 
       <com.rengwuxian.materialedittext.MaterialEditText
-          android:id="@+id/houseNumber"
+          android:id="@+id/projectCount"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginLeft="@dimen/spacing_medium"
           android:layout_marginRight="@dimen/spacing_medium"
           android:layout_marginTop="@dimen/spacing_medium"
-          android:gravity="top"
-          android:hint="房号"
-          android:inputType="number"
-          android:textSize="@dimen/text_body"
-          app:met_floatingLabel="normal"
-          app:met_floatingLabelTextSize="@dimen/text_small_body"
-          app:met_textColorHint="@color/text_gray"
-          />
-
-      <com.rengwuxian.materialedittext.MaterialEditText
-          android:id="@+id/room_type"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginLeft="@dimen/spacing_medium"
-          android:layout_marginRight="@dimen/spacing_medium"
-          android:layout_marginTop="@dimen/spacing_medium"
-          android:gravity="top"
-          android:hint="户型"
+          android:hint="楼盘体量"
           android:inputType="text"
+          android:singleLine="true"
           android:textSize="@dimen/text_body"
+          app:met_clearButton="true"
           app:met_floatingLabel="normal"
           app:met_floatingLabelTextSize="@dimen/text_small_body"
-          app:met_textColorHint="@color/text_gray"
-          />
+          app:met_textColorHint="@color/text_gray"/>
 
       <com.rengwuxian.materialedittext.MaterialEditText
-          android:id="@+id/area"
+          android:id="@+id/contacts"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginLeft="@dimen/spacing_medium"
           android:layout_marginRight="@dimen/spacing_medium"
           android:layout_marginTop="@dimen/spacing_medium"
           android:gravity="top"
-          android:hint="面积"
-          android:inputType="numberDecimal"
-          android:textSize="@dimen/text_body"
-          app:met_floatingLabel="normal"
-          app:met_floatingLabelTextSize="@dimen/text_small_body"
-          app:met_textColorHint="@color/text_gray"
-          />
-
-      <com.rengwuxian.materialedittext.MaterialEditText
-          android:id="@+id/start_time"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginLeft="@dimen/spacing_medium"
-          android:layout_marginRight="@dimen/spacing_medium"
-          android:layout_marginTop="@dimen/spacing_medium"
-          android:gravity="top"
-          android:hint="交换开始时间"
-          android:inputType="date"
-          android:textSize="@dimen/text_body"
-          app:met_floatingLabel="normal"
-          app:met_floatingLabelTextSize="@dimen/text_small_body"
-          app:met_textColorHint="@color/text_gray"
-          />
-
-      <com.rengwuxian.materialedittext.MaterialEditText
-          android:id="@+id/end_time"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginLeft="@dimen/spacing_medium"
-          android:layout_marginRight="@dimen/spacing_medium"
-          android:layout_marginTop="@dimen/spacing_medium"
-          android:gravity="top"
-          android:hint="交换结束时间"
-          android:inputType="date"
+          android:hint="联系人"
+          android:inputType="text"
           android:textSize="@dimen/text_body"
           app:met_floatingLabel="normal"
           app:met_floatingLabelTextSize="@dimen/text_small_body"
@@ -230,7 +167,7 @@
           android:layout_marginRight="@dimen/spacing_medium"
           android:layout_marginTop="@dimen/spacing_medium"
           android:gravity="top"
-          android:hint="联系电话"
+          android:hint="电话"
           android:inputType="phone"
           android:textSize="@dimen/text_body"
           app:met_floatingLabel="normal"
@@ -239,14 +176,14 @@
           />
 
       <com.rengwuxian.materialedittext.MaterialEditText
-          android:id="@+id/Email"
+          android:id="@+id/contactsEmail"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginLeft="@dimen/spacing_medium"
           android:layout_marginRight="@dimen/spacing_medium"
           android:layout_marginTop="@dimen/spacing_medium"
           android:gravity="top"
-          android:hint="邮件"
+          android:hint="邮箱"
           android:inputType="textEmailAddress"
           android:textSize="@dimen/text_body"
           app:met_floatingLabel="normal"
@@ -254,31 +191,22 @@
           app:met_textColorHint="@color/text_gray"
           />
 
-      <LinearLayout
+      <com.rengwuxian.materialedittext.MaterialEditText
+          android:id="@+id/special"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginLeft="@dimen/spacing_medium"
           android:layout_marginRight="@dimen/spacing_medium"
           android:layout_marginTop="@dimen/spacing_medium"
-          android:background="@drawable/bg_edit"
-          android:orientation="vertical"
-          android:layout_marginBottom="@dimen/spacing_xlarge">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spacing_medium"
-            android:text="房产证照片"
-            android:textColor="@color/text_gray"
-            android:textSize="@dimen/text_body"/>
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="@dimen/spacing_medium"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/banner"/>
-      </LinearLayout>
+          android:gravity="top"
+          android:hint="特色介绍"
+          android:layout_marginBottom="@dimen/spacing_xlarge"
+          android:inputType="text"
+          android:textSize="@dimen/text_body"
+          app:met_floatingLabel="normal"
+          app:met_floatingLabelTextSize="@dimen/text_small_body"
+          app:met_textColorHint="@color/text_gray"
+          />
     </LinearLayout>
   </ScrollView>
 </RelativeLayout>

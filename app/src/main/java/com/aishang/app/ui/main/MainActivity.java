@@ -15,6 +15,7 @@ import com.aishang.app.data.SyncService;
 import com.aishang.app.data.model.Ribot;
 import com.aishang.app.ui.base.BaseActivity;
 import com.aishang.app.util.AndroidComponentUtil;
+import com.aishang.app.util.BusProvider;
 import com.aishang.app.util.Constants;
 import com.aishang.app.util.DialogFactory;
 import com.aishang.app.util.DownloadService;
@@ -23,6 +24,7 @@ import com.shizhefei.view.indicator.FixedIndicatorView;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.viewpager.SViewPager;
 
+import com.squareup.otto.Subscribe;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -31,95 +33,93 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity implements MainMvpView {
-    private static final String TAG = "MainActivity";
-    private static final String EXTRA_TRIGGER_SYNC_FLAG =
-            "com.aishang.app.ui.main.MainActivity.EXTRA_TRIGGER_SYNC_FLAG";
-    private IndicatorViewPager indicatorViewPager;
-    @Inject
-    MainPresenter mMainPresenter;
+  private static final String TAG = "MainActivity";
+  private static final String EXTRA_TRIGGER_SYNC_FLAG =
+      "com.aishang.app.ui.main.MainActivity.EXTRA_TRIGGER_SYNC_FLAG";
+  private IndicatorViewPager indicatorViewPager;
+  @Inject MainPresenter mMainPresenter;
 
-    @Bind(R.id.tabmain_viewPager)
-    SViewPager mViewPager;
-    @Bind(R.id.tabmain_indicator)
-    FixedIndicatorView mIndicator;
+  @Bind(R.id.tabmain_viewPager) SViewPager mViewPager;
+  @Bind(R.id.tabmain_indicator) FixedIndicatorView mIndicator;
 
-    /**
-     * Return an Intent to start this Activity.
-     * triggerDataSyncOnCreate allows disabling the background sync service onCreate. Should
-     * only be set to false during testing.
-     */
-    public static Intent getStartIntent(Context context, boolean triggerDataSyncOnCreate) {
-        Intent intent = new Intent(context, MainActivity.class);
-        intent.putExtra(EXTRA_TRIGGER_SYNC_FLAG, triggerDataSyncOnCreate);
-        return intent;
+  /**
+   * Return an Intent to start this Activity.
+   * triggerDataSyncOnCreate allows disabling the background sync service onCreate. Should
+   * only be set to false during testing.
+   */
+  public static Intent getStartIntent(Context context, boolean triggerDataSyncOnCreate) {
+    Intent intent = new Intent(context, MainActivity.class);
+    intent.putExtra(EXTRA_TRIGGER_SYNC_FLAG, triggerDataSyncOnCreate);
+    return intent;
+  }
+
+  @Override protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    getActivityComponent().inject(this);
+    setContentView(R.layout.activity_main);
+    ButterKnife.bind(this);
+
+    indicatorViewPager = new IndicatorViewPager(mIndicator, mViewPager);
+    indicatorViewPager.setAdapter(new MainPageAdapter(getSupportFragmentManager(), this));
+    indicatorViewPager.setPageOffscreenLimit(3);
+    mViewPager.setCanScroll(true);
+    mMainPresenter.attachView(this);
+
+    if (getIntent().getBooleanExtra(EXTRA_TRIGGER_SYNC_FLAG, true)) {
+      startService(SyncService.getStartIntent(this));
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getActivityComponent().inject(this);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-
-        indicatorViewPager = new IndicatorViewPager(mIndicator, mViewPager);
-        indicatorViewPager.setAdapter(new MainPageAdapter(getSupportFragmentManager(), this));
-        indicatorViewPager.setPageOffscreenLimit(3);
-        mViewPager.setCanScroll(true);
-        mMainPresenter.attachView(this);
-
-        if (getIntent().getBooleanExtra(EXTRA_TRIGGER_SYNC_FLAG, true)) {
-            startService(SyncService.getStartIntent(this));
-        }
-
-        if (NetworkUtil.isNetworkConnected(this) && !AndroidComponentUtil.isServiceRunning(this, DownloadService.class)) {
-            mMainPresenter.loadVersionCheck();
-        }
-
+    if (NetworkUtil.isNetworkConnected(this) && !AndroidComponentUtil.isServiceRunning(this,
+        DownloadService.class)) {
+      mMainPresenter.loadVersionCheck();
     }
+  }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
+  @Override protected void onResume() {
+    super.onResume();
+    BusProvider.getInstance().register(this);
+  }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+  @Override protected void onPause() {
+    super.onPause();
+    BusProvider.getInstance().unregister(this);
+  }
 
-        mMainPresenter.detachView();
-    }
+  @Override protected void onDestroy() {
+    super.onDestroy();
 
-    /*****
-     * MVP View methods implementation
-     *****/
-    @Override
-    public void showError() {
-        DialogFactory.createGenericErrorDialog(this, getString(R.string.error_loading_ribots)).show();
-    }
+    mMainPresenter.detachView();
+  }
 
-    @Override
-    public void showRibots(List<Ribot> ribots) {
+  /*****
+   * MVP View methods implementation
+   *****/
+  @Override public void showError() {
+    DialogFactory.createGenericErrorDialog(this, getString(R.string.error_loading_ribots)).show();
+  }
 
-    }
+  @Override public void showRibots(List<Ribot> ribots) {
 
-    @Override
-    public void showRibotsEmpty() {
+  }
 
-    }
+  @Override public void showRibotsEmpty() {
 
-    @Override
-    public void upData(final String apkUrl) {
+  }
 
-        DialogFactory.createSimpleDialog(this, R.string.newUpdateAvailable,
-                R.string.newUpdateAvailable, R.string.updata_now, R.string.updata_next,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+  @Override public void upData(final String apkUrl) {
 
-                        Intent intent = new Intent(MainActivity.this, DownloadService.class);
-                        intent.putExtra(Constants.APK_DOWNLOAD_URL, apkUrl);
-                        MainActivity.this.startService(intent);
-                    }
-                }, null).show();
-    }
+    DialogFactory.createSimpleDialog(this, R.string.newUpdateAvailable, R.string.newUpdateAvailable,
+        R.string.updata_now, R.string.updata_next, new DialogInterface.OnClickListener() {
+          @Override public void onClick(DialogInterface dialog, int which) {
+
+            Intent intent = new Intent(MainActivity.this, DownloadService.class);
+            intent.putExtra(Constants.APK_DOWNLOAD_URL, apkUrl);
+            MainActivity.this.startService(intent);
+          }
+        }, null).show();
+  }
+
+  @Subscribe public void subscribeUpdata(EventUpdata data) {
+    upData(data.getSourceUrl());
+  }
 }

@@ -10,6 +10,8 @@ import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.widget.NumberPicker;
 import com.aishang.app.R;
+import com.happiness.alterview.AlertView;
+import com.happiness.alterview.OnItemClickListener;
 import java.util.Calendar;
 
 public final class DialogFactory {
@@ -121,6 +123,11 @@ public final class DialogFactory {
           }
         });
     return alertDialog.create();
+  }
+
+  public static final AlertView createIosSheetAlertDialog(Activity ctx, String[] sheet,
+      OnItemClickListener callback) {
+    return new AlertView("", null, "取消", null, sheet, ctx, AlertView.Style.ActionSheet, callback);
   }
 
   //

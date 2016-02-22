@@ -1,3 +1,4 @@
-include ':app', ':pullzoomview', ':PersistentSearchLibrary', ':MaterialEditTextlibrary', ':mobsharesdk',
-    ':alterview', ':pickerview', ':xrecyclerview', ':RecyclerViewPager'
+include ':app', ':pullzoomview', ':PersistentSearchLibrary', ':MaterialEditTextlibrary',
+    ':mobsharesdk',
+    ':alterview', ':pickerview', ':xrecyclerview', ':RecyclerViewPager', ':ucrop'
 include ':ViewPagerIndicator_Library'

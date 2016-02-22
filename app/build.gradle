@@ -124,6 +124,8 @@ dependencies {
   compile project(':xrecyclerview')
   compile project(':RecyclerViewPager')
   compile project(':mobsharesdk')
+  compile project(':alterview')
+  compile project(':ucrop')
   //compile project(':pickerview')
   // Instrumentation test dependencies
   androidTestCompile jUnit

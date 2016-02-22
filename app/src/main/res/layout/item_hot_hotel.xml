@@ -9,6 +9,7 @@
       android:id="@+id/img_hot_hotel"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:scaleType="centerCrop"
       android:adjustViewBounds="true"
       android:src="@mipmap/banner"/>
 

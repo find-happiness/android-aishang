@@ -1,15 +1,18 @@
 package com.aishang.app.ui.main.main;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,6 +26,7 @@ import com.aishang.app.ui.main.MainActivity;
 
 import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.Constants;
+import com.aishang.app.util.ViewUtil;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,9 +46,20 @@ import butterknife.ButterKnife;
 
   private List<JHotelListResult.Hotel> hotHotels;
 
-  @Inject public HotHotelAdapter(Context activity) {
+  int[] imgSize = new int[2];
+
+  @Inject public HotHotelAdapter(Activity activity) {
     this.activity = activity;
     hotHotels = new ArrayList<>();
+
+    DisplayMetrics localDisplayMetrics = new DisplayMetrics();
+    activity.getWindowManager().getDefaultDisplay().getMetrics(localDisplayMetrics);
+    int mScreenWidth = localDisplayMetrics.widthPixels;
+    int pacing = ViewUtil.dpToPx(8);
+    int width = (mScreenWidth - 2 * pacing - ViewUtil.dpToPx(4)) / 2;
+
+    imgSize[0] = width;
+    imgSize[1] = width * 9 / 16;
   }
 
   public void setHotels(List<JHotelListResult.Hotel> hotels) {
@@ -86,24 +101,7 @@ import butterknife.ButterKnife;
     holder.tese.setText(hotel.getPromotionText());
     holder.price.setText(hotel.getPriceText());
 
-    holder.imgHotel.getViewTreeObserver()
-        .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-          @SuppressLint("NewApi") @Override public void onGlobalLayout() {
-            int height = holder.imgHotel.getMeasuredHeight();
-
-            if (height != 0) {
-              holder.imgHotel.setLayoutParams(new android.widget.RelativeLayout.LayoutParams(
-                  RelativeLayout.LayoutParams.MATCH_PARENT,
-                  RelativeLayout.LayoutParams.WRAP_CONTENT));
-
-              if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
-                holder.imgHotel.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-              } else {
-                holder.imgHotel.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-              }
-            }
-          }
-        });
+    holder.imgHotel.setLayoutParams(new RelativeLayout.LayoutParams(imgSize[0], imgSize[1]));
     convertView.setTag(holder);
 
     convertView.setOnClickListener(new View.OnClickListener() {

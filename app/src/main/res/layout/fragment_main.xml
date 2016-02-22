@@ -36,8 +36,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="@dimen/spacing_large"
+            android:layout_marginRight="@dimen/spacing_large"
             android:orientation="horizontal">
 
           <com.aishang.app.widget.ImgWithText
@@ -148,7 +148,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp">
+            android:layout_margin="@dimen/spacing_medium">
 
           <TextView
               android:layout_width="wrap_content"
@@ -202,7 +202,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp">
+            android:layout_margin="@dimen/spacing_medium">
 
           <TextView
               android:layout_width="wrap_content"
@@ -232,7 +232,7 @@
               android:paddingLeft="10dp"
               android:paddingRight="10dp"
               android:stretchMode="columnWidth"
-              android:verticalSpacing="5dp">
+              android:verticalSpacing="@dimen/spacing_small">
           </com.aishang.app.widget.NonScrollGridView>
 
           <com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView
@@ -259,7 +259,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp">
+            android:layout_margin="@dimen/spacing_medium">
 
           <TextView
               android:layout_width="wrap_content"

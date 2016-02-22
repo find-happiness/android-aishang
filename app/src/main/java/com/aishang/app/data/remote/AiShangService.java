@@ -141,6 +141,10 @@ public interface AiShangService {
   Observable<JResult> syncSubscription(@Query(value = "v") int version,
       @Query(value = "q") String q);
 
+  @Headers("connection:Keep-Alive") @GET("mobile/member/passwordChange.ashx")
+  Observable<JResult> syncPasswordChange(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
   @GET("ribots") Observable<List<Ribot>> getRibots();
 
   /******** Helper class that sets up a new services *******/

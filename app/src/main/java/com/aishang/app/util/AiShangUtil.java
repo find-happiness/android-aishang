@@ -21,6 +21,7 @@ import com.aishang.app.data.model.JMreActivityListParam;
 import com.aishang.app.data.model.JMyBusinessBuyInListParam;
 import com.aishang.app.data.model.JMyVacationApplyListParams;
 import com.aishang.app.data.model.JNewsListParams;
+import com.aishang.app.data.model.JPasswordChangeParams;
 import com.aishang.app.data.model.JProjecCtooperationParam;
 import com.aishang.app.data.model.JProjectChangeParam;
 import com.aishang.app.data.model.JRentalListParam;
@@ -490,6 +491,19 @@ public class AiShangUtil {
     param.setZoneIText(zoneIText);
 
     return gson.toJson(param);
+  }
+
+  public static String generChangePwdParams(String oldPwd, String newPwd, String member,
+      String cookie) {
+    JPasswordChangeParams params = new JPasswordChangeParams();
+    params.setCookies(cookie);
+    params.setMemberAccount(member);
+    params.setGoogleLat(0);
+    params.setGoogleLnt(0);
+    params.setImei("");
+    params.setNewPassword(newPwd);
+    params.setOldPassword(oldPwd);
+    return gson.toJson(params);
   }
 
   public static boolean checkMemberLogin(Activity ctx) {

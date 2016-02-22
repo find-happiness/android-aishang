@@ -3,14 +3,11 @@ package com.aishang.app.ui.MemberCenter;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.view.ActionMode;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -18,14 +15,18 @@ import android.widget.RelativeLayout;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.aishang.app.BoilerplateApplication;
 import com.aishang.app.R;
+import com.aishang.app.data.model.JMemberLoginResult;
+import com.aishang.app.data.remote.AiShangService;
+import com.aishang.app.ui.ChangePassword.ChangePasswordActivity;
 import com.aishang.app.ui.base.BaseActivity;
+import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.DialogFactory;
 import com.foamtrace.photopicker.PhotoPickerActivity;
 import com.foamtrace.photopicker.SelectModel;
 import com.foamtrace.photopicker.intent.PhotoPickerIntent;
 import com.happiness.alterview.OnItemClickListener;
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.yalantis.ucrop.UCrop;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -40,10 +41,10 @@ public class MemberCenterActivity extends BaseActivity {
   private static final String TAG = "MemberCenterActivity";
   @Bind(R.id.toolbar) Toolbar toolbar;
   @Bind(R.id.profile_image) CircleImageView profileImage;
+  @Bind(R.id.layoutRoot) RelativeLayout layoutRoot;
   private Bitmap mPhoto;
   private String mCurrentPhotoPath;
-
-  private static final String SAMPLE_CROPPED_IMAGE_NAME = "head_img.jpeg";;
+  ;
 
   private Uri mDestinationUri;
 
@@ -51,10 +52,11 @@ public class MemberCenterActivity extends BaseActivity {
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.activity_member_center);
-    mDestinationUri = Uri.fromFile(new File(getCacheDir(), SAMPLE_CROPPED_IMAGE_NAME));
     ButterKnife.bind(this);
 
     initToolbar();
+
+    bindDataToView();
   }
 
   private void initToolbar() {
@@ -66,6 +68,16 @@ public class MemberCenterActivity extends BaseActivity {
         onBackPressed();
       }
     });
+  }
+
+  private void bindDataToView() {
+    JMemberLoginResult result = BoilerplateApplication.get(this).getMemberLoginResult();
+
+    Picasso.with(this)
+        .load(AiShangService.IMG_URL + result.getData().getImageUrl())
+        .error(R.mipmap.ic_img_user_default)
+        .placeholder(R.mipmap.ic_img_user_default)
+        .into(profileImage);
   }
 
   @OnClick(R.id.rl_head_img) void onClickRlHeadImg() {
@@ -93,6 +105,11 @@ public class MemberCenterActivity extends BaseActivity {
         }).show();
   }
 
+  @OnClick(R.id.rl_change_pwd) void onClickChangePwd() {
+    Intent intent = new Intent(this, ChangePasswordActivity.class);
+    this.startActivity(intent);
+  }
+
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
     if (resultCode == RESULT_OK) {
@@ -109,11 +126,12 @@ public class MemberCenterActivity extends BaseActivity {
           break;
         case UCrop.REQUEST_CROP:
           final Uri resultUri = UCrop.getOutput(data);
-
+          Picasso.with(this).load(resultUri).into(profileImage);
           break;
       }
-    }else if(resultCode == UCrop.RESULT_ERROR){
+    } else if (resultCode == UCrop.RESULT_ERROR) {
 
+      CommonUtil.showSnackbar("裁切图片失败", layoutRoot);
     }
   }
 
@@ -123,20 +141,21 @@ public class MemberCenterActivity extends BaseActivity {
 
     options.setMaxScaleMultiplier(5);
     options.setImageToCropBoundsAnimDuration(666);
-    options.setDimmedLayerColor(Color.CYAN);
+    options.setDimmedLayerColor(Color.WHITE);
     options.setOvalDimmedLayer(true);
     options.setShowCropFrame(false);
-    options.setCropGridStrokeWidth(20);
-    options.setCropGridColor(Color.GREEN);
+    options.setCropGridStrokeWidth(5);
+    options.setCropGridColor(Color.WHITE);
     options.setCropGridColumnCount(2);
-    options.setCropGridRowCount(1);
+    options.setCropGridRowCount(2);
 
     // Color palette
     options.setToolbarColor(ContextCompat.getColor(this, R.color.primary));
     options.setStatusBarColor(ContextCompat.getColor(this, R.color.primary));
     options.setActiveWidgetColor(ContextCompat.getColor(this, R.color.primary));
     options.setToolbarTitleTextColor(ContextCompat.getColor(this, android.R.color.white));
-
+    mDestinationUri = Uri.fromFile(new File(getCacheDir(),
+        new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()) + "crop_.jpg"));
     UCrop.of(uri, mDestinationUri)
         .withAspectRatio(1, 1)
         .withMaxResultSize(320, 320)

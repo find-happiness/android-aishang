@@ -194,6 +194,10 @@ import com.aishang.app.util.EventPosterHelper;
     return mAiShangService.syncSubscription(version, json);
   }
 
+  public Observable<JResult> syncPasswordChange(int version, String json) {
+    return mAiShangService.syncPasswordChange(version, json);
+  }
+
   public JVersionCheckResult getVersionCheck() {
     String json = mPreferencesHelper.getVersionCheck();
 

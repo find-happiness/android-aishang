@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary"
+    android:id="@+id/layoutRoot"
     android:paddingTop="@dimen/padding_stutas_bar"
     tools:context="com.aishang.app.ui.MemberCenter.MemberCenterActivity">
 
@@ -346,6 +347,7 @@
           android:background="@color/gray"/>
 
       <RelativeLayout
+          android:id="@+id/rl_change_pwd"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_gravity="center_horizontal"
@@ -360,7 +362,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:textSize="@dimen/text_body"
-            tools:text="@string/change_pwd"/>
+            android:text="@string/change_pwd"/>
 
         <ImageView
             android:id="@id/jian_tou"

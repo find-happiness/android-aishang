@@ -5,6 +5,7 @@ import com.aishang.app.ui.BuyLouPan.BuyLouPanActivity;
 import com.aishang.app.ui.CanTuan.CanTuanActivity;
 import com.aishang.app.ui.CashWithDrawApply.CashWithDrawApplyActivity;
 import com.aishang.app.ui.CashWithDrawApply.CashWithDrawFragment;
+import com.aishang.app.ui.ChangePassword.ChangePasswordActivity;
 import com.aishang.app.ui.ExchangeHouse.ExchangeHouseActivity;
 import com.aishang.app.ui.HotelDetail.HotelDetailActivity;
 import com.aishang.app.ui.KanFanTuan.KanFanTuanActivity;
@@ -87,4 +88,6 @@ public interface ActivityComponent {
   void inject(ExchangeHouseActivity activity);
 
   void inject(BuyLouPanActivity activity);
+
+  void inject(ChangePasswordActivity activity);
 }

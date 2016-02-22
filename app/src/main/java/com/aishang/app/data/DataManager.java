@@ -190,6 +190,10 @@ import com.aishang.app.util.EventPosterHelper;
     return mAiShangService.syncProjecCtooperation(version, json);
   }
 
+  public Observable<JResult> syncSubscription(int version, String json) {
+    return mAiShangService.syncSubscription(version, json);
+  }
+
   public JVersionCheckResult getVersionCheck() {
     String json = mPreferencesHelper.getVersionCheck();
 

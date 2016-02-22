@@ -155,11 +155,12 @@ public class CommonUtil {
     return str;
   }
 
-  public static void hideSoftInput(Context ctx) {
-    InputMethodManager imm =
-        (InputMethodManager) ctx.getSystemService(Context.INPUT_METHOD_SERVICE);
-    if (imm.isActive()) {
-      imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+  public static void hideSoftInput(Activity ctx) {
+    View view = ctx.getCurrentFocus();
+    if (view != null) {
+      InputMethodManager imm =
+          (InputMethodManager) ctx.getSystemService(Context.INPUT_METHOD_SERVICE);
+      imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
   }
 

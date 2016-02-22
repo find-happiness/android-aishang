@@ -137,6 +137,10 @@ public interface AiShangService {
   @Headers("Content-Type:application/json") @Multipart @POST("mobile/projecCtooperation.ashx")
   Observable<JResult> syncProjecCtooperation(@Part("v") int version, @Part("q") String q);
 
+  @Headers("connection:Keep-Alive") @GET("mobile/subscription.ashx")
+  Observable<JResult> syncSubscription(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
   @GET("ribots") Observable<List<Ribot>> getRibots();
 
   /******** Helper class that sets up a new services *******/

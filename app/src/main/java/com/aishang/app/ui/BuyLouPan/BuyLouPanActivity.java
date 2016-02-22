@@ -1,11 +1,13 @@
 package com.aishang.app.ui.BuyLouPan;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -19,17 +21,21 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JLoupanProductDetailResult;
+import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.ui.base.BaseActivity;
+import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.DialogFactory;
 import com.aishang.app.util.NetImageHolderView;
+import com.aishang.app.util.RegexUtils;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import javax.inject.Inject;
 
-public class BuyLouPanActivity extends BaseActivity {
+public class BuyLouPanActivity extends BaseActivity implements BuyLoupanMvpView {
 
   private static final String LOUPAN = "loupan";
 
@@ -41,8 +47,12 @@ public class BuyLouPanActivity extends BaseActivity {
   @Bind(R.id.et_address) EditText etAddress;
   @Bind(R.id.date) TextView date;
   @Bind(R.id.et_yuyu_address) EditText etYuyuAddress;
-  @Bind(R.id.submint) Button submint;
+
   @Bind(R.id.layoutRoot) RelativeLayout layoutRoot;
+
+  @Inject BuyLoupanPresenter presenter;
+
+  ProgressDialog progressDialog;
 
   private JLoupanProductDetailResult loupan;
 
@@ -54,6 +64,9 @@ public class BuyLouPanActivity extends BaseActivity {
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    this.getActivityComponent().inject(this);
+    presenter.attachView(this);
+
     setContentView(R.layout.activity_buy_lou_pan);
     ButterKnife.bind(this);
     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
@@ -69,6 +82,35 @@ public class BuyLouPanActivity extends BaseActivity {
     initBanner();
   }
 
+  @OnClick(R.id.submint) void onClickSubmit() {
+
+    CommonUtil.hideSoftInput(this);
+
+    if (loupan == null) {
+      showError("没有获取到楼盘数据，请稍后再试！");
+      return;
+    }
+
+    if (isNameEmpty()) {
+      showError("联系人姓名不能为空！");
+      return;
+    }
+
+    if (isPhoneEmpty() || !isPhone()) {
+      showError(this.getString(R.string.error_phone));
+      return;
+    }
+
+    if (isAddressEmpty()) {
+      showError("联系人住址不能为空！");
+      return;
+    }
+
+    progressDialog = DialogFactory.createProgressDialog(this, R.string.posting);
+    progressDialog.show();
+    post();
+  }
+
   private void initToolbar() {
     toolbar.setTitle("");
     this.setSupportActionBar(toolbar);
@@ -78,6 +120,44 @@ public class BuyLouPanActivity extends BaseActivity {
         onBackPressed();
       }
     });
+  }
+
+  private boolean isNameEmpty() {
+    return TextUtils.isEmpty(etName.getText());
+  }
+
+  private boolean isPhoneEmpty() {
+    return TextUtils.isEmpty(phone.getText());
+  }
+
+  private boolean isAddressEmpty() {
+    return TextUtils.isEmpty(etAddress.getText());
+  }
+
+  private boolean isPhone() {
+    return RegexUtils.checkMobile(phone.getText().toString().trim());
+  }
+
+  private void post() {
+
+    //var strJson = "{ rentalID:" + loupanId + ", name:'" + guestName + "', phone:'" + guestPhone + "', address:'" + guestAddress + "',negotiationTime:'" + negotiationTime + "',  zoneIDLevel2:'" + province + "',  zoneIDLevel3:'" + city + "',zoneIDLevel4:'" + area + "',  zoneIText:'" + zoneIText + "'}"
+
+    Object objDate = date.getTag();
+    String dateTime = "";
+    if (objDate != null) {
+      dateTime = (String) objDate;
+    }
+
+    String json = AiShangUtil.generSubscriptionParam(loupan.getDataSet().getLoupanProductID() + "",
+        etName.getText().toString().trim(), phone.getText().toString().trim(),
+        etAddress.getText().toString().trim(), dateTime, "", "", "",
+        etYuyuAddress.getText().toString().trim());
+
+    presenter.postData(0, json);
+  }
+
+  private void dismissDialog() {
+    if (progressDialog != null && progressDialog.isShowing()) progressDialog.dismiss();
   }
 
   private void initBanner() {
@@ -96,6 +176,7 @@ public class BuyLouPanActivity extends BaseActivity {
           @Override
           public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             date.setText(year + "年" + monthOfYear + "月" + dayOfMonth + "日");
+            date.setTag(year + "-" + monthOfYear + "-" + dayOfMonth);
           }
         }).show();
   }
@@ -120,5 +201,15 @@ public class BuyLouPanActivity extends BaseActivity {
     //        convenientBanner.setManualPageable(false);//设置不能手动影响
 
     //title.setText(itemTitle);
+  }
+
+  @Override public void showError(String error) {
+    dismissDialog();
+
+    CommonUtil.showSnackbar(error, layoutRoot);
+  }
+
+  @Override public void showSuccess() {
+    dismissDialog();
   }
 }

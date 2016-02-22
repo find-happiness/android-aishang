@@ -24,6 +24,7 @@ import com.aishang.app.data.model.JNewsListParams;
 import com.aishang.app.data.model.JProjecCtooperationParam;
 import com.aishang.app.data.model.JProjectChangeParam;
 import com.aishang.app.data.model.JRentalListParam;
+import com.aishang.app.data.model.JSubscriptionParam;
 import com.aishang.app.data.model.JSysZoneParam;
 import com.aishang.app.data.remote.AiShangService;
 import com.google.gson.Gson;
@@ -469,6 +470,24 @@ public class AiShangUtil {
     param.setContactsMobile(contactsMobile);
     param.setEmail(Email);
     param.setImg(Img);
+
+    return gson.toJson(param);
+  }
+
+  public static String generSubscriptionParam(String rentalID, String name, String phone,
+      String address, String negotiationTime, String zoneIDLevel2, String zoneIDLevel3,
+      String zoneIDLevel4, String zoneIText) {
+
+    JSubscriptionParam param = new JSubscriptionParam();
+    param.setAddress(address);
+    param.setName(name);
+    param.setRentalID(rentalID);
+    param.setPhone(phone);
+    param.setNegotiationTime(negotiationTime);
+    param.setZoneIDLevel2(zoneIDLevel2);
+    param.setZoneIDLevel3(zoneIDLevel3);
+    param.setZoneIDLevel4(zoneIDLevel4);
+    param.setZoneIText(zoneIText);
 
     return gson.toJson(param);
   }

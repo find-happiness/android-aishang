@@ -36,6 +36,7 @@ import com.aishang.app.data.model.JMemberProfileResult;
 import com.aishang.app.data.model.JUploadFileParam;
 import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.ui.ChangePassword.ChangePasswordActivity;
+import com.aishang.app.ui.bank.BankListActivity;
 import com.aishang.app.ui.base.BaseActivity;
 import com.aishang.app.ui.edit.EditActivity;
 import com.aishang.app.util.AiShangUtil;
@@ -287,6 +288,8 @@ public class MemberCenterActivity extends BaseActivity
   }
 
   @OnClick(R.id.rl_bank) void onclickBank() {
+    Intent intent = new Intent(this, BankListActivity.class);
+    this.startActivity(intent);
   }
 
   @OnClick(R.id.rl_email) void onclickEmail() {

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingLeft="@dimen/spacing_medium"
+    android:paddingTop="10dp"
+    >
+
+
+  <TextView
+      android:id="@+id/bankName"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/spacing_small"
+      android:text="招商银行"
+      android:textSize="@dimen/text_title"
+      />
+
+  <TextView
+      android:id="@+id/holder"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/spacing_small"
+      android:text="招商银行"
+      android:textSize="@dimen/text_body"
+      />
+
+  <TextView
+      android:id="@+id/accountNumber"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/spacing_small"
+      android:text="12315464632113154"
+      android:textSize="@dimen/text_body"
+      />
+
+  <TextView
+      android:id="@+id/type"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="信用卡"
+      android:textSize="@dimen/text_body"
+      />
+
+</LinearLayout>

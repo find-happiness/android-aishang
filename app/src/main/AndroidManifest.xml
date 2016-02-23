@@ -67,7 +67,7 @@
     <activity android:name=".ui.MyHouse.MyHouseActivity"/>
     <activity android:name=".ui.MyBuyAndSale.BuyAndSaleActivity"/>
     <activity android:name=".ui.ChangePassword.ChangePasswordActivity"/>
-    <activity android:name=".ui.bank.bankActivity"/>
+    <activity android:name=".ui.bank.BankListActivity"/>
     <activity android:name=".ui.TravelFavorites.TravelFavoritesActivity"/>
     <activity android:name=".ui.AccountCenter.AccountCenterActivity"/>
     <activity android:name=".ui.edit.EditActivity"/>
@@ -117,7 +117,8 @@
         android:name="com.yalantis.ucrop.UCropActivity"
         android:screenOrientation="portrait"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-
+    <activity android:name=".ui.BankAdd.BankAddActivity">
+    </activity>
   </application>
 
 </manifest>

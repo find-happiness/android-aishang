@@ -8,6 +8,7 @@ import com.aishang.app.data.model.JLoupanPriceCatListResult;
 import com.aishang.app.data.model.JLoupanProductCatListResult;
 import com.aishang.app.data.model.JLoupanProductDetailResult;
 import com.aishang.app.data.model.JLoupanProductListResult;
+import com.aishang.app.data.model.JMemberBankListResult;
 import com.aishang.app.data.model.JMemberImgEditResult;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JMemberProfileEditResult;
@@ -164,6 +165,14 @@ public interface AiShangService {
 
   @Multipart @Headers("connection:Keep-Alive") @POST("mobile/member/memberImgEdit.ashx")
   Observable<JMemberImgEditResult> syncUploadMemberImg(@PartMap() Map<String, RequestBody> body);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/member/memberBankList.ashx")
+  Observable<JMemberBankListResult> syncBankList(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/member/memberBankEdit.ashx")
+  Observable<JMemberBankListResult> syncBankEdit(@Query(value = "v") int version,
+      @Query(value = "q") String q);
 
   @GET("ribots") Observable<List<Ribot>> getRibots();
 

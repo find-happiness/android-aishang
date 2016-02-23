@@ -9,6 +9,7 @@ import com.aishang.app.data.model.JLoupanPriceCatListResult;
 import com.aishang.app.data.model.JLoupanProductCatListResult;
 import com.aishang.app.data.model.JLoupanProductDetailResult;
 import com.aishang.app.data.model.JLoupanProductListResult;
+import com.aishang.app.data.model.JMemberBankListResult;
 import com.aishang.app.data.model.JMemberImgEditResult;
 import com.aishang.app.data.model.JMemberProfileEditResult;
 import com.aishang.app.data.model.JMemberProfileResult;
@@ -217,6 +218,14 @@ import com.aishang.app.util.EventPosterHelper;
 
   public Observable<JMemberImgEditResult> syncUploadMemberImg(Map<String, RequestBody> body) {
     return mAiShangService.syncUploadMemberImg(body);
+  }
+
+  public Observable<JMemberBankListResult> syncBankList(int version, String json) {
+    return mAiShangService.syncBankList(version, json);
+  }
+
+  public Observable<JMemberBankListResult> syncBankEdit(int version, String json) {
+    return mAiShangService.syncBankEdit(version, json);
   }
 
   public JVersionCheckResult getVersionCheck() {

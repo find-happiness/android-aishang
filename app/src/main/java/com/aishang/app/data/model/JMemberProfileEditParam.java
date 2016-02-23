@@ -1,16 +1,57 @@
 package com.aishang.app.data.model;
 
-public class JMemberProfileResult {
+public class JMemberProfileEditParam {
+  // memberAccout:string,
+  // cookie:string,
+  // imei:string,
+  // googleLat:float,
+  // googleLng:float,
 
-  private String result;
+  private String memberAccount;
+  private String cookie;
+  private String imei;
+  private float googleLat;
+  private float googleLng;
   private Data data;
 
-  public String getResult() {
-    return result;
+  public String getMemberAccount() {
+    return memberAccount;
   }
 
-  public void setResult(String result) {
-    this.result = result;
+  public void setMemberAccount(String memberAccount) {
+    this.memberAccount = memberAccount;
+  }
+
+  public String getCookie() {
+    return cookie;
+  }
+
+  public void setCookie(String cookie) {
+    this.cookie = cookie;
+  }
+
+  public String getImei() {
+    return imei;
+  }
+
+  public void setImei(String imei) {
+    this.imei = imei;
+  }
+
+  public float getGoogleLat() {
+    return googleLat;
+  }
+
+  public void setGoogleLat(float googleLat) {
+    this.googleLat = googleLat;
+  }
+
+  public float getGoogleLng() {
+    return googleLng;
+  }
+
+  public void setGoogleLng(float googleLng) {
+    this.googleLng = googleLng;
   }
 
   public Data getData() {
@@ -22,24 +63,14 @@ public class JMemberProfileResult {
   }
 
   public class Data {
-    public String memberName;
     public String gender;
     public String imageUrl;
-    public String mobilePhone;
     public String email;
     public String certifyType;
     public String certifyID;
     public JMemberIM[] imList;
     public JMemberBankAccount[] bankAccountList;
     public JMemberAddress[] addressList;
-
-    public String getMemberName() {
-      return memberName;
-    }
-
-    public void setMemberName(String memberName) {
-      this.memberName = memberName;
-    }
 
     public String getGender() {
       return gender;
@@ -55,14 +86,6 @@ public class JMemberProfileResult {
 
     public void setImageUrl(String imageUrl) {
       this.imageUrl = imageUrl;
-    }
-
-    public String getMobilePhone() {
-      return mobilePhone;
-    }
-
-    public void setMobilePhone(String mobilePhone) {
-      this.mobilePhone = mobilePhone;
     }
 
     public String getEmail() {
@@ -113,5 +136,4 @@ public class JMemberProfileResult {
       this.addressList = addressList;
     }
   }
-
 }

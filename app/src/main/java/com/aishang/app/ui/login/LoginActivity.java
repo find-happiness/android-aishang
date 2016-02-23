@@ -48,6 +48,10 @@ public class LoginActivity extends BaseActivity
     initView();
   }
 
+  @Override protected void onDestroy() {
+    presenter.detachView();
+    super.onDestroy();
+  }
   private void initView() {
     initToolbar();
     initTabLayout();

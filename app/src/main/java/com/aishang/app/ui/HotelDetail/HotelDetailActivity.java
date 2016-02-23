@@ -101,7 +101,10 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
     initToolbar();
     proLoad();
   }
-
+  @Override protected void onDestroy() {
+    presenter.detachView();
+    super.onDestroy();
+  }
 
   @OnClick(R.id.buy) void onclickBuy() {
     if (hotel != null) {

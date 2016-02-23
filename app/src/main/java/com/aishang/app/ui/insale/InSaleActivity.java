@@ -120,8 +120,8 @@ public class InSaleActivity extends BaseActivity implements InSaleMvpView {
 
       @Override public void onLoadMore() {
         if (NetworkUtil.isNetworkConnected(InSaleActivity.this)) {
-          asynLoupanProduct(adapter.getItemCount(), selectType, selectZoneID,
-              selectPrice, filterWords, NetWorkType.loadMore);
+          asynLoupanProduct(adapter.getItemCount(), selectType, selectZoneID, selectPrice,
+              filterWords, NetWorkType.loadMore);
         } else {
           //mRecyclerView.loadMoreComplete();
           mRecyclerView.cancelLoadMore();
@@ -130,6 +130,11 @@ public class InSaleActivity extends BaseActivity implements InSaleMvpView {
       }
     });
     mRecyclerView.setAdapter(adapter);
+  }
+
+  @Override protected void onDestroy() {
+    mPersenter.detachView();
+    super.onDestroy();
   }
 
   public void openSearch() {

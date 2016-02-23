@@ -9,6 +9,8 @@ import com.aishang.app.data.model.JLoupanPriceCatListResult;
 import com.aishang.app.data.model.JLoupanProductCatListResult;
 import com.aishang.app.data.model.JLoupanProductDetailResult;
 import com.aishang.app.data.model.JLoupanProductListResult;
+import com.aishang.app.data.model.JMemberImgEditResult;
+import com.aishang.app.data.model.JMemberProfileEditResult;
 import com.aishang.app.data.model.JMemberProfileResult;
 import com.aishang.app.data.model.JMemberStatisticsResult;
 import com.aishang.app.data.model.JMreActivityDetailResult;
@@ -21,14 +23,17 @@ import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JMrePromResult;
 import com.aishang.app.data.model.JNewsListResult;
 import com.aishang.app.data.model.JSysZoneResult;
+import com.aishang.app.data.model.JUploadFileResult;
 import com.aishang.app.data.model.JVersionCheckResult;
 import com.aishang.app.data.remote.AiShangService;
 import com.google.gson.Gson;
 import java.util.List;
 
+import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import okhttp3.RequestBody;
 import rx.Observable;
 import rx.functions.Action0;
 import rx.functions.Action1;
@@ -196,6 +201,22 @@ import com.aishang.app.util.EventPosterHelper;
 
   public Observable<JResult> syncPasswordChange(int version, String json) {
     return mAiShangService.syncPasswordChange(version, json);
+  }
+
+  public Observable<JMemberProfileEditResult> syncMemberProfileEdit(int version, String json) {
+    return mAiShangService.memberProfileEdit(version, json);
+  }
+
+  public Observable<JMemberProfileEditResult> syncMemberProfileBasicEdit(int version, String json) {
+    return mAiShangService.memberProfileBasicEdit(version, json);
+  }
+
+  public Observable<JUploadFileResult> syncFileUpload(Map<String, RequestBody> body) {
+    return mAiShangService.uploadFile(body);
+  }
+
+  public Observable<JMemberImgEditResult> syncUploadMemberImg(Map<String, RequestBody> body) {
+    return mAiShangService.syncUploadMemberImg(body);
   }
 
   public JVersionCheckResult getVersionCheck() {

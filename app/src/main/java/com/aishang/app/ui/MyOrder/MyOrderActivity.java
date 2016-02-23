@@ -44,7 +44,10 @@ public class MyOrderActivity extends BaseActivity implements MyOrderMvpView {
     initRefreshLayout();
     proLoad();
   }
-
+  @Override protected void onDestroy() {
+    presenter.detachView();
+    super.onDestroy();
+  }
   private void initToolbar() {
     toolbar.setTitle("");
     this.setSupportActionBar(toolbar);

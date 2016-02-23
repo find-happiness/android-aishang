@@ -8,7 +8,9 @@ import com.aishang.app.data.model.JLoupanPriceCatListResult;
 import com.aishang.app.data.model.JLoupanProductCatListResult;
 import com.aishang.app.data.model.JLoupanProductDetailResult;
 import com.aishang.app.data.model.JLoupanProductListResult;
+import com.aishang.app.data.model.JMemberImgEditResult;
 import com.aishang.app.data.model.JMemberLoginResult;
+import com.aishang.app.data.model.JMemberProfileEditResult;
 import com.aishang.app.data.model.JMemberProfileResult;
 import com.aishang.app.data.model.JMemberStatisticsResult;
 import com.aishang.app.data.model.JMreActivityDetailResult;
@@ -20,12 +22,15 @@ import com.aishang.app.data.model.JNewsListResult;
 import com.aishang.app.data.model.JRentalListResult;
 import com.aishang.app.data.model.JResult;
 import com.aishang.app.data.model.JSysZoneResult;
+import com.aishang.app.data.model.JUploadFileResult;
 import com.aishang.app.data.model.JVersionCheckResult;
 import com.aishang.app.data.model.Ribot;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.List;
+import java.util.Map;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.GsonConverterFactory;
 import retrofit2.Retrofit;
@@ -35,6 +40,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -144,6 +150,20 @@ public interface AiShangService {
   @Headers("connection:Keep-Alive") @GET("mobile/member/passwordChange.ashx")
   Observable<JResult> syncPasswordChange(@Query(value = "v") int version,
       @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/member/memberProfileBasicEdit.ashx")
+  Observable<JMemberProfileEditResult> memberProfileBasicEdit(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/member/memberProfileBasicEdit.ashx")
+  Observable<JMemberProfileEditResult> memberProfileEdit(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
+  @Multipart @Headers("connection:Keep-Alive") @POST("mobile/uploadFile.ashx")
+  Observable<JUploadFileResult> uploadFile(@PartMap() Map<String, RequestBody> body);
+
+  @Multipart @Headers("connection:Keep-Alive") @POST("mobile/member/memberImgEdit.ashx")
+  Observable<JMemberImgEditResult> syncUploadMemberImg(@PartMap() Map<String, RequestBody> body);
 
   @GET("ribots") Observable<List<Ribot>> getRibots();
 

@@ -79,7 +79,10 @@ public class CashWithDrawFragment extends LazyFragment implements CashWithDrawAp
       mParam2 = getArguments().getString(ARG_PARAM2);
     }
   }
-
+  @Override public void onDestroy() {
+    presenter.detachView();
+    super.onDestroy();
+  }
   @Override protected void onResumeLazy() {
     super.onResumeLazy();
     BusProvider.getInstance().register(this);

@@ -1,6 +1,7 @@
 package com.aishang.app.ui.ChangePassword;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -15,9 +16,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.aishang.app.BoilerplateApplication;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JMemberLoginResult;
+import com.aishang.app.ui.ForgetPossword.ForgetPosswordActivity;
 import com.aishang.app.ui.base.BaseActivity;
 import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
@@ -48,7 +51,10 @@ public class ChangePasswordActivity extends BaseActivity implements ChangePswMvp
     ButterKnife.bind(this);
     initToolbar();
   }
-
+  @Override protected void onDestroy() {
+    presenter.detachView();
+    super.onDestroy();
+  }
   private void initToolbar() {
     toolbar.setTitle("");
     this.setSupportActionBar(toolbar);
@@ -80,12 +86,21 @@ public class ChangePasswordActivity extends BaseActivity implements ChangePswMvp
     CommonUtil.hideSoftInput(this);
   }
 
+  @OnClick(R.id.btn_forget) void onClickForget() {
+
+    Intent intent = new Intent(this, ForgetPosswordActivity.class);
+    this.startActivity(intent);
+  }
+
   private boolean isOldPsdEmpty() {
     return TextUtils.isEmpty(old.getText().toString().trim());
   }
 
   private boolean isNewEmpty() {
-    return TextUtils.isEmpty(newPsw.getText().toString().trim());
+
+    String psd = newPsw.getText().toString().trim();
+
+    return TextUtils.isEmpty(psd) || (psd.length() < 6);
   }
 
   private boolean isAgainEmpty() {
@@ -130,10 +145,10 @@ public class ChangePasswordActivity extends BaseActivity implements ChangePswMvp
 
       Log.i(TAG, "post: " + BoilerplateApplication.get(this).getMemberPsw());
 
-      String json =
-          AiShangUtil.generChangePwdParams(CommonUtil.getEncodeMD5(old.getText().toString()),
-              CommonUtil.getEncodeMD5(newPsw.getText().toString()),
-              BoilerplateApplication.get(this).getMemberAccount(), result.getData().getCookies());
+      String json = AiShangUtil.generChangePwdParams(
+          CommonUtil.getEncodeMD5(old.getText().toString()).toUpperCase(),
+          CommonUtil.getEncodeMD5(newPsw.getText().toString()).toUpperCase(),
+          BoilerplateApplication.get(this).getMemberAccount(), result.getData().getCookies());
 
       presenter.postData(0, json);
     } else {
@@ -143,7 +158,14 @@ public class ChangePasswordActivity extends BaseActivity implements ChangePswMvp
 
   @Override public void showError(String error) {
     dimissDialog();
-    CommonUtil.showSnackbar(error, layoutRoot);
+
+    if (error.equals("oldPasswordError")) {
+      CommonUtil.showSnackbar("旧密码输入错误！", layoutRoot);
+    } else if (error.equals("userNotLoginOrTimeOut")) {
+      CommonUtil.showSnackbar("用户未登录或会话过期！", layoutRoot);
+    } else {
+      CommonUtil.showSnackbar(error, layoutRoot);
+    }
   }
 
   @Override public void showSuccess() {

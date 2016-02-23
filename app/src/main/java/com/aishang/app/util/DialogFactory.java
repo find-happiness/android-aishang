@@ -125,9 +125,9 @@ public final class DialogFactory {
     return alertDialog.create();
   }
 
-  public static final AlertView createIosSheetAlertDialog(Activity ctx, String[] sheet,
+  public static final AlertView createIosSheetAlertDialog(Activity ctx,String title, String[] sheet,
       OnItemClickListener callback) {
-    return new AlertView("", null, "取消", null, sheet, ctx, AlertView.Style.ActionSheet, callback);
+    return new AlertView(title, null, "取消", null, sheet, ctx, AlertView.Style.ActionSheet, callback);
   }
 
   //

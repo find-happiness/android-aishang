@@ -10,6 +10,7 @@ import com.aishang.app.ui.ExchangeHouse.ExchangeHouseActivity;
 import com.aishang.app.ui.HotelDetail.HotelDetailActivity;
 import com.aishang.app.ui.KanFanTuan.KanFanTuanActivity;
 import com.aishang.app.ui.KanFangTuanDetail.KanFangTuanDetailActivity;
+import com.aishang.app.ui.MemberCenter.MemberCenterActivity;
 import com.aishang.app.ui.MyBuyAndSale.RentFragment;
 import com.aishang.app.ui.MyBuyAndSale.SaleFragment;
 import com.aishang.app.ui.MyHouse.MyHouseActivity;
@@ -90,4 +91,6 @@ public interface ActivityComponent {
   void inject(BuyLouPanActivity activity);
 
   void inject(ChangePasswordActivity activity);
+
+  void inject(MemberCenterActivity activity);
 }

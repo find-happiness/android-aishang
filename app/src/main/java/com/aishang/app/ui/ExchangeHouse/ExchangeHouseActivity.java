@@ -87,7 +87,10 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
     initToolbar();
     expandTextView.setText(this.getString(R.string.holiday_house_rule));
   }
-
+  @Override protected void onDestroy() {
+    presenter.detachView();
+    super.onDestroy();
+  }
   @OnClick(R.id.start_time) void onClickStartTime() {
     Calendar cal = Calendar.getInstance();
     cal.setTimeInMillis(System.currentTimeMillis() + 86400000L);

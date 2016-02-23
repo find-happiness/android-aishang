@@ -32,7 +32,10 @@ public class RegisterActivity extends BaseActivity implements RegisterMvpView {
     ButterKnife.bind(this);
     initView();
   }
-
+  @Override protected void onDestroy() {
+    mPresenter.detachView();
+    super.onDestroy();
+  }
   private void initView() {
     initToolbar();
   }

@@ -52,7 +52,10 @@ public class BrokerCenterActivity extends BaseActivity implements BrokerCenterMv
     initRefreshLayout();
     proLoad();
   }
-
+  @Override protected void onDestroy() {
+    presenter.detachView();
+    super.onDestroy();
+  }
   private void initToolbar() {
     toolbar.setTitle("");
     this.setSupportActionBar(toolbar);

@@ -54,7 +54,10 @@ public class ProjectJointActivity extends BaseActivity implements ProjectJoinMvp
 
     expandTextView.setText(this.getString(R.string.project_rule));
   }
-
+  @Override protected void onDestroy() {
+    presenter.detachView();
+    super.onDestroy();
+  }
   private void initToolbar() {
     toolbar.setTitle("");
     this.setSupportActionBar(toolbar);

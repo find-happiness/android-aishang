@@ -87,6 +87,11 @@ public class KanFangTuanDetailActivity extends BaseActivity implements KanFangTu
     setGalleryImg();
   }
 
+  @Override protected void onDestroy() {
+    presenter.detachView();
+    super.onDestroy();
+  }
+
   @Override public void showError(String error) {
 
   }

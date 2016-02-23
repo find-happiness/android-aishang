@@ -130,6 +130,11 @@ public class InSaleDetailActivity extends BaseActivity implements InSaleDetailMv
     }
   }
 
+  @Override protected void onDestroy() {
+    presenter.detachView();
+    super.onDestroy();
+  }
+
   @OnClick(R.id.buy) void onclickBuy() {
     if (loupan != null) {
       Intent intent = BuyLouPanActivity.getStartIntent(this, loupan);

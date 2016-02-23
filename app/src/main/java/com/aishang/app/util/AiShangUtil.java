@@ -13,8 +13,14 @@ import com.aishang.app.data.model.JHotelListParam;
 import com.aishang.app.data.model.JLoupanPriceCatListParam;
 import com.aishang.app.data.model.JLoupanProductDetailParam;
 import com.aishang.app.data.model.JLoupanProductListParam;
+import com.aishang.app.data.model.JMemberAddress;
+import com.aishang.app.data.model.JMemberBankAccount;
+import com.aishang.app.data.model.JMemberIM;
 import com.aishang.app.data.model.JMemberLoginParam;
 import com.aishang.app.data.model.JMemberLoginResult;
+import com.aishang.app.data.model.JMemberProfileBasicEditParam;
+import com.aishang.app.data.model.JMemberProfileEditParam;
+import com.aishang.app.data.model.JMemberProfileParam;
 import com.aishang.app.data.model.JMemberStatisticsParam;
 import com.aishang.app.data.model.JMreActivityEnrollParam;
 import com.aishang.app.data.model.JMreActivityListParam;
@@ -504,6 +510,37 @@ public class AiShangUtil {
     params.setNewPassword(newPwd);
     params.setOldPassword(oldPwd);
     return gson.toJson(params);
+  }
+
+  public static String generMemberProfileParam(String memberAccount, String cookies) {
+
+    JMemberProfileParam param = new JMemberProfileParam();
+    param.setMemberAccount(memberAccount);
+    param.setCookies(cookies);
+    param.setImei("");
+    param.setGoogleLat(0f);
+    param.setGoogleLng(0f);
+
+    return gson.toJson(param);
+  }
+
+  public static String generMemberProfileBasicEdit(String cookies, String memberAccount, int gender,
+      String email, String certifyType, String certifyID) {
+
+    JMemberProfileBasicEditParam p = new JMemberProfileBasicEditParam();
+
+    p.setCookie(cookies);
+    p.setGoogleLat(1.f);
+    p.setGoogleLng(1.f);
+    p.setImei("");
+    p.setMemberAccount(memberAccount);
+
+    JMemberProfileBasicEditParam.Data data = p.new Data();
+    data.setCertifyID(certifyID);
+    data.setGender(gender + "");
+    data.setCertifyType(certifyType);
+    p.setData(data);
+    return gson.toJson(p);
   }
 
   public static boolean checkMemberLogin(Activity ctx) {

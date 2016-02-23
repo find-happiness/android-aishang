@@ -2,52 +2,57 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary"
+    android:paddingTop="@dimen/padding_stutas_bar"
     tools:context="com.aishang.app.ui.MemberCenter.MemberCenterActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/primary"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:background="@color/primary"
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+      app:theme="@style/ToolBarStyle">
 
-        <TextView
-            android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="edit activity"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_title"/>
-    </android.support.v7.widget.Toolbar>
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="edit activity"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_title"/>
+  </android.support.v7.widget.Toolbar>
 
   <LinearLayout
       android:layout_width="match_parent"
+      android:layout_height="match_parent"
       android:layout_below="@id/toolbar"
       android:background="@color/gray"
-      android:orientation="vertical"
-      android:layout_height="wrap_content">
+      android:orientation="vertical">
 
-      <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/spacing_large"
+        android:layout_marginRight="@dimen/spacing_large"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:background="@mipmap/edit_backgroud"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+      <com.rengwuxian.materialedittext.MaterialEditText
+          android:id="@+id/et_content"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/spacing_large"
+          android:layout_marginLeft="@dimen/spacing_medium"
           android:background="@mipmap/edit_backgroud"
-          android:layout_marginLeft="@dimen/spacing_large"
-          android:layout_marginRight="@dimen/spacing_large"
-          android:gravity="center_vertical"
-          android:orientation="horizontal">
-
-          <com.rengwuxian.materialedittext.MaterialEditText
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginLeft="@dimen/spacing_medium"
-              android:background="@mipmap/edit_backgroud"
-              android:hint="账户"
-              app:met_hideUnderline="true"/>
-      </LinearLayout>
+          android:hint="账户"
+          app:met_hideUnderline="true"/>
+    </LinearLayout>
   </LinearLayout>
 </RelativeLayout>

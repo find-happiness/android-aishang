@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary"
-    android:id="@+id/layoutRoot"
     android:paddingTop="@dimen/padding_stutas_bar"
     tools:context="com.aishang.app.ui.MemberCenter.MemberCenterActivity">
 
@@ -14,13 +14,15 @@
       android:layout_width="match_parent"
       android:layout_height="?attr/actionBarSize"
       android:background="@color/primary"
-      app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+      app:theme="@style/ToolBarStyle">
 
     <TextView
         android:id="@+id/toolbar_title"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:gravity="center_vertical"
         android:text="@string/ge_ren_zhong_xin"
         android:textColor="@android:color/white"
         android:textSize="@dimen/text_title"/>
@@ -52,8 +54,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:textSize="@dimen/text_body"
-            android:text="@string/head_img"/>
+            android:text="@string/head_img"
+            android:textSize="@dimen/text_body"/>
 
         <ImageView
             android:id="@+id/jian_tou"
@@ -93,8 +95,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:textSize="@dimen/text_body"
-            android:text="@string/member_level"/>
+            android:text="@string/member_level"
+            android:textSize="@dimen/text_body"/>
 
         <ImageView
             android:id="@id/jian_tou"
@@ -134,8 +136,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:textSize="@dimen/text_body"
-            android:text="@string/phone_num"/>
+            android:text="@string/phone_num"
+            android:textSize="@dimen/text_body"/>
 
         <ImageView
             android:id="@id/jian_tou"
@@ -146,13 +148,14 @@
             android:src="@mipmap/iconfont_fanhuidingbu"/>
 
         <TextView
+            android:id="@+id/phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/spacing_medium"
             android:layout_toLeftOf="@id/jian_tou"
             android:src="@mipmap/zaishou"
-            android:text="13883224451"/>
+            tools:text="13883224451"/>
       </RelativeLayout>
 
       <View
@@ -161,6 +164,7 @@
           android:background="@color/gray"/>
 
       <RelativeLayout
+          android:id="@+id/rl_ne_cheng"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_gravity="center_horizontal"
@@ -174,8 +178,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:textSize="@dimen/text_body"
-            android:text="@string/member_name"/>
+            android:text="@string/member_name"
+            android:textSize="@dimen/text_body"/>
 
         <ImageView
             android:id="@id/jian_tou"
@@ -192,6 +196,7 @@
           android:background="@color/gray"/>
 
       <RelativeLayout
+          android:id="@+id/rl_real_name"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_gravity="center_horizontal"
@@ -205,8 +210,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:textSize="@dimen/text_body"
-            android:text="@string/member_real_name"/>
+            android:text="@string/member_real_name"
+            android:textSize="@dimen/text_body"/>
 
         <ImageView
             android:id="@id/jian_tou"
@@ -223,6 +228,7 @@
           android:background="@color/gray"/>
 
       <RelativeLayout
+          android:id="@+id/rl_birthday"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_gravity="center_horizontal"
@@ -236,8 +242,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:textSize="@dimen/text_body"
-            android:text="@string/birthday"/>
+            android:text="@string/birthday"
+            android:textSize="@dimen/text_body"/>
 
         <ImageView
             android:id="@id/jian_tou"
@@ -254,6 +260,7 @@
           android:background="@color/gray"/>
 
       <RelativeLayout
+          android:id="@+id/rl_gender"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_gravity="center_horizontal"
@@ -267,8 +274,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:textSize="@dimen/text_body"
-            android:text="@string/gender"/>
+            android:text="@string/gender"
+            android:textSize="@dimen/text_body"/>
 
         <ImageView
             android:id="@id/jian_tou"
@@ -285,6 +292,7 @@
           android:background="@color/gray"/>
 
       <RelativeLayout
+          android:id="@+id/rl_bank"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_gravity="center_horizontal"
@@ -298,8 +306,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:textSize="@dimen/text_body"
-            android:text="@string/bank_member"/>
+            android:text="@string/bank_member"
+            android:textSize="@dimen/text_body"/>
 
         <ImageView
             android:id="@id/jian_tou"
@@ -316,6 +324,7 @@
           android:background="@color/gray"/>
 
       <RelativeLayout
+          android:id="@+id/rl_email"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_gravity="center_horizontal"
@@ -329,8 +338,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:textSize="@dimen/text_body"
-            android:text="@string/email"/>
+            android:text="@string/email"
+            android:textSize="@dimen/text_body"/>
 
         <ImageView
             android:id="@id/jian_tou"
@@ -351,6 +360,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_gravity="center_horizontal"
+          android:layout_marginBottom="@dimen/spacing_large"
           android:background="@android:color/white"
           android:paddingBottom="@dimen/spacing_large"
           android:paddingLeft="@dimen/spacing_large"
@@ -361,8 +371,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:textSize="@dimen/text_body"
-            android:text="@string/change_pwd"/>
+            android:text="@string/change_pwd"
+            android:textSize="@dimen/text_body"/>
 
         <ImageView
             android:id="@id/jian_tou"

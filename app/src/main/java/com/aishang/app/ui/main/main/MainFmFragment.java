@@ -33,6 +33,7 @@ import com.aishang.app.data.model.JNewsListResult;
 import com.aishang.app.data.model.JSysZoneResult;
 import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.ui.main.MainActivity;
+import com.aishang.app.ui.main.mine.MineFragment;
 import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.DialogFactory;
@@ -93,7 +94,10 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
   @Override public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
   }
-
+  @Override public void onDestroy() {
+    mMainPresenter.detachView();
+    super.onDestroy();
+  }
   @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     super.onCreateView(inflater, container, savedInstanceState);

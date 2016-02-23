@@ -80,7 +80,10 @@ public class FavoritesFragment extends LazyFragment implements TravelListMvpView
       mParam2 = getArguments().getString(ARG_PARAM2);
     }
   }
-
+  @Override public void onDestroy() {
+    presenter.detachView();
+    super.onDestroy();
+  }
   @Override public void onAttach(Activity context) {
     super.onAttach(context);
   }

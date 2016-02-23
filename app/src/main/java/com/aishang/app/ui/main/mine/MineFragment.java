@@ -63,6 +63,11 @@ public class MineFragment extends Fragment implements MineMvpView {
     return view;
   }
 
+  @Override public void onDestroy() {
+    mMinePresenter.detachView();
+    super.onDestroy();
+  }
+
   @Override public void onResume() {
     super.onResume();
     JMemberLoginResult result =

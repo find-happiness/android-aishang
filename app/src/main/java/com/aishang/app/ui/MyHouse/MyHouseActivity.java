@@ -54,7 +54,10 @@ public class MyHouseActivity extends BaseActivity implements MyHouseMvpView {
 
     proLoad();
   }
-
+  @Override protected void onDestroy() {
+    presenter.detachView();
+    super.onDestroy();
+  }
   private void initToolbar() {
     toolbar.setTitle("");
     this.setSupportActionBar(toolbar);

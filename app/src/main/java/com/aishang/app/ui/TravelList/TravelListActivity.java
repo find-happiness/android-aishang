@@ -66,7 +66,10 @@ public class TravelListActivity extends BaseActivity implements TravelListMvpVie
     setImageSizeToAdapter();
     proLoad();
   }
-
+  @Override protected void onDestroy() {
+    mPersenter.detachView();
+    super.onDestroy();
+  }
   public boolean onCreateOptionsMenu(Menu menu) {
     MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.menu_hotel, menu);

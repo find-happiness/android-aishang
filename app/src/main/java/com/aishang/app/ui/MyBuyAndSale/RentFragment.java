@@ -76,7 +76,10 @@ public class RentFragment extends LazyFragment implements RentSaleMvpView {
       mParam2 = getArguments().getString(ARG_PARAM2);
     }
   }
-
+  @Override public void onDestroy() {
+    presenter.detachView();
+    super.onDestroy();
+  }
   @Override protected void onCreateViewLazy(Bundle savedInstanceState) {
     super.onCreateViewLazy(savedInstanceState);
     setContentView(R.layout.fragment_buy);

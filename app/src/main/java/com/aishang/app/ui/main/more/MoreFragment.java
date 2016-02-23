@@ -56,7 +56,10 @@ public class MoreFragment extends Fragment implements MoreMvpView {
     super.onPause();
     BusProvider.getInstance().register(this);
   }
-
+  @Override public void onDestroy() {
+    morePresenter.detachView();
+    super.onDestroy();
+  }
   @OnClick(R.id.btn_check_updata) void checkUpdataClick() {
 
     progressDialog = DialogFactory.createProgressDialog(this.getActivity(), R.string.check_updata);

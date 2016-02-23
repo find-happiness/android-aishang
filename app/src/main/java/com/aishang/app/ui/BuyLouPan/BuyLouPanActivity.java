@@ -81,7 +81,10 @@ public class BuyLouPanActivity extends BaseActivity implements BuyLoupanMvpView 
     initToolbar();
     initBanner();
   }
-
+  @Override protected void onDestroy() {
+    presenter.detachView();
+    super.onDestroy();
+  }
   @OnClick(R.id.submint) void onClickSubmit() {
 
     CommonUtil.hideSoftInput(this);

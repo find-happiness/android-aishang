@@ -48,7 +48,10 @@ public class RecommenCustomerActivity extends BaseActivity implements RecommentM
     ButterKnife.bind(this);
     initToolbar();
   }
-
+  @Override protected void onDestroy() {
+    presenter.detachView();
+    super.onDestroy();
+  }
   @Override public boolean onCreateOptionsMenu(Menu menu) {
     MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.menu_push, menu);

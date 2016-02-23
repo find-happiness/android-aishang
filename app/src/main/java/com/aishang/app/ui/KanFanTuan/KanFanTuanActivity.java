@@ -48,7 +48,10 @@ public class KanFanTuanActivity extends BaseActivity implements KanFangTuanMvpVi
     initRefreshLayout();
     proLoad();
   }
-
+  @Override protected void onDestroy() {
+    presenter.detachView();
+    super.onDestroy();
+  }
   private void initToolbar() {
     toolbar.setTitle("");
     this.setSupportActionBar(toolbar);

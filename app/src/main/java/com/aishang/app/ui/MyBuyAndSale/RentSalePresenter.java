@@ -1,5 +1,6 @@
 package com.aishang.app.ui.MyBuyAndSale;
 
+import android.util.Log;
 import com.aishang.app.data.DataManager;
 import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JRentalListResult;
@@ -19,7 +20,7 @@ import rx.schedulers.Schedulers;
  * Created by song on 2016/2/15.
  */
 public class RentSalePresenter extends BasePresenter<RentSaleMvpView> {
-
+  private static final String TAG = "RentSalePresenter";
   private final DataManager mDataManager;
   private Subscription subscription;
 
@@ -52,6 +53,7 @@ public class RentSalePresenter extends BasePresenter<RentSaleMvpView> {
 
           @Override public void onError(Throwable e) {
             getMvpView().showError("网络异常");
+            Log.i(TAG, "onError: "+e.toString());
           }
 
           @Override public void onNext(JRentalListResult result) {

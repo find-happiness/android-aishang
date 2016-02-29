@@ -43,7 +43,7 @@ public class SaleFragment extends LazyFragment implements RentSaleMvpView {
   @Bind(R.id.no_data_in_sale) TextView noData;
   @Bind(R.id.layoutRoot) FrameLayout layoutRoot;
   @Inject RentSalePresenter presenter;
-  @Inject RentAdapter adapter;
+  @Inject SaleAdapter adapter;
   private String mParam1;
   private String mParam2;
 

@@ -66,7 +66,7 @@ public class TravelDetailActivity extends BaseActivity {
       progress = DialogFactory.createProgressDialog(this, R.string.listview_loading);
       progress.show();
 
-      webview.loadUrl(AiShangService.AiShangHost + getIntent().getStringExtra(NEWS_URL));
+      webview.loadUrl(AiShangService.AiShangHost + newsUrl);
     } else {
       //if (avloadingIndicatorView.getVisibility() == View.VISIBLE) {
       //  avloadingIndicatorView.setVisibility(View.GONE);

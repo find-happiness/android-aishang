@@ -32,13 +32,19 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleAdapter.ViewHolder> {
 
   @Override public void onBindViewHolder(final ViewHolder holder, int position) {
 
-    final JRentalListResult.RentalItem hotel = items.get(position);
+    final JRentalListResult.RentalItem item = items.get(position);
 
-    holder.itemView.setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View v) {
-        //intentToDetail(holder.getContext(), hotel.getHotelID(), hotel.getName());
-      }
-    });
+    holder.name.setText(item.getName());
+    holder.type.setText("项目类型:");
+    holder.buyDate.setText("购买日期:" + item.getPurchaseDate().split(" ")[0]);
+    holder.dealDate.setText("成交日期:");
+    holder.moveInDate.setText("交房日期:");
+    holder.price.setText("成交价格:"+item.getPriceText());
+    holder.roomNum.setText("项目房号:");
+    holder.address.setText("项目地址:" + item.getAddress());
+    holder.status.setText(item.getStatus()==0?"状态":"状态");
+    holder.huxing.setText("户型:");
+
   }
 
   @Override public int getItemCount() {

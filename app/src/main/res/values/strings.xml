@@ -1,5 +1,5 @@
 <resources>
-  <string name="app_name">AiShang</string>
+  <string name="app_name">爱尚旅居</string>
 
   <string name="action_settings">Settings</string>
 
@@ -115,6 +115,8 @@
   <string name="posting">正在提交数据...</string>
 
   <string name="save">保存</string>
+
+  <string name="add">添加</string>
 
   <string name="holiday_house_rule">
 \t\t\t\t\t爱尚旅居——中国首个共权度假屋共享换住平台，由重庆耘目实业有限公司倾力打造，提供共权度假屋网上展示、申购、预订、换住以及出租、出售服务的共权度假屋综合服务网络平台。\n

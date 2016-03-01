@@ -19,6 +19,7 @@ import com.aishang.app.ui.ProjectJoint.ProjectJointActivity;
 import com.aishang.app.ui.RecommenCustomer.RecommenCustomerActivity;
 import com.aishang.app.ui.TravelFavorites.FavoritesFragment;
 import com.aishang.app.ui.TravelList.TravelListActivity;
+import com.aishang.app.ui.bank.BankListActivity;
 import com.aishang.app.ui.hotel.HotelListActivity;
 import com.aishang.app.ui.insaleDetail.InSaleDetailActivity;
 import com.aishang.app.ui.login.LoginActivity;
@@ -93,4 +94,6 @@ public interface ActivityComponent {
   void inject(ChangePasswordActivity activity);
 
   void inject(MemberCenterActivity activity);
+
+  void inject(BankListActivity activity);
 }

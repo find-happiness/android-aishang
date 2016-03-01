@@ -49,8 +49,8 @@ public class FileUploadPresenter extends BasePresenter<FileUploadMvpView> {
 
     RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
     RequestBody jsonBody = RequestBody.create(MediaType.parse("text/plain"), json);
-    map.put("q", jsonBody);
-    map.put("fileUpload", requestBody);
+    map.put("q", jsonBody);//fileUpload
+    map.put("fileUpload\"; filename=\"image.png\" ", requestBody);
     map.put("v", RequestBody.create(MediaType.parse("text/plain"), version + ""));
 
     subscription = mDataManager.syncFileUpload(map)

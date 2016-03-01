@@ -1,8 +1,11 @@
 package com.aishang.app.ui.main.main;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -32,6 +35,9 @@ import com.aishang.app.data.model.JMrePromResult;
 import com.aishang.app.data.model.JNewsListResult;
 import com.aishang.app.data.model.JSysZoneResult;
 import com.aishang.app.data.remote.AiShangService;
+import com.aishang.app.ui.HotelDetail.HotelDetailActivity;
+import com.aishang.app.ui.TravelDetail.TravelDetailActivity;
+import com.aishang.app.ui.insaleDetail.InSaleDetailActivity;
 import com.aishang.app.ui.main.MainActivity;
 import com.aishang.app.ui.main.mine.MineFragment;
 import com.aishang.app.util.AiShangUtil;
@@ -42,6 +48,7 @@ import com.aishang.app.widget.NonScrollGridView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
+import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.google.gson.Gson;
 import com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView;
 import com.squareup.picasso.Picasso;
@@ -52,6 +59,19 @@ import javax.inject.Inject;
  * Created by song on 2016/1/16.
  */
 public class MainFmFragment extends Fragment implements MainFmMvpView {
+  enum AdMode {
+    NEWS("NEWS"), LOUPAN("LOUPAN"), HOTEL("HOTEL"), OTHER("OTHER");
+
+    private AdMode(String mode) {
+      this.mode = mode;
+    }
+
+    public String toString() {
+      return this.mode;
+    }
+
+    private String mode; // 自定义数据域，private为了封装。
+  }
 
   private static final String TAG = "MainFmFragment";
   private static final int NET_COUNT = 4;
@@ -94,10 +114,12 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
   @Override public void onActivityCreated(Bundle savedInstanceState) {
     super.onActivityCreated(savedInstanceState);
   }
+
   @Override public void onDestroy() {
     mMainPresenter.detachView();
     super.onDestroy();
   }
+
   @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     super.onCreateView(inflater, container, savedInstanceState);
@@ -128,6 +150,18 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
   @Override public void onDestroyView() {
     super.onDestroyView();
     ButterKnife.unbind(this);
+  }
+
+  @OnClick(R.id.insale_more) void onclickInSaleMore() {
+    mMainPresenter.IntentToZaiShou();
+  }
+
+  @OnClick(R.id.hotel_more) void onClickHotelMore() {
+    mMainPresenter.IntentToHuanZu();
+  }
+
+  @OnClick(R.id.travel_more) void onClickTravelMore() {
+    mMainPresenter.IntentToTravelList();
   }
 
   @OnClick(R.id.btn_zaishou) void OnZaiShouClick() {
@@ -200,7 +234,7 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
         }, getString(R.string.zone_select)).show();
   }
 
-  @Override public void showBanner(List<JMrePromResult.Ad> ads) {
+  @Override public void showBanner(final List<JMrePromResult.Ad> ads) {
     banner.setPages(new CBViewHolderCreator<LocalImageHolderView>() {
       @Override public LocalImageHolderView createHolder() {
         return new LocalImageHolderView();
@@ -210,6 +244,38 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
         .setPageIndicator(new int[] { R.mipmap.ellipse_nomal, R.mipmap.ellipse_select })
             //设置指示器的方向
         .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
+
+    banner.setOnItemClickListener(new OnItemClickListener() {
+      @Override public void onItemClick(int position) {
+
+        String mode = ads.get(position).getModel().toUpperCase();
+        String param = ads.get(position).getParam();
+        Activity activity = MainFmFragment.this.getActivity();
+        if (mode.equals(AdMode.HOTEL.toString())) {
+          Intent intent = HotelDetailActivity.getStartIntent(activity, Integer.parseInt(param),
+              ads.get(position).getParam2(), System.currentTimeMillis() + 86400000L,
+              System.currentTimeMillis() + 2 * 86400000L);
+          activity.startActivity(intent);
+        } else if (mode.equals(AdMode.LOUPAN.toString())) {
+          Intent intent = InSaleDetailActivity.getStartIntent(activity, Integer.parseInt(param),
+              ads.get(position).getParam2());
+          activity.startActivity(intent);
+        } else if (mode.equals(AdMode.NEWS.toString())) {
+          Intent intent = TravelDetailActivity.getStartIntent(activity, Integer.parseInt(param),
+              ads.get(position).getParam2());
+          activity.startActivity(intent);
+        } else if (mode.equals(AdMode.OTHER.toString())) {
+          Intent intent = new Intent();
+          intent.setAction("android.intent.action.VIEW");
+          if (param.startsWith("http://")) {
+            intent.setData(Uri.parse(param));
+          } else {
+            intent.setData(Uri.parse("http://" + param));
+          }
+          activity.startActivity(intent);
+        }
+      }
+    });
   }
 
   @Override public void showLoupan(List<JLoupanProductListResult.Product> products,

@@ -44,7 +44,7 @@
           android:layout_height="wrap_content"
           android:layout_centerVertical="true"
           android:textSize="@dimen/text_body"
-          tools:text="头像"/>
+          android:text="清除缓存"/>
 
       <ImageView
           android:id="@id/jian_tou"
@@ -68,7 +68,7 @@
           android:layout_height="wrap_content"
           android:layout_centerVertical="true"
           android:textSize="@dimen/text_body"
-          tools:text="头像"/>
+          android:text="接受推送通知"/>
 
       <android.support.v7.widget.SwitchCompat
           android:id="@id/jian_tou"
@@ -91,7 +91,7 @@
           android:layout_height="wrap_content"
           android:layout_centerVertical="true"
           android:textSize="@dimen/text_body"
-          tools:text="头像"/>
+          android:text="退出登录"/>
 
       <ImageView
           android:id="@id/jian_tou"

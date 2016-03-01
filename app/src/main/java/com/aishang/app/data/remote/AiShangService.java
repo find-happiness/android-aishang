@@ -4,7 +4,6 @@ import com.aishang.app.data.model.JBusinessListResult;
 import com.aishang.app.data.model.JHotelDetailResult;
 import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JHotelPriceCatListResult;
-import com.aishang.app.data.model.JHotelStarLevelListResult;
 import com.aishang.app.data.model.JLoupanPriceCatListResult;
 import com.aishang.app.data.model.JLoupanProductCatListResult;
 import com.aishang.app.data.model.JLoupanProductDetailResult;
@@ -165,10 +164,6 @@ public interface AiShangService {
 
   @Multipart @Headers("connection:Keep-Alive") @POST("mobile/member/memberImgEdit.ashx")
   Observable<JMemberImgEditResult> syncUploadMemberImg(@PartMap() Map<String, RequestBody> body);
-
-  @Headers("connection:Keep-Alive") @GET("/mobile/hotel/hotelStarLevelList.ashx")
-  Observable<JHotelStarLevelListResult> syncHotelStarLevelList(@Query(value = "v") int version);
-
 
   @GET("ribots") Observable<List<Ribot>> getRibots();
 

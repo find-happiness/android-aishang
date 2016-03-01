@@ -15,6 +15,8 @@ import com.aishang.app.data.model.JLoupanProductDetailParam;
 import com.aishang.app.data.model.JLoupanProductListParam;
 import com.aishang.app.data.model.JMemberAddress;
 import com.aishang.app.data.model.JMemberBankAccount;
+import com.aishang.app.data.model.JMemberBankEditParam;
+import com.aishang.app.data.model.JMemberBankListParam;
 import com.aishang.app.data.model.JMemberIM;
 import com.aishang.app.data.model.JMemberLoginParam;
 import com.aishang.app.data.model.JMemberLoginResult;
@@ -541,6 +543,33 @@ public class AiShangUtil {
     data.setCertifyType(certifyType);
     p.setData(data);
     return gson.toJson(p);
+  }
+
+  public static String generMamberBankListParam(String memberAccount, String cookies) {
+
+    JMemberBankListParam param = new JMemberBankListParam();
+    param.setMemberAccount(memberAccount);
+    param.setCookie(cookies);
+    param.setImei("");
+    param.setGoogleLat(0f);
+    param.setGoogleLng(0f);
+
+    return gson.toJson(param);
+  }
+
+  public static String generMamberBankEditParam(String memberAccount, String cookies,
+      int bReturnList, JMemberBankAccount[] accounts) {
+
+    JMemberBankEditParam param = new JMemberBankEditParam();
+    param.setMemberAccount(memberAccount);
+    param.setCookie(cookies);
+    param.setImei("");
+    param.setGoogleLat(0f);
+    param.setGoogleLng(0f);
+    param.setBankAccountList(accounts);
+    param.setbReturnList(bReturnList);
+
+    return gson.toJson(param);
   }
 
   public static boolean checkMemberLogin(Activity ctx) {

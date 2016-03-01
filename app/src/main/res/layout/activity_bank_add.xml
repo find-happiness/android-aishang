@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary"
+    android:paddingTop="@dimen/padding_stutas_bar"
+    >
+
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:background="@color/primary"
+      app:theme="@style/ToolBarStyle"
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+      >
+
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:text="银行账户"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_title"
+        />
+  </android.support.v7.widget.Toolbar>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@id/toolbar"
+      android:background="@android:color/white"
+      >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/spacing_large"
+        >
+
+
+      <com.rengwuxian.materialedittext.MaterialEditText
+          android:id="@+id/bankName"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/spacing_small"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:hint="开户行"
+          android:inputType="text"
+          android:singleLine="true"
+          android:textSize="@dimen/text_body"
+          app:met_clearButton="true"
+          app:met_floatingLabel="normal"
+          />
+
+
+      <com.rengwuxian.materialedittext.MaterialEditText
+          android:id="@+id/holder"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/spacing_small"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:hint="户名"
+          android:inputType="text"
+          android:singleLine="true"
+          android:textSize="@dimen/text_body"
+          app:met_clearButton="true"
+          app:met_floatingLabel="normal"
+          />
+
+
+      <com.rengwuxian.materialedittext.MaterialEditText
+          android:id="@+id/accountNumber"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:hint="账号"
+          android:inputType="numberSigned"
+          android:singleLine="true"
+          android:textSize="@dimen/text_body"
+          app:met_clearButton="true"
+          app:met_floatingLabel="normal"
+          />
+    </LinearLayout>
+  </LinearLayout>
+</RelativeLayout>

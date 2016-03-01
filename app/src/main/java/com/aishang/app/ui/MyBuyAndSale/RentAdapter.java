@@ -34,6 +34,21 @@ public class RentAdapter extends RecyclerView.Adapter<RentAdapter.ViewHolder> {
 
     final JRentalListResult.RentalItem item = items.get(position);
 
+    holder.name.setText(item.getName());
+    holder.address.setText("地址:" + item.getAddress());
+    holder.roomNum.setText("房间数:");
+
+    if (item.getStatus() == 0) {
+      holder.status.setText("状态");
+    } else {
+      holder.status.setText("状态");
+    }
+
+    holder.rentDate.setText(
+        "出租时间:" + item.getResStartDate().split(" ")[0] + "-" + item.getResEndDate().split(" ")[0]);
+
+    holder.price.setText(item.getPriceText());
+
     holder.itemView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         //intentToDetail(holder.getContext(), hotel.getHotelID(), hotel.getName());

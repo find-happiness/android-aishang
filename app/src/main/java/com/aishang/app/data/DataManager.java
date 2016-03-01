@@ -5,7 +5,6 @@ import com.aishang.app.data.model.JBusinessListResult;
 import com.aishang.app.data.model.JHotelDetailResult;
 import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JHotelPriceCatListResult;
-import com.aishang.app.data.model.JHotelStarLevelListResult;
 import com.aishang.app.data.model.JLoupanPriceCatListResult;
 import com.aishang.app.data.model.JLoupanProductCatListResult;
 import com.aishang.app.data.model.JLoupanProductDetailResult;
@@ -219,12 +218,6 @@ import com.aishang.app.util.EventPosterHelper;
   public Observable<JMemberImgEditResult> syncUploadMemberImg(Map<String, RequestBody> body) {
     return mAiShangService.syncUploadMemberImg(body);
   }
-
-  public Observable<JHotelStarLevelListResult> syncHotelStarLevelList(int version) {
-    return mAiShangService.syncHotelStarLevelList(version);
-  }
-
-
 
   public JVersionCheckResult getVersionCheck() {
     String json = mPreferencesHelper.getVersionCheck();

@@ -4,10 +4,12 @@ import com.aishang.app.data.model.JBusinessListResult;
 import com.aishang.app.data.model.JHotelDetailResult;
 import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JHotelPriceCatListResult;
+import com.aishang.app.data.model.JHotelStarLevelListResult;
 import com.aishang.app.data.model.JLoupanPriceCatListResult;
 import com.aishang.app.data.model.JLoupanProductCatListResult;
 import com.aishang.app.data.model.JLoupanProductDetailResult;
 import com.aishang.app.data.model.JLoupanProductListResult;
+import com.aishang.app.data.model.JMemberBankListResult;
 import com.aishang.app.data.model.JMemberImgEditResult;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JMemberProfileEditResult;
@@ -157,6 +159,17 @@ public interface AiShangService {
 
   @Headers("connection:Keep-Alive") @GET("mobile/member/memberProfileBasicEdit.ashx")
   Observable<JMemberProfileEditResult> memberProfileEdit(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/hotel/hotelStarLevelList.ashx")
+  Observable<JHotelStarLevelListResult> syncHotelStarLevelList(@Query(value = "v") int version);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/member/memberBankList.ashx")
+  Observable<JMemberBankListResult> syncBankList(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/member/memberBankEdit.ashx")
+  Observable<JMemberBankListResult> syncBankEdit(@Query(value = "v") int version,
       @Query(value = "q") String q);
 
   @Multipart @Headers("connection:Keep-Alive") @POST("mobile/uploadFile.ashx")

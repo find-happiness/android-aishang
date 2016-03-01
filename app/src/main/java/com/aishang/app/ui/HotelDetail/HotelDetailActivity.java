@@ -54,7 +54,6 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
   @Bind(R.id.tv_check_out_date) DrawableCenterButton tvCheckOutDate;
   @Bind(R.id.room_num) DrawableCenterButton roomNum;
   @Bind(R.id.name) TextView name;
-  @Bind(R.id.btn_look_you_ji) TextView btnLookYouJi;
   @Bind(R.id.description) WebView description;
   @Bind(R.id.map) View map;
 
@@ -228,8 +227,8 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
     //Log.i(TAG, "setGalleryImg: " + ads.size());
 
     int[] size = CommonUtil.getHeightWithScreenWidth(this, 16, 9);
-    CollapsingToolbarLayout.LayoutParams layoutParams =
-        new CollapsingToolbarLayout.LayoutParams(size[0], size[1]);
+    LinearLayout.LayoutParams layoutParams =
+        new LinearLayout.LayoutParams(size[0], size[1]);
 
     convenientBanner.setLayoutParams(layoutParams);
 

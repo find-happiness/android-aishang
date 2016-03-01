@@ -3,6 +3,7 @@ package com.aishang.app.ui.hotel;
 import com.aishang.app.data.DataManager;
 import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JHotelPriceCatListResult;
+import com.aishang.app.data.model.JHotelStarLevelListResult;
 import com.aishang.app.data.model.JSysZoneResult;
 import com.aishang.app.ui.base.BasePresenter;
 import com.aishang.app.util.Constants;
@@ -24,6 +25,7 @@ public class HotelPresenter extends BasePresenter<HotelMvpView> {
   private Subscription mZoneSubscription;
   private Subscription mHotelSubscription;
   private Subscription mPriceSubscription;
+  private Subscription mStarLevelSubscription;
 
   @Inject public HotelPresenter(DataManager dataManager) {
     mDataManager = dataManager;
@@ -72,7 +74,7 @@ public class HotelPresenter extends BasePresenter<HotelMvpView> {
                     break;
                   case loadMore:
                     getMvpView().loadMoreHotel(new ArrayList<JHotelListResult.Hotel>(
-                        Arrays.asList(hotelListResult.getHotelList())),
+                            Arrays.asList(hotelListResult.getHotelList())),
                         hotelListResult.getTotalCount());
                     break;
                 }
@@ -140,6 +142,36 @@ public class HotelPresenter extends BasePresenter<HotelMvpView> {
             if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
               getMvpView().showSysPriceDialog(
                   new ArrayList<JHotelPriceCatListResult.Cat>(Arrays.asList(result.getCatList())));
+            } else {
+              getMvpView().showError(result.getResult());
+            }
+          }
+        });
+  }
+
+  public void loadStarLevelList(boolean allowMemoryCacheVersion, int version) {
+    checkViewAttached();
+
+    if (mStarLevelSubscription != null && !mStarLevelSubscription.isUnsubscribed()) {
+      mStarLevelSubscription.unsubscribe();
+    }
+
+    mStarLevelSubscription = mDataManager.syncHotelStarLevelList(version)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(Schedulers.io())
+        .subscribe(new Subscriber<JHotelStarLevelListResult>() {
+          @Override public void onCompleted() {
+
+          }
+
+          @Override public void onError(Throwable e) {
+            getMvpView().showError("网络异常:" + e.toString());
+          }
+
+          @Override public void onNext(JHotelStarLevelListResult result) {
+            if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
+              getMvpView().showSyncStarLevelDialog(
+                  new ArrayList<JHotelStarLevelListResult.StarListEntity>(result.getStarList()));
             } else {
               getMvpView().showError(result.getResult());
             }

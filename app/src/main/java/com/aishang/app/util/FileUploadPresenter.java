@@ -53,7 +53,6 @@ public class FileUploadPresenter extends BasePresenter<FileUploadMvpView> {
     map.put("fileUpload", requestBody);
     map.put("v", RequestBody.create(MediaType.parse("text/plain"), version + ""));
 
-
     subscription = mDataManager.syncFileUpload(map)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())

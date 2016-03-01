@@ -86,6 +86,7 @@
   <string name="no_net">无网络连接</string>
   <string name="price_select">价格选择</string>
   <string name="type_select">类型选择</string>
+  <string name="star_level_select">星级选择</string>
   <string name="date_error">退房日期必须大于入住日期</string>
   <string name="loupan_type">类&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;型:%s</string>
   <string name="loupan_num">房&#160;&#160;&#160;&#160;号:%s</string>
@@ -131,4 +132,6 @@
     \t\t\t\t\t注意：因为甲方已经给予乙方每年固定的交换度假权益，甲方运营期间内，房屋使用权益归甲方所有乙方不得入住。期间运营亏损归甲方承担，同理如产生收益也归甲方所有。\n
   </string>
   <string name="hotel_checkin_rule">会员入住规定:9岁儿童在不加床的情况下随父母住，不收取额外费用（不包含早餐）；9-12岁儿童加床为35USD/人/晚（包含早餐）</string>
+
+  <string name="start">星级</string>
 </resources>

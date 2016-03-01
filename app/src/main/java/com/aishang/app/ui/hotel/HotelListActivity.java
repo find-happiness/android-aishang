@@ -23,6 +23,7 @@ import butterknife.OnClick;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JHotelPriceCatListResult;
+import com.aishang.app.data.model.JHotelStarLevelListResult;
 import com.aishang.app.data.model.JSysZoneResult;
 import com.aishang.app.ui.base.BaseActivity;
 import com.aishang.app.util.AiShangUtil;
@@ -59,6 +60,7 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
 
   private int selectZoneID = 1;
   private int selectPrice;
+  private int selectStarLevel;
   private Date checkInDate;
   private Date checkOutDate;
   private String mFilterWords = "";
@@ -275,49 +277,10 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
     presenter.loadZone(false, 0, AiShangUtil.gennerSysZone(2));
   }
 
-  @OnClick(R.id.tv_check_in_date) void checkInDateClick() {
-    Calendar cal = Calendar.getInstance();
-    cal.setTimeInMillis(checkInDate.getTime());
-    DatePickerDialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-      @Override public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        Calendar temp = Calendar.getInstance();
-        temp.set(Calendar.YEAR, year);
-        temp.set(Calendar.MONTH, monthOfYear);
-        temp.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        Date date = new Date(temp.getTimeInMillis());
-        if (date.after(checkOutDate)) {
-          CommonUtil.showSnackbar(R.string.date_error, layoutRoot);
-        } else {
-          checkInDate = date;
-          hotelAdapter.setCheckInDate(date);
-          proLoad();
-        }
-      }
-    }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
-    dialog.show();
-  }
-
-  @OnClick(R.id.tv_check_out_date) void checkOutDateClick() {
-
-    Calendar cal = Calendar.getInstance();
-    cal.setTimeInMillis(checkOutDate.getTime());
-    DatePickerDialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-      @Override public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        Calendar temp = Calendar.getInstance();
-        temp.set(Calendar.YEAR, year);
-        temp.set(Calendar.MONTH, monthOfYear);
-        temp.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        Date date = new Date(temp.getTimeInMillis());
-        if (checkInDate.after(date)) {
-          CommonUtil.showSnackbar(R.string.date_error, layoutRoot);
-        } else {
-          checkOutDate = date;
-          hotelAdapter.setCheckOutDate(date);
-          proLoad();
-        }
-      }
-    }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
-    dialog.show();
+  @OnClick(R.id.tv_star_level) void onStarLevelClick() {
+    progressDialog = DialogFactory.createProgressDialog(this, R.string.listview_loading);
+    progressDialog.show();
+    presenter.loadStarLevelList(false, 0);
   }
 
   @OnClick(R.id.tv_price) void priceClick() {
@@ -425,6 +388,37 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
         if (bakSelectPrice != selectPrice) proLoad();
       }
     }, getString(R.string.price_select)).show();
+  }
+
+  @Override public void showSyncStarLevelDialog(
+     final List<JHotelStarLevelListResult.StarListEntity> starListEntities) {
+    if (progressDialog != null && progressDialog.isShowing()) {
+      progressDialog.dismiss();
+    }
+
+    Log.i(TAG, "showSysZoneDialog: " + starListEntities.size());
+    final String[] items = new String[starListEntities.size() + 1];
+    items[0] = this.getString(R.string.unlimited);
+    int cur = 0;
+    int index = 0;
+    for (JHotelStarLevelListResult.StarListEntity cat : starListEntities) {
+      items[index + 1] = cat.getName();
+      if (selectStarLevel == cat.getId()) {
+        cur = index + 1;
+      }
+      index++;
+    }
+    Log.i(TAG, "showSysZoneDialog: item size :" + items.length);
+    DialogFactory.createSingleChoiceDialog(this, items, cur, new DialogInterface.OnClickListener() {
+      @Override public void onClick(DialogInterface dialog, int which) {
+
+        int bakSelectStarLevel = selectStarLevel;
+        selectStarLevel = which == 0 ? 0 : starListEntities.get(which - 1).getId();
+        dialog.dismiss();
+
+        if (bakSelectStarLevel != selectPrice) proLoad();
+      }
+    }, getString(R.string.star_level_select)).show();
   }
 
   @Override public void showError(String error) {

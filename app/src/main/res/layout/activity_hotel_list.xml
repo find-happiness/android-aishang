@@ -78,45 +78,9 @@
               android:paddingLeft="5dp"
               android:paddingRight="5dp"
               android:paddingTop="10dp"
-              android:text="@string/position"/>
-
-          <View
-              android:layout_width="1dp"
-              android:layout_height="match_parent"
-              android:background="@android:color/darker_gray"/>
-
-          <TextView
-              android:id="@+id/tv_check_in_date"
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_gravity="center"
-              android:layout_weight="1"
-              android:drawableRight="@mipmap/jiantou"
-              android:gravity="center"
-              android:paddingBottom="10dp"
-              android:paddingLeft="5dp"
-              android:paddingRight="5dp"
-              android:paddingTop="10dp"
-              android:text="@string/check_in_date"/>
-
-          <View
-              android:layout_width="1dp"
-              android:layout_height="match_parent"
-              android:background="@android:color/darker_gray"/>
-
-          <TextView
-              android:id="@+id/tv_check_out_date"
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_gravity="center"
-              android:layout_weight="1"
-              android:drawableRight="@mipmap/jiantou"
-              android:gravity="center"
-              android:paddingBottom="10dp"
-              android:paddingLeft="5dp"
-              android:paddingRight="5dp"
-              android:paddingTop="10dp"
-              android:text="@string/check_out_date"/>
+              android:text="@string/position"
+              android:textColor="@android:color/black"
+              android:textSize="@dimen/text_title"/>
 
           <View
               android:layout_width="1dp"
@@ -135,7 +99,32 @@
               android:paddingLeft="5dp"
               android:paddingRight="5dp"
               android:paddingTop="10dp"
-              android:text="@string/price"/>
+              android:text="@string/price"
+              android:textColor="@android:color/black"
+              android:textSize="@dimen/text_title"/>
+
+          <View
+              android:layout_width="1dp"
+              android:layout_height="match_parent"
+              android:background="@android:color/darker_gray"/>
+
+          <TextView
+              android:id="@+id/tv_star_level"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:layout_weight="1"
+              android:drawableRight="@mipmap/jiantou"
+              android:gravity="center"
+              android:paddingBottom="10dp"
+              android:paddingLeft="5dp"
+              android:paddingRight="5dp"
+              android:paddingTop="10dp"
+              android:text="@string/start"
+              android:textColor="@android:color/black"
+              android:textSize="@dimen/text_title"/>
+
+
         </LinearLayout>
 
         <View

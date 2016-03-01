@@ -113,10 +113,10 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> 
     @Bind(R.id.name) TextView name;
     @Bind(R.id.price_text) TextView priceText;
     @Bind(R.id.type) TextView type;
+    @Bind(R.id.house_type) TextView houseType;
     @Bind(R.id.address) TextView address;
     @Bind(R.id.tese) TextView tese;
-    @Bind(R.id.youji) TextView youji;
-    @Bind(R.id.buy) TextView buy;
+    @Bind(R.id.total) TextView total;
 
     public Context getContext() {
       return this.itemView.getContext();

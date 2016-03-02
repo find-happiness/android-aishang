@@ -177,6 +177,17 @@ public interface AiShangService {
 
   @Multipart @Headers("connection:Keep-Alive") @POST("mobile/member/memberImgEdit.ashx")
   Observable<JMemberImgEditResult> syncUploadMemberImg(@PartMap() Map<String, RequestBody> body);
+  //
+
+  @Headers("connection:Keep-Alive") @GET("mobile/member/memberLogout.ashx")
+  Observable<JResult> syncMemberLogout(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
+
+  @Headers("connection:Keep-Alive") @GET("mobile/suggestion.ashx")
+  Observable<JResult> syncSuggestion(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
 
   @GET("ribots") Observable<List<Ribot>> getRibots();
 

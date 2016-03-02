@@ -20,6 +20,7 @@ import com.aishang.app.data.model.JMemberBankListParam;
 import com.aishang.app.data.model.JMemberIM;
 import com.aishang.app.data.model.JMemberLoginParam;
 import com.aishang.app.data.model.JMemberLoginResult;
+import com.aishang.app.data.model.JMemberLogoutParam;
 import com.aishang.app.data.model.JMemberProfileBasicEditParam;
 import com.aishang.app.data.model.JMemberProfileEditParam;
 import com.aishang.app.data.model.JMemberProfileParam;
@@ -34,6 +35,7 @@ import com.aishang.app.data.model.JProjecCtooperationParam;
 import com.aishang.app.data.model.JProjectChangeParam;
 import com.aishang.app.data.model.JRentalListParam;
 import com.aishang.app.data.model.JSubscriptionParam;
+import com.aishang.app.data.model.JSuggestionParam;
 import com.aishang.app.data.model.JSysZoneParam;
 import com.aishang.app.data.remote.AiShangService;
 import com.google.gson.Gson;
@@ -568,6 +570,28 @@ public class AiShangUtil {
     param.setGoogleLng(0f);
     param.setBankAccountList(accounts);
     param.setbReturnList(bReturnList);
+
+    return gson.toJson(param);
+  }
+
+  public static String generMamberLogoutParam(String memberAccount, String cookies) {
+
+    JMemberLogoutParam param = new JMemberLogoutParam();
+    param.setMemberAccount(memberAccount);
+    param.setCookie(cookies);
+
+    return gson.toJson(param);
+  }
+
+  public static String generSuggestionParam(String memberAccount, String cookies, String title,
+      String content, String contact) {
+
+    JSuggestionParam param = new JSuggestionParam();
+    param.setMemberAccount(memberAccount);
+    param.setCookie(cookies);
+    param.setContact(contact);
+    param.setContent(content);
+    param.setTitle(title);
 
     return gson.toJson(param);
   }

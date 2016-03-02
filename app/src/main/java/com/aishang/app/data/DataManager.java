@@ -233,6 +233,15 @@ import com.aishang.app.util.EventPosterHelper;
     return mAiShangService.syncUploadMemberImg(body);
   }
 
+  public Observable<JResult> syncSuggestion(int version, String json) {
+    return mAiShangService.syncSuggestion(version, json);
+  }
+
+  //syncMemberLogout
+  public Observable<JResult> syncMemberLogout(int version, String json) {
+    return mAiShangService.syncMemberLogout(version, json);
+  }
+
   public JVersionCheckResult getVersionCheck() {
     String json = mPreferencesHelper.getVersionCheck();
 

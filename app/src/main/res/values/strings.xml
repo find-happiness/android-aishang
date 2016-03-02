@@ -136,4 +136,5 @@
   <string name="hotel_checkin_rule">会员入住规定:9岁儿童在不加床的情况下随父母住，不收取额外费用（不包含早餐）；9-12岁儿童加床为35USD/人/晚（包含早餐）</string>
 
   <string name="start">星级</string>
+  <string name="clear_cache">您确定要清除缓存！</string>
 </resources>

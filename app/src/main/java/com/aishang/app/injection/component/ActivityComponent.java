@@ -17,6 +17,7 @@ import com.aishang.app.ui.MyHouse.MyHouseActivity;
 import com.aishang.app.ui.MyOrder.MyOrderActivity;
 import com.aishang.app.ui.ProjectJoint.ProjectJointActivity;
 import com.aishang.app.ui.RecommenCustomer.RecommenCustomerActivity;
+import com.aishang.app.ui.Setting.SettingActivity;
 import com.aishang.app.ui.TravelFavorites.FavoritesFragment;
 import com.aishang.app.ui.TravelList.TravelListActivity;
 import com.aishang.app.ui.bank.BankListActivity;
@@ -24,6 +25,7 @@ import com.aishang.app.ui.hotel.HotelListActivity;
 import com.aishang.app.ui.insaleDetail.InSaleDetailActivity;
 import com.aishang.app.ui.login.LoginActivity;
 import com.aishang.app.ui.register.RegisterActivity;
+import com.aishang.app.ui.suggestion.SuggestionActivity;
 import dagger.Component;
 import com.aishang.app.injection.PerActivity;
 import com.aishang.app.injection.module.ActivityModule;
@@ -96,4 +98,8 @@ public interface ActivityComponent {
   void inject(MemberCenterActivity activity);
 
   void inject(BankListActivity activity);
+
+  void inject(SettingActivity activity);
+
+  void inject(SuggestionActivity activity);
 }

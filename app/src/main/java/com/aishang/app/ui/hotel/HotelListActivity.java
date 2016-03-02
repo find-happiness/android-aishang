@@ -31,6 +31,7 @@ import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.DialogFactory;
 import com.aishang.app.util.NetWorkType;
 import com.aishang.app.util.NetworkUtil;
+import com.aishang.app.widget.SpacesItemDecoration;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView;
@@ -214,10 +215,8 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
     layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
     mRecyclerView.setLayoutManager(layoutManager);
 
-    mRecyclerView.addItemDecoration(
-        new HorizontalDividerItemDecoration.Builder(this).colorResId(android.R.color.darker_gray)
-            .sizeResId(R.dimen.divider)
-            .build());
+    mRecyclerView.addItemDecoration(new SpacesItemDecoration(
+        this.getResources().getDimensionPixelSize(R.dimen.spacing_medium)));
     mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallScaleRipple);
     mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);
     //mRecyclerView.setArrowImageView(R.drawable.iconfont_downgrey);
@@ -391,7 +390,7 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
   }
 
   @Override public void showSyncStarLevelDialog(
-     final List<JHotelStarLevelListResult.StarListEntity> starListEntities) {
+      final List<JHotelStarLevelListResult.StarListEntity> starListEntities) {
     if (progressDialog != null && progressDialog.isShowing()) {
       progressDialog.dismiss();
     }

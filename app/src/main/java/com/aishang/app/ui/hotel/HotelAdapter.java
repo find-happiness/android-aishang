@@ -1,12 +1,15 @@
 package com.aishang.app.ui.hotel;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -14,6 +17,8 @@ import com.aishang.app.R;
 import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.ui.HotelDetail.HotelDetailActivity;
+import com.aishang.app.util.CommonUtil;
+import com.aishang.app.util.ViewUtil;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,6 +29,9 @@ import javax.inject.Inject;
  * Created by song on 2016/1/30.
  */
 public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> {
+
+  private int width = -1;
+  private int height = -1;
 
   public Date checkInDate;
   public Date checkOutDate;
@@ -37,7 +45,14 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> 
   @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     View view =
         LayoutInflater.from(parent.getContext()).inflate(R.layout.item_hotel, parent, false);
-    return new ViewHolder(view);
+    ViewHolder holder = new ViewHolder(view);
+
+    initImgSize(holder);
+
+    holder.imgInSale.setLayoutParams(new RelativeLayout.LayoutParams(width, height));
+    holder.imgInSale.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+    return holder;
   }
 
   @Override public void onBindViewHolder(final ViewHolder holder, int position) {
@@ -105,6 +120,17 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> 
         HotelDetailActivity.getStartIntent(ctx, hotelID, hotelName, checkInDate.getTime(),
             checkOutDate.getTime());
     ctx.startActivity(intent);
+  }
+
+  private void initImgSize(ViewHolder holder) {
+    Activity activity = (Activity) holder.getContext();
+
+    DisplayMetrics localDisplayMetrics = new DisplayMetrics();
+    activity.getWindowManager().getDefaultDisplay().getMetrics(localDisplayMetrics);
+    int mScreenWidth = localDisplayMetrics.widthPixels;
+    int pacing = ViewUtil.dpToPx(8);
+    width = (mScreenWidth - 2 * pacing);
+    height = width * 9 / 16;
   }
 
   public class ViewHolder extends RecyclerView.ViewHolder {

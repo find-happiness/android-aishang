@@ -76,7 +76,7 @@ public class InSalePresenter extends BasePresenter<InSaleMvpView> {
                 .toUpperCase()
                 .equals(Constants.RESULT_SUCCESS.toUpperCase())) {
 
-              if (hotelListResult.getLoupanList().length <= 0) {
+              if (hotelListResult.getLoupanList().length <= 0 && type == NetWorkType.refresh) {
                 getMvpView().showLoupanProductEmpty();
               } else {
                 List<LoupanProduct> loupanProducts = new ArrayList<LoupanProduct>();

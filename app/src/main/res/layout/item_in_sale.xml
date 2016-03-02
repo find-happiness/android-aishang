@@ -156,6 +156,7 @@
       android:layout_toRightOf="@id/look"
       android:background="@drawable/blue_stroke_corner"
       android:text="@string/look_youji"
+      android:visibility="gone"
       android:textColor="@color/blue"
       />
 

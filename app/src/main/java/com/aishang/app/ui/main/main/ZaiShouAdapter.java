@@ -90,7 +90,7 @@ import javax.inject.Inject;
       }
     }
 
-    holder.name.setText(product.getTitle());
+    holder.name.setText(loupan.getName());
     convertView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         Intent intent = new Intent(activity, InSaleDetailActivity.class);
@@ -104,7 +104,7 @@ import javax.inject.Inject;
         .placeholder(R.mipmap.banner)
         .into(holder.imgInSale);
 
-    holder.priceText.setText(loupan.getPriceText());
+    holder.priceText.setText(product.getPriceText());
     holder.tese.setText(loupan.getPromotion());
     holder.address.setText(loupan.getAddress());
     holder.time.setText(loupan.getMoveInDate());

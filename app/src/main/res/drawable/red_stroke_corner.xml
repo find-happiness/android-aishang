@@ -5,7 +5,7 @@
       android:radius="4dp"/>
 
   <stroke
-      android:color="@color/blue"
+      android:color="@color/red_buy"
       android:width="1dp"
       />
   <padding

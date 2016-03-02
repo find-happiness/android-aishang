@@ -64,7 +64,7 @@ public class HotelPresenter extends BasePresenter<HotelMvpView> {
                 .toUpperCase()
                 .equals(Constants.RESULT_SUCCESS.toUpperCase())) {
 
-              if (hotelListResult.getHotelList().length <= 0) {
+              if (hotelListResult.getHotelList().length <= 0 && type == NetWorkType.refresh) {
                 getMvpView().showHotelEmpty();
               } else {
                 switch (type) {
@@ -184,5 +184,6 @@ public class HotelPresenter extends BasePresenter<HotelMvpView> {
     if (mZoneSubscription != null) mZoneSubscription.unsubscribe();
     if (mHotelSubscription != null) mHotelSubscription.unsubscribe();
     if (mPriceSubscription != null) mPriceSubscription.unsubscribe();
+    if (mStarLevelSubscription != null) mStarLevelSubscription.unsubscribe();
   }
 }

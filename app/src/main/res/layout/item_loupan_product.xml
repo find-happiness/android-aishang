@@ -46,6 +46,14 @@
         android:textSize="@dimen/text_body"
         tools:text="5.9万"/>
 
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_toLeftOf="@id/price_text"
+          android:textColor="@color/price"
+          android:textSize="@dimen/text_body"
+          android:text="￥"/>
+
     <LinearLayout
         android:id="@+id/ll_detail"
         android:layout_width="wrap_content"
@@ -156,6 +164,10 @@
           android:layout_toLeftOf="@id/buy"
           android:background="@drawable/tu_stroke_corner"
           android:text="@string/kanfangduan"
+          android:paddingLeft="@dimen/spacing_medium"
+          android:paddingRight="@dimen/spacing_medium"
+          android:paddingTop="@dimen/spacing_xsmall"
+          android:paddingBottom="@dimen/spacing_xsmall"
           android:textColor="@color/text_tu"
           android:textSize="@dimen/text_xsmall_body"/>
 

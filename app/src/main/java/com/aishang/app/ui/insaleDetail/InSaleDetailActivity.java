@@ -56,20 +56,22 @@ public class InSaleDetailActivity extends BaseActivity implements InSaleDetailMv
   @Bind(R.id.buy) TextView buy;
   @Bind(R.id.tv_title_name) TextView tvTitleName;
   @Bind(R.id.status) ImageView status;
-  @Bind(R.id.tv_youji) TextView tvYouji;
-  @Bind(R.id.tv_name) TextView tvName;
-  @Bind(R.id.tv_price) TextView tvPrice;
-  @Bind(R.id.tv_type) TextView tvType;
-  @Bind(R.id.tv_room_num) TextView tvRoomNum;
-  @Bind(R.id.tv_move_in_date) TextView tvMoveInDate;
-  @Bind(R.id.tv_address) TextView tvAddress;
-  @Bind(R.id.wv_description) WebView wvDescription;
-  @Bind(R.id.wv_kan_fan_tuan) WebView wvKanFanTuan;
-  @Bind(R.id.tv_price_jifen) TextView tvPriceJifen;
-  @Bind(R.id.tv_effective_year) TextView tvEffectiveYear;
   @Bind(R.id.avloadingIndicatorView) AVLoadingIndicatorView avloadingIndicatorView;
   @Bind(R.id.no_data_hotel) TextView noDataHotel;
   @Bind(R.id.rl_net_status) RelativeLayout rlNetStatus;
+  @Bind(R.id.address) ImageView address;
+  @Bind(R.id.tv_address) TextView tvAddress;
+  @Bind(R.id.tv_phone) TextView tvPhone;
+  @Bind(R.id.tv_tourist) TextView tvTourist;
+  @Bind(R.id.tv_company) TextView tvCompany;
+  @Bind(R.id.tv_open_date) TextView tvOpenDate;
+  @Bind(R.id.tv_move_in_date) TextView tvMoveInDate;
+  @Bind(R.id.tv_price) TextView tvPrice;
+  @Bind(R.id.tv_landArea) TextView tvLandArea;
+  @Bind(R.id.tv_buildingArea) TextView tvBuildingArea;
+  @Bind(R.id.tv_usageRatio) TextView tvUsageRatio;
+  @Bind(R.id.wv_description) WebView wvDescription;
+  @Bind(R.id.wv_environment) WebView wvEnvironment;
 
   private String loupanProductName;
   private int loupanProductID;
@@ -244,25 +246,37 @@ public class InSaleDetailActivity extends BaseActivity implements InSaleDetailMv
     JLoupanProductDetailResult.Data dataSet = result.getDataSet();
     JLoupanProductDetailResult.Data.LoupanData loupanData = dataSet.getLoupanData();
 
-    AiShangUtil.setWebViewContent(wvDescription, dataSet.getDescription());
+    AiShangUtil.setWebViewContent(wvDescription, loupanData.getProjectIntro());
+
+    AiShangUtil.setWebViewContent(wvEnvironment, loupanData.getEnvironment());
+
+    Picasso.with(this).load(AiShangService.IMG_URL + loupanData.getMapStaticImg()).into(address);
 
     tvAddress.setText(this.getString(R.string.loupan_address, loupanData.getAddress()));
 
-    tvEffectiveYear.setText(getString(R.string.loupan_effective_year, "40年"));
+    tvPhone.setText(this.getString(R.string.loupan_phone));
+
+    tvTourist.setText(this.getString(R.string.loupan_tourist, dataSet.getmTouristAreaName()));
+
+    tvCompany.setText(this.getString(R.string.loupan_company, loupanData.getPropertyCompany()));
+
+    tvOpenDate.setText(this.getString(R.string.loupan_open_date, loupanData.getOpenDate()));
 
     tvMoveInDate.setText(this.getString(R.string.loupan_move_in_date, loupanData.getMoveInDate()));
 
-    tvName.setText(getString(R.string.loupan_product_name, loupanProductName));
+    tvPrice.setText(this.getString(R.string.loupan_price, dataSet.getPrice()));
 
-    tvPrice.setText(this.getString(R.string.loupan_price, loupanData.getPriceText()));
+    tvBuildingArea.setText(
+        this.getString(R.string.loupan_building_area, loupanData.getBuildingArea()));
 
-    tvPriceJifen.setText(this.getString(R.string.loupan_price_jifen, "12315"));
+    tvLandArea.setText(
+        this.getString(R.string.loupan_land_area, loupanData.getLandArea()));
 
-    tvRoomNum.setText(this.getString(R.string.loupan_num, "abc"));
+    tvUsageRatio.setText(
+        this.getString(R.string.loupan_usage_ratio, loupanData.getUsageRatio()));
 
     tvTitleName.setText(loupanProductName);
 
-    tvType.setText(this.getString(R.string.loupan_type, "类型"));
     setBanner(dataSet.getImageList());
   }
 

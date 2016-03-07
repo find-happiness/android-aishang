@@ -64,7 +64,7 @@ public class LoupanProductAdapter extends RecyclerView.Adapter<LoupanProductAdap
 
   @Override public void onBindViewHolder(final ViewHolder holder, int position) {
     final JLoupanProductListResult.Loupan loupan = loupanProducts.get(position).getLoupan();
-    JLoupanProductListResult.Product product = loupanProducts.get(position).getProduct();
+    final JLoupanProductListResult.Product product = loupanProducts.get(position).getProduct();
 
     holder.name.setText(loupan.getName());
 
@@ -83,7 +83,7 @@ public class LoupanProductAdapter extends RecyclerView.Adapter<LoupanProductAdap
       @Override public void onClick(View v) {
 
         Intent intent =
-            InSaleDetailActivity.getStartIntent(holder.getContext(), loupan.getLoupanID(),
+            InSaleDetailActivity.getStartIntent(holder.getContext(), product.getLoupanProductID(),
                 loupan.getName());
 
         holder.getContext().startActivity(intent);

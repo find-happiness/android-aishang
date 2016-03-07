@@ -170,11 +170,8 @@ public class JLoupanProductDetailResult implements Serializable {
     private String mTouristAreaName;
     private String mToursistDesc;
 
-    @JsonAdapter(EmptyStringObjectAdapterFactory.class)
     private LoupanData loupanData;
-    @JsonAdapter(EmptyStringObjectAdapterFactory.class)
     private Tourist[] touristList;
-    @JsonAdapter(EmptyStringObjectAdapterFactory.class)
     private Image[] imageList;
 
     public Tourist[] getTouristList() {

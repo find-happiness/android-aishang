@@ -38,9 +38,9 @@
         android:background="@color/blue"
         android:gravity="center"
         android:text="@string/can_tuan"
-        android:visibility="gone"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/text_title"/>
+        android:textSize="@dimen/text_title"
+        android:visibility="gone"/>
 
     <View
         android:layout_width="1dp"
@@ -106,6 +106,7 @@
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/white"
         android:clipToPadding="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -117,7 +118,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="@dimen/spacing_medium">
+            android:paddingTop="@dimen/spacing_medium">
 
           <LinearLayout
               android:layout_width="match_parent"
@@ -128,11 +129,12 @@
                 android:id="@+id/tv_title_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/spacing_medium"
                 android:maxLength="8"
                 android:paddingBottom="@dimen/spacing_medium"
-                android:paddingLeft="@dimen/spacing_xsmall"
                 android:paddingTop="@dimen/spacing_medium"
                 android:singleLine="true"
+                android:textColor="@android:color/black"
                 android:textSize="@dimen/text_large_body"
                 tools:text="宜春|宜春宜春宜"/>
 
@@ -144,126 +146,12 @@
                 android:layout_marginLeft="@dimen/spacing_large"
                 tools:src="@mipmap/icon_in_sale"/>
 
-            <TextView
-                android:id="@+id/tv_youji"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/spacing_xlarge"
-                android:drawableRight="@mipmap/icon_arrow_right"
-                android:text="@string/look_youji"
-                android:textColor="@color/blue"/>
           </LinearLayout>
 
           <TextView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_marginTop="@dimen/spacing_medium"
-              android:drawableLeft="@mipmap/line_red"
-              android:gravity="center"
-              android:text="@string/loupan_detail"
-              android:textSize="@dimen/text_body"/>
-
-          <View
-              android:layout_width="match_parent"
-              android:layout_height="1dp"
-              android:layout_marginTop="@dimen/spacing_medium"
-              android:background="@color/gray"/>
-
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              android:padding="@dimen/spacing_medium">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spacing_xsmall"
-                android:orientation="horizontal">
-
-              <TextView
-                  android:id="@+id/tv_name"
-                  android:layout_width="0dp"
-                  android:layout_height="wrap_content"
-                  android:layout_weight="2"
-                  android:textSize="@dimen/text_body"
-                  tools:text="项目名称:宜春|宜春宜春宜"/>
-
-              <TextView
-                  android:id="@+id/tv_price"
-                  android:layout_width="0dp"
-                  android:layout_height="wrap_content"
-                  android:layout_weight="1"
-                  android:textSize="@dimen/text_body"
-                  tools:text="价  格:15.90万"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spacing_xsmall"
-                android:orientation="horizontal">
-
-              <TextView
-                  android:id="@+id/tv_type"
-                  android:layout_width="0dp"
-                  android:layout_height="wrap_content"
-                  android:layout_weight="2"
-                  android:textSize="@dimen/text_body"
-                  tools:text="类        型:花园洋房"/>
-
-              <TextView
-                  android:id="@+id/tv_room_num"
-                  android:layout_width="0dp"
-                  android:layout_height="wrap_content"
-                  android:layout_weight="1"
-                  android:textSize="@dimen/text_body"
-                  tools:text="房  号:1栋3-11"/>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_move_in_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_body"
-                tools:text="交房时间:2015-12-13"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spacing_xsmall"
-                android:orientation="horizontal">
-
-              <TextView
-                  android:id="@+id/tv_price_jifen"
-                  android:layout_width="0dp"
-                  android:layout_height="wrap_content"
-                  android:layout_weight="2"
-                  android:textSize="@dimen/text_body"
-                  tools:text="换住积分:10000000分/年"/>
-
-              <TextView
-                  android:id="@+id/tv_effective_year"
-                  android:layout_width="0dp"
-                  android:layout_height="wrap_content"
-                  android:layout_weight="1"
-                  android:textSize="@dimen/text_body"
-                  tools:text="房产证:40年"/>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spacing_xsmall"
-                android:textSize="@dimen/text_body"
-                tools:text="项目地址:重庆重庆重庆重庆重庆重庆重庆重庆重庆重庆重庆重庆重庆"/>
-          </LinearLayout>
-
-          <TextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/spacing_medium"
               android:drawableLeft="@mipmap/line_red"
               android:gravity="center"
               android:text="@string/xiang_mu_te_se_jie_shao"
@@ -272,7 +160,7 @@
           <View
               android:layout_width="match_parent"
               android:layout_height="1dp"
-              android:layout_marginTop="@dimen/spacing_medium"
+              android:layout_marginTop="@dimen/spacing_small"
               android:background="@color/gray"/>
 
           <WebView
@@ -281,27 +169,140 @@
               android:layout_height="wrap_content"
               android:layout_marginTop="@dimen/spacing_medium"/>
 
-
           <TextView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_marginTop="@dimen/spacing_medium"
+              android:layout_marginLeft="@dimen/spacing_medium"
               android:drawableLeft="@mipmap/line_red"
               android:gravity="center"
-              android:text="@string/kanfangduan"
+              android:text="@string/loupan_detail"
               android:textSize="@dimen/text_body"/>
 
           <View
               android:layout_width="match_parent"
               android:layout_height="1dp"
-              android:layout_marginTop="@dimen/spacing_medium"
+              android:layout_marginTop="@dimen/spacing_small"
+              android:background="@color/gray"/>
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:padding="@dimen/spacing_medium">
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_body"
+                tools:text="物业地址"/>
+
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_body"
+                tools:text="售楼电话"/>
+
+            <TextView
+                android:id="@+id/tv_tourist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_body"
+                tools:text="所在景区"/>
+
+            <TextView
+                android:id="@+id/tv_company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_body"
+                tools:text="开发商"/>
+
+            <TextView
+                android:id="@+id/tv_open_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_body"
+                tools:text="开盘时间"/>
+
+            <TextView
+                android:id="@+id/tv_move_in_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_body"
+                tools:text="交房时间"/>
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_body"
+                tools:text="市场售价"/>
+
+            <TextView
+                android:id="@+id/tv_landArea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_body"
+                tools:text="占地面积"/>
+
+            <TextView
+                android:id="@+id/tv_buildingArea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_body"
+                tools:text="建筑面积"/>
+
+            <TextView
+                android:id="@+id/tv_usageRatio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_body"
+                tools:text="容 积 率"/>
+          </LinearLayout>
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/spacing_medium"
+              android:drawableLeft="@mipmap/line_red"
+              android:gravity="center"
+              android:text="周边配套"
+              android:textSize="@dimen/text_body"/>
+
+          <View
+              android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:layout_marginTop="@dimen/spacing_small"
               android:background="@color/gray"/>
 
           <WebView
-              android:id="@+id/wv_kan_fan_tuan"
+              android:id="@+id/wv_environment"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_marginTop="@dimen/spacing_medium"/>
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/spacing_medium"
+              android:drawableLeft="@mipmap/line_red"
+              android:gravity="center"
+              android:text="项目地址"
+              android:textSize="@dimen/text_body"/>
+
+          <View
+              android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:layout_marginTop="@dimen/spacing_small"
+              android:background="@color/gray"/>
+
+          <ImageView
+              android:id="@+id/address"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/spacing_medium"
+              android:scaleType="centerCrop"/>
         </LinearLayout>
 
         <RelativeLayout

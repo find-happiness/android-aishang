@@ -27,6 +27,7 @@ import com.aishang.app.data.model.JSysZoneResult;
 import com.aishang.app.data.model.JUploadFileResult;
 import com.aishang.app.data.model.JVersionCheckResult;
 import com.aishang.app.data.model.Ribot;
+import com.aishang.app.util.gson.EmptyStringObjectAdapterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.util.List;

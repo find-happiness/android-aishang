@@ -1,5 +1,6 @@
 package com.aishang.app.ui.insaleDetail;
 
+import android.util.Log;
 import com.aishang.app.data.DataManager;
 import com.aishang.app.data.model.JHotelDetailResult;
 import com.aishang.app.data.model.JLoupanProductDetailResult;
@@ -15,6 +16,7 @@ import rx.schedulers.Schedulers;
  * Created by song on 2016/1/19.
  */
 public class InSaleDetailPresenter extends BasePresenter<InSaleDetailMvpView>{
+  private static final String TAG = "InSaleDetailPresenter";
   private final DataManager mDataManager;
   private Subscription mSubscription;
 
@@ -54,7 +56,8 @@ public class InSaleDetailPresenter extends BasePresenter<InSaleDetailMvpView>{
           }
 
           @Override public void onError(Throwable e) {
-            getMvpView().showError("网络异常:" + e.toString());
+            getMvpView().showError("网络异常");
+            Log.e(TAG, "onError: "+ e.toString());
           }
 
           @Override public void onNext(JLoupanProductDetailResult result) {

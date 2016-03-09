@@ -5,12 +5,11 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
+import android.os.PersistableBundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -23,10 +22,13 @@ import com.aishang.app.R;
 import com.aishang.app.data.model.JLoupanProductDetailResult;
 import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.ui.base.BaseActivity;
+import com.aishang.app.ui.insaleDetail.InSaleDetailMvpView;
+import com.aishang.app.ui.insaleDetail.InSaleDetailPresenter;
 import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.DialogFactory;
 import com.aishang.app.util.NetImageHolderView;
+import com.aishang.app.util.NetworkUtil;
 import com.aishang.app.util.RegexUtils;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
@@ -35,26 +37,33 @@ import java.util.Calendar;
 import java.util.List;
 import javax.inject.Inject;
 
-public class BuyLouPanActivity extends BaseActivity implements BuyLoupanMvpView {
+public class BuyLouPanActivity extends BaseActivity
+    implements BuyLoupanMvpView, InSaleDetailMvpView {
 
   private static final String LOUPAN = "loupan";
-
+  private static final String LOUPANID = "loupan_id";
   @Bind(R.id.toolbar) Toolbar toolbar;
   @Bind(R.id.convenientBanner) ConvenientBanner banner;
-  @Bind(R.id.name) TextView name;
   @Bind(R.id.et_name) EditText etName;
   @Bind(R.id.phone) EditText phone;
   @Bind(R.id.et_address) EditText etAddress;
   @Bind(R.id.date) TextView date;
   @Bind(R.id.et_yuyu_address) EditText etYuyuAddress;
-
   @Bind(R.id.layoutRoot) RelativeLayout layoutRoot;
-
   @Inject BuyLoupanPresenter presenter;
-
+  @Inject InSaleDetailPresenter detailPresenter;
   ProgressDialog progressDialog;
+  @Bind(R.id.title_name) TextView titleName;
+  @Bind(R.id.name) TextView name;
+  @Bind(R.id.price) TextView price;
+  @Bind(R.id.type) TextView type;
+  @Bind(R.id.limt_year) TextView limtYear;
+  @Bind(R.id.move_in_date) TextView moveInDate;
+  @Bind(R.id.address) TextView address;
 
   private JLoupanProductDetailResult loupan;
+
+  private int loupan_id;
 
   public static Intent getStartIntent(Context ctx, JLoupanProductDetailResult loupan) {
     Intent intent = new Intent(ctx, BuyLouPanActivity.class);
@@ -62,11 +71,17 @@ public class BuyLouPanActivity extends BaseActivity implements BuyLoupanMvpView 
     return intent;
   }
 
+  public static Intent getStartIntent(Context ctx, int loupanID) {
+    Intent intent = new Intent(ctx, BuyLouPanActivity.class);
+    intent.putExtra(LOUPANID, loupanID);
+    return intent;
+  }
+
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     this.getActivityComponent().inject(this);
     presenter.attachView(this);
-
+    detailPresenter.attachView(this);
     setContentView(R.layout.activity_buy_lou_pan);
     ButterKnife.bind(this);
     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
@@ -79,12 +94,75 @@ public class BuyLouPanActivity extends BaseActivity implements BuyLoupanMvpView 
     }
 
     initToolbar();
-    initBanner();
+    if (loupan != null) {
+      initBanner();
+      bindView();
+    } else {
+      if (savedInstanceState != null && savedInstanceState.containsKey(LOUPANID)) {
+        loupan_id = (int) savedInstanceState.getInt(LOUPANID, -1);
+      } else {
+        loupan_id = (int) this.getIntent().getIntExtra(LOUPANID, -1);
+      }
+      proLoad(loupan_id);
+    }
   }
+
+  @Override public void onSaveInstanceState(Bundle outState) {
+
+    if (loupan != null) {
+      outState.putSerializable(LOUPAN, loupan);
+    } else if (loupan_id > 0) {
+      outState.putInt(LOUPANID, loupan_id);
+    }
+
+    super.onSaveInstanceState(outState);
+  }
+
   @Override protected void onDestroy() {
     presenter.detachView();
+    detailPresenter.detachView();
     super.onDestroy();
   }
+
+  private void proLoad(int loupanID) {
+    if (NetworkUtil.isNetworkConnected(this)) {
+
+      progressDialog = DialogFactory.createProgressDialog(this, R.string.listview_loading);
+      progressDialog.show();
+
+      asynLoupanDetail(loupanID);
+    } else {
+      CommonUtil.showSnackbar(R.string.no_net, layoutRoot);
+    }
+  }
+
+  private void asynLoupanDetail(int loupanID) {
+    //String json = AiShangUtil.generHotelParam(0, "", 0, 10, 0, AiShangUtil.gennerCheckinData(),
+    //    AiShangUtil.gennerCheckoutData(), selectZoneID, 0, 0, 0, 0, 0, "", 0, "", 0, 1);
+
+    //presenter.loadHotel(1, json);
+
+    detailPresenter.loadLoupanProductDetail(1,
+        AiShangUtil.generLoupanProductDetail(loupanID, 1, 1));
+  }
+
+  private void bindView() {
+    JLoupanProductDetailResult.Data dataSet = loupan.getDataSet();
+    moveInDate.setText(this.getString(R.string.loupan_move_in_date, dataSet.getMoveInDate()));
+
+    name.setText("项目名称:" + dataSet.getLoupanData().getName());
+
+    titleName.setText(dataSet.getLoupanData().getName());
+
+    limtYear.setText("房产证:" + "");
+
+    price.setText("价  格:￥" + dataSet.getPrice() / 10000.0 + "万元");
+
+    type.setText("类        型:");
+
+    address.setText("项目地址:" + dataSet.getLoupanData().getAddress());
+  }
+
   @OnClick(R.id.submint) void onClickSubmit() {
 
     CommonUtil.hideSoftInput(this);
@@ -187,7 +265,7 @@ public class BuyLouPanActivity extends BaseActivity implements BuyLoupanMvpView 
   private void setBanner(JLoupanProductDetailResult.Image[] images) {
     List<String> localImages = new ArrayList<>();
     for (JLoupanProductDetailResult.Image img : images) {
-      localImages.add(img.getUrl());
+      localImages.add(AiShangService.IMG_URL + img.getUrl());
     }
 
     banner.setPages(new CBViewHolderCreator<NetImageHolderView>() {
@@ -210,6 +288,19 @@ public class BuyLouPanActivity extends BaseActivity implements BuyLoupanMvpView 
     dismissDialog();
 
     CommonUtil.showSnackbar(error, layoutRoot);
+  }
+
+  @Override public void showLoupanProductDetailError(String error) {
+    dismissDialog();
+
+    CommonUtil.showSnackbar("没有获取到楼盘数据，请稍后再试！", layoutRoot);
+  }
+
+  @Override public void bindDataToView(JLoupanProductDetailResult result) {
+    dismissDialog();
+    loupan = result;
+    initBanner();
+    bindView();
   }
 
   @Override public void showSuccess() {

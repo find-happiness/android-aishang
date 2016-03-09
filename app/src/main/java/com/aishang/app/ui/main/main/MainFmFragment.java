@@ -34,6 +34,7 @@ import com.aishang.app.data.model.JMrePromParam;
 import com.aishang.app.data.model.JMrePromResult;
 import com.aishang.app.data.model.JNewsListResult;
 import com.aishang.app.data.model.JSysZoneResult;
+import com.aishang.app.data.model.LoupanProduct;
 import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.ui.HotelDetail.HotelDetailActivity;
 import com.aishang.app.ui.TravelDetail.TravelDetailActivity;
@@ -52,6 +53,7 @@ import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.google.gson.Gson;
 import com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView;
 import com.squareup.picasso.Picasso;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -283,8 +285,16 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
     avloadingIndicatorViewInSale.setVisibility(View.GONE);
     noDataInSale.setVisibility(View.GONE);
     zaiShouAdapter = new ZaiShouAdapter(getContext());
-    zaiShouAdapter.setLoupans(loupans);
-    zaiShouAdapter.setProducts(products);
+    List<LoupanProduct> loupanProducts = new ArrayList<>();
+    for (JLoupanProductListResult.Loupan l : loupans) {
+      for (JLoupanProductListResult.Product p : products) {
+        if (p.getLoupanID() == l.getLoupanID()) {
+          LoupanProduct lp = new LoupanProduct(p, l);
+          loupanProducts.add(lp);
+        }
+      }
+    }
+    zaiShouAdapter.setLoupanProducts(loupanProducts);
     gvInSale.setAdapter(zaiShouAdapter);
   }
 

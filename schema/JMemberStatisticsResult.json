@@ -1,0 +1,22 @@
+{
+  "result": "success",
+  "data": {
+    "memberID": 4502,
+    "awardTotal": 0.00,
+    "awardLeft": 0.00,
+    "awardTotalNot": 0.00,
+    "awardSelf": 0.00,
+    "awardSelfNot": 0.00,
+    "awardFromChild": 0.00,
+    "awardFromChildNot": 0.00,
+    "vaCardCount": 0,
+    "creditTotal": 0,
+    "creditUsed": 0,
+    "creditLeft": 0,
+    "activeMemberCount": 11,
+    "candidateMemberCount": 9,
+    "vaApplyTotal": 0,
+    "vaApplyInProcess": 0,
+    "totalBussinessInfo": 0
+  }
+}

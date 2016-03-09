@@ -52,7 +52,6 @@ public class InSaleDetailActivity extends BaseActivity implements InSaleDetailMv
 
   @Inject InSaleDetailPresenter presenter;
   @Bind(R.id.layoutRoot) RelativeLayout layoutRoot;
-  @Bind(R.id.cantuan) TextView cantuan;
   @Bind(R.id.buy) TextView buy;
   @Bind(R.id.tv_title_name) TextView tvTitleName;
   @Bind(R.id.status) ImageView status;
@@ -135,6 +134,22 @@ public class InSaleDetailActivity extends BaseActivity implements InSaleDetailMv
   @Override protected void onDestroy() {
     presenter.detachView();
     super.onDestroy();
+  }
+
+  @OnClick(R.id.take_phone) void oncliclTakePhone() {
+    if (loupan != null) {
+      CommonUtil.intentToCall("", this);
+    } else {
+      CommonUtil.showSnackbar("未获取到数据，请稍后再试！", layoutRoot);
+    }
+  }
+
+  @OnClick(R.id.take_online) void oncliclTakeOnLine() {
+    if (loupan != null) {
+      CommonUtil.showSnackbar("在线交谈", layoutRoot);
+    } else {
+      CommonUtil.showSnackbar("未获取到数据，请稍后再试！", layoutRoot);
+    }
   }
 
   @OnClick(R.id.buy) void onclickBuy() {
@@ -269,11 +284,9 @@ public class InSaleDetailActivity extends BaseActivity implements InSaleDetailMv
     tvBuildingArea.setText(
         this.getString(R.string.loupan_building_area, loupanData.getBuildingArea()));
 
-    tvLandArea.setText(
-        this.getString(R.string.loupan_land_area, loupanData.getLandArea()));
+    tvLandArea.setText(this.getString(R.string.loupan_land_area, loupanData.getLandArea()));
 
-    tvUsageRatio.setText(
-        this.getString(R.string.loupan_usage_ratio, loupanData.getUsageRatio()));
+    tvUsageRatio.setText(this.getString(R.string.loupan_usage_ratio, loupanData.getUsageRatio()));
 
     tvTitleName.setText(loupanProductName);
 

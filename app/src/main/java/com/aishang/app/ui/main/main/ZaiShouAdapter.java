@@ -12,8 +12,10 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JLoupanProductListResult;
+import com.aishang.app.data.model.LoupanProduct;
 import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.injection.ActivityContext;
+import com.aishang.app.ui.BuyLouPan.BuyLouPanActivity;
 import com.aishang.app.ui.insaleDetail.InSaleDetailActivity;
 import com.aishang.app.util.Constants;
 import com.squareup.picasso.Picasso;
@@ -28,48 +30,53 @@ import javax.inject.Inject;
 
   private final Context activity;
 
-  private List<JLoupanProductListResult.Product> products;
+  //private List<JLoupanProductListResult.Product> products;
+  //
+  //private List<JLoupanProductListResult.Loupan> loupans;
 
-  private List<JLoupanProductListResult.Loupan> loupans;
+  private List<LoupanProduct> loupanProducts;
 
   @Inject public ZaiShouAdapter(Context activity) {
     this.activity = activity;
-    loupans = new ArrayList<>();
-    products = new ArrayList<>();
+    loupanProducts = new ArrayList<>();
+    //products = new ArrayList<>();
   }
 
   @Override public int getCount() {
-    return loupans.size();
+    return loupanProducts.size();
   }
 
   @Override public Object getItem(int position) {
-    return loupans.get(position);
+    return loupanProducts.get(position);
   }
 
   @Override public long getItemId(int position) {
     return position;
   }
 
-  public void setLoupans(List<JLoupanProductListResult.Loupan> loupans) {
-    this.loupans = loupans;
-  }
+  //public void setLoupans(List<JLoupanProductListResult.Loupan> loupans) {
+  //  this.loupans = loupans;
+  //}
+  //
+  //public void setProducts(List<JLoupanProductListResult.Product> products) {
+  //  this.products = products;
+  //}
 
-  public void setProducts(List<JLoupanProductListResult.Product> products) {
-    this.products = products;
+  public void setLoupanProducts(List<LoupanProduct> loupanProducts) {
+    this.loupanProducts = loupanProducts;
   }
 
   public void clearData() {
-    products.clear();
-    loupans.clear();
+    loupanProducts.clear();
   }
 
-  public List<JLoupanProductListResult.Product> getProducts() {
-    return products;
+  public List<LoupanProduct> getLoupanProducts() {
+    return loupanProducts;
   }
 
-  public List<JLoupanProductListResult.Loupan> getLoupans() {
-    return loupans;
-  }
+  //public List<JLoupanProductListResult.Loupan> getLoupans() {
+  //  return loupans;
+  //}
 
   @Override public View getView(int position, View convertView, ViewGroup parent) {
     HotYouJiHolder holder = null;
@@ -80,23 +87,11 @@ import javax.inject.Inject;
       holder = (HotYouJiHolder) convertView.getTag();
     }
 
-    final JLoupanProductListResult.Loupan loupan = loupans.get(position);
+    final JLoupanProductListResult.Loupan loupan = loupanProducts.get(position).getLoupan();
     final int loupanid = loupan.getLoupanID();
-    JLoupanProductListResult.Product product = null;
-    for (JLoupanProductListResult.Product p : products) {
-      if (p.getLoupanID() == loupanid) {
-        product = p;
-        break;
-      }
-    }
+    final JLoupanProductListResult.Product product = loupanProducts.get(position).getProduct();
 
     holder.name.setText(loupan.getName());
-    convertView.setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View v) {
-        Intent intent = new Intent(activity, InSaleDetailActivity.class);
-        activity.startActivity(intent);
-      }
-    });
 
     Picasso.with(activity)
         .load(AiShangService.IMG_URL + product.getImageUrl())
@@ -109,11 +104,18 @@ import javax.inject.Inject;
     holder.address.setText(loupan.getAddress());
     holder.time.setText(loupan.getMoveInDate());
 
+    holder.buy.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        Intent intent = BuyLouPanActivity.getStartIntent(activity, product.getLoupanProductID());
+        activity.startActivity(intent);
+      }
+    });
     convertView.setTag(holder);
 
     convertView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        Intent intent = InSaleDetailActivity.getStartIntent(activity, loupanid, loupan.getName());
+        Intent intent = InSaleDetailActivity.getStartIntent(activity, product.getLoupanProductID(),
+            loupan.getName());
         activity.startActivity(intent);
       }
     });

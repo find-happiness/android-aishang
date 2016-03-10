@@ -7,9 +7,12 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.transition.Slide;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
@@ -110,6 +113,7 @@ public class InSaleDetailActivity extends BaseActivity implements InSaleDetailMv
     loupanProductName = this.getIntent().getStringExtra(LOUPAN_PRODUCT_NAME);
     initView();
     proLoad();
+
     //ViewCompat.setTransitionName(findViewById(R.id.app_bar_layout), EXTRA_IMAGE);
     //supportPostponeEnterTransition();
     //
@@ -164,6 +168,12 @@ public class InSaleDetailActivity extends BaseActivity implements InSaleDetailMv
   private void initView() {
     initToolbar();
     initBanner();
+    initCollapsingToolbar();
+  }
+
+  private void initCollapsingToolbar() {
+    collapsingToolbarLayout.setTitle(loupanProductName);
+    collapsingToolbarLayout.setExpandedTitleGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM);
   }
 
   private void proLoad() {

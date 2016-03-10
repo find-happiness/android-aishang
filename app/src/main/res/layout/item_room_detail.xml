@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:layout_marginTop="@dimen/spacing_medium"
+    android:orientation="vertical">
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+
+    <RelativeLayout
+        android:id="@+id/button"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="@dimen/spacing_medium"
+        android:gravity="center">
+
+      <View
+          android:layout_width="12dp"
+          android:layout_height="12dp"
+          android:background="@mipmap/icon_arrow_right"/>
+    </RelativeLayout>
+  </RelativeLayout>
+
+  <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+      android:id="@+id/expandableLayout"
+      android:layout_width="match_parent"
+      android:layout_height="120dp"
+      app:ael_duration="400"
+      app:ael_expanded="false"
+      app:ael_orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:padding="@dimen/spacing_medium"
+        android:text="
+    sample.sample.sample.sample.sample.sample.sample.sample.sample.sample.\n
+    "
+        android:textColor="@android:color/white"
+        android:textSize="16sp"/>
+  </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+</RelativeLayout>

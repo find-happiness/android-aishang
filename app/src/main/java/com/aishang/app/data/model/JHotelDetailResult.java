@@ -52,7 +52,7 @@ public class JHotelDetailResult implements Serializable{
 			private String mTouristName;
 			private String fax;
 			private String phone;
-			private String starLevel;
+			private int starLevel;
 			private String openDateText;
 			private String decorationDateText;
 			private String floors;
@@ -70,6 +70,15 @@ public class JHotelDetailResult implements Serializable{
 			private String promotionText;
 			private String address;
 			private String ctripUrl;
+			private String PriceText;
+
+			public String getPriceText() {
+				return PriceText;
+			}
+
+			public void setPriceText(String priceText) {
+				PriceText = priceText;
+			}
 
 			public String getCtripUrl() {
 				return ctripUrl;
@@ -162,11 +171,11 @@ public class JHotelDetailResult implements Serializable{
 				this.phone = phone;
 			}
 
-			public String getStarLevel() {
+			public int getStarLevel() {
 				return starLevel;
 			}
 
-			public void setStarLevel(String starLevel) {
+			public void setStarLevel(int starLevel) {
 				this.starLevel = starLevel;
 			}
 

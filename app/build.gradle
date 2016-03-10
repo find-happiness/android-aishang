@@ -177,6 +177,7 @@ dependencies {
   compile 'com.ms-square:expandableTextView:0.1.4'
   compile 'com.google.android.gms:play-services-gcm:8.4.0'
   compile 'com.foamtrace:photopicker:1.0'
+  compile 'com.github.aakira:expandable-layout:1.4.3@aar'
 }
 
 // Log out test results to console

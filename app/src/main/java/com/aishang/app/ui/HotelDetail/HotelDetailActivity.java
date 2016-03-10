@@ -1,14 +1,22 @@
 package com.aishang.app.ui.HotelDetail;
 
+import android.animation.ObjectAnimator;
+import android.app.ActionBar;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.BaseAdapter;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,9 +38,13 @@ import com.aishang.app.util.DialogFactory;
 import com.aishang.app.util.NetworkUtil;
 import com.aishang.app.util.NumberPickerDelegate;
 import com.aishang.app.widget.DrawableCenterButton;
+import com.aishang.app.widget.NonScrollGridView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
+import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
+import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
+import com.github.aakira.expandablelayout.Utils;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -54,14 +66,23 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
   @Bind(R.id.tv_check_out_date) DrawableCenterButton tvCheckOutDate;
   @Bind(R.id.room_num) DrawableCenterButton roomNum;
   @Bind(R.id.name) TextView name;
-  @Bind(R.id.description) WebView description;
-  @Bind(R.id.map) View map;
+  @Bind(R.id.wv_rules) WebView wvRules;
+  @Bind(R.id.map) ImageView map;
+  @Bind(R.id.gv_faclilite) NonScrollGridView gvFaclilite;
+  @Bind(R.id.gv_services) NonScrollGridView gvService;
+  @Bind(R.id.wv_special) WebView wvSpecial;
+  @Bind(R.id.tag) TextView tag;
+  @Bind(R.id.price) TextView price;
+  @Bind(R.id.star_container) LinearLayout starContainer;
+  @Bind(R.id.toolbar_title) TextView toolbarText;
+  @Bind(R.id.room_container) LinearLayout roomContainer;
 
   private String hotelName;
   private int hotelID;
   private long checkInDate;
   private long checkOutDate;
   private int selectRoomNum = 1;
+  private Dialog progressDialog;
 
   /**
    * Return an Intent to start this Activity.
@@ -92,14 +113,15 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
     checkInDate = this.getIntent().getLongExtra(CHECK_IN_DATE, 0);
     checkOutDate = this.getIntent().getLongExtra(CHECK_OUT_DATE, 0);
     hotelName = this.getIntent().getStringExtra(HOTEL_NAME);
-
     tvCheckInDate.setText(AiShangUtil.dateFormat(new Date(checkInDate)));
     tvCheckOutDate.setText(AiShangUtil.dateFormat(new Date(checkOutDate)));
     name.setText(hotelName);
-    roomNum.setText(selectRoomNum+"");
+    toolbarText.setText(hotelName);
+    roomNum.setText(getString(R.string.room_num, selectRoomNum));
     initToolbar();
     proLoad();
   }
+
   @Override protected void onDestroy() {
     presenter.detachView();
     super.onDestroy();
@@ -135,7 +157,8 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
       //if (noDataHotel.getVisibility() == View.VISIBLE) {
       //  noDataHotel.setVisibility(View.GONE);
       //}
-
+      progressDialog = DialogFactory.createProgressDialog(this, R.string.listview_loading);
+      progressDialog.show();
       asynHotelDetail();
     } else {
 
@@ -162,19 +185,144 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
   }
 
   @Override public void showError(String error) {
-
+    dismissDialog();
+    Log.e(TAG, "showError: "+error );
   }
 
   @Override public void showHotelDetailError(String error) {
+    dismissDialog();
+    Log.e(TAG, "showError: " + error);
+  }
 
+  private void dismissDialog() {
+    if (progressDialog != null && progressDialog.isShowing()) progressDialog.dismiss();
   }
 
   @Override public void bindDataToView(JHotelDetailResult result) {
 
-    hotel = result;
+    dismissDialog();
 
+    hotel = result;
+    String strTag = result.getDataSet().getBaseInfo().getTags();
+    if (TextUtils.isEmpty(strTag)) {
+      tag.setVisibility(View.GONE);
+    } else {
+      tag.setText(strTag);
+    }
+
+    price.setText("￥" + result.getDataSet().getBaseInfo().getPriceText());
     setGalleryImg(result);
-    AiShangUtil.setWebViewContent(description, result.getDataSet().getBaseInfo().getDescription());
+
+    String strRules = result.getDataSet().getBaseInfo().getRules();
+
+    if (TextUtils.isEmpty(strRules)) {
+      wvRules.setVisibility(View.GONE);
+    } else {
+      wvRules.setBackgroundColor(0x00000000);
+      AiShangUtil.setWebViewContent(wvRules, strRules);
+    }
+
+    String strSpecial = result.getDataSet().getBaseInfo().getSpecial();
+
+    if (TextUtils.isEmpty(strRules)) {
+      wvSpecial.setVisibility(View.GONE);
+    } else {
+      wvSpecial.setBackgroundColor(0x00000000);
+      AiShangUtil.setWebViewContent(wvSpecial, strSpecial);
+    }
+
+    bindFaclilite(result.getDataSet().getBaseInfo().getFacliliteList());
+    bindService(result.getDataSet().getBaseInfo().getServiceList());
+    bindStarLevel(result.getDataSet().getBaseInfo().getStarLevel());
+
+    bindHotelRoom(result.getDataSet().getRoomCatList());
+  }
+
+  private void bindStarLevel(int level) {
+
+    for (int i = 0; i < level; i++) {
+      ImageView iv = new ImageView(this);
+      iv.setImageResource(R.mipmap.star_light);
+      LinearLayout.LayoutParams params =
+          new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+              LinearLayout.LayoutParams.WRAP_CONTENT);
+      int spacing = getResources().getDimensionPixelSize(R.dimen.spacing_small);
+      params.setMargins(0, spacing, spacing, spacing);
+      iv.setLayoutParams(params);
+      starContainer.addView(iv);
+    }
+
+  }
+
+  private void bindFaclilite(JHotelDetailResult.Data.BaseInfo.Faclilite[] faclilites) {
+
+    List<TextModel> models = new ArrayList<>();
+    for (JHotelDetailResult.Data.BaseInfo.Faclilite f : faclilites) {
+      TextModel tm = new TextModel(f.getName(), f.getEnable());
+      models.add(tm);
+    }
+
+    TextAdapter adapter = new TextAdapter(models);
+
+    gvFaclilite.setAdapter(adapter);
+  }
+
+  private void bindService(JHotelDetailResult.Data.BaseInfo.Service[] services) {
+
+    List<TextModel> models = new ArrayList<>();
+    for (JHotelDetailResult.Data.BaseInfo.Service f : services) {
+      TextModel tm = new TextModel(f.getName(), f.getEnable());
+      models.add(tm);
+    }
+    TextAdapter adapter = new TextAdapter(models);
+    gvService.setAdapter(adapter);
+  }
+
+  private void bindHotelRoom(JHotelDetailResult.Data.RoomCat[] roomCats) {
+
+    int i=0;
+    for (JHotelDetailResult.Data.RoomCat room : roomCats) {
+
+      View roomItem = LayoutInflater.from(this).inflate(R.layout.item_room_detail,null);
+      final RelativeLayout buttonLayout = (RelativeLayout) roomItem.findViewById(R.id.button);
+      final ExpandableRelativeLayout expandableLayout =
+          (ExpandableRelativeLayout) roomItem.findViewById(R.id.expandableLayout);
+
+      LinearLayout.LayoutParams params =
+          new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+              LinearLayout.LayoutParams.WRAP_CONTENT);
+      int spacing = getResources().getDimensionPixelSize(R.dimen.spacing_medium);
+      params.setMargins(0, spacing, 0, 0);
+
+      expandableLayout.setListener(new ExpandableLayoutListenerAdapter() {
+        @Override public void onPreOpen() {
+          createRotateAnimator(buttonLayout, 0f, 90f).start();
+        }
+
+        @Override public void onPreClose() {
+          createRotateAnimator(buttonLayout, 90f, 0f).start();
+        }
+      });
+
+      //buttonLayout.setRotation(expandState.get(position) ? 180f : 0f);
+      buttonLayout.setOnClickListener(new View.OnClickListener() {
+        @Override public void onClick(final View v) {
+          expandableLayout.toggle();
+        }
+      });
+
+      roomItem.setLayoutParams(params);
+      roomContainer.addView(roomItem, i++);
+    }
+
+    roomContainer.requestLayout();
+  }
+
+  public ObjectAnimator createRotateAnimator(final View target, final float from, final float to) {
+    ObjectAnimator animator = ObjectAnimator.ofFloat(target, "rotation", from, to);
+    animator.setDuration(300);
+    animator.setInterpolator(Utils.createInterpolator(Utils.LINEAR_INTERPOLATOR));
+    return animator;
   }
 
   @OnClick(R.id.tv_check_out_date) void onClickCheckOutDate() {
@@ -201,16 +349,15 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
     }).show();
   }
 
-  @OnClick(R.id.room_num)
-  void onclickRoomNum()
-  {
-    DialogFactory.createNumberPicker(this, selectRoomNum, 100, 1, "订购房间数", new NumberPickerDelegate() {
-      @Override public void OnPick(NumberPicker picker, int num) {
-        selectRoomNum = num;
-        roomNum.setText(selectRoomNum+"");
-        Log.i(TAG, "OnPick: " + selectRoomNum);
-      }
-    }).show();
+  @OnClick(R.id.room_num) void onclickRoomNum() {
+    DialogFactory.createNumberPicker(this, selectRoomNum, 100, 1, "订购房间数",
+        new NumberPickerDelegate() {
+          @Override public void OnPick(NumberPicker picker, int num) {
+            selectRoomNum = num;
+            roomNum.setText(getString(R.string.room_num, num));
+            Log.i(TAG, "OnPick: " + selectRoomNum);
+          }
+        }).show();
   }
 
   private void setGalleryImg(JHotelDetailResult result) {
@@ -227,8 +374,7 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
     //Log.i(TAG, "setGalleryImg: " + ads.size());
 
     int[] size = CommonUtil.getHeightWithScreenWidth(this, 16, 9);
-    LinearLayout.LayoutParams layoutParams =
-        new LinearLayout.LayoutParams(size[0], size[1]);
+    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(size[0], size[1]);
 
     convenientBanner.setLayoutParams(layoutParams);
 
@@ -259,6 +405,64 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
           .error(R.mipmap.banner)
           .placeholder(R.mipmap.banner)
           .into(imageView);
+    }
+  }
+
+  private class TextAdapter extends BaseAdapter {
+
+    List<TextModel> dates;
+
+    public TextAdapter(List<TextModel> dates) {
+      this.dates = dates;
+    }
+
+    @Override public int getCount() {
+      return dates.size();
+    }
+
+    @Override public Object getItem(int position) {
+      return dates.get(position);
+    }
+
+    @Override public long getItemId(int position) {
+      return position;
+    }
+
+    @Override public View getView(int position, View convertView, ViewGroup parent) {
+      TextModel tm = dates.get(position);
+      TextView tv = new TextView(HotelDetailActivity.this);
+      tv.setText(tm.getText());
+      tv.getPaint()
+          .setFlags(tm.getStatus() > 0 ? Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG : 0);
+      tv.getPaint().setAntiAlias(true);
+      return tv;
+    }
+  }
+
+  private class TextModel {
+
+    private String text;
+    private int status;
+
+    public TextModel(String text, int status) {
+      this.text = text;
+      this.status = status;
+    }
+
+    public String getText() {
+      return text;
+    }
+
+    public void setText(String text) {
+      this.text = text;
+    }
+
+    public int getStatus() {
+      return status;
+    }
+
+    public void setStatus(int status) {
+      this.status = status;
     }
   }
 }

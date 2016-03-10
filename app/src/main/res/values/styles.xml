@@ -60,4 +60,15 @@
         <!--<item name="actionBarTheme">@style/actionBarTheme</item>-->
         <!--<item name="actionBarPopupTheme">@style/actionBarPopupTheme</item>-->
     </style>
+
+    <style name="TextViewCollapsed" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_large_title</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="TextViewExpanded" parent="@android:style/TextAppearance">
+        <item name="android:textSize">@dimen/text_large_title</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_marginBottom">0dp</item>
+    </style>
 </resources>

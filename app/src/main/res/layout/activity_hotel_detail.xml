@@ -15,7 +15,16 @@
       android:layout_alignParentTop="true"
       app:layout_collapseMode="pin"
       app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-      />
+      >
+
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_title"/>
+  </android.support.v7.widget.Toolbar>
 
   <LinearLayout
       android:id="@+id/ll_action_button"
@@ -64,7 +73,7 @@
       android:layout_height="match_parent"
       android:layout_above="@id/ll_action_button"
       android:layout_below="@id/toolbar"
-      android:background="@android:color/white"
+      android:background="@color/tab_bg"
       android:clipToPadding="false"
       app:layout_behavior="@string/appbar_scrolling_view_behavior"
       >
@@ -83,90 +92,52 @@
           app:canLoop="true"
           />
 
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginLeft="@dimen/spacing_medium"
-          android:orientation="horizontal"
-          >
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/spacing_medium"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:ellipsize="end"
-            android:maxLength="12"
-            android:paddingLeft="@dimen/spacing_xsmall"
-            android:singleLine="true"
-            android:textSize="@dimen/text_large_body"
-            tools:text="宜春|宜春宜春宜"
-            />
+      <FrameLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:orientation="horizontal"
+            >
+
+          <TextView
+              android:id="@+id/name"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginRight="@dimen/spacing_medium"
+              android:layout_marginTop="@dimen/spacing_medium"
+              android:ellipsize="end"
+              android:maxLength="12"
+              android:paddingLeft="@dimen/spacing_xsmall"
+              android:singleLine="true"
+              android:textSize="@dimen/text_large_body"
+              tools:text="宜春|宜春宜春宜"
+              />
+
+          <LinearLayout
+              android:id="@+id/star_container"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:orientation="horizontal">
+          </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="@dimen/spacing_medium"
+            android:textSize="@dimen/text_title"
+            tools:text="￥300元"
+            />
+      </FrameLayout>
 
-          <ImageView
-              android:id="@+id/star1"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginLeft="@dimen/spacing_small"
-              android:src="@mipmap/star_gray"
-              />
-
-          <ImageView
-              android:id="@+id/star2"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginLeft="@dimen/spacing_xsmall"
-              android:src="@mipmap/star_gray"
-              />
-
-          <ImageView
-              android:id="@+id/star3"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginLeft="@dimen/spacing_xsmall"
-              android:src="@mipmap/star_gray"
-              />
-
-          <ImageView
-              android:id="@+id/star4"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginLeft="@dimen/spacing_xsmall"
-              android:src="@mipmap/star_gray"
-              />
-
-          <ImageView
-              android:id="@+id/star5"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginLeft="@dimen/spacing_xsmall"
-              android:src="@mipmap/star_gray"
-              />
-
-          <ImageView
-              android:id="@+id/star6"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginLeft="@dimen/spacing_xsmall"
-              android:src="@mipmap/star_gray"
-              />
-
-          <ImageView
-              android:id="@+id/star7"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginLeft="@dimen/spacing_xsmall"
-              android:src="@mipmap/star_gray"
-              />
-        </LinearLayout>
-      </LinearLayout>
 
       <TextView
           android:id="@+id/tag"
@@ -175,9 +146,9 @@
           android:layout_marginLeft="@dimen/spacing_medium"
           android:layout_marginTop="@dimen/spacing_medium"
           android:singleLine="true"
-          android:text="tag"
           android:textColor="@color/text_gray"
-          android:textSize="@dimen/text_body"/>
+          android:textSize="@dimen/text_body"
+          tools:text="tag"/>
 
       <LinearLayout
           android:layout_width="wrap_content"
@@ -232,6 +203,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/spacing_medium"
+          android:background="@android:color/white"
           android:orientation="horizontal"
           android:padding="@dimen/spacing_medium"
           >
@@ -275,109 +247,20 @@
             android:layout_weight="1"
             android:drawableLeft="@mipmap/ic_house"
             android:drawablePadding="5dp"
-            tools:text="2015-09-15"
+            tools:text="3间"
             />
       </LinearLayout>
 
       <LinearLayout
+          android:id="@+id/room_container"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:orientation="vertical"
-          android:padding="@dimen/spacing_medium"
-          >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_xsmall"
-            android:orientation="horizontal"
-            >
-
-          <TextView
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="2"
-              android:textSize="@dimen/text_body"
-              tools:text="项目名称:宜春|宜春宜春宜"
-              />
-
-          <TextView
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:textSize="@dimen/text_body"
-              tools:text="价  格:15.90万"
-              />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_xsmall"
-            android:orientation="horizontal"
-            >
-
-          <TextView
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="2"
-              android:textSize="@dimen/text_body"
-              tools:text="类        型:花园洋房"
-              />
-
-          <TextView
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:textSize="@dimen/text_body"
-              tools:text="房  号:1栋3-11"
-              />
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/text_body"
-            tools:text="交房时间:2015-12-13"
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_xsmall"
-            android:orientation="horizontal"
-            >
-
-          <TextView
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="2"
-              android:textSize="@dimen/text_body"
-              tools:text="换住积分:10000000分/年"
-              />
-
-          <TextView
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:textSize="@dimen/text_body"
-              tools:text="房产证:40年"
-              />
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_xsmall"
-            android:textSize="@dimen/text_body"
-            tools:text="项目地址:重庆重庆重庆重庆重庆重庆重庆重庆重庆重庆重庆重庆重庆"
-            />
-      </LinearLayout>
-
+          android:orientation="vertical"/>
 
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_medium"
           android:drawableLeft="@mipmap/line_red"
           android:gravity="center"
           android:paddingLeft="@dimen/spacing_medium"
@@ -403,11 +286,11 @@
               android:src="@mipmap/ic_hotel_faclilite"/>
 
           <com.aishang.app.widget.NonScrollGridView
+              android:id="@+id/gv_faclilite"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_marginLeft="@dimen/spacing_medium"
-              android:columnCount="4"
-              android:rowCount="3"
+              android:numColumns="2"
               />
 
         </LinearLayout>
@@ -424,11 +307,11 @@
               android:src="@mipmap/ic_hotel_service"/>
 
           <com.aishang.app.widget.NonScrollGridView
+              android:id="@+id/gv_services"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_marginLeft="@dimen/spacing_medium"
-              android:columnCount="4"
-              android:rowCount="3"
+              android:numColumns="2"
               />
 
         </LinearLayout>
@@ -445,6 +328,7 @@
               android:src="@mipmap/ic_hotel_special"/>
 
           <WebView
+              android:id="@+id/wv_special"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_marginLeft="@dimen/spacing_medium"
@@ -456,6 +340,7 @@
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_medium"
           android:drawableLeft="@mipmap/line_red"
           android:gravity="center"
           android:paddingLeft="@dimen/spacing_medium"
@@ -466,42 +351,29 @@
       <View
           android:layout_width="match_parent"
           android:layout_height="1dp"
-          android:layout_marginTop="@dimen/spacing_medium"
+          android:layout_marginTop="@dimen/spacing_small"
           android:background="@color/gray"
           />
 
-      <WebView
-          android:id="@+id/description"
+      <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          />
+          android:orientation="horizontal">
 
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/spacing_medium"
-          android:drawableLeft="@mipmap/line_red"
-          android:gravity="center"
-          android:text="@string/price_line"
-          android:textSize="@dimen/text_body"
-          android:visibility="gone"
-          />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:src="@mipmap/ic_hotel_rule"/>
 
-      <View
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:layout_marginTop="@dimen/spacing_medium"
-          android:background="@color/gray"
-          android:visibility="gone"
-          />
-
-      <ImageView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/spacing_medium"
-          android:scaleType="fitXY"
-          android:visibility="gone"
-          />
+        <WebView
+            android:id="@+id/wv_rules"
+            android:background="@color/tab_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+      </LinearLayout>
 
       <TextView
           android:layout_width="wrap_content"
@@ -515,7 +387,6 @@
           />
 
       <View
-          android:id="@+id/map"
           android:layout_width="match_parent"
           android:layout_height="1dp"
           android:layout_marginTop="@dimen/spacing_medium"
@@ -523,6 +394,7 @@
           />
 
       <ImageView
+          android:id="@+id/map"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/spacing_medium"

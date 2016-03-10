@@ -17,7 +17,7 @@
   <string name="cube_views_load_more_error">Load error, click to retry</string>
   <string name="dialog_Ok_title">成功</string>
 
-
+  <string name="room_num">%d间</string>
   <string name="huangzujiudian">换住酒店</string>
   <string name="zaishou">在售产品</string>
   <string name="youji">行程游记</string>

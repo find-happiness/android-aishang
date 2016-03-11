@@ -5,6 +5,7 @@ import com.aishang.app.data.model.JBusinessListResult;
 import com.aishang.app.data.model.JHotelDetailResult;
 import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JHotelPriceCatListResult;
+import com.aishang.app.data.model.JHotelRoomCatListByhotelIDResult;
 import com.aishang.app.data.model.JHotelStarLevelListResult;
 import com.aishang.app.data.model.JLoupanPriceCatListResult;
 import com.aishang.app.data.model.JLoupanProductCatListResult;
@@ -240,6 +241,10 @@ import com.aishang.app.util.EventPosterHelper;
   //syncMemberLogout
   public Observable<JResult> syncMemberLogout(int version, String json) {
     return mAiShangService.syncMemberLogout(version, json);
+  }
+
+  public Observable<JHotelRoomCatListByhotelIDResult> syncHotelRoomCatByHotelID(int version, String json) {
+    return mAiShangService.syncHotelRoomCatByHotelID(version, json);
   }
 
   public JVersionCheckResult getVersionCheck() {

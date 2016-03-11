@@ -488,13 +488,13 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
 
   private void asynHotel() {
     String json = AiShangUtil.generHotelParam(0, "", 0, 4, 0, AiShangUtil.gennerCheckinData(),
-        AiShangUtil.gennerCheckoutData(), selectZoneID, 0, 0, 0, 0, 0, "", 0, "", 0, 1);
+        AiShangUtil.gennerCheckoutData(), selectZoneID, 0, 0, 0, 0, 0, "", 0, "", 1, 1);
 
     mMainPresenter.loadHotel(1, json);
   }
 
   private void asynTrvael() {
-    String json = AiShangUtil.generNewsParam(0, selectZoneID, 0, 0, 0, "", "", 1, 3);
+    String json = AiShangUtil.generNewsParam(0, selectZoneID, 0, 0, 1, "", "", 1, 3);
 
     mMainPresenter.loadTravel(2, json);
   }

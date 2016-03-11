@@ -1,6 +1,7 @@
 package com.aishang.app.ui.HotelDetail;
 
 import com.aishang.app.data.model.JHotelDetailResult;
+import com.aishang.app.data.model.JHotelRoomCatListByhotelIDResult;
 import com.aishang.app.ui.base.MvpView;
 
 /**
@@ -10,4 +11,6 @@ public interface HotelDetailMvpView extends MvpView {
   void showError(String error);
   void showHotelDetailError(String error);
   void bindDataToView(JHotelDetailResult result);
+  void showHotelRoomCatError(String error);
+  void bindRoomCat(JHotelRoomCatListByhotelIDResult result);
 }

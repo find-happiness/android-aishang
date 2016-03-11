@@ -28,6 +28,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JHotelDetailResult;
+import com.aishang.app.data.model.JHotelRoomCatListByhotelIDResult;
 import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.ui.BuyHotel.BuyHotelActivity;
 import com.aishang.app.ui.BuyLouPan.BuyLouPanActivity;
@@ -83,6 +84,8 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
   private long checkOutDate;
   private int selectRoomNum = 1;
   private Dialog progressDialog;
+
+  int netCount = 0;
 
   /**
    * Return an Intent to start this Activity.
@@ -159,7 +162,9 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
       //}
       progressDialog = DialogFactory.createProgressDialog(this, R.string.listview_loading);
       progressDialog.show();
+
       asynHotelDetail();
+      asynHotelRoomCat();
     } else {
 
       //if (avloadingIndicatorView.getVisibility() == View.VISIBLE) {
@@ -184,9 +189,14 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
         AiShangUtil.dateFormat(new Date(checkOutDate)), 1, 1, 1, 1));
   }
 
+  private void asynHotelRoomCat() {
+
+    presenter.loadHotelRoomCat(1, AiShangUtil.generHotelRoomCatByHotelIDParam(this.hotelID));
+  }
+
   @Override public void showError(String error) {
     dismissDialog();
-    Log.e(TAG, "showError: "+error );
+    Log.e(TAG, "showError: " + error);
   }
 
   @Override public void showHotelDetailError(String error) {
@@ -195,7 +205,12 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
   }
 
   private void dismissDialog() {
-    if (progressDialog != null && progressDialog.isShowing()) progressDialog.dismiss();
+
+    netCount++;
+
+    if (progressDialog != null && progressDialog.isShowing() && netCount >= 2) {
+      progressDialog.dismiss();
+    }
   }
 
   @Override public void bindDataToView(JHotelDetailResult result) {
@@ -234,8 +249,56 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
     bindFaclilite(result.getDataSet().getBaseInfo().getFacliliteList());
     bindService(result.getDataSet().getBaseInfo().getServiceList());
     bindStarLevel(result.getDataSet().getBaseInfo().getStarLevel());
+  }
 
-    bindHotelRoom(result.getDataSet().getRoomCatList());
+  @Override public void showHotelRoomCatError(String error) {
+
+    dismissDialog();
+    Log.e(TAG, "showHotelRoomCatError: " + error);
+  }
+
+  @Override public void bindRoomCat(JHotelRoomCatListByhotelIDResult result) {
+
+    dismissDialog();
+
+    List<JHotelRoomCatListByhotelIDResult.GRoomTypeListEntity> roomTypeListEntities =
+        result.getGRoomTypeList();
+
+    List<JHotelRoomCatListByhotelIDResult.HotelRoomCatListEntity> roomCatListEntities =
+        result.getHotelRoomCatList();
+
+    List<RoomCat> roomCats = new ArrayList<>();
+
+    for (JHotelRoomCatListByhotelIDResult.HotelRoomCatListEntity roomCatListEntity : roomCatListEntities) {
+      for (JHotelRoomCatListByhotelIDResult.GRoomTypeListEntity roomTypeListEntity : roomTypeListEntities) {
+        if (roomCatListEntity.getRoomTypeID() == roomTypeListEntity.getRoomTypeID()) {
+          RoomCat item = checkRoomCat(roomCats, roomTypeListEntity.getRoomTypeID());
+          if (item != null) {
+            item.addCatEntity(roomCatListEntity);
+          } else {
+            List<JHotelRoomCatListByhotelIDResult.HotelRoomCatListEntity> items = new ArrayList<>();
+            items.add(roomCatListEntity);
+            roomCats.add(new RoomCat(roomTypeListEntity, items));
+          }
+        }
+      }
+    }
+
+    RoomAdapter adapter = new RoomAdapter(roomCats,this);
+
+    for (int i = 0;i<roomCats.size();i++){
+      roomContainer.addView(adapter.getView(i), i);
+    }
+
+    roomContainer.requestLayout();
+    //bindHotelRoom(result.getDataSet().getRoomCatList());
+  }
+
+  private RoomCat checkRoomCat(List<RoomCat> roomCats, int typeID) {
+    for (RoomCat cat : roomCats) {
+      if (cat.getRoomTypeListEntity().getRoomTypeID() == typeID) return cat;
+    }
+    return null;
   }
 
   private void bindStarLevel(int level) {
@@ -251,7 +314,6 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
       iv.setLayoutParams(params);
       starContainer.addView(iv);
     }
-
   }
 
   private void bindFaclilite(JHotelDetailResult.Data.BaseInfo.Faclilite[] faclilites) {
@@ -280,10 +342,10 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
 
   private void bindHotelRoom(JHotelDetailResult.Data.RoomCat[] roomCats) {
 
-    int i=0;
+    int i = 0;
     for (JHotelDetailResult.Data.RoomCat room : roomCats) {
 
-      View roomItem = LayoutInflater.from(this).inflate(R.layout.item_room_detail,null);
+      View roomItem = LayoutInflater.from(this).inflate(R.layout.item_room_detail, null);
       final RelativeLayout buttonLayout = (RelativeLayout) roomItem.findViewById(R.id.button);
       final ExpandableRelativeLayout expandableLayout =
           (ExpandableRelativeLayout) roomItem.findViewById(R.id.expandableLayout);

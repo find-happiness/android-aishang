@@ -10,6 +10,7 @@ import com.aishang.app.data.model.JCashWithDrawApplyparam;
 import com.aishang.app.data.model.JContactsAddParam;
 import com.aishang.app.data.model.JHotelDetailParam;
 import com.aishang.app.data.model.JHotelListParam;
+import com.aishang.app.data.model.JHotelRoomCatListByhotelIDParam;
 import com.aishang.app.data.model.JLoupanPriceCatListParam;
 import com.aishang.app.data.model.JLoupanProductDetailParam;
 import com.aishang.app.data.model.JLoupanProductListParam;
@@ -593,6 +594,12 @@ public class AiShangUtil {
     param.setContent(content);
     param.setTitle(title);
 
+    return gson.toJson(param);
+  }
+
+  public static String generHotelRoomCatByHotelIDParam(int hotelid) {
+    JHotelRoomCatListByhotelIDParam param = new JHotelRoomCatListByhotelIDParam();
+    param.setHotelID(hotelid);
     return gson.toJson(param);
   }
 

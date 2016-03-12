@@ -5,6 +5,7 @@ import android.app.ActionBar;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -26,13 +27,17 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.aishang.app.BoilerplateApplication;
 import com.aishang.app.R;
+import com.aishang.app.data.model.HotelOrder;
 import com.aishang.app.data.model.JHotelDetailResult;
+import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JHotelRoomCatListByhotelIDResult;
 import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.ui.BuyHotel.BuyHotelActivity;
 import com.aishang.app.ui.BuyLouPan.BuyLouPanActivity;
 import com.aishang.app.ui.base.BaseActivity;
+import com.aishang.app.ui.login.LoginActivity;
 import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.DialogFactory;
@@ -52,6 +57,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
+import rx.Observable;
+import rx.functions.Action1;
+import rx.observers.Observers;
 
 public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpView {
   private static final String TAG = "HotelDetailActivity";
@@ -84,7 +92,7 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
   private long checkOutDate;
   private int selectRoomNum = 1;
   private Dialog progressDialog;
-
+  private RoomAdapter roomAdapter;
   int netCount = 0;
 
   /**
@@ -132,11 +140,47 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
 
   @OnClick(R.id.buy) void onclickBuy() {
     if (hotel != null) {
-      Intent intent = BuyHotelActivity.getStartIntent(this, hotel);
-      this.startActivity(intent);
+      if (checkLogin()) {
+
+        if (roomAdapter == null || roomAdapter.getRoomCat().size() <= 0) {
+          CommonUtil.showSnackbar("没有获取到房间数据，请稍后再试！", layoutRoot);
+          return;
+        }
+
+        roomAdapter.getOrderRooms().subscribe(new Action1<List<HotelOrder>>() {
+          @Override public void call(List<HotelOrder> hotelOrders) {
+            //Log.i(TAG, "onclickBuy: -------------------- >" + hotelOrders.size());
+            if (hotelOrders.size() > 0) {
+              Intent intent = BuyHotelActivity.getStartIntent(HotelDetailActivity.this, hotel,
+                  new ArrayList<HotelOrder>(hotelOrders),
+                  AiShangUtil.dateFormat(new Date(checkInDate)),AiShangUtil.dateFormat(new Date(checkOutDate)));
+              HotelDetailActivity.this.startActivity(intent);
+            } else {
+              CommonUtil.showSnackbar("您没有选择房间！", layoutRoot);
+            }
+          }
+        });
+      } else {
+        DialogFactory.createSimpleDialog(this, R.string.error_not_login, R.string.intent_login,
+            android.R.string.ok, android.R.string.cancel, new DialogInterface.OnClickListener() {
+              @Override public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                IntentToLogin();
+              }
+            }, new DialogInterface.OnClickListener() {
+              @Override public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+              }
+            }).show();
+      }
     } else {
       CommonUtil.showSnackbar("未获取到数据，请稍后再试！", layoutRoot);
     }
+  }
+
+  private void IntentToLogin() {
+    Intent intent = new Intent(this, LoginActivity.class);
+    this.startActivity(intent);
   }
 
   private void initToolbar() {
@@ -153,27 +197,12 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
 
   private void proLoad() {
     if (NetworkUtil.isNetworkConnected(this)) {
-      //if (avloadingIndicatorView.getVisibility() != View.VISIBLE) {
-      //  avloadingIndicatorView.setVisibility(View.VISIBLE);
-      //}
-      //
-      //if (noDataHotel.getVisibility() == View.VISIBLE) {
-      //  noDataHotel.setVisibility(View.GONE);
-      //}
       progressDialog = DialogFactory.createProgressDialog(this, R.string.listview_loading);
       progressDialog.show();
 
       asynHotelDetail();
       asynHotelRoomCat();
     } else {
-
-      //if (avloadingIndicatorView.getVisibility() == View.VISIBLE) {
-      //  avloadingIndicatorView.setVisibility(View.GONE);
-      //}
-      //
-      //if (noDataHotel.getVisibility() == View.VISIBLE) {
-      //  noDataHotel.setVisibility(View.GONE);
-      //}
       CommonUtil.showSnackbar(R.string.no_net, layoutRoot);
     }
   }
@@ -284,10 +313,10 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
       }
     }
 
-    RoomAdapter adapter = new RoomAdapter(roomCats,this);
+    roomAdapter = new RoomAdapter(roomCats, this);
 
-    for (int i = 0;i<roomCats.size();i++){
-      roomContainer.addView(adapter.getView(i), i);
+    for (int i = 0; i < roomCats.size(); i++) {
+      roomContainer.addView(roomAdapter.getView(i), i);
     }
 
     roomContainer.requestLayout();
@@ -393,7 +422,6 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
     DialogFactory.createDatePickerDialog(this, cal, new DatePickerDialog.OnDateSetListener() {
       @Override public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         cal.set(year, monthOfYear, dayOfMonth);
-
         checkOutDate = cal.getTimeInMillis();
       }
     }).show();
@@ -405,7 +433,6 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
     DialogFactory.createDatePickerDialog(this, cal, new DatePickerDialog.OnDateSetListener() {
       @Override public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         cal.set(year, monthOfYear, dayOfMonth);
-
         checkInDate = cal.getTimeInMillis();
       }
     }).show();
@@ -449,6 +476,10 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
         .setPageIndicator(new int[] { R.mipmap.ellipse_nomal, R.mipmap.ellipse_select })
             //设置指示器的方向
         .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
+  }
+
+  private boolean checkLogin() {
+    return BoilerplateApplication.get(this).getMemberLoginResult() != null;
   }
 
   public class NetImageHolderView implements Holder<String> {

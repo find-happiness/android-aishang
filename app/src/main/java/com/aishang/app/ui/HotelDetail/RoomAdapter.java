@@ -14,13 +14,19 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.aishang.app.R;
+import com.aishang.app.data.model.HotelOrder;
 import com.aishang.app.data.model.JHotelRoomCatListByhotelIDResult;
 import com.aishang.app.util.DialogFactory;
 import com.aishang.app.util.ViewUtil;
 import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 import com.github.aakira.expandablelayout.Utils;
+import java.util.ArrayList;
 import java.util.List;
+import rx.Notification;
+import rx.Observable;
+import rx.functions.Action1;
+import rx.functions.Func1;
 
 /**
  * Created by song on 2016/3/11.
@@ -30,6 +36,8 @@ public class RoomAdapter {
   private List<RoomCat> roomCat;
   private Activity context;
   int[] imgSize;
+
+  private List<ViewHolder> viewHolders = new ArrayList<>();
 
   public RoomAdapter(List<RoomCat> roomCat, Activity context) {
     this.roomCat = roomCat;
@@ -50,6 +58,7 @@ public class RoomAdapter {
     View roomItem = LayoutInflater.from(context).inflate(R.layout.item_room_detail, null);
 
     final ViewHolder holder = new ViewHolder(roomItem);
+    viewHolders.add(holder);
 
     final RoomCat item = roomCat.get(postion);
 
@@ -89,6 +98,7 @@ public class RoomAdapter {
 
     JHotelRoomCatListByhotelIDResult.GRoomTypeListEntity typeEntity = item.getRoomTypeListEntity();
     holder.type.setText(typeEntity.getRoomTypeName());
+    holder.type.setTag(typeEntity);
 
     JHotelRoomCatListByhotelIDResult.HotelRoomCatListEntity defaultCat =
         item.getCatListEntities().get(0);
@@ -143,15 +153,18 @@ public class RoomAdapter {
     }
 
     holder.roomCat.setTag(0);
+    holder.expandableLayout.setTag(item.getCatListEntities().get(0));
+
     holder.roomCat.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-
         DialogFactory.createSingleChoiceDialog(context, strCat, (int) holder.roomCat.getTag(),
             new DialogInterface.OnClickListener() {
               @Override public void onClick(DialogInterface dialog, int which) {
                 holder.roomCat.setTag(which);
-                JHotelRoomCatListByhotelIDResult.HotelRoomCatListEntity cat = item.getCatListEntities().get(which);
+                JHotelRoomCatListByhotelIDResult.HotelRoomCatListEntity cat =
+                    item.getCatListEntities().get(which);
                 holder.roomCat.setText(cat.getRoomCatName());
+                holder.expandableLayout.setTag(cat);
                 bindData(holder, cat);
                 dialog.dismiss();
               }
@@ -194,6 +207,22 @@ public class RoomAdapter {
     imgSize[1] = width * 9 / 16;
 
     return imgSize;
+  }
+
+  public Observable<List<HotelOrder>> getOrderRooms() {
+
+    return Observable.from(viewHolders).filter(new Func1<ViewHolder, Boolean>() {
+      @Override public Boolean call(ViewHolder viewHolder) {
+        return (int) viewHolder.orderRoomNum.getTag() > 0;
+      }
+    }).map(new Func1<ViewHolder, HotelOrder>() {
+      @Override public HotelOrder call(ViewHolder viewHolder) {
+        return new HotelOrder(
+            (JHotelRoomCatListByhotelIDResult.GRoomTypeListEntity) viewHolder.type.getTag(),
+            (JHotelRoomCatListByhotelIDResult.HotelRoomCatListEntity) viewHolder.expandableLayout.getTag(),
+            (int) viewHolder.orderRoomNum.getTag());
+      }
+    }).toList();
   }
 
   static class ViewHolder {

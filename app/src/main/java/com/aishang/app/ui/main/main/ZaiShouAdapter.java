@@ -99,7 +99,7 @@ import javax.inject.Inject;
         .placeholder(R.mipmap.banner)
         .into(holder.imgInSale);
 
-    holder.priceText.setText(product.getPriceText());
+    holder.priceText.setText("￥" + product.getPrice() / 10000+"万元");
     holder.tese.setText(loupan.getPromotion());
     holder.address.setText(loupan.getAddress());
     holder.time.setText(loupan.getMoveInDate());

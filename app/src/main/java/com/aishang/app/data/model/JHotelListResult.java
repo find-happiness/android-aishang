@@ -56,7 +56,43 @@ public class JHotelListResult {
 		private String promotionText;
 		private String tags;
 		private String tagIDs;
+		private int maxRooms;
+		private String roomDepict;
+		private String propertyCat;
 		private MoreDetail moreDetail;
+		private String address;
+
+		public String getAddress() {
+			return address;
+		}
+
+		public void setAddress(String address) {
+			this.address = address;
+		}
+
+		public String getRoomDepict() {
+			return roomDepict;
+		}
+
+		public void setRoomDepict(String roomDepict) {
+			this.roomDepict = roomDepict;
+		}
+
+		public String getPropertyCat() {
+			return propertyCat;
+		}
+
+		public void setPropertyCat(String propertyCat) {
+			this.propertyCat = propertyCat;
+		}
+
+		public int getMaxRooms() {
+			return maxRooms;
+		}
+
+		public void setMaxRooms(int maxRooms) {
+			this.maxRooms = maxRooms;
+		}
 
 		public int getHotelID() {
 			return hotelID;

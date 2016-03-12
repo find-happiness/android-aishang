@@ -99,7 +99,7 @@ import butterknife.ButterKnife;
         .into(holder.imgHotel);
     holder.name.setText(hotel.getName());
     holder.tese.setText(hotel.getPromotionText());
-    holder.price.setText(hotel.getPriceText());
+    holder.price.setText("￥" + hotel.getPriceText());
 
     holder.imgHotel.setLayoutParams(new RelativeLayout.LayoutParams(imgSize[0], imgSize[1]));
     convertView.setTag(holder);

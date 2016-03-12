@@ -145,4 +145,5 @@
 
   <string name="start">星级</string>
   <string name="clear_cache">您确定要清除缓存！</string>
+  <string name="intent_login">您没有登录，是否立即登录！</string>
 </resources>

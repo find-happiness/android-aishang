@@ -65,8 +65,12 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> 
         .into(holder.imgInSale);
 
     holder.name.setText(hotel.getName());
-    holder.tese.setText(hotel.getPromotionText());
-    holder.priceText.setText(hotel.getPriceText());
+    holder.tese.setText(hotel.getTags());
+    holder.priceText.setText("￥" + hotel.getPriceText());
+    holder.type.setText(hotel.getRoomDepict());
+    holder.houseType.setText(hotel.getPropertyCat());
+    holder.address.setText(hotel.getAddress());
+    holder.total.setText("共有" + hotel.getMaxRooms() + "套房源");
     //holder.address.setText();
 
     //holder.imgInSale.getViewTreeObserver()

@@ -112,9 +112,9 @@ public final class DialogFactory {
   public static AlertDialog createNumberPicker(Activity ctx, int number, int maxValue, int minValue,
       String title, final NumberPickerDelegate callback) {
     final NumberPicker numberPicker = new NumberPicker(ctx);
-    numberPicker.setValue(number);
     numberPicker.setMaxValue(maxValue);
     numberPicker.setMinValue(minValue);
+    numberPicker.setValue(number);
     AlertDialog.Builder alertDialog = new AlertDialog.Builder(ctx).setView(numberPicker)
         .setTitle(title)
         .setPositiveButton(R.string.dialog_action_ok, new DialogInterface.OnClickListener() {

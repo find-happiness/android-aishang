@@ -71,5 +71,4 @@ public class InSaleDetailPresenter extends BasePresenter<InSaleDetailMvpView>{
           }
         });
   }
-
 }

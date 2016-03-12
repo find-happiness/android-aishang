@@ -1,11 +1,12 @@
 package com.aishang.app.data.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by song on 2016/3/11.
  */
-public class JHotelRoomCatListByhotelIDResult {
+public class JHotelRoomCatListByhotelIDResult implements Serializable{
 
   /**
    * result : success
@@ -73,7 +74,7 @@ public class JHotelRoomCatListByhotelIDResult {
     return gRoomTypeList;
   }
 
-  public static class HotelRoomCatListEntity {
+  public static class HotelRoomCatListEntity implements Serializable{
     private int roomCatID;
     private int hotelID;
     private String roomCatName;
@@ -274,7 +275,7 @@ public class JHotelRoomCatListByhotelIDResult {
     //}
   }
 
-  public static class GRoomTypeListEntity {
+  public static class GRoomTypeListEntity implements Serializable{
     private int roomTypeID;
     private String roomTypeName;
     private int dispOrder;

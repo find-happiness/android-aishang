@@ -4,19 +4,15 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import com.aishang.app.BoilerplateApplication;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JNewsListResult;
-import com.aishang.app.data.model.JSysZoneResult;
-import com.aishang.app.ui.TravelList.TravelAdapter;
-import com.aishang.app.ui.TravelList.TravelListMvpView;
-import com.aishang.app.ui.TravelList.TravelListPresenter;
+import com.aishang.app.data.model.MyTravel;
 import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.NetWorkType;
@@ -37,20 +33,18 @@ import javax.inject.Inject;
  * Use the {@link FavoritesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FavoritesFragment extends LazyFragment implements TravelListMvpView {
+public class FavoritesFragment extends LazyFragment implements TravelFavoritesMvpView {
 
-  @Inject TravelListPresenter presenter;
+  @Inject TravelFavoritesPresenter presenter;
   @Inject TravelAdapter adapter;
 
-  private static final String ARG_PARAM1 = "param1";
-  private static final String ARG_PARAM2 = "param2";
+  private static final String ARG_PARAM1 = "TYPE";
   @Bind(R.id.swipe_refresh) XRecyclerView mRecyclerView;
   @Bind(R.id.avloadingIndicatorView) AVLoadingIndicatorView avloadingIndicatorView;
   @Bind(R.id.no_data_in_sale) TextView noDataInSale;
   @Bind(R.id.layoutRoot) FrameLayout layoutRoot;
 
-  private String mParam1;
-  private String mParam2;
+  private TravelType mParam1;
 
   // The request code must be 0 or greater.
   private static final int PLUS_ONE_REQUEST_CODE = 0;
@@ -61,8 +55,18 @@ public class FavoritesFragment extends LazyFragment implements TravelListMvpView
    *
    * @return A new instance of fragment FavoritesFragment.
    */
-  public static FavoritesFragment newInstance() {
+  public static FavoritesFragment newInstance(TravelType type) {
     FavoritesFragment fragment = new FavoritesFragment();
+    Bundle bundle = new Bundle();
+    if (type == TravelType.participation) {
+      bundle.putInt(ARG_PARAM1, 1);
+    } else if (type == TravelType.collect) {
+      bundle.putInt(ARG_PARAM1, 2);
+    } else if (type == TravelType.release) {
+      bundle.putInt(ARG_PARAM1, 3);
+    }
+
+    fragment.setArguments(bundle);
     return fragment;
   }
 
@@ -76,14 +80,25 @@ public class FavoritesFragment extends LazyFragment implements TravelListMvpView
     ((TravelFavoritesActivity) getActivity()).getActivityComponent().inject(this);
     presenter.attachView(this);
     if (getArguments() != null) {
-      mParam1 = getArguments().getString(ARG_PARAM1);
-      mParam2 = getArguments().getString(ARG_PARAM2);
+      switch (getArguments().getInt(ARG_PARAM1)) {
+        case 1:
+          mParam1 = TravelType.participation;
+          break;
+        case 2:
+          mParam1 = TravelType.collect;
+          break;
+        case 3:
+          mParam1 = TravelType.release;
+          break;
+      }
     }
   }
+
   @Override public void onDestroy() {
     presenter.detachView();
     super.onDestroy();
   }
+
   @Override public void onAttach(Activity context) {
     super.onAttach(context);
   }
@@ -99,11 +114,9 @@ public class FavoritesFragment extends LazyFragment implements TravelListMvpView
 
   @Override public void onDetach() {
     super.onDetach();
+    presenter.detachView();
   }
 
-  @Override public void showSysZoneDialog(List<JSysZoneResult.Zone> zones) {
-
-  }
   private void setImageSizeToAdapter() {
     DisplayMetrics localDisplayMetrics = new DisplayMetrics();
     this.getActivity().getWindowManager().getDefaultDisplay().getMetrics(localDisplayMetrics);
@@ -112,6 +125,7 @@ public class FavoritesFragment extends LazyFragment implements TravelListMvpView
     int width = (mScreenWidth - 4 * pacing) / 3;
     adapter.setImgSize(width, width * 3 / 4);
   }
+
   private void initRefreshLayout() {
     LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity());
     layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -141,7 +155,7 @@ public class FavoritesFragment extends LazyFragment implements TravelListMvpView
 
       @Override public void onLoadMore() {
         if (NetworkUtil.isNetworkConnected(FavoritesFragment.this.getActivity())) {
-          asynTravel(adapter.getItemCount(), 0, 0, 0, 0, "", "", 1, 10, NetWorkType.loadMore);
+          asynTravel(adapter.getItemCount() + 1, 10, NetWorkType.loadMore);
         } else {
           //mRecyclerView.loadMoreComplete();
           mRecyclerView.cancelLoadMore();
@@ -177,22 +191,30 @@ public class FavoritesFragment extends LazyFragment implements TravelListMvpView
   }
 
   private void asynTravel(NetWorkType type) {
-    //        String param = AiShangUtil.generLoupanProductParam(0, 0, 0, 0, 10, 0,
-    //                0, filterWords, 0, "", "", selectZoneID, 0, selectPrice, 0,
-    //                0, selectType, "", "", "", 0);
-    asynTravel(0, 0, 0, 0, 0, "", "", 1, 10, type);
+    asynTravel(0, 10, type);
   }
 
-  private void asynTravel(int recStart, int zoneID, int catID, int filterTypeID, int beVIPHome,
-      String tagIDs, String fKeyWords, int fOrderType, int recCount, NetWorkType type) {
-    String json =
-        AiShangUtil.generNewsParam(recStart, zoneID, catID, filterTypeID, beVIPHome, tagIDs,
-            fKeyWords, fOrderType, recCount);
+  private void asynTravel(int recStart, int recCount, NetWorkType type) {
 
-    presenter.loadTravel(1, json, type);
+    String member = BoilerplateApplication.get(this.getActivity()).getMemberAccount();
+    String cookie = BoilerplateApplication.get(this.getActivity())
+        .getMemberLoginResult()
+        .getData()
+        .getCookies();
+
+    if (mParam1 == TravelType.participation) {
+      String json = AiShangUtil.generParticipationParam(member, cookie, recCount, recStart);
+      presenter.loadTravelParticipation(1, json, type);
+    } else if (mParam1 == TravelType.collect) {
+      String json = AiShangUtil.generCollectParam(member, cookie, recCount, recStart);
+      presenter.loadTravelCollect(1, json, type);
+    } else if (mParam1 == TravelType.release) {
+      String json = AiShangUtil.generReleaseParam(member, cookie, recCount, recStart);
+      presenter.loadTravelRelease(1, json, type);
+    }
   }
 
-  @Override public void refreshList(List<JNewsListResult.JNewsListItem> loupanProducts) {
+  @Override public void refreshListCollect(List<MyTravel> items, int total) {
     if (avloadingIndicatorView.getVisibility() == View.VISIBLE) {
       avloadingIndicatorView.setVisibility(View.GONE);
     }
@@ -204,25 +226,108 @@ public class FavoritesFragment extends LazyFragment implements TravelListMvpView
     // Log.i(TAG, "refreshHotel: " + items.size());
 
     adapter.getItems().clear();
-    adapter.getItems().addAll(loupanProducts);
+    adapter.getItems().addAll(items);
     adapter.notifyDataSetChanged();
     mRecyclerView.refreshComplete();
+    if (adapter.getItems().size() >= total) {
+      mRecyclerView.loadMoreComplete();
+      adapter.notifyDataSetChanged();
+      mRecyclerView.loadMoreComplete();
+    }
   }
 
-  @Override
-  public void loadMoreList(List<JNewsListResult.JNewsListItem> loupanProducts, int total) {
-
+  @Override public void loadMoreListCollect(List<MyTravel> items, int total) {
     if (noDataInSale.getVisibility() == View.VISIBLE) {
       noDataInSale.setVisibility(View.GONE);
     }
 
     // Log.i(TAG, "loadMoreHotel: " + items.size() + "  total " + total);
     mRecyclerView.loadMoreComplete();
-    adapter.getItems().addAll(loupanProducts);
+    adapter.getItems().addAll(items);
     adapter.notifyDataSetChanged();
     mRecyclerView.refreshComplete();
 
     if (adapter.getItems().size() >= total) {
+      mRecyclerView.loadMoreComplete();
+      adapter.notifyDataSetChanged();
+      mRecyclerView.loadMoreComplete();
+    }
+  }
+
+  @Override public void refreshListParticipation(List<MyTravel> items, int total) {
+    if (avloadingIndicatorView.getVisibility() == View.VISIBLE) {
+      avloadingIndicatorView.setVisibility(View.GONE);
+    }
+
+    if (noDataInSale.getVisibility() == View.VISIBLE) {
+      noDataInSale.setVisibility(View.GONE);
+    }
+
+    // Log.i(TAG, "refreshHotel: " + items.size());
+
+    adapter.getItems().clear();
+    adapter.getItems().addAll(items);
+    adapter.notifyDataSetChanged();
+    mRecyclerView.refreshComplete();
+    if (adapter.getItems().size() >= total) {
+      mRecyclerView.loadMoreComplete();
+      adapter.notifyDataSetChanged();
+      mRecyclerView.loadMoreComplete();
+    }
+  }
+
+  @Override public void loadMoreListParticipation(List<MyTravel> items, int total) {
+    if (noDataInSale.getVisibility() == View.VISIBLE) {
+      noDataInSale.setVisibility(View.GONE);
+    }
+
+    // Log.i(TAG, "loadMoreHotel: " + items.size() + "  total " + total);
+    mRecyclerView.loadMoreComplete();
+    adapter.getItems().addAll(items);
+    adapter.notifyDataSetChanged();
+    mRecyclerView.refreshComplete();
+
+    if (adapter.getItems().size() >= total) {
+      adapter.notifyDataSetChanged();
+      mRecyclerView.loadMoreComplete();
+    }
+  }
+
+  @Override public void refreshListRelease(List<MyTravel> items, int total) {
+    if (avloadingIndicatorView.getVisibility() == View.VISIBLE) {
+      avloadingIndicatorView.setVisibility(View.GONE);
+    }
+
+    if (noDataInSale.getVisibility() == View.VISIBLE) {
+      noDataInSale.setVisibility(View.GONE);
+    }
+
+    // Log.i(TAG, "refreshHotel: " + items.size());
+
+    adapter.getItems().clear();
+    adapter.getItems().addAll(items);
+    adapter.notifyDataSetChanged();
+    mRecyclerView.refreshComplete();
+    if (adapter.getItems().size() >= total) {
+      mRecyclerView.loadMoreComplete();
+      adapter.notifyDataSetChanged();
+      mRecyclerView.loadMoreComplete();
+    }
+  }
+
+  @Override public void loadMoreListRelease(List<MyTravel> items, int total) {
+    if (noDataInSale.getVisibility() == View.VISIBLE) {
+      noDataInSale.setVisibility(View.GONE);
+    }
+
+    // Log.i(TAG, "loadMoreHotel: " + items.size() + "  total " + total);
+    mRecyclerView.loadMoreComplete();
+    adapter.getItems().addAll(items);
+    adapter.notifyDataSetChanged();
+    mRecyclerView.refreshComplete();
+
+    if (adapter.getItems().size() >= total) {
+      mRecyclerView.loadMoreComplete();
       adapter.notifyDataSetChanged();
       mRecyclerView.loadMoreComplete();
     }

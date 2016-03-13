@@ -1,6 +1,8 @@
 package com.aishang.app.data.remote;
 
 import com.aishang.app.data.model.JBusinessListResult;
+import com.aishang.app.data.model.JCodeLoginResult;
+import com.aishang.app.data.model.JCollectResult;
 import com.aishang.app.data.model.JHotelDetailResult;
 import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JHotelPriceCatListResult;
@@ -22,8 +24,11 @@ import com.aishang.app.data.model.JMrePromResult;
 import com.aishang.app.data.model.JMyBusinessBuyInListResult;
 import com.aishang.app.data.model.JMyVacationApplyListResult;
 import com.aishang.app.data.model.JNewsListResult;
+import com.aishang.app.data.model.JParticipationReslut;
+import com.aishang.app.data.model.JReleaseResult;
 import com.aishang.app.data.model.JRentalListResult;
 import com.aishang.app.data.model.JResult;
+import com.aishang.app.data.model.JSendCodeResult;
 import com.aishang.app.data.model.JSysZoneResult;
 import com.aishang.app.data.model.JUploadFileResult;
 import com.aishang.app.data.model.JVersionCheckResult;
@@ -39,6 +44,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.GsonConverterFactory;
 import retrofit2.Retrofit;
 import retrofit2.RxJavaCallAdapterFactory;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
@@ -191,6 +197,29 @@ public interface AiShangService {
   @Headers("connection:Keep-Alive") @GET("mobile/hotel/hotelRoomCatListByhotelID.ashx")
   Observable<JHotelRoomCatListByhotelIDResult> syncHotelRoomCatByHotelID(
       @Query(value = "v") int version, @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/member/sendCode.ashx")
+  Observable<JSendCodeResult> syncSendCode(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/member/memberNoteRegister.ashx")
+  Observable<JResult> syncMemberNoteRegister(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @POST("mobile/member/codeLogin.ashx") @Multipart
+  Observable<JCodeLoginResult> syncCodeLogin(@PartMap Map<String, RequestBody> body);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/member/collect.ashx")
+  Observable<JCollectResult> syncCollect(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/member/participation.ashx")
+  Observable<JParticipationReslut> syncParticipation(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/member/release.ashx")
+  Observable<JReleaseResult> syncRelease(@Query(value = "v") int version,
+      @Query(value = "q") String q);
 
   @GET("ribots") Observable<List<Ribot>> getRibots();
 

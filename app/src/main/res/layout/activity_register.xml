@@ -3,116 +3,133 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutRoot"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
+
+  <ImageView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:scaleType="centerCrop"
+      android:src="@mipmap/login_bg"
+      />
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:paddingTop="@dimen/padding_stutas_bar"
+      >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/transparent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        />
+
 
     <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/spacing_medium"
+        android:src="@mipmap/logo_login"
+        />
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/login_bg" />
+        android:layout_below="@id/logo"
+        android:layout_marginTop="@dimen/spacing_xlarge"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/spacing_xlarge"
+        android:paddingRight="@dimen/spacing_xlarge"
+        >
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="@dimen/padding_stutas_bar">
+      <FrameLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          >
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/phone"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/transparent"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/btn_get_verification_code"
+            android:drawableLeft="@mipmap/iconfont_shouji"
+            android:drawablePadding="@dimen/spacing_large"
+            android:hint="手机号码"
+            android:maxLength="11"
+            android:paddingTop="@dimen/spacing_xsmall"
+            android:phoneNumber="true"
+            app:met_clearButton="false"
+            app:met_singleLineEllipsis="true"
+            />
 
-
-        <ImageView
-            android:id="@+id/logo"
+        <TextView
+            android:id="@+id/btn_get_verification_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/toolbar"
-            android:layout_centerHorizontal="true"
+            android:layout_gravity="right"
             android:layout_marginTop="@dimen/spacing_medium"
-            android:src="@mipmap/logo_login" />
+            android:background="@color/primary"
+            android:gravity="center"
+            android:paddingBottom="@dimen/spacing_small"
+            android:paddingTop="@dimen/spacing_small"
+            android:text="获取验证码"
+            android:textColor="@android:color/white"
+            />
+      </FrameLayout>
 
+      <com.rengwuxian.materialedittext.MaterialEditText
+          android:id="@+id/verify_code"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="-8dp"
+          android:drawableLeft="@mipmap/iconfont_mima"
+          android:drawablePadding="@dimen/spacing_large"
+          android:hint="验证码"
+          android:numeric="integer"
+          android:paddingBottom="@dimen/spacing_large"
+          android:paddingTop="@dimen/spacing_xsmall"
+          app:met_clearButton="true"
+          app:met_maxCharacters="6"
+          app:met_singleLineEllipsis="true"
+          app:met_underlineColor="@color/gray"
+          />
 
-        <LinearLayout
-            android:layout_below="@id/logo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/spacing_xlarge"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/spacing_xlarge"
-            android:paddingRight="@dimen/spacing_xlarge">
+      <com.rengwuxian.materialedittext.MaterialEditText
+          android:id="@+id/password"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="-8dp"
+          android:drawableLeft="@mipmap/iconfont_mima"
+          android:drawablePadding="@dimen/spacing_large"
+          android:hint="密码"
+          android:paddingBottom="@dimen/spacing_large"
+          android:paddingTop="@dimen/spacing_xsmall"
+          android:password="true"
+          app:met_clearButton="true"
+          app:met_maxCharacters="16"
+          app:met_singleLineEllipsis="true"
+          app:met_underlineColor="@color/gray"
+          />
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/btn_get_verification_code"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/gray"
-                    android:text="获取验证码"
-                    android:layout_marginTop="@dimen/spacing_medium"
-                    android:layout_gravity="right"/>
-
-                <com.rengwuxian.materialedittext.MaterialEditText
-                    android:id="@+id/phone"
-                    android:layout_toLeftOf="@id/btn_get_verification_code"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@mipmap/iconfont_shouji"
-                    android:drawablePadding="@dimen/spacing_large"
-                    android:hint="手机号码"
-                    android:maxLength="11"
-                    android:paddingTop="@dimen/spacing_xsmall"
-                    android:phoneNumber="true"
-                    app:met_clearButton="false"
-                    app:met_singleLineEllipsis="true" />
-            </FrameLayout>
-
-            <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/verify_code"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@mipmap/iconfont_mima"
-                android:drawablePadding="@dimen/spacing_large"
-                android:hint="验证码"
-                android:paddingBottom="@dimen/spacing_large"
-                android:paddingTop="@dimen/spacing_xsmall"
-                android:layout_marginTop="-8dp"
-                android:numeric="integer"
-                app:met_clearButton="true"
-                app:met_singleLineEllipsis="true"
-                app:met_maxCharacters="6"
-                app:met_underlineColor="@color/gray" />
-
-            <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@mipmap/iconfont_mima"
-                android:drawablePadding="@dimen/spacing_large"
-                android:hint="密码"
-                android:paddingBottom="@dimen/spacing_large"
-                android:paddingTop="@dimen/spacing_xsmall"
-                android:layout_marginTop="-8dp"
-                android:password="true"
-                app:met_clearButton="true"
-                app:met_singleLineEllipsis="true"
-                app:met_maxCharacters="16"
-                app:met_underlineColor="@color/gray" />
-
-            <Button
-                android:id="@+id/btn_register"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_medium"
-                android:background="@mipmap/bg_logoin"
-                android:text="注册"
-                android:textColor="@android:color/white" />
-        </LinearLayout>
-    </RelativeLayout>
+      <Button
+          android:id="@+id/btn_register"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:background="@mipmap/bg_logoin"
+          android:text="注册"
+          android:textColor="@android:color/white"
+          />
+    </LinearLayout>
+  </RelativeLayout>
 </FrameLayout>

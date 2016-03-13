@@ -12,6 +12,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -24,6 +26,7 @@ import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.Constants;
 import com.aishang.app.util.DialogFactory;
+import com.aishang.app.util.RegexUtils;
 import javax.inject.Inject;
 
 public class LoginActivity extends BaseActivity
@@ -52,6 +55,7 @@ public class LoginActivity extends BaseActivity
     presenter.detachView();
     super.onDestroy();
   }
+
   private void initView() {
     initToolbar();
     initTabLayout();
@@ -80,19 +84,12 @@ public class LoginActivity extends BaseActivity
 
   @Override public void showError(String error) {
     //Log.i(TAG, "showError: " + error);
-    if (progress != null && progress.isShowing()) {
-      progress.dismiss();
-    }
     DialogFactory.createSimpleOkErrorDialog(this, "SORRY", error).show();
   }
 
   @Override public void loginScuess(JMemberLoginResult result) {
     //Log.i(TAG, "loginScuess: " + "loginScuess");
     //presenter.intentToMain();
-
-    if (progress != null && progress.isShowing()) {
-      progress.dismiss();
-    }
 
     BoilerplateApplication.get(this).setMemberLoginResult(result);
     onBackPressed();
@@ -102,9 +99,7 @@ public class LoginActivity extends BaseActivity
    * 普通用户和CRM用户登录失败后统一的的回调函数，根据错误做相应的处理
    */
   public void loginFaild(String errorStr) {
-    if (progress != null && progress.isShowing()) {
-      progress.dismiss();
-    }
+
     if (Constants.RESULT_MBNOTEXISTORPSWERROR.equals(errorStr)) {// 用户名或密码错误
 
       CommonUtil.showSnackbar(R.string.login_nameorpsw_wrong, layoutRoot);
@@ -130,6 +125,7 @@ public class LoginActivity extends BaseActivity
           .show();
     } else {
       //BaseHelper.toastError(this, errorStr);
+      Log.i(TAG, "loginFaild: " +errorStr);
       CommonUtil.showSnackbar(errorStr, layoutRoot);
     }
   }
@@ -139,18 +135,51 @@ public class LoginActivity extends BaseActivity
     BoilerplateApplication.get(this).setMemberPsw(psw);
   }
 
-  @Override public void onPswLogin(String phone, String psw) {
+  @Override public void showGetVerificationSuccess() {
+
+  }
+
+  @Override public void dismissDialog() {
+    if (progress != null && progress.isShowing()) {
+      progress.dismiss();
+    }
+  }
+
+  @Override public void showNetDialog() {
     progress = DialogFactory.createProgressDialog(this, R.string.listview_loading);
     progress.show();
+  }
+
+  @Override public void onPswLogin(String phone, String psw) {
     presenter.Login(2, AiShangUtil.gennerLogin(psw, phone));
   }
 
-  @Override public void onVerificationCodeLogin(String phone, String code) {
+  @Override public void onVerificationCodeLogin(String strPhone, String code) {
 
+    if (TextUtils.isEmpty(strPhone) || !RegexUtils.checkMobile(strPhone)) {
+      CommonUtil.showSnackbar(R.string.error_phone, layoutRoot);
+      return;
+    }
+
+    if (TextUtils.isEmpty(code)) {
+      CommonUtil.showSnackbar("验证码不能为空", layoutRoot);
+      return;
+    }
+
+    presenter.codeLogin(1, AiShangUtil.generCodeLoginParam(strPhone, code));
   }
 
   @Override public void onRegister() {
     presenter.intentToRegister();
+  }
+
+  public void getVerificationCode(String strPhone) {
+    if (TextUtils.isEmpty(strPhone) || !RegexUtils.checkMobile(strPhone)) {
+      CommonUtil.showSnackbar(R.string.error_phone, layoutRoot);
+    } else {
+      presenter.getVerificationCode(1,
+          AiShangUtil.generSendCodeParam(strPhone, "您的短信登录验证码！", true));
+    }
   }
 
   @Override public void onForgetPsw() {

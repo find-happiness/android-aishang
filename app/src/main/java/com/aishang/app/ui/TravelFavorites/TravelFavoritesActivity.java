@@ -69,7 +69,15 @@ public class TravelFavoritesActivity extends BaseActivity {
           }
 
           @Override public Fragment getFragmentForPage(int position) {
-            return FavoritesFragment.newInstance();
+            switch (position) {
+              case 0:
+                return FavoritesFragment.newInstance(TravelType.release);
+              case 1:
+                return FavoritesFragment.newInstance(TravelType.participation);
+              case 2:
+                return FavoritesFragment.newInstance(TravelType.collect);
+            }
+            return null;
           }
         });
   }

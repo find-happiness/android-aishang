@@ -3,6 +3,7 @@ package com.aishang.app.ui.KanFanTuan;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,8 +65,8 @@ public class KanFangTuanAdapter extends RecyclerView.Adapter<KanFangTuanAdapter.
             item.getEnrollEndTime().split(" ")[0]));
     holder.name.setText(item.getTitle());
     holder.address.setText(item.getPosition());
-    holder.content.setText(item.getShortDesc());
-    holder.priceText.setText(item.getFee() + "元");
+    holder.content.setText(Html.fromHtml(item.getShortDesc()));
+    holder.priceText.setText("￥" + item.getFee() + "元");
 
     holder.itemView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {

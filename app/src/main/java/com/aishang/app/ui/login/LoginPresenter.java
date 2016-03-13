@@ -2,17 +2,24 @@ package com.aishang.app.ui.login;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import com.aishang.app.data.DataManager;
+import com.aishang.app.data.model.JCodeLoginResult;
 import com.aishang.app.data.model.JMemberLoginParam;
 import com.aishang.app.data.model.JMemberLoginResult;
+import com.aishang.app.data.model.JSendCodeResult;
 import com.aishang.app.ui.ChangePassword.ChangePasswordActivity;
 import com.aishang.app.ui.ForgetPossword.ForgetPosswordActivity;
 import com.aishang.app.ui.base.BasePresenter;
 import com.aishang.app.ui.main.MainActivity;
 import com.aishang.app.ui.register.RegisterActivity;
 
+import com.aishang.app.util.Constants;
 import com.google.gson.Gson;
+import java.util.HashMap;
 import javax.inject.Inject;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -43,6 +50,11 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
   public void Login(int version, final String json) {
     checkViewAttached();
 
+    if (mSubscription != null && !mSubscription.isUnsubscribed()) {
+      mSubscription.unsubscribe();
+    }
+
+    getMvpView().showNetDialog();
     mSubscription = mDataManager.syncLogin(version, json)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
@@ -52,16 +64,97 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
           }
 
           @Override public void onError(Throwable e) {
+            getMvpView().dismissDialog();
             getMvpView().showError(e.toString());
           }
 
           @Override public void onNext(JMemberLoginResult jMemberLoginResult) {
+            getMvpView().dismissDialog();
             if (jMemberLoginResult.getResult().toUpperCase().equals("success".toUpperCase())) {
               getMvpView().loginScuess(jMemberLoginResult);
 
               JMemberLoginParam param = new Gson().fromJson(json, JMemberLoginParam.class);
 
               getMvpView().saveLoginData(param.getMemberAccount(), param.getPassword());
+            } else {
+              getMvpView().loginFaild(jMemberLoginResult.getResult());
+            }
+          }
+        });
+  }
+
+  public void getVerificationCode(int version, String json) {
+    getVerificationCode(false, version, json);
+  }
+
+  public void getVerificationCode(boolean allowMemoryCacheVersion, int version, String json) {
+    checkViewAttached();
+
+    if (mSubscription != null && !mSubscription.isUnsubscribed()) {
+      mSubscription.unsubscribe();
+    }
+    getMvpView().showNetDialog();
+    mSubscription = mDataManager.syncSendCode(version, json)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(Schedulers.io())
+        .subscribe(new Subscriber<JSendCodeResult>() {
+          @Override public void onCompleted() {
+          }
+
+          @Override public void onError(Throwable e) {
+            getMvpView().showError("网络异常");
+            Log.e(TAG, "onError: " + e.toString());
+          }
+
+          @Override public void onNext(JSendCodeResult result) {
+            getMvpView().dismissDialog();
+            if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
+              if (result.isStatus()) {
+                getMvpView().showGetVerificationSuccess();
+              } else {
+                getMvpView().showError("该号码已经注册，请直接登录。");
+              }
+            } else {
+              getMvpView().showError(result.getResult());
+            }
+          }
+        });
+  }
+
+  public void codeLogin(int version, final String json) {
+    checkViewAttached();
+
+    if (mSubscription != null && !mSubscription.isUnsubscribed()) {
+      mSubscription.unsubscribe();
+    }
+    getMvpView().showNetDialog();
+
+    HashMap<String, RequestBody> map = new HashMap<>();
+    RequestBody jsonBody = RequestBody.create(MediaType.parse("application/json"), json);
+    map.put("q", jsonBody);
+    map.put("v", RequestBody.create(MediaType.parse("text/plain"), version + ""));
+
+    mSubscription = mDataManager.syncCodeLogin(map)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(Schedulers.io())
+        .subscribe(new Subscriber<JCodeLoginResult>() {
+          @Override public void onCompleted() {
+
+          }
+
+          @Override public void onError(Throwable e) {
+
+            Log.i(TAG, "onError: " + e);
+
+            getMvpView().dismissDialog();
+            getMvpView().showError(e.toString());
+          }
+
+          @Override public void onNext(JCodeLoginResult jMemberLoginResult) {
+            getMvpView().dismissDialog();
+            if (jMemberLoginResult.getResult().toUpperCase().equals("success".toUpperCase())) {
+
+              Log.i(TAG, "onNext: codelogin success!");
             } else {
               getMvpView().loginFaild(jMemberLoginResult.getResult());
             }

@@ -11,4 +11,7 @@ public interface LoginMvpView  extends MvpView{
   void loginScuess(JMemberLoginResult result);
   void loginFaild(String str);
   void saveLoginData(String phone,String psw);
+  void showGetVerificationSuccess();
+  void dismissDialog();
+  void showNetDialog();
 }

@@ -2,6 +2,8 @@ package com.aishang.app.data;
 
 import android.util.Log;
 import com.aishang.app.data.model.JBusinessListResult;
+import com.aishang.app.data.model.JCodeLoginResult;
+import com.aishang.app.data.model.JCollectResult;
 import com.aishang.app.data.model.JHotelDetailResult;
 import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JHotelPriceCatListResult;
@@ -20,11 +22,15 @@ import com.aishang.app.data.model.JMreActivityDetailResult;
 import com.aishang.app.data.model.JMreActivityListResult;
 import com.aishang.app.data.model.JMyBusinessBuyInListResult;
 import com.aishang.app.data.model.JMyVacationApplyListResult;
+import com.aishang.app.data.model.JParticipationParam;
+import com.aishang.app.data.model.JParticipationReslut;
+import com.aishang.app.data.model.JReleaseResult;
 import com.aishang.app.data.model.JRentalListResult;
 import com.aishang.app.data.model.JResult;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JMrePromResult;
 import com.aishang.app.data.model.JNewsListResult;
+import com.aishang.app.data.model.JSendCodeResult;
 import com.aishang.app.data.model.JSysZoneResult;
 import com.aishang.app.data.model.JUploadFileResult;
 import com.aishang.app.data.model.JVersionCheckResult;
@@ -209,6 +215,7 @@ import com.aishang.app.util.EventPosterHelper;
   public Observable<JMemberProfileEditResult> syncMemberProfileEdit(int version, String json) {
     return mAiShangService.memberProfileEdit(version, json);
   }
+
   public Observable<JMemberBankListResult> syncBankList(int version, String json) {
     return mAiShangService.syncBankList(version, json);
   }
@@ -216,7 +223,6 @@ import com.aishang.app.util.EventPosterHelper;
   public Observable<JMemberBankListResult> syncBankEdit(int version, String json) {
     return mAiShangService.syncBankEdit(version, json);
   }
-
 
   public Observable<JMemberProfileEditResult> syncMemberProfileBasicEdit(int version, String json) {
     return mAiShangService.memberProfileBasicEdit(version, json);
@@ -243,8 +249,33 @@ import com.aishang.app.util.EventPosterHelper;
     return mAiShangService.syncMemberLogout(version, json);
   }
 
-  public Observable<JHotelRoomCatListByhotelIDResult> syncHotelRoomCatByHotelID(int version, String json) {
+  public Observable<JHotelRoomCatListByhotelIDResult> syncHotelRoomCatByHotelID(int version,
+      String json) {
     return mAiShangService.syncHotelRoomCatByHotelID(version, json);
+  }
+
+  public Observable<JSendCodeResult> syncSendCode(int version, String json) {
+    return mAiShangService.syncSendCode(version, json);
+  }
+
+  public Observable<JResult> syncMemberNoteRegister(int version, String json) {
+    return mAiShangService.syncMemberNoteRegister(version, json);
+  }
+
+  public Observable<JCodeLoginResult> syncCodeLogin(Map<String, RequestBody> body) {
+    return mAiShangService.syncCodeLogin(body);
+  }
+
+  public Observable<JReleaseResult> syncTravelRelease(int version, String json) {
+    return mAiShangService.syncRelease(version, json);
+  }
+
+  public Observable<JParticipationReslut> syncTravelParticipation(int version, String json) {
+    return mAiShangService.syncParticipation(version, json);
+  }
+
+  public Observable<JCollectResult> syncTravelCollect(int version, String json) {
+    return mAiShangService.syncCollect(version, json);
   }
 
   public JVersionCheckResult getVersionCheck() {

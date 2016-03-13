@@ -12,4 +12,9 @@ public class JResult {
 		this.result = result;
 	}
 
+	@Override public String toString() {
+		return "JResult{" +
+				"result='" + result + '\'' +
+				'}';
+	}
 }

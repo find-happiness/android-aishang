@@ -7,6 +7,8 @@ import android.widget.LinearLayout;
 import com.aishang.app.BoilerplateApplication;
 import com.aishang.app.data.model.JBusinessListParam;
 import com.aishang.app.data.model.JCashWithDrawApplyparam;
+import com.aishang.app.data.model.JCodeLoginParam;
+import com.aishang.app.data.model.JCollectParam;
 import com.aishang.app.data.model.JContactsAddParam;
 import com.aishang.app.data.model.JHotelDetailParam;
 import com.aishang.app.data.model.JHotelListParam;
@@ -14,16 +16,14 @@ import com.aishang.app.data.model.JHotelRoomCatListByhotelIDParam;
 import com.aishang.app.data.model.JLoupanPriceCatListParam;
 import com.aishang.app.data.model.JLoupanProductDetailParam;
 import com.aishang.app.data.model.JLoupanProductListParam;
-import com.aishang.app.data.model.JMemberAddress;
 import com.aishang.app.data.model.JMemberBankAccount;
 import com.aishang.app.data.model.JMemberBankEditParam;
 import com.aishang.app.data.model.JMemberBankListParam;
-import com.aishang.app.data.model.JMemberIM;
 import com.aishang.app.data.model.JMemberLoginParam;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JMemberLogoutParam;
+import com.aishang.app.data.model.JMemberNoteRegisterParams;
 import com.aishang.app.data.model.JMemberProfileBasicEditParam;
-import com.aishang.app.data.model.JMemberProfileEditParam;
 import com.aishang.app.data.model.JMemberProfileParam;
 import com.aishang.app.data.model.JMemberStatisticsParam;
 import com.aishang.app.data.model.JMreActivityEnrollParam;
@@ -31,10 +31,13 @@ import com.aishang.app.data.model.JMreActivityListParam;
 import com.aishang.app.data.model.JMyBusinessBuyInListParam;
 import com.aishang.app.data.model.JMyVacationApplyListParams;
 import com.aishang.app.data.model.JNewsListParams;
+import com.aishang.app.data.model.JParticipationParam;
 import com.aishang.app.data.model.JPasswordChangeParams;
 import com.aishang.app.data.model.JProjecCtooperationParam;
 import com.aishang.app.data.model.JProjectChangeParam;
+import com.aishang.app.data.model.JReleaseParam;
 import com.aishang.app.data.model.JRentalListParam;
+import com.aishang.app.data.model.JSendCodeParams;
 import com.aishang.app.data.model.JSubscriptionParam;
 import com.aishang.app.data.model.JSuggestionParam;
 import com.aishang.app.data.model.JSysZoneParam;
@@ -600,6 +603,65 @@ public class AiShangUtil {
   public static String generHotelRoomCatByHotelIDParam(int hotelid) {
     JHotelRoomCatListByhotelIDParam param = new JHotelRoomCatListByhotelIDParam();
     param.setHotelID(hotelid);
+    return gson.toJson(param);
+  }
+
+  public static String generSendCodeParam(String phone, String hint, boolean isLogin) {
+    JSendCodeParams param = new JSendCodeParams();
+    param.setTel(phone);
+    param.setHint(hint);
+    param.setIsLogin(isLogin);
+    return gson.toJson(param);
+  }
+
+  public static String generMemberNoteRegisterParam(String phone, String code, String psw) {
+    JMemberNoteRegisterParams param = new JMemberNoteRegisterParams();
+    param.setMobilePhone(phone);
+    param.setCode(code);
+    param.setPassword(psw);
+    return gson.toJson(param);
+  }
+
+  public static String generCodeLoginParam(String phone, String code) {
+    JCodeLoginParam param = new JCodeLoginParam();
+    param.setTel(phone);
+    param.setCode(code);
+    return gson.toJson(param);
+  }
+
+  public static String generReleaseParam(String memberAccount, String cookies, int start,
+      int count) {
+
+    JReleaseParam param = new JReleaseParam();
+    param.setMemberAccount(memberAccount);
+    param.setCookie(cookies);
+    param.setRecCount(start);
+    param.setRecStart(count);
+
+    return gson.toJson(param);
+  }
+
+  public static String generCollectParam(String memberAccount, String cookies, int start,
+      int count) {
+
+    JCollectParam param = new JCollectParam();
+    param.setMemberAccount(memberAccount);
+    param.setCookie(cookies);
+    param.setRecCount(start);
+    param.setRecStart(count);
+
+    return gson.toJson(param);
+  }
+
+  public static String generParticipationParam(String memberAccount, String cookies, int start,
+      int count) {
+
+    JParticipationParam param = new JParticipationParam();
+    param.setMemberAccount(memberAccount);
+    param.setCookie(cookies);
+    param.setRecCount(start);
+    param.setRecStart(count);
+
     return gson.toJson(param);
   }
 

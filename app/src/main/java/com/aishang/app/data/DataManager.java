@@ -266,6 +266,10 @@ import com.aishang.app.util.EventPosterHelper;
     return mAiShangService.syncCodeLogin(body);
   }
 
+  public Observable<JCodeLoginResult> syncCodeLoginGet(int version, String json) {
+    return mAiShangService.syncCodeLogin(json);
+  }
+
   public Observable<JReleaseResult> syncTravelRelease(int version, String json) {
     return mAiShangService.syncRelease(version, json);
   }

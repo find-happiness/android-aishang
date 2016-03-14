@@ -166,7 +166,7 @@ public class LoginActivity extends BaseActivity
       return;
     }
 
-    presenter.codeLogin(1, AiShangUtil.generCodeLoginParam(strPhone, code));
+    presenter.codeLogin(2, AiShangUtil.generCodeLoginParam(strPhone, code));
   }
 
   @Override public void onRegister() {

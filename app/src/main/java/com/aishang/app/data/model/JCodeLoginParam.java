@@ -5,8 +5,8 @@ package com.aishang.app.data.model;
  */
 public class JCodeLoginParam {
 
-  private String tel;
   private String code;
+  private String tel;
 
   public String getTel() {
     return tel;

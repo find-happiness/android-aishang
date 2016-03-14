@@ -112,10 +112,10 @@ public class BuyHotelActivity extends BaseActivity {
   }
 
   @Override protected void onSaveInstanceState(Bundle outState) {
-    outState.putString(CHECK_IN_DATE,checkInDate);
-    outState.putString(CHECK_OUT_DATE,checkOutDate);
-    outState.putParcelableArrayList(ORDER,orderList);
-    outState.putSerializable(HOTEL,hotel);
+    outState.putString(CHECK_IN_DATE, checkInDate);
+    outState.putString(CHECK_OUT_DATE, checkOutDate);
+    outState.putParcelableArrayList(ORDER, orderList);
+    outState.putSerializable(HOTEL, hotel);
 
     super.onSaveInstanceState(outState);
   }
@@ -185,9 +185,8 @@ public class BuyHotelActivity extends BaseActivity {
   private void bindRoom() {
     if (orderList != null) {
 
-      Observable.from(orderList).subscribe(new Action1<HotelOrder>() {
-        @Override public void call(HotelOrder hotelOrder) {
-
+      Observable.from(orderList).map(new Func1<HotelOrder, Integer>() {
+        @Override public Integer call(HotelOrder hotelOrder) {
           final Activity act = BuyHotelActivity.this;
 
           View view =
@@ -224,12 +223,7 @@ public class BuyHotelActivity extends BaseActivity {
             }
           });
           orderContainer.addView(view);
-        }
-      });
 
-      Observable.from(orderList).map(new Func1<HotelOrder, Integer>() {
-        @Override public Integer call(HotelOrder hotelOrder) {
-          JHotelRoomCatListByhotelIDResult.HotelRoomCatListEntity roomcat = hotelOrder.getRoomCat();
           return roomcat.getBasicPrice() * hotelOrder.getRoomNum();
         }
       }).reduce(new Func2<Integer, Integer, Integer>() {

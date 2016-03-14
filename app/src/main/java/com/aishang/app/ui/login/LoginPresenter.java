@@ -32,7 +32,9 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
   private static final String TAG = "LoginPresenter";
 
   private final DataManager mDataManager;
-  private Subscription mSubscription;
+  private Subscription mPswLoginSubscription;
+  private Subscription mCodeLoginSubscription;
+  private Subscription mGetCodeSubscription;
 
   @Inject public LoginPresenter(DataManager dataManager) {
     mDataManager = dataManager;
@@ -44,18 +46,20 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
 
   @Override public void detachView() {
     super.detachView();
-    if (mSubscription != null) mSubscription.unsubscribe();
+    if (mPswLoginSubscription != null) mPswLoginSubscription.unsubscribe();
+    if (mCodeLoginSubscription != null) mCodeLoginSubscription.unsubscribe();
+    if (mGetCodeSubscription != null) mGetCodeSubscription.unsubscribe();
   }
 
   public void Login(int version, final String json) {
     checkViewAttached();
 
-    if (mSubscription != null && !mSubscription.isUnsubscribed()) {
-      mSubscription.unsubscribe();
+    if (mPswLoginSubscription != null && !mPswLoginSubscription.isUnsubscribed()) {
+      mPswLoginSubscription.unsubscribe();
     }
 
     getMvpView().showNetDialog();
-    mSubscription = mDataManager.syncLogin(version, json)
+    mPswLoginSubscription = mDataManager.syncLogin(version, json)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
         .subscribe(new Subscriber<JMemberLoginResult>() {
@@ -90,11 +94,11 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
   public void getVerificationCode(boolean allowMemoryCacheVersion, int version, String json) {
     checkViewAttached();
 
-    if (mSubscription != null && !mSubscription.isUnsubscribed()) {
-      mSubscription.unsubscribe();
+    if (mGetCodeSubscription != null && !mGetCodeSubscription.isUnsubscribed()) {
+      mGetCodeSubscription.unsubscribe();
     }
     getMvpView().showNetDialog();
-    mSubscription = mDataManager.syncSendCode(version, json)
+    mGetCodeSubscription = mDataManager.syncSendCode(version, json)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
         .subscribe(new Subscriber<JSendCodeResult>() {
@@ -124,22 +128,21 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
   public void codeLogin(int version, final String json) {
     checkViewAttached();
 
-    if (mSubscription != null && !mSubscription.isUnsubscribed()) {
-      mSubscription.unsubscribe();
+    if (mCodeLoginSubscription != null && !mCodeLoginSubscription.isUnsubscribed()) {
+      mCodeLoginSubscription.unsubscribe();
     }
     getMvpView().showNetDialog();
 
     HashMap<String, RequestBody> map = new HashMap<>();
     RequestBody jsonBody = RequestBody.create(MediaType.parse("application/json"), json);
     map.put("q", jsonBody);
-    map.put("v", RequestBody.create(MediaType.parse("text/plain"), version + ""));
+    //map.put("v", RequestBody.create(MediaType.parse("text/plain"), version + ""));
 
-    mSubscription = mDataManager.syncCodeLogin(map)
+    mCodeLoginSubscription = mDataManager.syncCodeLogin(map)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
         .subscribe(new Subscriber<JCodeLoginResult>() {
           @Override public void onCompleted() {
-
           }
 
           @Override public void onError(Throwable e) {

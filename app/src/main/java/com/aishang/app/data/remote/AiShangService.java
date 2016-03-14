@@ -209,6 +209,10 @@ public interface AiShangService {
   @Headers("connection:Keep-Alive") @POST("mobile/member/codeLogin.ashx") @Multipart
   Observable<JCodeLoginResult> syncCodeLogin(@PartMap Map<String, RequestBody> body);
 
+  @Headers({ "Content-Type: application/json;charset=UTF-8", "connection:Keep-Alive" })
+  @GET("mobile/member/codeLogin.ashx") Observable<JCodeLoginResult> syncCodeLogin(
+      @Query(value = "q") String q);
+
   @Headers("connection:Keep-Alive") @GET("mobile/member/collect.ashx")
   Observable<JCollectResult> syncCollect(@Query(value = "v") int version,
       @Query(value = "q") String q);

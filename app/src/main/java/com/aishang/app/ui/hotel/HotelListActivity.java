@@ -197,7 +197,10 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
       }
     });
   }
-
+  @Override protected void onDestroy() {
+    presenter.detachView();
+    super.onDestroy();
+  }
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == 1234 && resultCode == RESULT_OK) {
       ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);

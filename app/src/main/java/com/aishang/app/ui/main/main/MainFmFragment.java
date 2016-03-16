@@ -327,7 +327,7 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
   }
 
   @Override public void showLoupanEmpty() {
-    avloadingIndicatorViewHotel.setVisibility(View.GONE);
+    avloadingIndicatorViewInSale.setVisibility(View.GONE);
     noDataInSale.setVisibility(View.VISIBLE);
     zaiShouAdapter.clearData();
     zaiShouAdapter.notifyDataSetChanged();

@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,23 +17,30 @@ import butterknife.ButterKnife;
 import com.aishang.app.R;
 import com.aishang.app.data.model.HotelOrder;
 import com.aishang.app.data.model.JHotelRoomCatListByhotelIDResult;
+import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.util.DialogFactory;
 import com.aishang.app.util.ViewUtil;
 import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 import com.github.aakira.expandablelayout.Utils;
+import com.squareup.picasso.Picasso;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import rx.Notification;
 import rx.Observable;
+import rx.Subscriber;
 import rx.functions.Action1;
+import rx.functions.Func0;
 import rx.functions.Func1;
+import rx.functions.Func2;
 
 /**
  * Created by song on 2016/3/11.
  */
 public class RoomAdapter {
 
+  private static final String TAG = "RoomAdapter";
   private List<RoomCat> roomCat;
   private Activity context;
   int[] imgSize;
@@ -91,10 +99,13 @@ public class RoomAdapter {
     //layoutParams.setMargins(0, 0, ViewUtil.dpToPx(8), 0);
     layoutParams.setMargins(0, 0, ViewUtil.dpToPx(8), 0);
     holder.img1.setLayoutParams(layoutParams);
+    holder.img1.setScaleType(ImageView.ScaleType.CENTER_CROP);
     holder.img2.setLayoutParams(layoutParams);
+    holder.img2.setScaleType(ImageView.ScaleType.CENTER_CROP);
     LinearLayout.LayoutParams layoutParams2 = new LinearLayout.LayoutParams(imgSize[0], imgSize[1]);
     layoutParams2.setMargins(0, 0, 0, 0);
     holder.img3.setLayoutParams(layoutParams2);
+    holder.img3.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
     JHotelRoomCatListByhotelIDResult.GRoomTypeListEntity typeEntity = item.getRoomTypeListEntity();
     holder.type.setText(typeEntity.getRoomTypeName());
@@ -175,7 +186,7 @@ public class RoomAdapter {
     return roomItem;
   }
 
-  private void bindData(ViewHolder holder,
+  private void bindData(final ViewHolder holder,
       JHotelRoomCatListByhotelIDResult.HotelRoomCatListEntity entity) {
 
     holder.roomPrice.setText("￥" + entity.getBasicPrice());
@@ -185,6 +196,51 @@ public class RoomAdapter {
     holder.area.setText("面积:" + entity.getTotalAreaMax() + "平方米");
     holder.comment.setText("描述:" + entity.getComment());
     holder.floors.setText("楼层:" + entity.getFloors());
+
+    int i = 0;
+    for (String strImgUrl : entity.getImagesList()) {
+      i++;
+      String prefix = strImgUrl.substring(strImgUrl.lastIndexOf("."));
+
+      strImgUrl = strImgUrl.replace(prefix, "_237" + prefix);
+      //Log.i(TAG, "bindData: " + strImgUrl);
+
+      ImageView imgView = null;
+      switch (i) {
+        case 1:
+          imgView = holder.img1;
+          break;
+        case 2:
+          imgView = holder.img2;
+          break;
+        case 3:
+          imgView = holder.img3;
+          break;
+      }
+      Picasso.with(context)
+          .load(AiShangService.IMG_URL + strImgUrl)
+          .error(R.mipmap.banner)
+          .placeholder(R.mipmap.banner)
+          .into(imgView);
+    }
+
+    if (i == 0) {
+      holder.img1.setVisibility(View.GONE);
+      holder.img2.setVisibility(View.GONE);
+      holder.img3.setVisibility(View.GONE);
+    } else if (i == 1) {
+      holder.img1.setVisibility(View.VISIBLE);
+      holder.img2.setVisibility(View.GONE);
+      holder.img3.setVisibility(View.GONE);
+    } else if (i == 2) {
+      holder.img1.setVisibility(View.VISIBLE);
+      holder.img2.setVisibility(View.VISIBLE);
+      holder.img3.setVisibility(View.GONE);
+    } else {
+      holder.img1.setVisibility(View.VISIBLE);
+      holder.img2.setVisibility(View.VISIBLE);
+      holder.img3.setVisibility(View.VISIBLE);
+    }
   }
 
   private ObjectAnimator createRotateAnimator(final View target, final float from, final float to) {

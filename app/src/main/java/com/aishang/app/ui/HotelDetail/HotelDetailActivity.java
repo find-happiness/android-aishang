@@ -232,7 +232,7 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
         }
       });
 
-      int[] size = CommonUtil.getHeightWithScreenWidth(this, 1, 1);
+      int[] size = CommonUtil.getHeightWithScreenWidth(this, 4, 3);
       LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(size[0], size[1]);
       mapView.setLayoutParams(params);
     }

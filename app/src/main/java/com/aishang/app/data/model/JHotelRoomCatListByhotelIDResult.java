@@ -96,7 +96,7 @@ public class JHotelRoomCatListByhotelIDResult implements Serializable{
     private String updateTime;
     private int dispOrder;
     private String bedTypeName;
-    //private List<String> ImagesList;
+    private List<String> ImagesList;
 
     public void setRoomCatID(int roomCatID) {
       this.roomCatID = roomCatID;
@@ -182,9 +182,9 @@ public class JHotelRoomCatListByhotelIDResult implements Serializable{
       this.bedTypeName = bedTypeName;
     }
 
-    //public void setImagesList(List<String> ImagesList) {
-    //  this.ImagesList = ImagesList;
-    //}
+    public void setImagesList(List<String> ImagesList) {
+      this.ImagesList = ImagesList;
+    }
 
     public int getRoomCatID() {
       return roomCatID;
@@ -270,9 +270,9 @@ public class JHotelRoomCatListByhotelIDResult implements Serializable{
       return bedTypeName;
     }
 
-    //public List<String> getImagesList() {
-    //  return ImagesList;
-    //}
+    public List<String> getImagesList() {
+      return ImagesList;
+    }
   }
 
   public static class GRoomTypeListEntity implements Serializable{

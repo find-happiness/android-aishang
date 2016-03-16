@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -45,6 +46,16 @@ import com.aishang.app.util.NetworkUtil;
 import com.aishang.app.util.NumberPickerDelegate;
 import com.aishang.app.widget.DrawableCenterButton;
 import com.aishang.app.widget.NonScrollGridView;
+import com.amap.api.maps2d.AMap;
+import com.amap.api.maps2d.CameraUpdate;
+import com.amap.api.maps2d.CameraUpdateFactory;
+import com.amap.api.maps2d.CoordinateConverter;
+import com.amap.api.maps2d.MapView;
+import com.amap.api.maps2d.model.BitmapDescriptorFactory;
+import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps2d.model.LatLngBounds;
+import com.amap.api.maps2d.model.Marker;
+import com.amap.api.maps2d.model.MarkerOptions;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
@@ -76,7 +87,7 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
   @Bind(R.id.room_num) DrawableCenterButton roomNum;
   @Bind(R.id.name) TextView name;
   @Bind(R.id.wv_rules) WebView wvRules;
-  @Bind(R.id.map) ImageView map;
+  @Bind(R.id.map) MapView mapView;
   @Bind(R.id.gv_faclilite) NonScrollGridView gvFaclilite;
   @Bind(R.id.gv_services) NonScrollGridView gvService;
   @Bind(R.id.wv_special) WebView wvSpecial;
@@ -94,6 +105,7 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
   private Dialog progressDialog;
   private RoomAdapter roomAdapter;
   int netCount = 0;
+  private AMap aMap;
 
   /**
    * Return an Intent to start this Activity.
@@ -120,6 +132,7 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
     presenter.attachView(this);
     setContentView(R.layout.activity_hotel_detail);
     ButterKnife.bind(this);
+    mapView.onCreate(savedInstanceState);
     hotelID = this.getIntent().getIntExtra(HOTEL_ID, -1);
     checkInDate = this.getIntent().getLongExtra(CHECK_IN_DATE, 0);
     checkOutDate = this.getIntent().getLongExtra(CHECK_OUT_DATE, 0);
@@ -130,12 +143,38 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
     toolbarText.setText(hotelName);
     roomNum.setText(getString(R.string.room_num, selectRoomNum));
     initToolbar();
+    initMap();
     proLoad();
   }
 
+  /**
+   * 方法必须重写
+   */
+  @Override protected void onResume() {
+    super.onResume();
+    mapView.onResume();
+  }
+
+  /**
+   * 方法必须重写
+   */
+  @Override protected void onPause() {
+    super.onPause();
+    mapView.onPause();
+  }
+
   @Override protected void onDestroy() {
-    presenter.detachView();
     super.onDestroy();
+    presenter.detachView();
+    mapView.onDestroy();
+  }
+
+  /**
+   * 方法必须重写
+   */
+  @Override protected void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+    mapView.onSaveInstanceState(outState);
   }
 
   @OnClick(R.id.buy) void onclickBuy() {
@@ -153,7 +192,8 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
             if (hotelOrders.size() > 0) {
               Intent intent = BuyHotelActivity.getStartIntent(HotelDetailActivity.this, hotel,
                   new ArrayList<HotelOrder>(hotelOrders),
-                  AiShangUtil.dateFormat(new Date(checkInDate)),AiShangUtil.dateFormat(new Date(checkOutDate)));
+                  AiShangUtil.dateFormat(new Date(checkInDate)),
+                  AiShangUtil.dateFormat(new Date(checkOutDate)));
               HotelDetailActivity.this.startActivity(intent);
             } else {
               CommonUtil.showSnackbar("您没有选择房间！", layoutRoot);
@@ -181,6 +221,21 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
   private void IntentToLogin() {
     Intent intent = new Intent(this, LoginActivity.class);
     this.startActivity(intent);
+  }
+
+  private void initMap() {
+    if (aMap == null) {
+      aMap = mapView.getMap();
+      aMap.setOnMapTouchListener(new AMap.OnMapTouchListener() {
+        @Override public void onTouch(MotionEvent motionEvent) {
+          mapView.getParent().requestDisallowInterceptTouchEvent(true);
+        }
+      });
+
+      int[] size = CommonUtil.getHeightWithScreenWidth(this, 1, 1);
+      LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(size[0], size[1]);
+      mapView.setLayoutParams(params);
+    }
   }
 
   private void initToolbar() {
@@ -278,6 +333,9 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
     bindFaclilite(result.getDataSet().getBaseInfo().getFacliliteList());
     bindService(result.getDataSet().getBaseInfo().getServiceList());
     bindStarLevel(result.getDataSet().getBaseInfo().getStarLevel());
+    bindMap(result.getDataSet().getBaseInfo().getLat(), result.getDataSet().getBaseInfo().getLng(),
+        result.getDataSet().getBaseInfo().getName(),
+        result.getDataSet().getBaseInfo().getAddress());
   }
 
   @Override public void showHotelRoomCatError(String error) {
@@ -369,44 +427,24 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
     gvService.setAdapter(adapter);
   }
 
-  private void bindHotelRoom(JHotelDetailResult.Data.RoomCat[] roomCats) {
+  private void bindMap(float lat, float lng, String title, String address) {
 
-    int i = 0;
-    for (JHotelDetailResult.Data.RoomCat room : roomCats) {
+    CoordinateConverter converter = new CoordinateConverter();
+    LatLng latLng =
+        converter.from(CoordinateConverter.CoordType.GOOGLE).coord(new LatLng(lat, lng)).convert();
 
-      View roomItem = LayoutInflater.from(this).inflate(R.layout.item_room_detail, null);
-      final RelativeLayout buttonLayout = (RelativeLayout) roomItem.findViewById(R.id.button);
-      final ExpandableRelativeLayout expandableLayout =
-          (ExpandableRelativeLayout) roomItem.findViewById(R.id.expandableLayout);
+    // 设置所有maker显示在当前可视区域地图中
+    LatLngBounds bounds = new LatLngBounds.Builder().include(latLng).build();
 
-      LinearLayout.LayoutParams params =
-          new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-              LinearLayout.LayoutParams.WRAP_CONTENT);
-      int spacing = getResources().getDimensionPixelSize(R.dimen.spacing_medium);
-      params.setMargins(0, spacing, 0, 0);
+    MarkerOptions markerOption = new MarkerOptions();
+    markerOption.position(latLng);
+    markerOption.title(title).snippet(address);
+    markerOption.draggable(false);
+    markerOption.icon(BitmapDescriptorFactory.fromResource(R.mipmap.arrow));
+    Marker marker2 = aMap.addMarker(markerOption);
+    marker2.showInfoWindow();
 
-      expandableLayout.setListener(new ExpandableLayoutListenerAdapter() {
-        @Override public void onPreOpen() {
-          createRotateAnimator(buttonLayout, 0f, 90f).start();
-        }
-
-        @Override public void onPreClose() {
-          createRotateAnimator(buttonLayout, 90f, 0f).start();
-        }
-      });
-
-      //buttonLayout.setRotation(expandState.get(position) ? 180f : 0f);
-      buttonLayout.setOnClickListener(new View.OnClickListener() {
-        @Override public void onClick(final View v) {
-          expandableLayout.toggle();
-        }
-      });
-
-      roomItem.setLayoutParams(params);
-      roomContainer.addView(roomItem, i++);
-    }
-
-    roomContainer.requestLayout();
+    aMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 10));
   }
 
   public ObjectAnimator createRotateAnimator(final View target, final float from, final float to) {

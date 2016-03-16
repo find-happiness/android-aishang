@@ -17,6 +17,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.Bind;
@@ -31,6 +32,15 @@ import com.aishang.app.ui.base.BaseActivity;
 import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.NetworkUtil;
+import com.amap.api.maps2d.AMap;
+import com.amap.api.maps2d.CameraUpdateFactory;
+import com.amap.api.maps2d.CoordinateConverter;
+import com.amap.api.maps2d.MapView;
+import com.amap.api.maps2d.model.BitmapDescriptorFactory;
+import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps2d.model.LatLngBounds;
+import com.amap.api.maps2d.model.Marker;
+import com.amap.api.maps2d.model.MarkerOptions;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
@@ -61,7 +71,7 @@ public class InSaleDetailActivity extends BaseActivity implements InSaleDetailMv
   @Bind(R.id.avloadingIndicatorView) AVLoadingIndicatorView avloadingIndicatorView;
   @Bind(R.id.no_data_hotel) TextView noDataHotel;
   @Bind(R.id.rl_net_status) RelativeLayout rlNetStatus;
-  @Bind(R.id.address) ImageView address;
+  @Bind(R.id.map) MapView mapView;
   @Bind(R.id.tv_address) TextView tvAddress;
   @Bind(R.id.tv_phone) TextView tvPhone;
   @Bind(R.id.tv_tourist) TextView tvTourist;
@@ -77,6 +87,7 @@ public class InSaleDetailActivity extends BaseActivity implements InSaleDetailMv
 
   private String loupanProductName;
   private int loupanProductID;
+  private AMap aMap;
 
   private JLoupanProductDetailResult loupan;
 
@@ -108,6 +119,7 @@ public class InSaleDetailActivity extends BaseActivity implements InSaleDetailMv
     //initActivityTransitions();
     setContentView(R.layout.activity_in_sale_detail);
     ButterKnife.bind(this);
+    mapView.onCreate(savedInstanceState);
     presenter.attachView(this);
     loupanProductID = this.getIntent().getIntExtra(LOUPAN_PRODUCT_ID, -1);
     loupanProductName = this.getIntent().getStringExtra(LOUPAN_PRODUCT_NAME);
@@ -127,17 +139,42 @@ public class InSaleDetailActivity extends BaseActivity implements InSaleDetailMv
 
   }
 
+  /**
+   * 方法必须重写
+   */
+  @Override protected void onResume() {
+    super.onResume();
+    mapView.onResume();
+  }
+
+  /**
+   * 方法必须重写
+   */
+  @Override protected void onPause() {
+    super.onPause();
+    mapView.onPause();
+  }
+
+  @Override protected void onDestroy() {
+    super.onDestroy();
+    presenter.detachView();
+    mapView.onDestroy();
+  }
+
+  /**
+   * 方法必须重写
+   */
+  @Override protected void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+    mapView.onSaveInstanceState(outState);
+  }
+
   @Override public boolean dispatchTouchEvent(MotionEvent motionEvent) {
     try {
       return super.dispatchTouchEvent(motionEvent);
     } catch (NullPointerException e) {
       return false;
     }
-  }
-
-  @Override protected void onDestroy() {
-    presenter.detachView();
-    super.onDestroy();
   }
 
   @OnClick(R.id.take_phone) void oncliclTakePhone() {
@@ -169,6 +206,22 @@ public class InSaleDetailActivity extends BaseActivity implements InSaleDetailMv
     initToolbar();
     initBanner();
     initCollapsingToolbar();
+    initMap();
+  }
+
+  private void initMap() {
+    if (aMap == null) {
+      aMap = mapView.getMap();
+      aMap.setOnMapTouchListener(new AMap.OnMapTouchListener() {
+        @Override public void onTouch(MotionEvent motionEvent) {
+          mapView.getParent().requestDisallowInterceptTouchEvent(true);
+        }
+      });
+
+      int[] size = CommonUtil.getHeightWithScreenWidth(this, 1, 1);
+      LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(size[0], size[1]);
+      mapView.setLayoutParams(params);
+    }
   }
 
   private void initCollapsingToolbar() {
@@ -275,7 +328,7 @@ public class InSaleDetailActivity extends BaseActivity implements InSaleDetailMv
 
     AiShangUtil.setWebViewContent(wvEnvironment, loupanData.getEnvironment());
 
-    Picasso.with(this).load(AiShangService.IMG_URL + loupanData.getMapStaticImg()).into(address);
+    //Picasso.with(this).load(AiShangService.IMG_URL + loupanData.getMapStaticImg()).into(address);
 
     tvAddress.setText(this.getString(R.string.loupan_address, loupanData.getAddress()));
 
@@ -301,6 +354,28 @@ public class InSaleDetailActivity extends BaseActivity implements InSaleDetailMv
     tvTitleName.setText(loupanProductName);
 
     setBanner(dataSet.getImageList());
+
+    bindMap(loupanData.getLat(), loupanData.getLng(), loupanProductName, loupanData.getAddress());
+  }
+
+  private void bindMap(float lat, float lng, String title, String address) {
+
+    CoordinateConverter converter = new CoordinateConverter();
+    LatLng latLng =
+        converter.from(CoordinateConverter.CoordType.GOOGLE).coord(new LatLng(lat, lng)).convert();
+
+    // 设置所有maker显示在当前可视区域地图中
+    LatLngBounds bounds = new LatLngBounds.Builder().include(latLng).build();
+
+    MarkerOptions markerOption = new MarkerOptions();
+    markerOption.position(latLng);
+    markerOption.title(title).snippet(address);
+    markerOption.draggable(false);
+    markerOption.icon(BitmapDescriptorFactory.fromResource(R.mipmap.arrow));
+    Marker marker2 = aMap.addMarker(markerOption);
+    marker2.showInfoWindow();
+
+    aMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 10));
   }
 
   private void setBanner(JLoupanProductDetailResult.Image[] images) {

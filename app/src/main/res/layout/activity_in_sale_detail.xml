@@ -81,11 +81,11 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:fitsSystemWindows="true"
-          app:contentScrim="?attr/colorPrimary"
-          app:layout_scrollFlags="scroll|exitUntilCollapsed"
           app:collapsedTitleTextAppearance="@style/TextViewCollapsed"
+          app:contentScrim="?attr/colorPrimary"
+          app:expandedTitleMarginBottom="@dimen/spacing_medium"
           app:expandedTitleTextAppearance="@style/TextViewExpanded"
-          app:expandedTitleMarginBottom="@dimen/spacing_medium">
+          app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
         <com.bigkoo.convenientbanner.ConvenientBanner
             android:id="@+id/convenientBanner"
@@ -302,12 +302,11 @@
               android:layout_marginTop="@dimen/spacing_small"
               android:background="@color/gray"/>
 
-          <ImageView
-              android:id="@+id/address"
+          <com.amap.api.maps2d.MapView
+              android:id="@+id/map"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_marginTop="@dimen/spacing_medium"
-              android:scaleType="centerCrop"/>
+              android:layout_marginTop="@dimen/spacing_medium"/>
         </LinearLayout>
 
         <RelativeLayout

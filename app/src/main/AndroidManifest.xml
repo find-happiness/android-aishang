@@ -12,17 +12,23 @@
   <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
   <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
   <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
   <application
-      android:name=".BoilerplateApplication"
       android:allowBackup="false"
       android:exported="true"
       android:icon="@mipmap/ic_launcher"
+      android:name=".BoilerplateApplication"
       android:theme="@style/AppTheme"
       tools:replace="android:allowBackup">
+
+    <meta-data
+        android:name="com.amap.api.v2.apikey"
+        android:value="4f573cbe321a3fa65a94596274199259"/>
+
     <activity
-        android:name=".ui.main.MainActivity"
         android:label="@string/app_name"
+        android:name=".ui.main.MainActivity"
         android:screenOrientation="portrait"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:windowSoftInputMode="stateHidden">
@@ -32,17 +38,17 @@
     <service android:name=".util.DownloadService"/>
 
     <receiver
-        android:name=".data.SyncService$SyncOnConnectionAvailable"
-        android:enabled="false">
+        android:enabled="false"
+        android:name=".data.SyncService$SyncOnConnectionAvailable">
       <intent-filter>
         <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
       </intent-filter>
     </receiver>
 
     <activity
-        android:name=".wxapi.WXEntryActivity"
         android:configChanges="keyboardHidden|orientation|screenSize"
         android:exported="true"
+        android:name=".wxapi.WXEntryActivity"
         android:screenOrientation="portrait"
         android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
     <activity
@@ -176,8 +182,8 @@
         android:screenOrientation="portrait">
     </activity>
     <activity
-        android:name="com.foamtrace.photopicker.PhotoPickerActivity"
         android:configChanges="orientation|screenSize"
+        android:name="com.foamtrace.photopicker.PhotoPickerActivity"
         android:screenOrientation="portrait"
         android:theme="@style/PhotoPickerTheme"/>
     <activity

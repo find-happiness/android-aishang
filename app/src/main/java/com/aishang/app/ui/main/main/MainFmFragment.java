@@ -512,7 +512,7 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
 
     public View createView(Context context) {
       imageView = new ImageView(context);
-      imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+      imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
       return imageView;
     }
 

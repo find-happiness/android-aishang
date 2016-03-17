@@ -66,10 +66,12 @@ public class TravelListActivity extends BaseActivity implements TravelListMvpVie
     setImageSizeToAdapter();
     proLoad();
   }
+
   @Override protected void onDestroy() {
     mPersenter.detachView();
     super.onDestroy();
   }
+
   public boolean onCreateOptionsMenu(Menu menu) {
     MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.menu_hotel, menu);
@@ -150,17 +152,12 @@ public class TravelListActivity extends BaseActivity implements TravelListMvpVie
 
       @Override public void onSearchOpened() {
         // Use this to tint the screen
-        if (!TextUtils.isEmpty(filterWords.trim())) searchBox.setSearchString(filterWords);
+        searchBox.setSearchString(filterWords);
       }
 
       @Override public void onSearchClosed() {
         // Use this to un-tint the screen
         closeSearch();
-
-        String searchTerm = searchBox.getSearchText().trim();
-        if (TextUtils.isEmpty(searchTerm)) {
-          filterWords = "";
-        }
       }
 
       @Override public void onSearchTermChanged(String term) {
@@ -171,6 +168,13 @@ public class TravelListActivity extends BaseActivity implements TravelListMvpVie
       @Override public void onSearch(String searchTerm) {
         filterWords = searchTerm;
         proLoad();
+      }
+
+      @Override public void onSearchEmpty() {
+        if (!TextUtils.isEmpty(filterWords)) {
+          filterWords = "";
+          proLoad();
+        }
       }
 
       @Override public void onResultClick(SearchResult result) {

@@ -23,7 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/text_title"/>
+        android:textSize="@dimen/text_title"
+        />
   </android.support.v7.widget.Toolbar>
 
   <LinearLayout
@@ -60,7 +61,7 @@
         android:layout_weight="2"
         android:background="@color/blue"
         android:gravity="center"
-        android:text="@string/buy_now"
+        android:text="@string/buy_hotel"
         android:textColor="@android:color/white"
         android:textSize="@dimen/text_headline"
         />
@@ -95,7 +96,8 @@
 
       <FrameLayout
           android:layout_width="match_parent"
-          android:layout_height="wrap_content">
+          android:layout_height="wrap_content"
+          >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -123,7 +125,8 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_gravity="center_vertical"
-              android:orientation="horizontal">
+              android:orientation="horizontal"
+              >
           </LinearLayout>
         </LinearLayout>
 
@@ -148,7 +151,8 @@
           android:singleLine="true"
           android:textColor="@color/text_gray"
           android:textSize="@dimen/text_body"
-          tools:text="tag"/>
+          tools:text="tag"
+          />
 
       <LinearLayout
           android:layout_width="wrap_content"
@@ -156,7 +160,8 @@
           android:layout_gravity="center_vertical"
           android:layout_marginLeft="@dimen/spacing_medium"
           android:layout_marginTop="@dimen/spacing_medium"
-          android:orientation="horizontal">
+          android:orientation="horizontal"
+          >
 
         <ImageView
             android:id="@+id/service1"
@@ -205,7 +210,6 @@
           android:layout_marginTop="@dimen/spacing_medium"
           android:background="@android:color/white"
           android:orientation="horizontal"
-          android:padding="@dimen/spacing_medium"
           >
 
         <com.aishang.app.widget.DrawableCenterButton
@@ -215,6 +219,8 @@
             android:layout_weight="1"
             android:drawableLeft="@mipmap/ic_date"
             android:drawablePadding="5dp"
+            android:paddingBottom="@dimen/spacing_medium"
+            android:paddingTop="@dimen/spacing_medium"
             tools:text="2015-09-15"
             />
 
@@ -231,6 +237,8 @@
             android:layout_weight="1"
             android:drawableLeft="@mipmap/ic_date"
             android:drawablePadding="5dp"
+            android:paddingBottom="@dimen/spacing_medium"
+            android:paddingTop="@dimen/spacing_medium"
             tools:text="2015-09-15"
             />
 
@@ -247,6 +255,8 @@
             android:layout_weight="1"
             android:drawableLeft="@mipmap/ic_house"
             android:drawablePadding="5dp"
+            android:paddingBottom="@dimen/spacing_medium"
+            android:paddingTop="@dimen/spacing_medium"
             tools:text="3间"
             />
       </LinearLayout>
@@ -255,7 +265,8 @@
           android:id="@+id/room_container"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:orientation="vertical"/>
+          android:orientation="vertical"
+          />
 
       <TextView
           android:layout_width="wrap_content"
@@ -273,17 +284,20 @@
           android:layout_height="wrap_content"
           android:layout_marginLeft="@dimen/spacing_medium"
           android:layout_marginTop="@dimen/spacing_large"
-          android:orientation="vertical">
+          android:orientation="vertical"
+          >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            >
 
           <ImageView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:src="@mipmap/ic_hotel_faclilite"/>
+              android:src="@mipmap/ic_hotel_faclilite"
+              />
 
           <com.aishang.app.widget.NonScrollGridView
               android:id="@+id/gv_faclilite"
@@ -299,12 +313,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_large"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            >
 
           <ImageView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:src="@mipmap/ic_hotel_service"/>
+              android:src="@mipmap/ic_hotel_service"
+              />
 
           <com.aishang.app.widget.NonScrollGridView
               android:id="@+id/gv_services"
@@ -320,12 +336,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/spacing_large"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            >
 
           <ImageView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:src="@mipmap/ic_hotel_special"/>
+              android:src="@mipmap/ic_hotel_special"
+              />
 
           <WebView
               android:id="@+id/wv_special"
@@ -358,20 +376,22 @@
       <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          android:orientation="horizontal">
+          android:orientation="horizontal"
+          >
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/spacing_medium"
             android:layout_marginTop="@dimen/spacing_medium"
-            android:src="@mipmap/ic_hotel_rule"/>
+            android:src="@mipmap/ic_hotel_rule"
+            />
 
         <WebView
             android:id="@+id/wv_rules"
-            android:background="@color/tab_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/tab_bg"
             />
       </LinearLayout>
 

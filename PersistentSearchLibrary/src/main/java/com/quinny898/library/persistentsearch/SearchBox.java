@@ -168,6 +168,7 @@ public class SearchBox extends RelativeLayout {
       public boolean onKey(View v, int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_ENTER) {
           if (TextUtils.isEmpty(getSearchText())) {
+            if (listener != null) listener.onSearchEmpty();
             toggleSearch();
           } else {
             search(getSearchText());
@@ -767,6 +768,7 @@ public class SearchBox extends RelativeLayout {
         }
       }
     } else {
+      if (listener != null) listener.onSearchEmpty();
       setLogoTextInt(logoText);
     }
     toggleSearch();
@@ -955,6 +957,8 @@ public class SearchBox extends RelativeLayout {
      * Called when a search result is clicked, with the result
      */
     public void onResultClick(SearchResult result);
+
+    public void onSearchEmpty();
   }
 
   public interface MenuListener {

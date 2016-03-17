@@ -91,7 +91,7 @@ import javax.inject.Inject;
     final int loupanid = loupan.getLoupanID();
     final JLoupanProductListResult.Product product = loupanProducts.get(position).getProduct();
 
-    holder.name.setText(loupan.getName());
+    holder.name.setText(loupan.getName() +"|"+ product.getTitle());
 
     Picasso.with(activity)
         .load(AiShangService.IMG_URL + product.getImageUrl())

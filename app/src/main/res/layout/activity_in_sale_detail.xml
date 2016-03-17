@@ -135,7 +135,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/spacing_medium"
-                android:maxLength="8"
                 android:paddingBottom="@dimen/spacing_medium"
                 android:paddingTop="@dimen/spacing_medium"
                 android:singleLine="true"

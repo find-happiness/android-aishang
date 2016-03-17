@@ -166,17 +166,12 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
 
       @Override public void onSearchOpened() {
         // Use this to tint the screen
-        if (!TextUtils.isEmpty(mFilterWords.trim())) search.setSearchString(mFilterWords);
+        search.setSearchString(mFilterWords);
       }
 
       @Override public void onSearchClosed() {
         // Use this to un-tint the screen
         closeSearch();
-
-        String searchTerm = search.getSearchText().trim();
-        if (TextUtils.isEmpty(searchTerm)) {
-          mFilterWords = "";
-        }
       }
 
       @Override public void onSearchTermChanged(String term) {
@@ -193,14 +188,23 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
         //React to result being clicked
       }
 
+      @Override public void onSearchEmpty() {
+        if (!TextUtils.isEmpty(mFilterWords)) {
+          mFilterWords = "";
+          proLoad();
+        }
+      }
+
       @Override public void onSearchCleared() {
       }
     });
   }
+
   @Override protected void onDestroy() {
-    presenter.detachView();
     super.onDestroy();
+    presenter.detachView();
   }
+
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == 1234 && resultCode == RESULT_OK) {
       ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);

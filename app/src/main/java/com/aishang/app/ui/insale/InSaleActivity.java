@@ -142,17 +142,12 @@ public class InSaleActivity extends BaseActivity implements InSaleMvpView {
 
       @Override public void onSearchOpened() {
         // Use this to tint the screen
-        if (!TextUtils.isEmpty(filterWords.trim())) searchBox.setSearchString(filterWords);
+        searchBox.setSearchString(filterWords);
       }
 
       @Override public void onSearchClosed() {
         // Use this to un-tint the screen
         closeSearch();
-
-        String searchTerm = searchBox.getSearchText().trim();
-        if (TextUtils.isEmpty(searchTerm)) {
-          filterWords = "";
-        }
       }
 
       @Override public void onSearchTermChanged(String term) {
@@ -161,10 +156,16 @@ public class InSaleActivity extends BaseActivity implements InSaleMvpView {
       }
 
       @Override public void onSearch(String searchTerm) {
+        //Log.i(TAG, "onSearch: " + searchTerm);
         filterWords = searchTerm;
         proLoad();
       }
-
+      @Override public void onSearchEmpty() {
+        if (!TextUtils.isEmpty(filterWords)) {
+          filterWords = "";
+          proLoad();
+        }
+      }
       @Override public void onResultClick(SearchResult result) {
         //React to result being clicked
       }
@@ -234,7 +235,6 @@ public class InSaleActivity extends BaseActivity implements InSaleMvpView {
     adapter.getLoupanProducts().addAll(loupanProducts);
     adapter.notifyDataSetChanged();
     mRecyclerView.refreshComplete();
-
   }
 
   @Override public void loadMoreLoupanProduct(List<LoupanProduct> loupanProducts, int total) {

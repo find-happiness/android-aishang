@@ -351,7 +351,7 @@ public class InSaleDetailActivity extends BaseActivity implements InSaleDetailMv
 
     tvUsageRatio.setText(this.getString(R.string.loupan_usage_ratio, loupanData.getUsageRatio()));
 
-    tvTitleName.setText(loupanProductName);
+    tvTitleName.setText(loupanProductName + "|" + dataSet.getTitle());
 
     setBanner(dataSet.getImageList());
 

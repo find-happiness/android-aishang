@@ -3,13 +3,10 @@ package com.aishang.app.ui.ExchangeHouse;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,6 +15,7 @@ import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.Bind;
@@ -65,6 +63,7 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
   @Bind(R.id.Email) MaterialEditText Email;
   @Bind(R.id.contactsMobile) MaterialEditText contactsMobile;
   @Bind(R.id.update_img) ImageView updateImg;
+  @Bind(R.id.banner) ImageView banner;
   private ProgressDialog progressDialog;
 
   private String selectImgUrl;
@@ -85,12 +84,23 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
     endTime.setInputType(InputType.TYPE_DATETIME_VARIATION_NORMAL);
 
     initToolbar();
+    initBanner();
     expandTextView.setText(this.getString(R.string.holiday_house_rule));
   }
+
   @Override protected void onDestroy() {
     presenter.detachView();
     super.onDestroy();
   }
+
+  private void initBanner() {
+    int[] size = CommonUtil.getHeightWithScreenWidth(this, 8, 3);
+
+    LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(size[0], size[1]);
+
+    banner.setLayoutParams(param);
+  }
+
   @OnClick(R.id.start_time) void onClickStartTime() {
     Calendar cal = Calendar.getInstance();
     cal.setTimeInMillis(System.currentTimeMillis() + 86400000L);

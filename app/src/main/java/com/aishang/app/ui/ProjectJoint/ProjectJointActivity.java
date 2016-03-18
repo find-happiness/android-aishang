@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.Bind;
@@ -39,6 +41,7 @@ public class ProjectJointActivity extends BaseActivity implements ProjectJoinMvp
   @Bind(R.id.contactsPhone) MaterialEditText contactsPhone;
   @Bind(R.id.contactsEmail) MaterialEditText contactsEmail;
   @Bind(R.id.special) MaterialEditText special;
+  @Bind(R.id.banner) ImageView banner;
   private ProgressDialog progressDialog;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +54,21 @@ public class ProjectJointActivity extends BaseActivity implements ProjectJoinMvp
             | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     ButterKnife.bind(this);
     initToolbar();
-
+    initBanner();
     expandTextView.setText(this.getString(R.string.project_rule));
   }
+
   @Override protected void onDestroy() {
     presenter.detachView();
     super.onDestroy();
   }
+
+  private void initBanner() {
+    int[] size = CommonUtil.getHeightWithScreenWidth(this, 8, 3);
+    LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(size[0], size[1]);
+    banner.setLayoutParams(param);
+  }
+
   private void initToolbar() {
     toolbar.setTitle("");
     this.setSupportActionBar(toolbar);

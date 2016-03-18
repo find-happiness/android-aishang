@@ -1,5 +1,6 @@
 package com.aishang.app.ui.hotel;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -48,6 +49,8 @@ import javax.inject.Inject;
 public class HotelListActivity extends BaseActivity implements HotelMvpView {
 
   private static final String TAG = "HotelListActivity";
+  private static final String ZONE_ID = "zone_id";
+  private static final String FILTER_WORDS = "FilterWords";
   @Bind(R.id.searchbox) SearchBox search;
   @Bind(R.id.toolbar) Toolbar toolbar;
 
@@ -69,6 +72,18 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
   @Inject HotelAdapter hotelAdapter;
   private Dialog progressDialog;
 
+  public static Intent getIntent(Activity activity, int zoneID) {
+    Intent intent = new Intent(activity, HotelListActivity.class);
+    intent.putExtra(ZONE_ID, zoneID);
+    return intent;
+  }
+
+  public static Intent getIntent(Activity activity, String filterWords) {
+    Intent intent = new Intent(activity, HotelListActivity.class);
+    intent.putExtra(FILTER_WORDS, filterWords);
+    return intent;
+  }
+
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     this.getActivityComponent().inject(this);
@@ -78,6 +93,8 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
 
     checkInDate = new Date(System.currentTimeMillis() + 86400000L);
     checkOutDate = new Date(System.currentTimeMillis() + 2 * 86400000L);
+    selectZoneID = this.getIntent().getIntExtra(ZONE_ID, 1);
+    mFilterWords = this.getIntent().getStringExtra(FILTER_WORDS);
 
     hotelAdapter.setCheckInDate(checkInDate);
     hotelAdapter.setCheckOutDate(checkOutDate);
@@ -166,7 +183,7 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
 
       @Override public void onSearchOpened() {
         // Use this to tint the screen
-        search.setSearchString(mFilterWords);
+        search.setSearchString(TextUtils.isEmpty(mFilterWords) ? "" : mFilterWords);
       }
 
       @Override public void onSearchClosed() {

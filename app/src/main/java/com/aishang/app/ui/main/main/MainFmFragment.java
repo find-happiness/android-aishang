@@ -27,6 +27,7 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnEditorAction;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JLoupanProductListResult;
@@ -38,6 +39,8 @@ import com.aishang.app.data.model.LoupanProduct;
 import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.ui.HotelDetail.HotelDetailActivity;
 import com.aishang.app.ui.TravelDetail.TravelDetailActivity;
+import com.aishang.app.ui.TravelList.TravelListActivity;
+import com.aishang.app.ui.hotel.HotelListActivity;
 import com.aishang.app.ui.insaleDetail.InSaleDetailActivity;
 import com.aishang.app.ui.main.MainActivity;
 import com.aishang.app.ui.main.mine.MineFragment;
@@ -130,6 +133,7 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
     ButterKnife.bind(this, view);
     mMainPresenter.attachView(this);
     initView();
+
     autoRefresh();
     return view;
   }
@@ -231,7 +235,10 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
             selectZoneID = which == 0 ? 2 : zones.get(which - 1).getZoneID();
             dialog.dismiss();
 
-            if (bakZoneID != selectZoneID) autoRefresh();
+            //if (bakZoneID != selectZoneID) autoRefresh();
+
+            startActivity(
+                HotelListActivity.getIntent(MainFmFragment.this.getActivity(), selectZoneID));
           }
         }, getString(R.string.zone_select)).show();
   }
@@ -389,11 +396,12 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
   }
 
   private void initSearch() {
-
     editSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
       @Override public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        if (EditorInfo.IME_ACTION_SEARCH == actionId) {
+        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
           hideSoftInputWindows();
+          startActivity(HotelListActivity.getIntent(MainFmFragment.this.getActivity(),
+              editSearch.getText().toString()));
           return true;
         }
         return false;
@@ -409,7 +417,7 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
 
   private void initBanner() {
 
-    int[] size = CommonUtil.getHeightWithScreenWidth(this.getActivity(), 16, 9);
+    int[] size = CommonUtil.getHeightWithScreenWidth(this.getActivity(), 98, 25);
     LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(size[0], size[1]);
 
     banner.setLayoutParams(layoutParams);

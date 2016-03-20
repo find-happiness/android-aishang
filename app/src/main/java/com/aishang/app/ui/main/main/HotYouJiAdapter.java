@@ -71,7 +71,7 @@ import javax.inject.Inject;
         .placeholder(R.mipmap.banner)
         .into(holder.imgHotYouji);
 
-    holder.shuoshuo.setText(item.getShortDesc() + "");
+    holder.shuoshuo.setText(item.getTitle() + "");
     holder.dianzhang.setText(item.getHits() + "");
     holder.pinglun.setText(item.getSupports() + "");
     holder.reward.setText(item.getNewsID() + "");

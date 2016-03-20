@@ -72,7 +72,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
         .placeholder(R.mipmap.banner)
         .into(holder.img3);
 
-    holder.shortDesc.setText(item.getShortDesc() + "");
+    holder.shortDesc.setText(item.getTitle() + "");
     holder.dianzhang.setText(item.getHits() + "");
     holder.pinglun.setText(item.getSupports() + "");
     holder.reward.setText(item.getNewsID() + "");

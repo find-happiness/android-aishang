@@ -237,8 +237,8 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
 
             //if (bakZoneID != selectZoneID) autoRefresh();
 
-            startActivity(
-                HotelListActivity.getIntent(MainFmFragment.this.getActivity(), selectZoneID));
+            startActivity(HotelListActivity.getIntent(MainFmFragment.this.getActivity(),
+                which == 0 ? 2 : zones.get(which - 1).getZoneID()));
           }
         }, getString(R.string.zone_select)).show();
   }
@@ -502,7 +502,7 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
   }
 
   private void asynTrvael() {
-    String json = AiShangUtil.generNewsParam(0, selectZoneID, 0, 0, 1, "", "", 1, 3);
+    String json = AiShangUtil.generNewsParam(0, 0, 2, 1, 1, "", "", 1, 3);
 
     mMainPresenter.loadTravel(2, json);
   }

@@ -96,6 +96,7 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
     selectZoneID = this.getIntent().getIntExtra(ZONE_ID, 1);
     mFilterWords = this.getIntent().getStringExtra(FILTER_WORDS);
 
+    Log.i(TAG, "onCreate: selectZoneID----------------------->" + selectZoneID);
     hotelAdapter.setCheckInDate(checkInDate);
     hotelAdapter.setCheckOutDate(checkOutDate);
     initToolbar();

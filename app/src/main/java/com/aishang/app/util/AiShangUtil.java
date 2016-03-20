@@ -172,7 +172,7 @@ public class AiShangUtil {
       int beVIPHome, String tagIDs, String fKeyWords, int fOrderType, int recCount) {
     JNewsListParams params = new JNewsListParams();
     params.setCatID(catID);
-    params.setZoneID(1);
+    params.setZoneID(zoneID);
     params.setFilterTypeID(filterTypeID);
     params.setRecStart(recStart);
     params.setRecCount(recCount);

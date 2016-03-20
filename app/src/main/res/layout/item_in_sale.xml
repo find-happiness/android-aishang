@@ -2,8 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="@android:color/white"
-    android:layout_height="wrap_content">
+    >
 
   <LinearLayout
       android:id="@+id/contnet"
@@ -11,7 +12,8 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/spacing_small"
       android:paddingLeft="10dp"
-      android:paddingRight="10dp">
+      android:paddingRight="10dp"
+      >
 
     <ImageView
         android:id="@+id/img_in_sale"
@@ -20,15 +22,16 @@
         android:layout_weight="1"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
-        android:src="@mipmap/banner"/>
+        android:src="@mipmap/banner"
+        />
 
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginLeft="@dimen/spacing_small"
-
-        android:layout_weight="2">
+        android:layout_weight="2"
+        >
 
       <TextView
           android:id="@+id/name"
@@ -36,10 +39,12 @@
           android:layout_height="wrap_content"
           android:layout_alignParentLeft="true"
           android:layout_toLeftOf="@id/price_text"
+          android:ellipsize="end"
           android:gravity="center_vertical"
-          android:lines="2"
+          android:singleLine="true"
           android:textSize="@dimen/text_body"
-          tools:text="宜春|曦园柳镇"/>
+          tools:text="宜春|曦园柳镇"
+          />
 
       <TextView
           android:id="@+id/price_text"
@@ -48,35 +53,40 @@
           android:layout_alignParentRight="true"
           android:textColor="@color/price"
           android:textSize="@dimen/text_body"
-          tools:text="5.9万"/>
+          tools:text="5.9万"
+          />
 
       <LinearLayout
           android:id="@+id/ll_detail"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_below="@id/name"
-          android:orientation="vertical">
+          android:orientation="vertical"
+          >
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="交房时间:"
             android:textColor="@color/text_gray"
-            android:textSize="@dimen/text_small_body"/>
+            android:textSize="@dimen/text_small_body"
+            />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="项目地址:"
             android:textColor="@color/text_gray"
-            android:textSize="@dimen/text_small_body"/>
+            android:textSize="@dimen/text_small_body"
+            />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="特        色:"
             android:textColor="@color/text_gray"
-            android:textSize="@dimen/text_small_body"/>
+            android:textSize="@dimen/text_small_body"
+            />
       </LinearLayout>
 
       <LinearLayout
@@ -84,7 +94,8 @@
           android:layout_height="wrap_content"
           android:layout_alignTop="@id/ll_detail"
           android:layout_toRightOf="@id/ll_detail"
-          android:orientation="vertical">
+          android:orientation="vertical"
+          >
 
         <TextView
             android:id="@+id/time"
@@ -99,7 +110,8 @@
             android:scrollHorizontally="true"
             android:textColor="@color/text_gray"
             android:textSize="@dimen/text_small_body"
-            tools:text="交房时间:"/>
+            tools:text="交房时间:"
+            />
 
         <TextView
             android:id="@+id/address"
@@ -113,7 +125,8 @@
             android:scrollHorizontally="true"
             android:textColor="@color/text_gray"
             android:textSize="@dimen/text_small_body"
-            tools:text="项目地址:"/>
+            tools:text="项目地址:"
+            />
 
         <TextView
             android:id="@+id/tese"
@@ -128,7 +141,8 @@
             android:scrollHorizontally="true"
             android:textColor="@color/text_gray"
             android:textSize="@dimen/text_small_body"
-            tools:text="特         色:"/>
+            tools:text="特         色:"
+            />
       </LinearLayout>
     </RelativeLayout>
   </LinearLayout>
@@ -156,8 +170,8 @@
       android:layout_toRightOf="@id/look"
       android:background="@drawable/blue_stroke_corner"
       android:text="@string/look_youji"
-      android:visibility="gone"
       android:textColor="@color/blue"
+      android:visibility="gone"
       />
 
   <TextView
@@ -179,5 +193,6 @@
       android:layout_height="1dp"
       android:layout_below="@+id/look"
       android:layout_marginTop="@dimen/spacing_small"
-      android:background="@android:color/darker_gray"/>
+      android:background="@android:color/darker_gray"
+      />
 </RelativeLayout>

@@ -20,7 +20,8 @@
       android:layout_below="@id/img_hot_hotel"
       android:layout_marginLeft="10dp"
       android:gravity="center_vertical"
-      android:lines="2"
+      android:singleLine="true"
+      android:ellipsize="end"
       android:textSize="@dimen/text_body"
       tools:text="宜春|曦园柳镇"/>
 

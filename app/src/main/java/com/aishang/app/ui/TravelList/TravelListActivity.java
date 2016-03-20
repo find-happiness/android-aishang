@@ -136,7 +136,7 @@ public class TravelListActivity extends BaseActivity implements TravelListMvpVie
 
       @Override public void onLoadMore() {
         if (NetworkUtil.isNetworkConnected(TravelListActivity.this)) {
-          asynTravel(adapter.getItemCount(), selectZoneID, 0, 0, 0, "", filterWords, 1, 10,
+          asynTravel(adapter.getItemCount(), selectZoneID, 2, 1, 0, "", filterWords, 1, 10,
               NetWorkType.loadMore);
         } else {
           //mRecyclerView.loadMoreComplete();
@@ -220,7 +220,7 @@ public class TravelListActivity extends BaseActivity implements TravelListMvpVie
     //        String param = AiShangUtil.generLoupanProductParam(0, 0, 0, 0, 10, 0,
     //                0, filterWords, 0, "", "", selectZoneID, 0, selectPrice, 0,
     //                0, selectType, "", "", "", 0);
-    asynTravel(0, selectZoneID, 0, 0, 0, "", filterWords, 1, 10, type);
+    asynTravel(0, selectZoneID, 2, 1, 0, "", filterWords, 1, 10, type);
   }
 
   private void asynTravel(int recStart, int zoneID, int catID, int filterTypeID, int beVIPHome,

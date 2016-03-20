@@ -230,9 +230,9 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
         new DialogInterface.OnClickListener() {
           @Override public void onClick(DialogInterface dialog, int which) {
 
-            int bakZoneID = selectZoneID;
-
-            selectZoneID = which == 0 ? 2 : zones.get(which - 1).getZoneID();
+            //int bakZoneID = selectZoneID;
+            //
+            //selectZoneID = which == 0 ? 2 : zones.get(which - 1).getZoneID();
             dialog.dismiss();
 
             //if (bakZoneID != selectZoneID) autoRefresh();

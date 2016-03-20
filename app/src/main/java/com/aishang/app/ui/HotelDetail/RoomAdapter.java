@@ -2,10 +2,9 @@ package com.aishang.app.ui.HotelDetail;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,22 +17,18 @@ import com.aishang.app.R;
 import com.aishang.app.data.model.HotelOrder;
 import com.aishang.app.data.model.JHotelRoomCatListByhotelIDResult;
 import com.aishang.app.data.remote.AiShangService;
+import com.aishang.app.ui.PhotoGallery.PhotoGalleryActivity;
+import com.aishang.app.util.BusProvider;
 import com.aishang.app.util.DialogFactory;
 import com.aishang.app.util.ViewUtil;
 import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 import com.github.aakira.expandablelayout.Utils;
 import com.squareup.picasso.Picasso;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import rx.Notification;
 import rx.Observable;
-import rx.Subscriber;
-import rx.functions.Action1;
-import rx.functions.Func0;
 import rx.functions.Func1;
-import rx.functions.Func2;
 
 /**
  * Created by song on 2016/3/11.
@@ -222,6 +217,9 @@ public class RoomAdapter {
           .error(R.mipmap.banner)
           .placeholder(R.mipmap.banner)
           .into(imgView);
+
+      setOnclickToImg(imgView, i - 1,
+          entity.getImagesList().toArray(new String[entity.getImagesList().size()]));
     }
 
     if (i == 0) {
@@ -241,6 +239,21 @@ public class RoomAdapter {
       holder.img2.setVisibility(View.VISIBLE);
       holder.img3.setVisibility(View.VISIBLE);
     }
+  }
+
+  private void setOnclickToImg(ImageView imgView, final int index, final String[] photos) {
+    imgView.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        roomImgClick(index, photos);
+      }
+    });
+  }
+
+  private void roomImgClick(int index, String[] photos) {
+    //Intent intent = PhotoGalleryActivity.getIntent(context, photos, index);
+    //context.startActivity(intent);
+
+    BusProvider.getInstance().post(HotelDetailActivity.RoomImgModel.create(index, photos));
   }
 
   private ObjectAnimator createRotateAnimator(final View target, final float from, final float to) {

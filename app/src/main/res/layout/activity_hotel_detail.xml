@@ -1,426 +1,377 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layoutRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary"
+    android:background="@android:color/white"
     >
-
-  <android.support.v7.widget.Toolbar
-      android:id="@+id/toolbar"
-      android:layout_width="match_parent"
-      android:layout_height="?attr/actionBarSize"
-      android:layout_alignParentTop="true"
-      app:layout_collapseMode="pin"
-      app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-      >
-
-    <TextView
-        android:id="@+id/toolbar_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/text_title"
-        />
-  </android.support.v7.widget.Toolbar>
-
-  <LinearLayout
-      android:id="@+id/ll_action_button"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"
-      android:orientation="horizontal"
-      >
-
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:adjustViewBounds="true"
-        android:src="@mipmap/take_phone"
-        />
-
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:adjustViewBounds="true"
-        android:src="@mipmap/take_online"
-        />
-
-    <TextView
-        android:id="@+id/buy"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_weight="2"
-        android:background="@color/blue"
-        android:gravity="center"
-        android:text="@string/buy_hotel"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/text_headline"
-        />
-
-  </LinearLayout>
-
-  <android.support.v4.widget.NestedScrollView
-      android:id="@+id/scroll"
+  <RelativeLayout
+      android:id="@+id/layoutRoot"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_above="@id/ll_action_button"
-      android:layout_below="@id/toolbar"
-      android:background="@color/tab_bg"
-      android:clipToPadding="false"
-      app:layout_behavior="@string/appbar_scrolling_view_behavior"
+      android:background="@color/primary"
       >
 
-
-    <LinearLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        app:layout_collapseMode="pin"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         >
 
-      <com.bigkoo.convenientbanner.ConvenientBanner
-          android:id="@+id/convenientBanner"
-          android:layout_width="match_parent"
-          android:layout_height="200dp"
-          app:canLoop="true"
+      <TextView
+          android:id="@+id/toolbar_title"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:textColor="@android:color/white"
+          android:textSize="@dimen/text_title"
+          />
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/ll_action_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        >
+
+      <ImageView
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:layout_weight="1"
+          android:adjustViewBounds="true"
+          android:src="@mipmap/take_phone"
           />
 
-
-      <FrameLayout
-          android:layout_width="match_parent"
+      <ImageView
+          android:layout_width="0dp"
           android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:layout_weight="1"
+          android:adjustViewBounds="true"
+          android:src="@mipmap/take_online"
+          />
+
+      <TextView
+          android:id="@+id/buy"
+          android:layout_width="0dp"
+          android:layout_height="match_parent"
+          android:layout_gravity="center"
+          android:layout_weight="2"
+          android:background="@color/blue"
+          android:gravity="center"
+          android:text="@string/buy_hotel"
+          android:textColor="@android:color/white"
+          android:textSize="@dimen/text_headline"
+          />
+
+    </LinearLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/ll_action_button"
+        android:layout_below="@id/toolbar"
+        android:background="@color/tab_bg"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical"
           >
+
+        <com.bigkoo.convenientbanner.ConvenientBanner
+            android:id="@+id/convenientBanner"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:canLoop="true"
+            />
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/spacing_medium"
+              android:orientation="horizontal"
+              >
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/spacing_medium"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:ellipsize="end"
+                android:maxLength="12"
+                android:paddingLeft="@dimen/spacing_xsmall"
+                android:singleLine="true"
+                android:textSize="@dimen/text_large_body"
+                tools:text="宜春|宜春宜春宜"
+                />
+
+            <LinearLayout
+                android:id="@+id/star_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal"
+                >
+            </LinearLayout>
+          </LinearLayout>
+
+          <TextView
+              android:id="@+id/price"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="right|center_vertical"
+              android:layout_marginRight="@dimen/spacing_medium"
+              android:textSize="@dimen/text_title"
+              tools:text="￥300元"
+              />
+        </FrameLayout>
+
+
+        <TextView
+            android:id="@+id/tag"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:singleLine="true"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"
+            tools:text="tag"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:background="@android:color/white"
+            android:orientation="horizontal"
+            >
+
+          <com.aishang.app.widget.DrawableCenterButton
+              android:id="@+id/tv_check_in_date"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:drawableLeft="@mipmap/ic_date"
+              android:drawablePadding="5dp"
+              android:paddingBottom="@dimen/spacing_medium"
+              android:paddingTop="@dimen/spacing_medium"
+              tools:text="2015-09-15"
+              />
+
+          <View
+              android:layout_width="1dp"
+              android:layout_height="match_parent"
+              android:background="@color/gray"
+              />
+
+          <com.aishang.app.widget.DrawableCenterButton
+              android:id="@+id/tv_check_out_date"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:drawableLeft="@mipmap/ic_date"
+              android:drawablePadding="5dp"
+              android:paddingBottom="@dimen/spacing_medium"
+              android:paddingTop="@dimen/spacing_medium"
+              tools:text="2015-09-15"
+              />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/room_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:drawableLeft="@mipmap/line_red"
+            android:gravity="center"
+            android:paddingLeft="@dimen/spacing_medium"
+            android:text="酒店详情"
+            android:textSize="@dimen/text_body"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/spacing_medium"
-            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:orientation="vertical"
             >
 
-          <TextView
-              android:id="@+id/name"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginRight="@dimen/spacing_medium"
-              android:layout_marginTop="@dimen/spacing_medium"
-              android:ellipsize="end"
-              android:maxLength="12"
-              android:paddingLeft="@dimen/spacing_xsmall"
-              android:singleLine="true"
-              android:textSize="@dimen/text_large_body"
-              tools:text="宜春|宜春宜春宜"
-              />
-
           <LinearLayout
-              android:id="@+id/star_container"
-              android:layout_width="wrap_content"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_gravity="center_vertical"
               android:orientation="horizontal"
               >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_hotel_faclilite"
+                />
+
+            <com.aishang.app.widget.NonScrollGridView
+                android:id="@+id/gv_faclilite"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/spacing_medium"
+                android:numColumns="2"
+                />
+
+          </LinearLayout>
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/spacing_large"
+              android:orientation="horizontal"
+              >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_hotel_service"
+                />
+
+            <com.aishang.app.widget.NonScrollGridView
+                android:id="@+id/gv_services"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/spacing_medium"
+                android:numColumns="2"
+                />
+
+          </LinearLayout>
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginTop="@dimen/spacing_large"
+              android:orientation="horizontal"
+              >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_hotel_special"
+                />
+
+            <WebView
+                android:id="@+id/wv_special"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/spacing_medium"
+                />
+
           </LinearLayout>
         </LinearLayout>
 
         <TextView
-            android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|center_vertical"
-            android:layout_marginRight="@dimen/spacing_medium"
-            android:textSize="@dimen/text_title"
-            tools:text="￥300元"
-            />
-      </FrameLayout>
-
-
-      <TextView
-          android:id="@+id/tag"
-          android:layout_width="wrap_content"
-          android:layout_height="match_parent"
-          android:layout_marginLeft="@dimen/spacing_medium"
-          android:layout_marginTop="@dimen/spacing_medium"
-          android:singleLine="true"
-          android:textColor="@color/text_gray"
-          android:textSize="@dimen/text_body"
-          tools:text="tag"
-          />
-
-      <LinearLayout
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_vertical"
-          android:layout_marginLeft="@dimen/spacing_medium"
-          android:layout_marginTop="@dimen/spacing_medium"
-          android:orientation="horizontal"
-          >
-
-        <ImageView
-            android:id="@+id/service1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/service_1"
-            />
-
-        <ImageView
-            android:id="@+id/service2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/spacing_small"
-            android:src="@mipmap/service_2"
-            />
-
-        <ImageView
-            android:id="@+id/service3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/spacing_small"
-            android:src="@mipmap/service_3"
-            />
-
-        <ImageView
-            android:id="@+id/service4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/spacing_small"
-            android:src="@mipmap/service_4"
-            />
-
-        <ImageView
-            android:id="@+id/service5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/spacing_small"
-            android:src="@mipmap/service_5"
-            />
-
-      </LinearLayout>
-
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/spacing_medium"
-          android:background="@android:color/white"
-          android:orientation="horizontal"
-          >
-
-        <com.aishang.app.widget.DrawableCenterButton
-            android:id="@+id/tv_check_in_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableLeft="@mipmap/ic_date"
-            android:drawablePadding="5dp"
-            android:paddingBottom="@dimen/spacing_medium"
-            android:paddingTop="@dimen/spacing_medium"
-            tools:text="2015-09-15"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:drawableLeft="@mipmap/line_red"
+            android:gravity="center"
+            android:paddingLeft="@dimen/spacing_medium"
+            android:text="入住须知"
+            android:textSize="@dimen/text_body"
             />
 
         <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/spacing_small"
             android:background="@color/gray"
             />
 
-        <com.aishang.app.widget.DrawableCenterButton
-            android:id="@+id/tv_check_out_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableLeft="@mipmap/ic_date"
-            android:drawablePadding="5dp"
-            android:paddingBottom="@dimen/spacing_medium"
-            android:paddingTop="@dimen/spacing_medium"
-            tools:text="2015-09-15"
-            />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/gray"
-            />
-
-        <com.aishang.app.widget.DrawableCenterButton
-            android:id="@+id/room_num"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableLeft="@mipmap/ic_house"
-            android:drawablePadding="5dp"
-            android:paddingBottom="@dimen/spacing_medium"
-            android:paddingTop="@dimen/spacing_medium"
-            tools:text="3间"
-            />
-      </LinearLayout>
-
-      <LinearLayout
-          android:id="@+id/room_container"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="vertical"
-          />
-
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/spacing_medium"
-          android:drawableLeft="@mipmap/line_red"
-          android:gravity="center"
-          android:paddingLeft="@dimen/spacing_medium"
-          android:text="酒店详情"
-          android:textSize="@dimen/text_body"
-          />
-
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginLeft="@dimen/spacing_medium"
-          android:layout_marginTop="@dimen/spacing_large"
-          android:orientation="vertical"
-          >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-
-          <ImageView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:src="@mipmap/ic_hotel_faclilite"
-              />
-
-          <com.aishang.app.widget.NonScrollGridView
-              android:id="@+id/gv_faclilite"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginLeft="@dimen/spacing_medium"
-              android:numColumns="2"
-              />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_large"
-            android:orientation="horizontal"
-            >
-
-          <ImageView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:src="@mipmap/ic_hotel_service"
-              />
-
-          <com.aishang.app.widget.NonScrollGridView
-              android:id="@+id/gv_services"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginLeft="@dimen/spacing_medium"
-              android:numColumns="2"
-              />
-
-        </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/spacing_large"
             android:orientation="horizontal"
             >
 
           <ImageView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:src="@mipmap/ic_hotel_special"
+              android:layout_marginLeft="@dimen/spacing_medium"
+              android:layout_marginTop="@dimen/spacing_medium"
+              android:src="@mipmap/ic_hotel_rule"
               />
 
           <WebView
-              android:id="@+id/wv_special"
+              android:id="@+id/wv_rules"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_marginLeft="@dimen/spacing_medium"
+              android:background="@color/tab_bg"
               />
-
         </LinearLayout>
-      </LinearLayout>
 
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/spacing_medium"
-          android:drawableLeft="@mipmap/line_red"
-          android:gravity="center"
-          android:paddingLeft="@dimen/spacing_medium"
-          android:text="入住须知"
-          android:textSize="@dimen/text_body"
-          />
-
-      <View
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:layout_marginTop="@dimen/spacing_small"
-          android:background="@color/gray"
-          />
-
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:orientation="horizontal"
-          >
-
-        <ImageView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/spacing_medium"
             android:layout_marginTop="@dimen/spacing_medium"
-            android:src="@mipmap/ic_hotel_rule"
+            android:drawableLeft="@mipmap/line_red"
+            android:gravity="center"
+            android:paddingLeft="@dimen/spacing_medium"
+            android:text="@string/traffic_position"
+            android:textSize="@dimen/text_body"
             />
 
-        <WebView
-            android:id="@+id/wv_rules"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:background="@color/gray"
+            />
+
+        <com.amap.api.maps2d.MapView
+            android:id="@+id/map"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/tab_bg"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:scaleType="fitXY"
             />
       </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+  </RelativeLayout>
 
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/spacing_medium"
-          android:drawableLeft="@mipmap/line_red"
-          android:gravity="center"
-          android:paddingLeft="@dimen/spacing_medium"
-          android:text="@string/traffic_position"
-          android:textSize="@dimen/text_body"
-          />
+  <com.aishang.app.widget.HackyViewPager
+      android:id="@+id/view_pager"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@id/toolbar"
+      android:background="@android:color/white"
+      android:visibility="gone"
+      />
+</FrameLayout>
 
-      <View
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:layout_marginTop="@dimen/spacing_medium"
-          android:background="@color/gray"
-          />
 
-      <com.amap.api.maps2d.MapView
-          android:id="@+id/map"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/spacing_medium"
-          android:scaleType="fitXY"
-          />
-    </LinearLayout>
-  </android.support.v4.widget.NestedScrollView>
-</RelativeLayout>
 

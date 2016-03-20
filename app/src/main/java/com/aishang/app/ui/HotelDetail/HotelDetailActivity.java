@@ -1,7 +1,8 @@
 package com.aishang.app.ui.HotelDetail;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.app.ActionBar;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -9,20 +10,18 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.ScaleAnimation;
 import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.Bind;
@@ -32,22 +31,20 @@ import com.aishang.app.BoilerplateApplication;
 import com.aishang.app.R;
 import com.aishang.app.data.model.HotelOrder;
 import com.aishang.app.data.model.JHotelDetailResult;
-import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JHotelRoomCatListByhotelIDResult;
 import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.ui.BuyHotel.BuyHotelActivity;
-import com.aishang.app.ui.BuyLouPan.BuyLouPanActivity;
 import com.aishang.app.ui.base.BaseActivity;
 import com.aishang.app.ui.login.LoginActivity;
 import com.aishang.app.util.AiShangUtil;
+import com.aishang.app.util.BusProvider;
 import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.DialogFactory;
 import com.aishang.app.util.NetworkUtil;
-import com.aishang.app.util.NumberPickerDelegate;
 import com.aishang.app.widget.DrawableCenterButton;
+import com.aishang.app.widget.HackyViewPager;
 import com.aishang.app.widget.NonScrollGridView;
 import com.amap.api.maps2d.AMap;
-import com.amap.api.maps2d.CameraUpdate;
 import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.CoordinateConverter;
 import com.amap.api.maps2d.MapView;
@@ -59,18 +56,15 @@ import com.amap.api.maps2d.model.MarkerOptions;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
-import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
-import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 import com.github.aakira.expandablelayout.Utils;
+import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
-import rx.Observable;
 import rx.functions.Action1;
-import rx.observers.Observers;
 
 public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpView {
   private static final String TAG = "HotelDetailActivity";
@@ -84,7 +78,6 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
   @Bind(R.id.convenientBanner) ConvenientBanner convenientBanner;
   @Bind(R.id.tv_check_in_date) DrawableCenterButton tvCheckInDate;
   @Bind(R.id.tv_check_out_date) DrawableCenterButton tvCheckOutDate;
-  @Bind(R.id.room_num) DrawableCenterButton roomNum;
   @Bind(R.id.name) TextView name;
   @Bind(R.id.wv_rules) WebView wvRules;
   @Bind(R.id.map) MapView mapView;
@@ -96,6 +89,7 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
   @Bind(R.id.star_container) LinearLayout starContainer;
   @Bind(R.id.toolbar_title) TextView toolbarText;
   @Bind(R.id.room_container) LinearLayout roomContainer;
+  @Bind(R.id.view_pager) HackyViewPager viewPager;
 
   private String hotelName;
   private int hotelID;
@@ -141,7 +135,6 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
     tvCheckOutDate.setText(AiShangUtil.dateFormat(new Date(checkOutDate)));
     name.setText(hotelName);
     toolbarText.setText(hotelName);
-    roomNum.setText(getString(R.string.room_num, selectRoomNum));
     initToolbar();
     initMap();
     proLoad();
@@ -153,6 +146,7 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
   @Override protected void onResume() {
     super.onResume();
     mapView.onResume();
+    BusProvider.getInstance().register(this);
   }
 
   /**
@@ -167,6 +161,52 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
     super.onDestroy();
     presenter.detachView();
     mapView.onDestroy();
+  }
+
+  @Override protected void onStop() {
+    super.onStop();
+    BusProvider.getInstance().unregister(this);
+  }
+
+  @Subscribe public void onclickRoomCatImg(RoomImgModel model) {
+    String[] photos = model.getPhotos();
+
+    viewPager.setAdapter(new RoomImgPagerAdapter(this, photos));
+
+    viewPager.setCurrentItem(model.getIndex());
+
+    viewPager.setVisibility(View.VISIBLE);
+
+    viewPager.clearAnimation();
+
+    ObjectAnimator animator = ObjectAnimator.ofFloat(viewPager, View.ALPHA, 0, 1);
+    animator.setDuration(300);
+    animator.start();
+  }
+
+  @Subscribe public void onTapRoomCatimg(RoomImgPagerModel model) {
+    viewPager.clearAnimation();
+    ObjectAnimator animator = ObjectAnimator.ofFloat(viewPager, View.ALPHA, 1, 0);
+    animator.setDuration(300);
+    animator.start();
+
+    animator.addListener(new Animator.AnimatorListener() {
+      @Override public void onAnimationStart(Animator animation) {
+
+      }
+
+      @Override public void onAnimationEnd(Animator animation) {
+        viewPager.setVisibility(View.GONE);
+      }
+
+      @Override public void onAnimationCancel(Animator animation) {
+
+      }
+
+      @Override public void onAnimationRepeat(Animator animation) {
+
+      }
+    });
   }
 
   /**
@@ -447,13 +487,6 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
     aMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 10));
   }
 
-  public ObjectAnimator createRotateAnimator(final View target, final float from, final float to) {
-    ObjectAnimator animator = ObjectAnimator.ofFloat(target, "rotation", from, to);
-    animator.setDuration(300);
-    animator.setInterpolator(Utils.createInterpolator(Utils.LINEAR_INTERPOLATOR));
-    return animator;
-  }
-
   @OnClick(R.id.tv_check_out_date) void onClickCheckOutDate() {
     final Calendar cal = Calendar.getInstance();
     cal.setTimeInMillis(checkOutDate);
@@ -474,17 +507,6 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
         checkInDate = cal.getTimeInMillis();
       }
     }).show();
-  }
-
-  @OnClick(R.id.room_num) void onclickRoomNum() {
-    DialogFactory.createNumberPicker(this, selectRoomNum, 100, 1, "订购房间数",
-        new NumberPickerDelegate() {
-          @Override public void OnPick(NumberPicker picker, int num) {
-            selectRoomNum = num;
-            roomNum.setText(getString(R.string.room_num, num));
-            Log.i(TAG, "OnPick: " + selectRoomNum);
-          }
-        }).show();
   }
 
   private void setGalleryImg(JHotelDetailResult result) {
@@ -594,6 +616,66 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
 
     public void setStatus(int status) {
       this.status = status;
+    }
+  }
+
+  public static class RoomImgModel {
+    int index;
+    String[] photos;
+
+    public static RoomImgModel create(int index, String[] photos) {
+      return new RoomImgModel(index, photos);
+    }
+
+    private RoomImgModel(int index, String[] photos) {
+      this.index = index;
+      this.photos = photos;
+    }
+
+    public int getIndex() {
+      return index;
+    }
+
+    public void setIndex(int index) {
+      this.index = index;
+    }
+
+    public String[] getPhotos() {
+      return photos;
+    }
+
+    public void setPhotos(String[] photos) {
+      this.photos = photos;
+    }
+  }
+
+  static class RoomImgPagerModel {
+    float x;
+    float y;
+
+    public static RoomImgPagerModel create(float x, float y) {
+      return new RoomImgPagerModel(x, y);
+    }
+
+    private RoomImgPagerModel(float x, float y) {
+      this.x = x;
+      this.y = y;
+    }
+
+    public float getX() {
+      return x;
+    }
+
+    public void setX(float x) {
+      this.x = x;
+    }
+
+    public float getY() {
+      return y;
+    }
+
+    public void setY(float y) {
+      this.y = y;
     }
   }
 }

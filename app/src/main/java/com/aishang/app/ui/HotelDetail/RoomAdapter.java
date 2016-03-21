@@ -219,7 +219,7 @@ public class RoomAdapter {
           .into(imgView);
 
       setOnclickToImg(imgView, i - 1,
-          entity.getImagesList().toArray(new String[entity.getImagesList().size()]));
+          entity.getImagesList().toArray(new String[entity.getImagesList().size()]), holder);
     }
 
     if (i == 0) {
@@ -241,19 +241,36 @@ public class RoomAdapter {
     }
   }
 
-  private void setOnclickToImg(ImageView imgView, final int index, final String[] photos) {
+  private void setOnclickToImg(ImageView imgView, final int index, final String[] photos,
+      final ViewHolder holder) {
     imgView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        roomImgClick(index, photos);
+        final int[] locations1 = new int[2];
+        final int[] locations2 = new int[2];
+        final int[] locations3 = new int[2];
+        final int[] size = new int[2];
+        holder.img1.getLocationOnScreen(locations1);
+        holder.img2.getLocationOnScreen(locations2);
+        holder.img3.getLocationOnScreen(locations3);
+
+        ArrayList<int[]> potion = new ArrayList();
+        potion.add(locations1);
+        potion.add(locations2);
+        potion.add(locations3);
+
+        size[0] = v.getWidth();
+        size[1] = v.getHeight();
+
+        roomImgClick(index, photos, potion, size);
       }
     });
   }
 
-  private void roomImgClick(int index, String[] photos) {
+  private void roomImgClick(int index, String[] photos, List<int[]> locations, int[] size) {
     //Intent intent = PhotoGalleryActivity.getIntent(context, photos, index);
     //context.startActivity(intent);
-
-    BusProvider.getInstance().post(HotelDetailActivity.RoomImgModel.create(index, photos));
+    BusProvider.getInstance()
+        .post(HotelDetailActivity.RoomImgModel.create(index, photos, locations, size));
   }
 
   private ObjectAnimator createRotateAnimator(final View target, final float from, final float to) {

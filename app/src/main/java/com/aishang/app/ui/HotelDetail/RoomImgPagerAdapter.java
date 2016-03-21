@@ -32,7 +32,7 @@ class RoomImgPagerAdapter extends PagerAdapter {
     return sDrawables.length;
   }
 
-  @Override public View instantiateItem(ViewGroup container, int position) {
+  @Override public View instantiateItem(ViewGroup container, final int position) {
     PhotoView photoView = new PhotoView(container.getContext());
     Picasso.with(ctx)
         .load(AiShangService.IMG_URL + sDrawables[position])
@@ -46,7 +46,8 @@ class RoomImgPagerAdapter extends PagerAdapter {
 
     photoView.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
       @Override public void onViewTap(View view, float x, float y) {
-        BusProvider.getInstance().post(HotelDetailActivity.RoomImgPagerModel.create(x, y));
+        BusProvider.getInstance()
+            .post(HotelDetailActivity.RoomImgPagerModel.create(x, y, position));
       }
     });
 

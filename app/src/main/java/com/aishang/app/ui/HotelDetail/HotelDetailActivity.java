@@ -3,6 +3,7 @@ package com.aishang.app.ui.HotelDetail;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -119,11 +121,16 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
   @Bind(R.id.toolbar) Toolbar toolbar;
 
   private JHotelDetailResult hotel;
+  DisplayMetrics outMetrics;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     this.getActivityComponent().inject(this);
     presenter.attachView(this);
+
+    outMetrics = new DisplayMetrics();
+    getWindowManager().getDefaultDisplay().getMetrics(outMetrics);
+
     setContentView(R.layout.activity_hotel_detail);
     ButterKnife.bind(this);
     mapView.onCreate(savedInstanceState);
@@ -179,14 +186,43 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
 
     viewPager.clearAnimation();
 
-    ObjectAnimator animator = ObjectAnimator.ofFloat(viewPager, View.ALPHA, 0, 1);
+    int[] locations = model.getLocations().get(model.getIndex());
+
+    viewPager.setTag(model);
+
+    PropertyValuesHolder pvhSX = PropertyValuesHolder.ofFloat(View.SCALE_X,
+        (float) model.getSize()[0] / (float) outMetrics.widthPixels, 1f);
+
+    PropertyValuesHolder pvhSY = PropertyValuesHolder.ofFloat(View.SCALE_Y,
+        (float) model.getSize()[1] / (float) outMetrics.heightPixels, 1f);
+    PropertyValuesHolder pvhTX = PropertyValuesHolder.ofFloat(View.X, locations[0], 0);
+    PropertyValuesHolder pvhTY =
+        PropertyValuesHolder.ofFloat(View.Y, locations[1] - model.getSize()[1] / 2, 0);
+    PropertyValuesHolder pvhA = PropertyValuesHolder.ofFloat(View.ALPHA, 0, 1);
+    viewPager.setPivotY(0.5f);
+    viewPager.setPivotY(0.5f);
+    ObjectAnimator animator =
+        ObjectAnimator.ofPropertyValuesHolder(viewPager, pvhSX, pvhSY, pvhTX, pvhTY, pvhA);
     animator.setDuration(300);
     animator.start();
   }
 
   @Subscribe public void onTapRoomCatimg(RoomImgPagerModel model) {
     viewPager.clearAnimation();
-    ObjectAnimator animator = ObjectAnimator.ofFloat(viewPager, View.ALPHA, 1, 0);
+
+    RoomImgModel roomImgModel = (RoomImgModel) viewPager.getTag();
+    int[] locations = roomImgModel.getLocations().get(model.getIndex());
+    PropertyValuesHolder pvhSX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1f,
+        (float) roomImgModel.getSize()[0] / (float) outMetrics.widthPixels);
+    PropertyValuesHolder pvhSY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1f,
+        (float) roomImgModel.getSize()[1] / (float) outMetrics.heightPixels);
+    PropertyValuesHolder pvhTX = PropertyValuesHolder.ofFloat(View.X, 0, locations[0]);
+    PropertyValuesHolder pvhTY =
+        PropertyValuesHolder.ofFloat(View.Y, 0, locations[1]);
+    PropertyValuesHolder pvhA = PropertyValuesHolder.ofFloat(View.ALPHA, 1, 0);
+
+    ObjectAnimator animator =
+        ObjectAnimator.ofPropertyValuesHolder(viewPager, pvhSX, pvhSY, pvhTX, pvhTY, pvhA);
     animator.setDuration(300);
     animator.start();
 
@@ -622,14 +658,35 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
   public static class RoomImgModel {
     int index;
     String[] photos;
+    int[] size;
+    List<int[]> locations;
 
-    public static RoomImgModel create(int index, String[] photos) {
-      return new RoomImgModel(index, photos);
+    public static RoomImgModel create(int index, String[] photos, List<int[]> locations,
+        int[] size) {
+      return new RoomImgModel(index, photos, locations, size);
     }
 
-    private RoomImgModel(int index, String[] photos) {
+    public RoomImgModel(int index, String[] photos, List<int[]> locations, int[] size) {
       this.index = index;
       this.photos = photos;
+      this.locations = locations;
+      this.size = size;
+    }
+
+    public int[] getSize() {
+      return size;
+    }
+
+    public void setSize(int[] size) {
+      this.size = size;
+    }
+
+    public List<int[]> getLocations() {
+      return locations;
+    }
+
+    public void setLocations(List<int[]> locations) {
+      this.locations = locations;
     }
 
     public int getIndex() {
@@ -652,14 +709,24 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
   static class RoomImgPagerModel {
     float x;
     float y;
+    int index;
 
-    public static RoomImgPagerModel create(float x, float y) {
-      return new RoomImgPagerModel(x, y);
+    public static RoomImgPagerModel create(float x, float y, int index) {
+      return new RoomImgPagerModel(x, y, index);
     }
 
-    private RoomImgPagerModel(float x, float y) {
+    private RoomImgPagerModel(float x, float y, int index) {
       this.x = x;
       this.y = y;
+      this.index = index;
+    }
+
+    public int getIndex() {
+      return index;
+    }
+
+    public void setIndex(int index) {
+      this.index = index;
     }
 
     public float getX() {

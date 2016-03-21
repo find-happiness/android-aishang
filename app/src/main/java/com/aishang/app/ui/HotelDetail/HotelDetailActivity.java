@@ -138,8 +138,8 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
     checkInDate = this.getIntent().getLongExtra(CHECK_IN_DATE, 0);
     checkOutDate = this.getIntent().getLongExtra(CHECK_OUT_DATE, 0);
     hotelName = this.getIntent().getStringExtra(HOTEL_NAME);
-    tvCheckInDate.setText(AiShangUtil.dateFormat(new Date(checkInDate)));
-    tvCheckOutDate.setText(AiShangUtil.dateFormat(new Date(checkOutDate)));
+    setCheckInDateToView(checkInDate);
+    setCheckOutDateToView(checkOutDate);
     name.setText(hotelName);
     toolbarText.setText(hotelName);
     initToolbar();
@@ -217,8 +217,7 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
     PropertyValuesHolder pvhSY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1f,
         (float) roomImgModel.getSize()[1] / (float) outMetrics.heightPixels);
     PropertyValuesHolder pvhTX = PropertyValuesHolder.ofFloat(View.X, 0, locations[0]);
-    PropertyValuesHolder pvhTY =
-        PropertyValuesHolder.ofFloat(View.Y, 0, locations[1]);
+    PropertyValuesHolder pvhTY = PropertyValuesHolder.ofFloat(View.Y, 0, locations[1]);
     PropertyValuesHolder pvhA = PropertyValuesHolder.ofFloat(View.ALPHA, 1, 0);
 
     ObjectAnimator animator =
@@ -457,6 +456,14 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
     //bindHotelRoom(result.getDataSet().getRoomCatList());
   }
 
+  private void setCheckInDateToView(long cal) {
+    tvCheckInDate.setText("入住日期:" + AiShangUtil.dateFormat(new Date(cal)));
+  }
+
+  private void setCheckOutDateToView(long cal) {
+    tvCheckOutDate.setText("退房日期:" + AiShangUtil.dateFormat(new Date(cal)));
+  }
+
   private RoomCat checkRoomCat(List<RoomCat> roomCats, int typeID) {
     for (RoomCat cat : roomCats) {
       if (cat.getRoomTypeListEntity().getRoomTypeID() == typeID) return cat;
@@ -530,6 +537,7 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
       @Override public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         cal.set(year, monthOfYear, dayOfMonth);
         checkOutDate = cal.getTimeInMillis();
+        setCheckOutDateToView(checkOutDate);
       }
     }).show();
   }
@@ -541,6 +549,7 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
       @Override public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         cal.set(year, monthOfYear, dayOfMonth);
         checkInDate = cal.getTimeInMillis();
+        setCheckInDateToView(checkInDate);
       }
     }).show();
   }

@@ -107,6 +107,7 @@ public class MyOrderActivity extends BaseActivity implements MyOrderMvpView {
     mRecyclerView.refreshComplete();
 
     if (adapter.getItems().size() >= total) {
+      mRecyclerView.loadMoreComplete();
       adapter.notifyDataSetChanged();
       mRecyclerView.loadMoreComplete();
     }

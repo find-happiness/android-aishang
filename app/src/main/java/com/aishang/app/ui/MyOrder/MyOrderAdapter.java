@@ -39,7 +39,36 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
 
   @Override public void onBindViewHolder(final ViewHolder holder, int position) {
 
-    final JMyVacationApplyListResult.JItem hotel = items.get(position);
+    final JMyVacationApplyListResult.JItem item = items.get(position);
+
+    holder.name.setText(item.getHotelName());
+    holder.roomNum.setText("房间数:" + item.getRooms());
+    holder.time.setText("预约时间:" + item.getStartDate() + "至" + item.getEndDate());
+    holder.address.setText("下单时间:" + item.getCreateTime());
+    String status = "";
+    switch (item.getStatus()) {
+      case 1:
+        status = "未处理";
+        break;
+      case 2:
+        status = "处理中";
+        break;
+      case 3:
+        status = "成功预订";
+        break;
+      case 4:
+        status = "取消";
+        break;
+      case 5:
+        status = "异常处理";
+        break;
+      case 6:
+        status = "已退订";
+        break;
+    }
+
+    holder.status.setText(status);
+    holder.price.setText(item.getCreditByCard() + "");
 
     holder.itemView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {

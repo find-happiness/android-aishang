@@ -205,6 +205,8 @@
     </activity>
     <activity android:name=".ui.PhotoGallery.PhotoGalleryActivity">
     </activity>
+    <activity android:name=".ui.BankEdit.BankEditActivity">
+    </activity>
   </application>
 
 </manifest>

@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -47,12 +46,11 @@ public class BankAdapter extends RecyclerView.Adapter<BankAdapter.ViewHolder> {
 
     holder.accountNumber.setText(item.getAccountNumber());
 
-    holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-      @Override public boolean onLongClick(View v) {
+    holder.itemView.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
         if (listener != null) {
-          listener.itemLongClick(item);
+          listener.itemClick(item);
         }
-        return true;
       }
     });
   }

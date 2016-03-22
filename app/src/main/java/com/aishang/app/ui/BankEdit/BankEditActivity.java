@@ -1,5 +1,6 @@
-package com.aishang.app.ui.BankAdd;
+package com.aishang.app.ui.BankEdit;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,7 +18,7 @@ import com.aishang.app.R;
 import com.aishang.app.data.model.JMemberBankAccount;
 import com.aishang.app.util.CommonUtil;
 
-public class BankAddActivity extends AppCompatActivity {
+public class BankEditActivity extends AppCompatActivity {
 
   public static final String ACCOUNT = "account";
 
@@ -27,11 +28,28 @@ public class BankAddActivity extends AppCompatActivity {
   @Bind(R.id.accountNumber) TextView accountNumber;
   @Bind(R.id.layoutRoot) RelativeLayout layoutRoot;
 
+  JMemberBankAccount account;
+
+  public static Intent getIntent(Activity activity, JMemberBankAccount memberBankAccount) {
+
+    Intent intent = new Intent(activity, BankEditActivity.class);
+    intent.putExtra(ACCOUNT, memberBankAccount);
+    return intent;
+  }
+
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_bank_add);
     ButterKnife.bind(this);
+    account = (JMemberBankAccount) this.getIntent().getSerializableExtra(ACCOUNT);
     initToolbar();
+    initView();
+  }
+
+  private void initView() {
+    bankName.setText(account.getBankName());
+    holder.setText(account.getHolder());
+    accountNumber.setText(account.getAccountNumber());
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
@@ -64,16 +82,13 @@ public class BankAddActivity extends AppCompatActivity {
 
           Intent intent = new Intent();
 
-          JMemberBankAccount account = new JMemberBankAccount();
           account.setAccountNumber(accountNumber.getText().toString().trim());
           account.setBankName(bankName.getText().toString().trim());
           account.setHolder(holder.getText().toString().trim());
-          account.setId(0);
-          intent.putExtra(ACCOUNT,account);
-
-          BankAddActivity.this.setResult(100,
+          intent.putExtra(ACCOUNT, account);
+          BankEditActivity.this.setResult(101,
               intent);// 设置回传数据。resultCode值是1，这个值在主窗口将用来区分回传数据的来源，以做不同的处理
-          BankAddActivity.this.finish();// 关闭子窗口
+          BankEditActivity.this.finish();// 关闭子窗口
           return true;
         }
         return false;

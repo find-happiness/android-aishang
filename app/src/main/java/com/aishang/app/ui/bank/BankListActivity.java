@@ -24,6 +24,7 @@ import com.aishang.app.data.model.JMemberBankAccount;
 import com.aishang.app.data.model.JMemberBankListResult;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.ui.BankAdd.BankAddActivity;
+import com.aishang.app.ui.BankEdit.BankEditActivity;
 import com.aishang.app.ui.base.BaseActivity;
 import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
@@ -44,15 +45,21 @@ import rx.functions.Action1;
 public class BankListActivity extends BaseActivity implements BankListMvpView {
 
   private static final String TAG = "BankListActivity";
+
+  private static final int EDIT_BANK = 101;
+  private static final int ADD_BANK = 100;
+
   @Inject BankListPresenter presenter;
   @Bind(R.id.toolbar) Toolbar toolbar;
-  @Bind(R.id.recyclerView) RecyclerView recyclerView;
+  @Bind(R.id.recyclerView) XRecyclerView recyclerView;
   @Bind(R.id.avloadingIndicatorView) AVLoadingIndicatorView avloadingIndicatorView;
   @Bind(R.id.no_data_hotel) TextView noDataHotel;
   @Bind(R.id.layoutRoot) RelativeLayout layoutRoot;
   @Bind(R.id.swipe_refresh) SwipeRefreshLayout swipeRefreshLayout;
 
   @Inject BankAdapter adapter;
+
+  private static final String[] ACTION = new String[] { "修改", "删除" };
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -67,20 +74,20 @@ public class BankListActivity extends BaseActivity implements BankListMvpView {
     initRefreshLayout();
 
     adapter.setListener(new ItemClickListener() {
-      @Override public void itemLongClick(final JMemberBankAccount bankAccount) {
-        DialogFactory.createSimpleDialog(BankListActivity.this, android.R.string.dialog_alert_title,
-            R.string.confirm_to_delete, new DialogInterface.OnClickListener() {
+      @Override public void itemClick(final JMemberBankAccount bankAccount) {
+        DialogFactory.createSingleChoiceDialog(BankListActivity.this, ACTION, -1,
+            new DialogInterface.OnClickListener() {
               @Override public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-
-                JMemberBankAccount[] accounts = adapter.getItems().toArray(new JMemberBankAccount[adapter.getItemCount()]);
-
-                for (JMemberBankAccount account : accounts) {
-                  if (account.getId() == bankAccount.getId()){
-                    account.setId(0 - account.getId());
-                  }
+                switch (which) {
+                  case 0:
+                    Intent intent = BankEditActivity.getIntent(BankListActivity.this, bankAccount);
+                    BankListActivity.this.startActivityForResult(intent, EDIT_BANK);
+                    break;
+                  case 1:
+                    showDeleteDialog(bankAccount);
+                    break;
                 }
-                editData(accounts);
+                dialog.dismiss();
               }
             }, null).show();
       }
@@ -106,21 +113,33 @@ public class BankListActivity extends BaseActivity implements BankListMvpView {
 
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
-    if (resultCode == RESULT_OK) {
+    if (resultCode == ADD_BANK) {
 
       JMemberBankAccount account =
           (JMemberBankAccount) data.getSerializableExtra(BankAddActivity.ACCOUNT);
-
       JMemberBankAccount[] accounts = new JMemberBankAccount[adapter.getItemCount() + 1];
-
       accounts[0] = account;
-
       int i = 1;
       for (JMemberBankAccount a : adapter.getItems()) {
         accounts[i] = a;
         i++;
       }
 
+      editData(accounts);
+    } else if (resultCode == EDIT_BANK) {
+      JMemberBankAccount bankAccount =
+          (JMemberBankAccount) data.getSerializableExtra(BankAddActivity.ACCOUNT);
+
+      JMemberBankAccount[] accounts =
+          adapter.getItems().toArray(new JMemberBankAccount[adapter.getItemCount()]);
+
+      for (JMemberBankAccount account : accounts) {
+        if (account.getId() == bankAccount.getId()) {
+          account.setBankName(bankAccount.getBankName());
+          account.setHolder(bankAccount.getHolder());
+          account.setAccountNumber(bankAccount.getAccountNumber());
+        }
+      }
       editData(accounts);
     }
   }
@@ -134,7 +153,7 @@ public class BankListActivity extends BaseActivity implements BankListMvpView {
 
           Intent intent = new Intent(BankListActivity.this, BankAddActivity.class);
 
-          BankListActivity.this.startActivityForResult(intent, 100);
+          BankListActivity.this.startActivityForResult(intent, ADD_BANK);
           return true;
         }
         return false;
@@ -211,6 +230,9 @@ public class BankListActivity extends BaseActivity implements BankListMvpView {
         new HorizontalDividerItemDecoration.Builder(this).colorResId(android.R.color.darker_gray)
             .sizeResId(R.dimen.divider)
             .build());
+
+    recyclerView.setPullRefreshEnabled(false);
+    recyclerView.setLoadingMoreEnabled(false);
     recyclerView.setAdapter(adapter);
   }
 
@@ -235,7 +257,26 @@ public class BankListActivity extends BaseActivity implements BankListMvpView {
     adapter.notifyDataSetChanged();
   }
 
+  private void showDeleteDialog(final JMemberBankAccount bankAccount) {
+    DialogFactory.createSimpleDialog(BankListActivity.this, android.R.string.dialog_alert_title,
+        R.string.confirm_to_delete, new DialogInterface.OnClickListener() {
+          @Override public void onClick(DialogInterface dialog, int which) {
+            dialog.dismiss();
+
+            JMemberBankAccount[] accounts =
+                adapter.getItems().toArray(new JMemberBankAccount[adapter.getItemCount()]);
+
+            for (JMemberBankAccount account : accounts) {
+              if (account.getId() == bankAccount.getId()) {
+                account.setId(0 - account.getId());
+              }
+            }
+            editData(accounts);
+          }
+        }, null).show();
+  }
+
   protected interface ItemClickListener {
-    void itemLongClick(JMemberBankAccount bankAccount);
+    void itemClick(JMemberBankAccount bankAccount);
   }
 }

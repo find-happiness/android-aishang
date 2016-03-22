@@ -21,6 +21,11 @@ import javax.inject.Inject;
 public class BankAdapter extends RecyclerView.Adapter<BankAdapter.ViewHolder> {
   List<JMemberBankAccount> items;
 
+  private BankListActivity.ItemClickListener listener;
+
+  public void setListener(BankListActivity.ItemClickListener listener) {
+    this.listener = listener;
+  }
 
   @Inject public BankAdapter() {
     items = new ArrayList<JMemberBankAccount>();
@@ -41,6 +46,15 @@ public class BankAdapter extends RecyclerView.Adapter<BankAdapter.ViewHolder> {
     holder.bankName.setText(item.getBankName());
 
     holder.accountNumber.setText(item.getAccountNumber());
+
+    holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+      @Override public boolean onLongClick(View v) {
+        if (listener != null) {
+          listener.itemLongClick(item);
+        }
+        return true;
+      }
+    });
   }
 
   @Override public int getItemCount() {

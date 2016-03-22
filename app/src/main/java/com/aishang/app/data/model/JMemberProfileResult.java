@@ -29,9 +29,45 @@ public class JMemberProfileResult {
     public String email;
     public String certifyType;
     public String certifyID;
+    public String weixin;
+    public String nickname;
+    public String address;
+    public String dateOfBirth;
     public JMemberIM[] imList;
     public JMemberBankAccount[] bankAccountList;
     public JMemberAddress[] addressList;
+
+    public String getDateOfBirth() {
+      return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+      this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getWeixin() {
+      return weixin;
+    }
+
+    public void setWeixin(String weixin) {
+      this.weixin = weixin;
+    }
+
+    public String getNickname() {
+      return nickname;
+    }
+
+    public void setNickname(String nickname) {
+      this.nickname = nickname;
+    }
+
+    public String getAddress() {
+      return address;
+    }
+
+    public void setAddress(String address) {
+      this.address = address;
+    }
 
     public String getMemberName() {
       return memberName;

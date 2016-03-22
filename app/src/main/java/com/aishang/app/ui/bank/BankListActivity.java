@@ -1,6 +1,7 @@
 package com.aishang.app.ui.bank;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,6 +21,7 @@ import butterknife.ButterKnife;
 import com.aishang.app.BoilerplateApplication;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JMemberBankAccount;
+import com.aishang.app.data.model.JMemberBankListResult;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.ui.BankAdd.BankAddActivity;
 import com.aishang.app.ui.base.BaseActivity;
@@ -35,9 +38,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.inject.Inject;
+import rx.Observable;
+import rx.functions.Action1;
 
 public class BankListActivity extends BaseActivity implements BankListMvpView {
 
+  private static final String TAG = "BankListActivity";
   @Inject BankListPresenter presenter;
   @Bind(R.id.toolbar) Toolbar toolbar;
   @Bind(R.id.recyclerView) RecyclerView recyclerView;
@@ -59,6 +65,26 @@ public class BankListActivity extends BaseActivity implements BankListMvpView {
     initToolbar();
     initSwipeRefresh();
     initRefreshLayout();
+
+    adapter.setListener(new ItemClickListener() {
+      @Override public void itemLongClick(final JMemberBankAccount bankAccount) {
+        DialogFactory.createSimpleDialog(BankListActivity.this, android.R.string.dialog_alert_title,
+            R.string.confirm_to_delete, new DialogInterface.OnClickListener() {
+              @Override public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+                JMemberBankAccount[] accounts = adapter.getItems().toArray(new JMemberBankAccount[adapter.getItemCount()]);
+
+                for (JMemberBankAccount account : accounts) {
+                  if (account.getId() == bankAccount.getId()){
+                    account.setId(0 - account.getId());
+                  }
+                }
+                editData(accounts);
+              }
+            }, null).show();
+      }
+    });
 
     autoRefresh();
   }
@@ -207,5 +233,9 @@ public class BankListActivity extends BaseActivity implements BankListMvpView {
     noDataHotel.setVisibility(View.VISIBLE);
     adapter.getItems().clear();
     adapter.notifyDataSetChanged();
+  }
+
+  protected interface ItemClickListener {
+    void itemLongClick(JMemberBankAccount bankAccount);
   }
 }

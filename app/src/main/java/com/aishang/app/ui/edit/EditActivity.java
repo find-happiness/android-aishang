@@ -68,7 +68,13 @@ public class EditActivity extends AppCompatActivity {
       mRequestCode = getIntent().getIntExtra(REQUESR_CODE, -1);
     }
     toolbarTitle.setText(title);
-    etContent.setHint(content);
+
+    if (TextUtils.isEmpty(content)) {
+      etContent.setHint(title);
+    } else {
+      etContent.setHint(content);
+    }
+
     initToolbar();
   }
 

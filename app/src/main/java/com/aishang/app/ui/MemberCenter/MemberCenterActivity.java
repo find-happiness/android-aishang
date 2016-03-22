@@ -2,16 +2,12 @@ package com.aishang.app.ui.MemberCenter;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
@@ -29,9 +25,7 @@ import butterknife.OnClick;
 import com.aishang.app.BoilerplateApplication;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JMemberLoginResult;
-import com.aishang.app.data.model.JMemberProfileEditParam;
 import com.aishang.app.data.model.JMemberProfileEditResult;
-import com.aishang.app.data.model.JMemberProfileParam;
 import com.aishang.app.data.model.JMemberProfileResult;
 import com.aishang.app.data.model.JUploadFileParam;
 import com.aishang.app.data.remote.AiShangService;
@@ -56,20 +50,17 @@ import com.yalantis.ucrop.UCrop;
 import de.hdodenhof.circleimageview.CircleImageView;
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import javax.inject.Inject;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 public class MemberCenterActivity extends BaseActivity
     implements MemberCenterMvpView, FileUploadMvpView {
+
+  private static final String[] GENDER = new String[] { "保密", "女", "男" };
+
   public static final int EMAIL = 103;
   public static final int NE_CHENG = 102;
   public static final int TAKE_PIC = 100;
@@ -90,6 +81,12 @@ public class MemberCenterActivity extends BaseActivity
   @Bind(R.id.rl_bank) RelativeLayout rlBank;
   @Bind(R.id.rl_email) RelativeLayout rlEmail;
   @Bind(R.id.phone) TextView phone;
+
+  @Bind(R.id.nick_name) TextView nickName;
+  @Bind(R.id.memberName) TextView memberName;
+  @Bind(R.id.dateOfBirth) TextView dateOfBirth;
+  @Bind(R.id.gender) TextView gender;
+  @Bind(R.id.email) TextView email;
   private Bitmap mPhoto;
   private String mCurrentPhotoPath;
   ;
@@ -186,6 +183,16 @@ public class MemberCenterActivity extends BaseActivity
     rlGender.setTag(data.getGender());
 
     rlRealName.setTag(data.getMemberName());
+
+    email.setText(data.getEmail());
+
+    nickName.setText(data.getNickname());
+
+    memberName.setText(data.getMemberName());
+
+    dateOfBirth.setText(data.getDateOfBirth());
+
+    gender.setText(GENDER[Integer.parseInt(data.getGender()) + 1]);
   }
 
   @OnClick(R.id.rl_head_img) void onClickRlHeadImg() {
@@ -232,7 +239,7 @@ public class MemberCenterActivity extends BaseActivity
       CommonUtil.showSnackbar("没有请求到数据！", layoutRoot);
       return;
     }
-    Intent intent = EditActivity.getStartIntent(this, "呢称", "abc", NE_CHENG);
+    Intent intent = EditActivity.getStartIntent(this, "昵称", (String)rlNeCheng.getTag(), NE_CHENG);
 
     this.startActivityForResult(intent, NE_CHENG);
   }
@@ -269,6 +276,7 @@ public class MemberCenterActivity extends BaseActivity
         Calendar cal = Calendar.getInstance();
         cal.set(year, monthOfYear, dayOfMonth);
         rlBirthday.setTag(cal);
+        dateOfBirth.setText(AiShangUtil.dateFormat(new Date(cal.getTimeInMillis())));
       }
     }).show();
   }
@@ -279,12 +287,13 @@ public class MemberCenterActivity extends BaseActivity
       return;
     }
 
-    DialogFactory.createIosSheetAlertDialog(this, null, new String[] { "保密", "女", "男" },
-        new OnItemClickListener() {
-          @Override public void onItemClick(Object o, int position) {
-            rlGender.setTag((position - 1) + "");
-          }
-        }).show();
+    DialogFactory.createIosSheetAlertDialog(this, null, GENDER, new OnItemClickListener() {
+      @Override public void onItemClick(Object o, int position) {
+        rlGender.setTag((position - 1) + "");
+
+        gender.setText(GENDER[position]);
+      }
+    }).show();
   }
 
   @OnClick(R.id.rl_bank) void onclickBank() {
@@ -321,19 +330,22 @@ public class MemberCenterActivity extends BaseActivity
           break;
         case NE_CHENG:
           rlNeCheng.setTag(data.getStringExtra(EditActivity.CONTENT));
-          Log.i(TAG, "onActivityResult: " + data.getStringExtra(EditActivity.CONTENT));
+          nickName.setText(data.getStringExtra(EditActivity.CONTENT));
+          //Log.i(TAG, "onActivityResult: " + data.getStringExtra(EditActivity.CONTENT));
           break;
         case EMAIL:
           rlEmail.setTag(data.getStringExtra(EditActivity.CONTENT));
-          Log.i(TAG, "onActivityResult: " + data.getStringExtra(EditActivity.CONTENT));
+          email.setText(data.getStringExtra(EditActivity.CONTENT));
+          //Log.i(TAG, "onActivityResult: " + data.getStringExtra(EditActivity.CONTENT));
           break;
         case REAL_NAME:
           rlRealName.setTag(data.getStringExtra(EditActivity.CONTENT));
-          Log.i(TAG, "onActivityResult: "
-              + data.getStringExtra(EditActivity.CONTENT)
-              + "    "
-              + (String) rlRealName.getTag()
-              + "   abc");
+          memberName.setText(data.getStringExtra(EditActivity.CONTENT));
+          //Log.i(TAG, "onActivityResult: "
+          //    + data.getStringExtra(EditActivity.CONTENT)
+          //    + "    "
+          //    + (String) rlRealName.getTag()
+          //    + "   abc");
           break;
       }
     } else if (resultCode == UCrop.RESULT_ERROR) {
@@ -457,7 +469,6 @@ public class MemberCenterActivity extends BaseActivity
             profile.getData().getCertifyID());
 
     presenter.postProfileEdit(2, json);
-
   }
 
   @Override public void showUploadFileError(String error) {

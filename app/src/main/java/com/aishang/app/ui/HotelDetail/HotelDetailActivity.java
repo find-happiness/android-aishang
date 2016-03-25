@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -173,6 +174,15 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
   @Override protected void onStop() {
     super.onStop();
     BusProvider.getInstance().unregister(this);
+  }
+
+  @Override public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if (keyCode == KeyEvent.KEYCODE_BACK && View.VISIBLE == viewPager.getVisibility()) {
+      BusProvider.getInstance()
+          .post(HotelDetailActivity.RoomImgPagerModel.create(0, 0, viewPager.getCurrentItem()));
+      return false;
+    }
+    return super.onKeyDown(keyCode, event);
   }
 
   @Subscribe public void onclickRoomCatImg(RoomImgModel model) {

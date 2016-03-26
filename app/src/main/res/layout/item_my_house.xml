@@ -1,103 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    >
 
-    <LinearLayout
-        android:layout_width="match_parent"
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:paddingLeft="@dimen/spacing_large"
+      >
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/spacing_xlarge">
+        android:layout_marginBottom="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="海边度假屋"
+        android:textSize="@dimen/text_title"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/room_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="房号："
+        android:textSize="@dimen/text_body"
+        />
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="地址："
+        android:textSize="@dimen/text_body"
+        />
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_medium"
-            android:layout_marginTop="@dimen/spacing_large"
-            android:text="海边度假屋"
-            android:textSize="@dimen/text_title" />
+    <TextView
+        android:id="@+id/commit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="描述："
+        android:textSize="@dimen/text_body"
+        />
 
-        <TextView
-            android:id="@+id/type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_medium"
-            android:text="类型：温泉度假屋"
-            android:textSize="@dimen/text_body" />
+    <TextView
+        android:id="@+id/in_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="入账："
+        android:textSize="@dimen/text_body"
+        />
 
-        <TextView
-            android:id="@+id/huxing"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_medium"
-            android:text="户型："
-            android:textSize="@dimen/text_body" />
+    <TextView
+        android:id="@+id/out_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_large"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="出账："
+        android:textSize="@dimen/text_body"
+        />
 
-        <TextView
-            android:id="@+id/address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_medium"
-            android:text="地址："
-            android:textSize="@dimen/text_body" />
-
-        <TextView
-            android:id="@+id/room_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_medium"
-            android:text="房号："
-            android:textSize="@dimen/text_body" />
-
-        <TextView
-            android:id="@+id/buy_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_medium"
-            android:text="购买日期："
-            android:textSize="@dimen/text_body" />
-
-        <TextView
-            android:id="@+id/deal_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_medium"
-            android:text="交房日期："
-            android:textSize="@dimen/text_body" />
-
-        <TextView
-            android:id="@+id/jiefen"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/spacing_medium"
-            android:text="换住积分："
-            android:textSize="@dimen/text_body" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="50dp"
-            android:layout_marginTop="@dimen/spacing_xlarge"
-            android:text="已出证" />
-
-        <TextView
-            android:id="@+id/price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/status"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:textSize="@dimen/text_title"
-            android:layout_marginTop="@dimen/spacing_xlarge"
-            android:text="$35400" />
-    </RelativeLayout>
-</FrameLayout>
+  </LinearLayout>
+</android.support.v7.widget.CardView>

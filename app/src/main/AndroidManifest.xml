@@ -207,6 +207,8 @@
     </activity>
     <activity android:name=".ui.BankEdit.BankEditActivity">
     </activity>
+    <activity android:name=".ui.MyCard.TravelCardActivity">
+    </activity>
   </application>
 
 </manifest>

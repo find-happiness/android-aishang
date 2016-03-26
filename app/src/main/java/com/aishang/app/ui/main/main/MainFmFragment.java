@@ -291,7 +291,7 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
       List<JLoupanProductListResult.Loupan> loupans) {
     avloadingIndicatorViewInSale.setVisibility(View.GONE);
     noDataInSale.setVisibility(View.GONE);
-    zaiShouAdapter = new ZaiShouAdapter(getContext());
+    zaiShouAdapter = new ZaiShouAdapter(getActivity());
     List<LoupanProduct> loupanProducts = new ArrayList<>();
     for (JLoupanProductListResult.Loupan l : loupans) {
       for (JLoupanProductListResult.Product p : products) {
@@ -417,7 +417,7 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
 
   private void initBanner() {
 
-    int[] size = CommonUtil.getHeightWithScreenWidth(this.getActivity(), 98, 25);
+    int[] size = CommonUtil.getHeightWithScreenWidth(this.getActivity(), 16, 9);
     LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(size[0], size[1]);
 
     banner.setLayoutParams(layoutParams);
@@ -489,7 +489,7 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
 
   private void asynLoupan() {
     String json =
-        AiShangUtil.generLoupanProductParam(0, 0, 0, 0, 3, 0, 0, "", 0, "", "", selectZoneID, 0, 0,
+        AiShangUtil.generLoupanProductParam(0, 0, 0, 0, 4, 0, 0, "", 0, "", "", selectZoneID, 0, 0,
             0, 0, 0, "", "", "", 0);
     mMainPresenter.loadLoupan(1, json);
   }

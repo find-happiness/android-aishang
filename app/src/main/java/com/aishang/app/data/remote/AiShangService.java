@@ -23,6 +23,7 @@ import com.aishang.app.data.model.JMreActivityListResult;
 import com.aishang.app.data.model.JMrePromResult;
 import com.aishang.app.data.model.JMyBusinessBuyInListResult;
 import com.aishang.app.data.model.JMyVacationApplyListResult;
+import com.aishang.app.data.model.JMyVacationListResult;
 import com.aishang.app.data.model.JNewsListResult;
 import com.aishang.app.data.model.JParticipationReslut;
 import com.aishang.app.data.model.JReleaseResult;
@@ -223,6 +224,10 @@ public interface AiShangService {
 
   @Headers("connection:Keep-Alive") @GET("mobile/member/release.ashx")
   Observable<JReleaseResult> syncRelease(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/member/myVacationList.ashx")
+  Observable<JMyVacationListResult> syncMyVacationList(@Query(value = "v") int version,
       @Query(value = "q") String q);
 
   @GET("ribots") Observable<List<Ribot>> getRibots();

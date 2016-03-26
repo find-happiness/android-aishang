@@ -54,10 +54,12 @@ public class MyHouseActivity extends BaseActivity implements MyHouseMvpView {
 
     proLoad();
   }
+
   @Override protected void onDestroy() {
     presenter.detachView();
     super.onDestroy();
   }
+
   private void initToolbar() {
     toolbar.setTitle("");
     this.setSupportActionBar(toolbar);
@@ -111,6 +113,11 @@ public class MyHouseActivity extends BaseActivity implements MyHouseMvpView {
 
     mRecyclerView.refreshComplete();
     adapter.getItems().clear();
+    adapter.notifyDataSetChanged();
+    JMyBusinessBuyInListResult result = new JMyBusinessBuyInListResult();
+    adapter.getItems().add(result.new BuyIn());
+    adapter.getItems().add(result.new BuyIn());
+
     adapter.notifyDataSetChanged();
   }
 
@@ -179,8 +186,8 @@ public class MyHouseActivity extends BaseActivity implements MyHouseMvpView {
     mRecyclerView.setLayoutManager(layoutManager);
 
     mRecyclerView.addItemDecoration(
-        new HorizontalDividerItemDecoration.Builder(this).colorResId(android.R.color.darker_gray)
-            .sizeResId(R.dimen.divider)
+        new HorizontalDividerItemDecoration.Builder(this).colorResId(android.R.color.transparent)
+            .sizeResId(R.dimen.spacing_medium)
             .build());
     mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallScaleRipple);
     mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);

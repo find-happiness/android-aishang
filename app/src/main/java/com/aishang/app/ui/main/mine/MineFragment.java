@@ -258,9 +258,10 @@ public class MineFragment extends Fragment implements MineMvpView {
       if (checkLoginAndShowDialog()) mMinePresenter.intentToCashWithDrawApply();
     }
 
-    @OnClick(R.id.btn_wo_de_zu_shou) void woDeZuShouClick() {
+    @OnClick(R.id.btn_travel_card) void woDeZuShouClick() {
       //if (checkLoginAndShowDialog()) mMinePresenter.intentToMyBuyAndSale();
-      mMinePresenter.intentToMyBuyAndSale();
+      //mMinePresenter.intentToMyBuyAndSale();
+      if (checkLoginAndShowDialog()) mMinePresenter.intentToTravelCard();
     }
 
     @OnClick(R.id.btn_guan_yu_wo_men) void guanYuWoMenClick() {

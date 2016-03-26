@@ -30,6 +30,8 @@ import com.aishang.app.data.model.JMreActivityEnrollParam;
 import com.aishang.app.data.model.JMreActivityListParam;
 import com.aishang.app.data.model.JMyBusinessBuyInListParam;
 import com.aishang.app.data.model.JMyVacationApplyListParams;
+import com.aishang.app.data.model.JMyVacationListParam;
+import com.aishang.app.data.model.JMyVacationListResult;
 import com.aishang.app.data.model.JNewsListParams;
 import com.aishang.app.data.model.JParticipationParam;
 import com.aishang.app.data.model.JPasswordChangeParams;
@@ -661,6 +663,17 @@ public class AiShangUtil {
     param.setCookie(cookies);
     param.setRecCount(start);
     param.setRecStart(count);
+
+    return gson.toJson(param);
+  }
+
+  public static String generMyVacationListParam(String memberAccount, String cookies,
+      String queryDate) {
+
+    JMyVacationListParam param = new JMyVacationListParam();
+    param.setMemberAccount(memberAccount);
+    param.setCookie(cookies);
+    param.setQueryDate(queryDate);
 
     return gson.toJson(param);
   }

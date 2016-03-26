@@ -18,16 +18,16 @@
   <string name="dialog_Ok_title">成功</string>
 
   <string name="room_num">%d间</string>
-  <string name="huangzujiudian">换住酒店</string>
-  <string name="zaishou">在售产品</string>
+  <string name="huangzujiudian">换住度假屋</string>
+  <string name="zaishou">在售度假屋</string>
   <string name="youji">行程游记</string>
   <string name="xiangmuhezuo">项目合作</string>
-  <string name="dujiawu">度假屋交换</string>
-  <string name="kanfangduan">旅游团</string>
-  <string name="fabuzushou">发布租售</string>
+  <string name="dujiawu">度假屋托管</string>
+  <string name="kanfangduan">旅游活动</string>
+  <string name="fabuzushou">交易中心</string>
   <string name="store">商城</string>
   <string name="look_more">查看更多</string>
-  <string name="hot_hotel">热门酒店</string>
+  <string name="hot_hotel">热门度假屋</string>
   <string name="book_hotel">预订</string>
   <string name="yi_jian_fang_kui">意见反馈</string>
   <string name="check_updata">检查更新</string>
@@ -59,13 +59,14 @@
   <string name="download_success">下载完成，点击安装</string>
   <string name="ge_ren_zhong_xin">个人中心</string>
   <string name="zhong_hu_zhong_xin">账户中心</string>
-  <string name="wo_de_ding_dang">我的订单</string>
+  <string name="wo_de_ding_dang">旅居订单</string>
   <string name="wo_de_fang_chang">我的房产</string>
   <string name="jin_ji_ren_zhong_xin">经纪人中心</string>
   <string name="you_ji_shou_chang_jia">游记收藏夹</string>
   <string name="chong_zi_ti_xian">充值提现</string>
   <string name="wo_de_zu_shou">我的租售</string>
   <string name="guan_yu_wo_men">关于我们</string>
+  <string name="travel_card">旅居卡</string>
 
   <string name="time">时间</string>
   <string name="city">城市</string>

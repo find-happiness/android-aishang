@@ -23,7 +23,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="度假屋交换"
+        android:text="@string/dujiawu"
         android:textColor="@android:color/white"
         android:textSize="@dimen/text_title"/>
   </android.support.v7.widget.Toolbar>

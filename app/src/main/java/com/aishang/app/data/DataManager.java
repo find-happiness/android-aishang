@@ -22,6 +22,7 @@ import com.aishang.app.data.model.JMreActivityDetailResult;
 import com.aishang.app.data.model.JMreActivityListResult;
 import com.aishang.app.data.model.JMyBusinessBuyInListResult;
 import com.aishang.app.data.model.JMyVacationApplyListResult;
+import com.aishang.app.data.model.JMyVacationListResult;
 import com.aishang.app.data.model.JParticipationParam;
 import com.aishang.app.data.model.JParticipationReslut;
 import com.aishang.app.data.model.JReleaseResult;
@@ -281,6 +282,12 @@ import com.aishang.app.util.EventPosterHelper;
   public Observable<JCollectResult> syncTravelCollect(int version, String json) {
     return mAiShangService.syncCollect(version, json);
   }
+
+
+  public Observable<JMyVacationListResult> syncMyVacationList(int version, String json) {
+    return mAiShangService.syncMyVacationList(version, json);
+  }
+
 
   public JVersionCheckResult getVersionCheck() {
     String json = mPreferencesHelper.getVersionCheck();

@@ -13,6 +13,7 @@ import com.aishang.app.ui.KanFangTuanDetail.KanFangTuanDetailActivity;
 import com.aishang.app.ui.MemberCenter.MemberCenterActivity;
 import com.aishang.app.ui.MyBuyAndSale.RentFragment;
 import com.aishang.app.ui.MyBuyAndSale.SaleFragment;
+import com.aishang.app.ui.MyCard.TravelCardActivity;
 import com.aishang.app.ui.MyHouse.MyHouseActivity;
 import com.aishang.app.ui.MyOrder.MyOrderActivity;
 import com.aishang.app.ui.ProjectJoint.ProjectJointActivity;
@@ -102,4 +103,6 @@ public interface ActivityComponent {
   void inject(SettingActivity activity);
 
   void inject(SuggestionActivity activity);
+
+  void inject(TravelCardActivity activity);
 }

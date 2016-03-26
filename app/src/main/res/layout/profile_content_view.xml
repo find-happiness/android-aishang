@@ -63,14 +63,14 @@
         android:orientation="horizontal">
 
         <com.aishang.app.widget.ImgWithText
-            android:id="@+id/btn_wo_de_fang_chang"
+            android:id="@+id/btn_travel_card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:paddingBottom="@dimen/spacing_medium"
             custom:img="@mipmap/iconfont_fangchan"
-            custom:text="@string/wo_de_fang_chang" />
+            custom:text="@string/travel_card" />
 
         <View
             android:layout_width="1dp"
@@ -128,13 +128,14 @@
             android:background="@color/line" />
 
         <com.aishang.app.widget.ImgWithText
-            android:id="@+id/btn_wo_de_zu_shou"
+            android:id="@+id/btn_wo_de_fang_chang"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            custom:img="@mipmap/iconfont_maifang"
-            custom:text="@string/wo_de_zu_shou" />
+            android:paddingBottom="@dimen/spacing_medium"
+            custom:img="@mipmap/iconfont_fangchan"
+            custom:text="@string/wo_de_fang_chang" />
 
         <View
             android:layout_width="1dp"

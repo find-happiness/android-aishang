@@ -12,6 +12,7 @@ import com.aishang.app.ui.CashWithDrawApply.CashWithDrawApplyActivity;
 import com.aishang.app.ui.ChangePassword.ChangePasswordActivity;
 import com.aishang.app.ui.MemberCenter.MemberCenterActivity;
 import com.aishang.app.ui.MyBuyAndSale.BuyAndSaleActivity;
+import com.aishang.app.ui.MyCard.TravelCardActivity;
 import com.aishang.app.ui.MyHouse.MyHouseActivity;
 import com.aishang.app.ui.MyOrder.MyOrderActivity;
 import com.aishang.app.ui.TravelFavorites.TravelFavoritesActivity;
@@ -133,6 +134,13 @@ public class MinePresenter extends BasePresenter<MineMvpView> {
     Activity act = ((MineFragment) getMvpView()).getActivity();
 
     Intent intent = new Intent(act, CashWithDrawApplyActivity.class);
+
+    act.startActivity(intent);
+  }
+
+  public void intentToTravelCard() {
+    Activity act = ((MineFragment) getMvpView()).getActivity();
+    Intent intent = new Intent(act, TravelCardActivity.class);
 
     act.startActivity(intent);
   }

@@ -11,7 +11,6 @@ import butterknife.ButterKnife;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JMyBusinessBuyInListResult;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -67,15 +66,11 @@ public class MyHouseAdapter extends RecyclerView.Adapter<MyHouseAdapter.ViewHold
    */
   static class ViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.name) TextView name;
-    @Bind(R.id.type) TextView type;
-    @Bind(R.id.huxing) TextView huxing;
-    @Bind(R.id.address) TextView address;
     @Bind(R.id.room_num) TextView roomNum;
-    @Bind(R.id.buy_date) TextView buyDate;
-    @Bind(R.id.deal_date) TextView dealDate;
-    @Bind(R.id.jiefen) TextView jiefen;
-    @Bind(R.id.status) TextView status;
-    @Bind(R.id.price) TextView price;
+    @Bind(R.id.address) TextView address;
+    @Bind(R.id.commit) TextView commit;
+    @Bind(R.id.in_money) TextView inMoney;
+    @Bind(R.id.out_money) TextView outMoney;
 
     public Context getContext() {
       return this.itemView.getContext();

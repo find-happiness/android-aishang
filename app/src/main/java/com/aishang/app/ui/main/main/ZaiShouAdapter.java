@@ -1,11 +1,12 @@
 package com.aishang.app.ui.main.main;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.Bind;
@@ -15,9 +16,8 @@ import com.aishang.app.data.model.JLoupanProductListResult;
 import com.aishang.app.data.model.LoupanProduct;
 import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.injection.ActivityContext;
-import com.aishang.app.ui.BuyLouPan.BuyLouPanActivity;
 import com.aishang.app.ui.insaleDetail.InSaleDetailActivity;
-import com.aishang.app.util.Constants;
+import com.aishang.app.util.ViewUtil;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,18 +28,28 @@ import javax.inject.Inject;
  */
 @ActivityContext public class ZaiShouAdapter extends BaseAdapter {
 
-  private final Context activity;
+  private final Activity activity;
 
   //private List<JLoupanProductListResult.Product> products;
   //
   //private List<JLoupanProductListResult.Loupan> loupans;
+  int[] imgSize = new int[2];
 
   private List<LoupanProduct> loupanProducts;
 
-  @Inject public ZaiShouAdapter(Context activity) {
+  @Inject public ZaiShouAdapter(Activity activity) {
     this.activity = activity;
     loupanProducts = new ArrayList<>();
     //products = new ArrayList<>();
+
+    DisplayMetrics localDisplayMetrics = new DisplayMetrics();
+    activity.getWindowManager().getDefaultDisplay().getMetrics(localDisplayMetrics);
+    int mScreenWidth = localDisplayMetrics.widthPixels;
+    int pacing = ViewUtil.dpToPx(8);
+    int width = (mScreenWidth - 2 * pacing - ViewUtil.dpToPx(4)) / 2;
+
+    imgSize[0] = width;
+    imgSize[1] = width * 10 / 16;
   }
 
   @Override public int getCount() {
@@ -91,25 +101,17 @@ import javax.inject.Inject;
     final int loupanid = loupan.getLoupanID();
     final JLoupanProductListResult.Product product = loupanProducts.get(position).getProduct();
 
-    holder.name.setText(loupan.getName() +"|"+ product.getTitle());
-
+    holder.name.setText(loupan.getName() + "|" + product.getTitle());
+    holder.imgInSale.setLayoutParams(new FrameLayout.LayoutParams(imgSize[0], imgSize[1]));
     Picasso.with(activity)
         .load(AiShangService.IMG_URL + product.getImageUrl())
         .error(R.mipmap.banner)
         .placeholder(R.mipmap.banner)
         .into(holder.imgInSale);
 
-    holder.priceText.setText("￥" + product.getPrice() / 10000+"万元");
-    holder.tese.setText(loupan.getPromotion());
+    holder.priceText.setText("￥" + product.getPrice() / 10000 + "万元");
     holder.address.setText(loupan.getAddress());
-    holder.time.setText(loupan.getMoveInDate());
 
-    holder.buy.setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View v) {
-        Intent intent = BuyLouPanActivity.getStartIntent(activity, product.getLoupanProductID());
-        activity.startActivity(intent);
-      }
-    });
     convertView.setTag(holder);
 
     convertView.setOnClickListener(new View.OnClickListener() {
@@ -133,12 +135,7 @@ import javax.inject.Inject;
     @Bind(R.id.img_in_sale) ImageView imgInSale;
     @Bind(R.id.name) TextView name;
     @Bind(R.id.price_text) TextView priceText;
-    @Bind(R.id.time) TextView time;
     @Bind(R.id.address) TextView address;
-    @Bind(R.id.tese) TextView tese;
-    @Bind(R.id.look) TextView look;
-    @Bind(R.id.youji) TextView youji;
-    @Bind(R.id.buy) TextView buy;
 
     public HotYouJiHolder(View itemView) {
       ButterKnife.bind(this, itemView);

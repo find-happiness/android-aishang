@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:background="@color/primary"
     android:fitsSystemWindows="true"
-    android:paddingTop="@dimen/padding_stutas_bar">
+    android:paddingTop="@dimen/padding_stutas_bar"
+    >
 
   <android.support.v7.widget.Toolbar
       android:id="@+id/toolbar"
@@ -15,7 +16,8 @@
       android:layout_height="?attr/actionBarSize"
       android:layout_alignParentTop="true"
       app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-      app:theme="@style/ToolBarStyle">
+      app:theme="@style/ToolBarStyle"
+      >
 
     <TextView
         android:id="@+id/toolbar_title"
@@ -25,7 +27,8 @@
         android:gravity="center"
         android:text="@string/dujiawu"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/text_title"/>
+        android:textSize="@dimen/text_title"
+        />
   </android.support.v7.widget.Toolbar>
 
   <ScrollView
@@ -39,14 +42,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
       <ImageView
           android:id="@+id/banner"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:scaleType="centerCrop"
-          android:src="@mipmap/dujiaowujiaohuan"/>
+          android:src="@mipmap/dujiaowujiaohuan"
+          />
 
       <TextView
           android:layout_width="wrap_content"
@@ -55,7 +60,8 @@
           android:layout_marginTop="@dimen/spacing_medium"
           android:text="【度假屋上线规则】"
           android:textColor="@color/primary"
-          android:textSize="@dimen/text_title"/>
+          android:textSize="@dimen/text_title"
+          />
 
       <com.ms.square.android.expandabletextview.ExpandableTextView
           xmlns:android="http://schemas.android.com/apk/res/android"
@@ -65,7 +71,8 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/spacing_medium"
           expandableTextView:animDuration="200"
-          expandableTextView:maxCollapsedLines="3">
+          expandableTextView:maxCollapsedLines="3"
+          >
 
         <TextView
             android:id="@id/expandable_text"
@@ -75,7 +82,8 @@
             android:layout_marginRight="@dimen/spacing_medium"
             android:text=""
             android:textColor="@color/text_gray"
-            android:textSize="@dimen/text_body"/>
+            android:textSize="@dimen/text_body"
+            />
 
         <ImageButton
             android:id="@id/expand_collapse"
@@ -86,7 +94,8 @@
             android:paddingBottom="@dimen/spacing_small"
             android:paddingLeft="@dimen/spacing_large"
             android:paddingRight="@dimen/spacing_large"
-            android:paddingTop="@dimen/spacing_medium"/>
+            android:paddingTop="@dimen/spacing_medium"
+            />
       </com.ms.square.android.expandabletextview.ExpandableTextView>
 
       <TextView
@@ -95,7 +104,8 @@
           android:layout_marginLeft="@dimen/spacing_medium"
           android:text="【度假屋上线详情】"
           android:textColor="@color/primary"
-          android:textSize="@dimen/text_title"/>
+          android:textSize="@dimen/text_title"
+          />
 
       <com.rengwuxian.materialedittext.MaterialEditText
           android:id="@+id/owner"
@@ -110,7 +120,8 @@
           app:met_clearButton="true"
           app:met_floatingLabel="normal"
           app:met_floatingLabelTextSize="@dimen/text_small_body"
-          app:met_textColorHint="@color/text_gray"/>
+          app:met_textColorHint="@color/text_gray"
+          />
 
       <com.rengwuxian.materialedittext.MaterialEditText
           android:id="@+id/id_number"
@@ -126,7 +137,8 @@
           app:met_clearButton="true"
           app:met_floatingLabel="normal"
           app:met_floatingLabelTextSize="@dimen/text_small_body"
-          app:met_textColorHint="@color/text_gray"/>
+          app:met_textColorHint="@color/text_gray"
+          />
 
       <com.rengwuxian.materialedittext.MaterialEditText
           android:id="@+id/house_address"
@@ -135,26 +147,11 @@
           android:layout_marginLeft="@dimen/spacing_medium"
           android:layout_marginRight="@dimen/spacing_medium"
           android:layout_marginTop="@dimen/spacing_medium"
-          android:hint="房屋地址"
+          android:hint="物业地址"
           android:inputType="text"
           android:singleLine="true"
           android:textSize="@dimen/text_body"
           app:met_clearButton="true"
-          app:met_floatingLabel="normal"
-          app:met_floatingLabelTextSize="@dimen/text_small_body"
-          app:met_textColorHint="@color/text_gray"/>
-
-      <com.rengwuxian.materialedittext.MaterialEditText
-          android:id="@+id/houseNumber"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginLeft="@dimen/spacing_medium"
-          android:layout_marginRight="@dimen/spacing_medium"
-          android:layout_marginTop="@dimen/spacing_medium"
-          android:gravity="top"
-          android:hint="房号"
-          android:inputType="text"
-          android:textSize="@dimen/text_body"
           app:met_floatingLabel="normal"
           app:met_floatingLabelTextSize="@dimen/text_small_body"
           app:met_textColorHint="@color/text_gray"
@@ -193,38 +190,6 @@
           />
 
       <com.rengwuxian.materialedittext.MaterialEditText
-          android:id="@+id/start_time"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginLeft="@dimen/spacing_medium"
-          android:layout_marginRight="@dimen/spacing_medium"
-          android:layout_marginTop="@dimen/spacing_medium"
-          android:gravity="top"
-          android:hint="交换开始时间"
-          android:inputType="date"
-          android:textSize="@dimen/text_body"
-          app:met_floatingLabel="normal"
-          app:met_floatingLabelTextSize="@dimen/text_small_body"
-          app:met_textColorHint="@color/text_gray"
-          />
-
-      <com.rengwuxian.materialedittext.MaterialEditText
-          android:id="@+id/end_time"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginLeft="@dimen/spacing_medium"
-          android:layout_marginRight="@dimen/spacing_medium"
-          android:layout_marginTop="@dimen/spacing_medium"
-          android:gravity="top"
-          android:hint="交换结束时间"
-          android:inputType="date"
-          android:textSize="@dimen/text_body"
-          app:met_floatingLabel="normal"
-          app:met_floatingLabelTextSize="@dimen/text_small_body"
-          app:met_textColorHint="@color/text_gray"
-          />
-
-      <com.rengwuxian.materialedittext.MaterialEditText
           android:id="@+id/contactsPhone"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -240,22 +205,6 @@
           app:met_textColorHint="@color/text_gray"
           />
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/contactsMobile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/spacing_medium"
-            android:layout_marginRight="@dimen/spacing_medium"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:gravity="top"
-            android:hint="手机"
-            android:inputType="phone"
-            android:textSize="@dimen/text_body"
-            app:met_floatingLabel="normal"
-            app:met_floatingLabelTextSize="@dimen/text_small_body"
-            app:met_textColorHint="@color/text_gray"
-            />
-
       <com.rengwuxian.materialedittext.MaterialEditText
           android:id="@+id/Email"
           android:layout_width="match_parent"
@@ -264,7 +213,7 @@
           android:layout_marginRight="@dimen/spacing_medium"
           android:layout_marginTop="@dimen/spacing_medium"
           android:gravity="top"
-          android:hint="邮件"
+          android:hint="邮箱"
           android:inputType="textEmailAddress"
           android:textSize="@dimen/text_body"
           app:met_floatingLabel="normal"
@@ -272,32 +221,52 @@
           app:met_textColorHint="@color/text_gray"
           />
 
-      <LinearLayout
-          android:layout_width="match_parent"
+
+      <TextView
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginLeft="@dimen/spacing_medium"
           android:layout_marginRight="@dimen/spacing_medium"
-          android:layout_marginTop="@dimen/spacing_medium"
-          android:background="@drawable/bg_edit"
-          android:orientation="vertical"
-          android:layout_marginBottom="@dimen/spacing_xlarge">
+          android:text="房屋设备"
+          android:textSize="@dimen/text_body"
+          android:textStyle="bold"
+          />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/spacing_medium"
-            android:text="房产证照片"
-            android:textColor="@color/text_gray"
-            android:textSize="@dimen/text_body"/>
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginRight="@dimen/spacing_medium"
+          android:text="电器类:"
+          android:textSize="@dimen/text_small_body"
+          />
 
-        <ImageView
-            android:id="@+id/update_img"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="@dimen/spacing_medium"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/banner"/>
-      </LinearLayout>
+      <com.aishang.app.widget.NonScrollGridView
+          android:id="@+id/facilitesType1"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_large"
+          android:layout_marginRight="@dimen/spacing_medium"
+          android:numColumns="2"
+          />
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginRight="@dimen/spacing_medium"
+          android:text="家具类:"
+          android:textSize="@dimen/text_small_body"
+          />
+
+      <com.aishang.app.widget.NonScrollGridView
+          android:id="@+id/facilitesType2"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_large"
+          android:layout_marginRight="@dimen/spacing_medium"
+          android:numColumns="2"
+          android:paddingBottom="@dimen/spacing_xlarge"
+          />
     </LinearLayout>
   </ScrollView>
 </RelativeLayout>

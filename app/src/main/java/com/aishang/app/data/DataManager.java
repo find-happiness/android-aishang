@@ -9,6 +9,7 @@ import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JHotelPriceCatListResult;
 import com.aishang.app.data.model.JHotelRoomCatListByhotelIDResult;
 import com.aishang.app.data.model.JHotelRoomCatListResult;
+import com.aishang.app.data.model.JHotelRoomFacilitesCatListResult;
 import com.aishang.app.data.model.JHotelStarLevelListResult;
 import com.aishang.app.data.model.JLoupanPriceCatListResult;
 import com.aishang.app.data.model.JLoupanProductCatListResult;
@@ -290,6 +291,10 @@ import com.aishang.app.util.EventPosterHelper;
 
   public Observable<JHotelRoomCatListResult> syncHotelRoomCatList(int version) {
     return mAiShangService.syncHotelRoomCatList(version);
+  }
+
+  public Observable<JHotelRoomFacilitesCatListResult> syncHotelRoomFacilitesCatList(int version) {
+    return mAiShangService.syncHotelRoomFacilitesCatList(version);
   }
 
   public JVersionCheckResult getVersionCheck() {

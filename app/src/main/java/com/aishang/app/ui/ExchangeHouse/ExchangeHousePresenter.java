@@ -1,6 +1,7 @@
 package com.aishang.app.ui.ExchangeHouse;
 
 import com.aishang.app.data.DataManager;
+import com.aishang.app.data.model.JHotelRoomFacilitesCatListResult;
 import com.aishang.app.data.model.JResult;
 import com.aishang.app.ui.base.BasePresenter;
 import com.aishang.app.util.Constants;
@@ -17,6 +18,7 @@ public class ExchangeHousePresenter extends BasePresenter<ExchangeHouseMvpView> 
 
   private final DataManager mDataManager;
   private Subscription subscription;
+  private Subscription facilitesSubscription;
 
   @Inject public ExchangeHousePresenter(DataManager dataManager) {
     mDataManager = dataManager;
@@ -37,6 +39,8 @@ public class ExchangeHousePresenter extends BasePresenter<ExchangeHouseMvpView> 
       subscription.unsubscribe();
     }
 
+    getMvpView().showNetProgress();
+
     subscription = mDataManager.syncProjecCtooperation(version, json)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
@@ -45,12 +49,45 @@ public class ExchangeHousePresenter extends BasePresenter<ExchangeHouseMvpView> 
           }
 
           @Override public void onError(Throwable e) {
+            getMvpView().dimissNetProgress();
             getMvpView().showError("网络异常");
           }
 
           @Override public void onNext(JResult result) {
+            getMvpView().dimissNetProgress();
             if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
               getMvpView().showSuccess();
+            } else {
+              getMvpView().showError(result.getResult());
+            }
+          }
+        });
+  }
+
+  public void loadFacilites(int version) {
+    checkViewAttached();
+
+    if (subscription != null && !subscription.isUnsubscribed()) {
+      subscription.unsubscribe();
+    }
+
+    getMvpView().showNetProgress();
+    subscription = mDataManager.syncHotelRoomFacilitesCatList(version)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(Schedulers.io())
+        .subscribe(new Subscriber<JHotelRoomFacilitesCatListResult>() {
+          @Override public void onCompleted() {
+          }
+
+          @Override public void onError(Throwable e) {
+            getMvpView().dimissNetProgress();
+            getMvpView().showError("网络异常");
+          }
+
+          @Override public void onNext(JHotelRoomFacilitesCatListResult result) {
+            getMvpView().dimissNetProgress();
+            if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
+              getMvpView().showFacilites(result.getHotelRoomFacilitesCatList());
             } else {
               getMvpView().showError(result.getResult());
             }
@@ -61,5 +98,6 @@ public class ExchangeHousePresenter extends BasePresenter<ExchangeHouseMvpView> 
   @Override public void detachView() {
     super.detachView();
     if (subscription != null) subscription.unsubscribe();
+    if (facilitesSubscription != null) facilitesSubscription.unsubscribe();
   }
 }

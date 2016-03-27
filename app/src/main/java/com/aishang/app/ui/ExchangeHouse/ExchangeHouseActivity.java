@@ -1,18 +1,20 @@
 package com.aishang.app.ui.ExchangeHouse;
 
-import android.app.DatePickerDialog;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.InputType;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.DatePicker;
+import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,24 +22,25 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import com.aishang.app.R;
+import com.aishang.app.data.model.JHotelRoomFacilitesCatListResult;
 import com.aishang.app.ui.base.BaseActivity;
 import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.DialogFactory;
 import com.aishang.app.util.RegexUtils;
+import com.aishang.app.widget.NonScrollGridView;
 import com.foamtrace.photopicker.PhotoPickerActivity;
-import com.foamtrace.photopicker.SelectModel;
-import com.foamtrace.photopicker.intent.PhotoPickerIntent;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.rengwuxian.materialedittext.MaterialEditText;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.List;
 import javax.inject.Inject;
+import rx.Observable;
+import rx.Subscriber;
+import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.observables.GroupedObservable;
 
 public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouseMvpView {
 
@@ -51,24 +54,24 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
   @Bind(R.id.expand_collapse) ImageButton expandCollapse;
   @Bind(R.id.expand_text_view) ExpandableTextView expandTextView;
   @Bind(R.id.layoutRoot) RelativeLayout layoutRoot;
+  @Bind(R.id.banner) ImageView banner;
   @Bind(R.id.owner) MaterialEditText owner;
   @Bind(R.id.id_number) MaterialEditText idNumber;
   @Bind(R.id.house_address) MaterialEditText houseAddress;
-  @Bind(R.id.houseNumber) MaterialEditText houseNumber;
   @Bind(R.id.room_type) MaterialEditText roomType;
   @Bind(R.id.area) MaterialEditText area;
-  @Bind(R.id.start_time) MaterialEditText startTime;
-  @Bind(R.id.end_time) MaterialEditText endTime;
   @Bind(R.id.contactsPhone) MaterialEditText contactsPhone;
   @Bind(R.id.Email) MaterialEditText Email;
-  @Bind(R.id.contactsMobile) MaterialEditText contactsMobile;
-  @Bind(R.id.update_img) ImageView updateImg;
-  @Bind(R.id.banner) ImageView banner;
+  @Bind(R.id.facilitesType1) NonScrollGridView facilitesType1;
+  @Bind(R.id.facilitesType2) NonScrollGridView facilitesType2;
   private ProgressDialog progressDialog;
 
   private String selectImgUrl;
 
   private boolean loadImgScuess = false;
+
+  private FaciliteAdapter facilitesType1Adapter;
+  private FaciliteAdapter facilitesType2Adapter;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -80,17 +83,41 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
             | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     ButterKnife.bind(this);
 
-    startTime.setInputType(InputType.TYPE_DATETIME_VARIATION_NORMAL);
-    endTime.setInputType(InputType.TYPE_DATETIME_VARIATION_NORMAL);
-
     initToolbar();
     initBanner();
+    initFaciliteType1();
+    initFaciliteType2();
     expandTextView.setText(this.getString(R.string.holiday_house_rule));
+    facilitesType1Adapter = new FaciliteAdapter(this);
+    facilitesType1.setAdapter(facilitesType1Adapter);
+    facilitesType2Adapter = new FaciliteAdapter(this);
+    facilitesType2.setAdapter(facilitesType2Adapter);
+    presenter.loadFacilites(1);
   }
 
   @Override protected void onDestroy() {
     presenter.detachView();
     super.onDestroy();
+  }
+
+  private void initFaciliteType1() {
+    facilitesType1.setOnTouchListener(new View.OnTouchListener() {
+
+      @Override public boolean onTouch(View v, MotionEvent event) {
+        return MotionEvent.ACTION_MOVE == event.getAction();
+      }
+    });
+  }
+
+  private void initFaciliteType2() {
+    facilitesType1.setOnTouchListener(new View.OnTouchListener() {
+
+      @Override public boolean onTouch(View v, MotionEvent event) {
+        //return MotionEvent.ACTION_MOVE == event.getAction() ? true
+        //        : false;
+        return MotionEvent.ACTION_MOVE == event.getAction();
+      }
+    });
   }
 
   private void initBanner() {
@@ -99,32 +126,6 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
     LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(size[0], size[1]);
 
     banner.setLayoutParams(param);
-  }
-
-  @OnClick(R.id.start_time) void onClickStartTime() {
-    Calendar cal = Calendar.getInstance();
-    cal.setTimeInMillis(System.currentTimeMillis() + 86400000L);
-    DatePickerDialog datePickerDialog =
-        new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-          @Override
-          public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            startTime.setText(year + "-" + monthOfYear + "-" + dayOfMonth);
-          }
-        }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
-    datePickerDialog.show();
-  }
-
-  @OnClick(R.id.end_time) void onClickEndTime() {
-    Calendar cal = Calendar.getInstance();
-    cal.setTimeInMillis(System.currentTimeMillis() + 2 * 86400000L);
-    DatePickerDialog datePickerDialog =
-        new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-          @Override
-          public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            endTime.setText(year + "-" + monthOfYear + "-" + dayOfMonth);
-          }
-        }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
-    datePickerDialog.show();
   }
 
   private void initToolbar() {
@@ -178,10 +179,10 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
       return;
     }
 
-    if (isHouseNumberuEmpty()) {
-      showHouseNumberError();
-      return;
-    }
+    //if (isHouseNumberuEmpty()) {
+    //  showHouseNumberError();
+    //  return;
+    //}
 
     if (isTypeEmpty()) {
       showHouseTypeError();
@@ -198,15 +199,15 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
       return;
     }
 
-    if (isStartTimeEmpty()) {
-      showStartTimeError();
-      return;
-    }
-
-    if (isEndTimeEmpty()) {
-      showEndTimeError();
-      return;
-    }
+    //if (isStartTimeEmpty()) {
+    //  showStartTimeError();
+    //  return;
+    //}
+    //
+    //if (isEndTimeEmpty()) {
+    //  showEndTimeError();
+    //  return;
+    //}
 
     if (isPhoneEmpty() || !RegexUtils.checkMobile(contactsPhone.getText().toString().trim())) {
       showPhoneError();
@@ -229,15 +230,10 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
     //Log.i(TAG, "post: imgData size " + selectImgData.length());
 
     String json = AiShangUtil.generProjectChangeParam(owner.getText().toString().trim(),
-        idNumber.getText().toString().trim(), houseAddress.getText().toString().trim(),
-        houseNumber.getText().toString().trim(), roomType.getText().toString().trim(),
-        Float.parseFloat(area.getText().toString().trim()), startTime.getText().toString().trim(),
-        endTime.getText().toString().trim(), contactsPhone.getText().toString().trim(),
-        contactsMobile.getText().toString().trim(), Email.getText().toString().trim(),
+        idNumber.getText().toString().trim(), houseAddress.getText().toString().trim(), "",
+        roomType.getText().toString().trim(), Float.parseFloat(area.getText().toString().trim()),
+        "", "", contactsPhone.getText().toString().trim(), "", Email.getText().toString().trim(),
         selectImgData);
-
-    progressDialog = DialogFactory.createProgressDialog(this, R.string.posting);
-    progressDialog.show();
     presenter.postData(1, json);
   }
 
@@ -247,10 +243,6 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
 
   private boolean isIDNumberEmpty() {
     return TextUtils.isEmpty(idNumber.getText().toString().trim());
-  }
-
-  private boolean isHouseNumberuEmpty() {
-    return TextUtils.isEmpty(houseNumber.getText().toString().trim());
   }
 
   private boolean isAddressEmpty() {
@@ -267,14 +259,6 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
 
   private boolean isEmailEmpty() {
     return TextUtils.isEmpty(Email.getText().toString().trim());
-  }
-
-  private boolean isStartTimeEmpty() {
-    return TextUtils.isEmpty(startTime.getText().toString().trim());
-  }
-
-  private boolean isEndTimeEmpty() {
-    return TextUtils.isEmpty(endTime.getText().toString().trim());
   }
 
   private boolean isPhoneEmpty() {
@@ -327,29 +311,69 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
   }
 
   @Override public void showError(String error) {
-    dimissDialog();
     CommonUtil.showSnackbar(error, layoutRoot);
   }
 
   @Override public void showSuccess() {
-    dimissDialog();
     CommonUtil.showSnackbar("提交成功", layoutRoot);
   }
 
-  private void dimissDialog() {
+  @Override public void showFacilites(
+      List<JHotelRoomFacilitesCatListResult.HotelRoomFacilitesCatListEntity> entitys) {
+
+    Observable.from(entitys)
+        .groupBy(
+            new Func1<JHotelRoomFacilitesCatListResult.HotelRoomFacilitesCatListEntity, Integer>() {
+              @Override public Integer call(
+                  JHotelRoomFacilitesCatListResult.HotelRoomFacilitesCatListEntity entity) {
+                return entity.getFacilitesType();
+              }
+            })
+        .subscribe(
+            new Action1<GroupedObservable<Integer, JHotelRoomFacilitesCatListResult.HotelRoomFacilitesCatListEntity>>() {
+              @Override public void call(
+                  final GroupedObservable<Integer, JHotelRoomFacilitesCatListResult.HotelRoomFacilitesCatListEntity> hotelRoomFacilitesCatListEntityGroupedObservable) {
+
+                hotelRoomFacilitesCatListEntityGroupedObservable.subscribe(
+                    new Action1<JHotelRoomFacilitesCatListResult.HotelRoomFacilitesCatListEntity>() {
+                      @Override public void call(
+                          JHotelRoomFacilitesCatListResult.HotelRoomFacilitesCatListEntity entity) {
+                        if (hotelRoomFacilitesCatListEntityGroupedObservable.getKey() == 1) {
+                          facilitesType1Adapter.facilites.add(entity);
+                          facilitesType1Adapter.notifyDataSetChanged();
+                        } else {
+                          facilitesType2Adapter.facilites.add(entity);
+                          facilitesType2Adapter.notifyDataSetChanged();
+                        }
+                      }
+                    });
+              }
+            });
+  }
+
+  @Override public void showEmptyFacilite() {
+
+  }
+
+  @Override public void showNetProgress() {
+    progressDialog = DialogFactory.createProgressDialog(this, R.string.listview_loading);
+    progressDialog.show();
+  }
+
+  @Override public void dimissNetProgress() {
     if (progressDialog != null && progressDialog.isShowing()) {
       progressDialog.dismiss();
     }
   }
 
-  @OnClick(R.id.update_img) void onClickUpdateImg() {
-
-    PhotoPickerIntent intent = new PhotoPickerIntent(ExchangeHouseActivity.this);
-    intent.setSelectModel(SelectModel.SINGLE);
-    intent.setShowCarema(true); // 是否显示拍照， 默认false
-    // intent.setImageConfig(config);
-    startActivityForResult(intent, REQUEST_CAMERA_CODE);
-  }
+  //@OnClick(R.id.update_img) void onClickUpdateImg() {
+  //
+  //  PhotoPickerIntent intent = new PhotoPickerIntent(ExchangeHouseActivity.this);
+  //  intent.setSelectModel(SelectModel.SINGLE);
+  //  intent.setShowCarema(true); // 是否显示拍照， 默认false
+  //  // intent.setImageConfig(config);
+  //  startActivityForResult(intent, REQUEST_CAMERA_CODE);
+  //}
 
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
@@ -360,19 +384,50 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
           ArrayList<String> list = data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT);
 
           if (list.size() > 0) {
-            selectImgUrl = list.get(0);
-            Picasso.with(this).load(new File(selectImgUrl)).into(updateImg, new Callback() {
-              @Override public void onSuccess() {
-                loadImgScuess = true;
-              }
-
-              @Override public void onError() {
-                loadImgScuess = false;
-              }
-            });
+            //selectImgUrl = list.get(0);
+            //Picasso.with(this).load(new File(selectImgUrl)).into(updateImg, new Callback() {
+            //  @Override public void onSuccess() {
+            //    loadImgScuess = true;
+            //  }
+            //
+            //  @Override public void onError() {
+            //    loadImgScuess = false;
+            //  }
+            //});
           }
           break;
       }
+    }
+  }
+
+  class FaciliteAdapter extends BaseAdapter {
+
+    List<JHotelRoomFacilitesCatListResult.HotelRoomFacilitesCatListEntity> facilites;
+
+    Activity act;
+
+    public FaciliteAdapter(Activity act) {
+      this.facilites = new ArrayList<>();
+      this.act = act;
+    }
+
+    @Override public int getCount() {
+      return facilites.size();
+    }
+
+    @Override
+    public JHotelRoomFacilitesCatListResult.HotelRoomFacilitesCatListEntity getItem(int position) {
+      return facilites.get(position);
+    }
+
+    @Override public long getItemId(int position) {
+      return position;
+    }
+
+    @Override public View getView(int position, View convertView, ViewGroup parent) {
+      CheckBox checkBox = new CheckBox(act);
+      checkBox.setText(facilites.get(position).getFacilitesName());
+      return checkBox;
     }
   }
 }

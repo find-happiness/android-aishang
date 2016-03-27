@@ -24,6 +24,7 @@ import butterknife.OnClick;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JHotelPriceCatListResult;
+import com.aishang.app.data.model.JHotelRoomCatListResult;
 import com.aishang.app.data.model.JHotelStarLevelListResult;
 import com.aishang.app.data.model.JSysZoneResult;
 import com.aishang.app.ui.base.BaseActivity;
@@ -65,6 +66,7 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
   private int selectZoneID = 1;
   private int selectPrice;
   private int selectStarLevel;
+  private int selectType = 0;
   private Date checkInDate;
   private Date checkOutDate;
   private String mFilterWords = "";
@@ -96,7 +98,7 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
     selectZoneID = this.getIntent().getIntExtra(ZONE_ID, 1);
     mFilterWords = this.getIntent().getStringExtra(FILTER_WORDS);
 
-    Log.i(TAG, "onCreate: selectZoneID----------------------->" + selectZoneID);
+    //Log.i(TAG, "onCreate: selectZoneID----------------------->" + selectZoneID);
     hotelAdapter.setCheckInDate(checkInDate);
     hotelAdapter.setCheckOutDate(checkOutDate);
     initToolbar();
@@ -265,15 +267,14 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
         if (NetworkUtil.isNetworkConnected(HotelListActivity.this)) {
           asynHotel(hotelAdapter.getHotels().size(), AiShangUtil.dateFormat(checkInDate),
               AiShangUtil.dateFormat(checkOutDate), selectZoneID, selectPrice, mFilterWords,
-              NetWorkType.loadMore);
+              selectType, NetWorkType.loadMore);
         } else {
           //mRecyclerView.loadMoreComplete();
           mRecyclerView.cancelLoadMore();
           CommonUtil.showSnackbar(R.string.no_net, layoutRoot);
         }
       }
-    });
-    mRecyclerView.setAdapter(hotelAdapter);
+    }); mRecyclerView.setAdapter(hotelAdapter);
   }
 
   private void asynHotel(NetWorkType type) {
@@ -283,14 +284,13 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
     //presenter.loadHotel(1, json);
 
     asynHotel(0, AiShangUtil.dateFormat(checkInDate), AiShangUtil.dateFormat(checkOutDate),
-        selectZoneID, selectPrice, mFilterWords, type);
+        selectZoneID, selectPrice, mFilterWords, selectType, type);
   }
 
   private void asynHotel(int start, String checkinDate, String chinkOutDate, int selectZoneID,
-      int priceID, String filterWords, NetWorkType type) {
-    String json =
-        AiShangUtil.generHotelParam(0, filterWords, start, 10, 0, checkinDate, chinkOutDate,
-            selectZoneID, 0, priceID, 0, 0, 0, "", 0, "", 0, 1);
+      int priceID, String filterWords, int selectType, NetWorkType type) {
+    String json = AiShangUtil.generHotelParam(selectType, filterWords, start, 10, 0, checkinDate,
+        chinkOutDate, selectZoneID, 0, priceID, 0, 0, 0, "", 0, "", 0, 1);
 
     presenter.loadHotel(1, json, type);
   }
@@ -304,7 +304,8 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
   @OnClick(R.id.tv_star_level) void onStarLevelClick() {
     progressDialog = DialogFactory.createProgressDialog(this, R.string.listview_loading);
     progressDialog.show();
-    presenter.loadStarLevelList(false, 0);
+    //presenter.loadStarLevelList(false, 0);
+    presenter.loadType(1);
   }
 
   @OnClick(R.id.tv_price) void priceClick() {
@@ -420,7 +421,7 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
       progressDialog.dismiss();
     }
 
-    Log.i(TAG, "showSysZoneDialog: " + starListEntities.size());
+    //Log.i(TAG, "showSysZoneDialog: " + starListEntities.size());
     final String[] items = new String[starListEntities.size() + 1];
     items[0] = this.getString(R.string.unlimited);
     int cur = 0;
@@ -435,14 +436,43 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
     Log.i(TAG, "showSysZoneDialog: item size :" + items.length);
     DialogFactory.createSingleChoiceDialog(this, items, cur, new DialogInterface.OnClickListener() {
       @Override public void onClick(DialogInterface dialog, int which) {
-
         int bakSelectStarLevel = selectStarLevel;
         selectStarLevel = which == 0 ? 0 : starListEntities.get(which - 1).getId();
         dialog.dismiss();
 
-        if (bakSelectStarLevel != selectPrice) proLoad();
+        if (bakSelectStarLevel != selectStarLevel) proLoad();
       }
     }, getString(R.string.star_level_select)).show();
+  }
+
+  @Override public void showSyncTypeDialog(
+      final List<JHotelRoomCatListResult.CatListEntity> catListEntities) {
+    if (progressDialog != null && progressDialog.isShowing()) {
+      progressDialog.dismiss();
+    }
+
+    //Log.i(TAG, "showSysZoneDialog: " + catListEntities.size());
+    final String[] items = new String[catListEntities.size() + 1];
+    items[0] = this.getString(R.string.unlimited);
+    int cur = 0;
+    int index = 0;
+    for (JHotelRoomCatListResult.CatListEntity cat : catListEntities) {
+      items[index + 1] = cat.getName();
+      if (selectType == cat.getId()) {
+        cur = index + 1;
+      }
+      index++;
+    }
+    //Log.i(TAG, "showSysZoneDialog: item size :" + items.length);
+    DialogFactory.createSingleChoiceDialog(this, items, cur, new DialogInterface.OnClickListener() {
+      @Override public void onClick(DialogInterface dialog, int which) {
+        int bakSelectType = selectType;
+        selectType = which == 0 ? 0 : catListEntities.get(which - 1).getId();
+        dialog.dismiss();
+
+        if (bakSelectType != selectType) proLoad();
+      }
+    }, getString(R.string.type_select)).show();
   }
 
   @Override public void showError(String error) {

@@ -120,7 +120,7 @@
               android:paddingLeft="5dp"
               android:paddingRight="5dp"
               android:paddingTop="10dp"
-              android:text="@string/start"
+              android:text="@string/type"
               android:textColor="@android:color/black"
               android:textSize="@dimen/text_title"/>
 

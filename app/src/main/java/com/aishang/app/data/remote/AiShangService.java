@@ -7,6 +7,7 @@ import com.aishang.app.data.model.JHotelDetailResult;
 import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JHotelPriceCatListResult;
 import com.aishang.app.data.model.JHotelRoomCatListByhotelIDResult;
+import com.aishang.app.data.model.JHotelRoomCatListResult;
 import com.aishang.app.data.model.JHotelStarLevelListResult;
 import com.aishang.app.data.model.JLoupanPriceCatListResult;
 import com.aishang.app.data.model.JLoupanProductCatListResult;
@@ -229,6 +230,9 @@ public interface AiShangService {
   @Headers("connection:Keep-Alive") @GET("mobile/member/myVacationList.ashx")
   Observable<JMyVacationListResult> syncMyVacationList(@Query(value = "v") int version,
       @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/hotel/hotelRoomCatList.ashx")
+  Observable<JHotelRoomCatListResult> syncHotelRoomCatList(@Query(value = "v") int version);
 
   @GET("ribots") Observable<List<Ribot>> getRibots();
 

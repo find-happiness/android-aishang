@@ -3,6 +3,7 @@ package com.aishang.app.ui.hotel;
 import com.aishang.app.data.DataManager;
 import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JHotelPriceCatListResult;
+import com.aishang.app.data.model.JHotelRoomCatListResult;
 import com.aishang.app.data.model.JHotelStarLevelListResult;
 import com.aishang.app.data.model.JSysZoneResult;
 import com.aishang.app.ui.base.BasePresenter;
@@ -10,10 +11,15 @@ import com.aishang.app.util.Constants;
 import com.aishang.app.util.NetWorkType;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import javax.inject.Inject;
+import rx.Observable;
+import rx.Observer;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -26,6 +32,7 @@ public class HotelPresenter extends BasePresenter<HotelMvpView> {
   private Subscription mHotelSubscription;
   private Subscription mPriceSubscription;
   private Subscription mStarLevelSubscription;
+  private Subscription mTypeSubscription;
 
   @Inject public HotelPresenter(DataManager dataManager) {
     mDataManager = dataManager;
@@ -179,11 +186,43 @@ public class HotelPresenter extends BasePresenter<HotelMvpView> {
         });
   }
 
+  public void loadType(int version) {
+    checkViewAttached();
+
+    if (mTypeSubscription != null && mTypeSubscription.isUnsubscribed()) {
+      mTypeSubscription.unsubscribe();
+    }
+
+    mDataManager.syncHotelRoomCatList(1)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(Schedulers.io())
+        .subscribe(new Subscriber<JHotelRoomCatListResult>() {
+          @Override public void onCompleted() {
+
+          }
+
+          @Override public void onError(Throwable e) {
+            getMvpView().showError("网络异常");
+          }
+
+          @Override public void onNext(JHotelRoomCatListResult jHotelRoomCatListResult) {
+            if (jHotelRoomCatListResult.getResult()
+                .toUpperCase()
+                .equals(Constants.RESULT_SUCCESS.toUpperCase())) {
+              getMvpView().showSyncTypeDialog(jHotelRoomCatListResult.getCatList());
+            }else{
+              getMvpView().showError(jHotelRoomCatListResult.getResult());
+            }
+          }
+        });
+  }
+
   @Override public void detachView() {
     super.detachView();
     if (mZoneSubscription != null) mZoneSubscription.unsubscribe();
     if (mHotelSubscription != null) mHotelSubscription.unsubscribe();
     if (mPriceSubscription != null) mPriceSubscription.unsubscribe();
     if (mStarLevelSubscription != null) mStarLevelSubscription.unsubscribe();
+    if (mTypeSubscription != null) mTypeSubscription.unsubscribe();
   }
 }

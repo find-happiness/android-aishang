@@ -160,12 +160,14 @@ public class InSaleActivity extends BaseActivity implements InSaleMvpView {
         filterWords = searchTerm;
         proLoad();
       }
+
       @Override public void onSearchEmpty() {
         if (!TextUtils.isEmpty(filterWords)) {
           filterWords = "";
           proLoad();
         }
       }
+
       @Override public void onResultClick(SearchResult result) {
         //React to result being clicked
       }
@@ -247,7 +249,7 @@ public class InSaleActivity extends BaseActivity implements InSaleMvpView {
     mRecyclerView.loadMoreComplete();
     adapter.getLoupanProducts().addAll(loupanProducts);
     adapter.notifyDataSetChanged();
-    mRecyclerView.refreshComplete();
+    //mRecyclerView.refreshComplete();
 
     Log.i(TAG, "loadMoreHotel: "
         + loupanProducts.size()

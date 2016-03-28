@@ -33,6 +33,7 @@ import com.aishang.app.data.model.JRentalListResult;
 import com.aishang.app.data.model.JResult;
 import com.aishang.app.data.model.JSendCodeResult;
 import com.aishang.app.data.model.JSysZoneResult;
+import com.aishang.app.data.model.JTagListResult;
 import com.aishang.app.data.model.JUploadFileResult;
 import com.aishang.app.data.model.JVersionCheckResult;
 import com.aishang.app.data.model.Ribot;
@@ -238,6 +239,10 @@ public interface AiShangService {
   @Headers("connection:Keep-Alive") @GET("mobile/hotelRoomFacilitesCatList.ashx")
   Observable<JHotelRoomFacilitesCatListResult> syncHotelRoomFacilitesCatList(
       @Query(value = "v") int version);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/tags/tagList.ashx")
+  Observable<JTagListResult> syncTagList(@Query(value = "v") int version,
+      @Query(value = "q") String q);
 
   @GET("ribots") Observable<List<Ribot>> getRibots();
 

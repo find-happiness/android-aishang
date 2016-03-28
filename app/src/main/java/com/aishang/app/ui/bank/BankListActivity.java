@@ -227,8 +227,8 @@ public class BankListActivity extends BaseActivity implements BankListMvpView {
     recyclerView.setLayoutManager(layoutManager);
 
     recyclerView.addItemDecoration(
-        new HorizontalDividerItemDecoration.Builder(this).colorResId(android.R.color.darker_gray)
-            .sizeResId(R.dimen.divider)
+        new HorizontalDividerItemDecoration.Builder(this).colorResId(android.R.color.transparent)
+            .sizeResId(R.dimen.spacing_medium)
             .build());
 
     recyclerView.setPullRefreshEnabled(false);

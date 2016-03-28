@@ -68,7 +68,7 @@ public class TravelListPresenter extends BasePresenter<TravelListMvpView> {
           @Override public void onNext(JNewsListResult result) {
             if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
 
-              if (result.getNewsList().length <= 0) {
+              if (result.getNewsList().length <= 0 && type == NetWorkType.refresh) {
                 getMvpView().showEmpty();
               } else {
                 switch (type) {
@@ -84,7 +84,7 @@ public class TravelListPresenter extends BasePresenter<TravelListMvpView> {
               }
             } else {
               getMvpView().showError(result.getResult());
-              getMvpView().showEmpty();
+              //getMvpView().showEmpty();
             }
           }
         });

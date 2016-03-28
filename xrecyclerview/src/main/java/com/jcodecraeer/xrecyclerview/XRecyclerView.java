@@ -123,6 +123,8 @@ public class XRecyclerView extends RecyclerView {
   }
 
   public void refreshComplete() {
+    isnomore = false;
+    previousTotal = 0;
     mRefreshHeader.refreshComplate();
   }
 

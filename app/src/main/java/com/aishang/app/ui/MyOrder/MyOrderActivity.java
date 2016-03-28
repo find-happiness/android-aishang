@@ -104,7 +104,7 @@ public class MyOrderActivity extends BaseActivity implements MyOrderMvpView {
     adapter.getItems()
         .addAll(new ArrayList<JMyVacationApplyListResult.JItem>(Arrays.asList(items)));
     adapter.notifyDataSetChanged();
-    mRecyclerView.refreshComplete();
+    //mRecyclerView.refreshComplete();
 
     if (adapter.getItems().size() >= total) {
       mRecyclerView.loadMoreComplete();

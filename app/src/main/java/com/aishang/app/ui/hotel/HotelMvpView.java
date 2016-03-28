@@ -5,6 +5,7 @@ import com.aishang.app.data.model.JHotelPriceCatListResult;
 import com.aishang.app.data.model.JHotelRoomCatListResult;
 import com.aishang.app.data.model.JHotelStarLevelListResult;
 import com.aishang.app.data.model.JSysZoneResult;
+import com.aishang.app.data.model.JTagListResult;
 import com.aishang.app.ui.base.MvpView;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public interface HotelMvpView extends MvpView {
 
   void showSyncStarLevelDialog(List<JHotelStarLevelListResult.StarListEntity> starListEntities);
 
-  void showSyncTypeDialog(List<JHotelRoomCatListResult.CatListEntity> catListEntities);
+  void showSyncTypeDialog(JTagListResult.Tag[] tags);
 
   void showError(String error);
 

@@ -61,7 +61,7 @@ public class MyHousePresenter extends BasePresenter<MyHouseMvpView> {
           @Override public void onNext(JMyBusinessBuyInListResult result) {
             if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
 
-              if (result.getBuyinList().length <= 0) {
+              if (result.getBuyinList().length <= 0 && type ==NetWorkType.refresh) {
                 getMvpView().showEmpty();
               } else {
                 switch (type) {
@@ -75,7 +75,7 @@ public class MyHousePresenter extends BasePresenter<MyHouseMvpView> {
               }
             } else {
               getMvpView().showError(result.getResult());
-              getMvpView().showEmpty();
+              //getMvpView().showEmpty();
             }
           }
         });

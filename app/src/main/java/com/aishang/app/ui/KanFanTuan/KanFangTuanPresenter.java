@@ -59,7 +59,7 @@ public class KanFangTuanPresenter extends BasePresenter<KanFangTuanMvpView> {
 
               for (JMreActivityListResult.JActivityCatItem catItem : result.getActivityCatList()) {
                 if (catItem.getCatID() == 0) {//all
-                  if (catItem.getTotalCount() <= 0) {
+                  if (catItem.getTotalCount() <= 0 && type == NetWorkType.refresh) {
                     getMvpView().showEmpty();
                   } else {
                     switch (type) {
@@ -75,11 +75,10 @@ public class KanFangTuanPresenter extends BasePresenter<KanFangTuanMvpView> {
                   return;
                 }
               }
-
               getMvpView().showEmpty();
             } else {
               getMvpView().showError(result.getResult());
-              getMvpView().showEmpty();
+              //getMvpView().showEmpty();
             }
           }
         });

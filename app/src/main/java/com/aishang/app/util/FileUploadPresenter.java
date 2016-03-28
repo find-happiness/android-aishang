@@ -37,8 +37,7 @@ public class FileUploadPresenter extends BasePresenter<FileUploadMvpView> {
     postData(false, version, json, file);
   }
 
-  public void postData(boolean allowMemoryCacheVersion, int version, String json,
-      File file) {
+  public void postData(boolean allowMemoryCacheVersion, int version, String json, File file) {
     checkViewAttached();
 
     if (subscription != null && !subscription.isUnsubscribed()) {

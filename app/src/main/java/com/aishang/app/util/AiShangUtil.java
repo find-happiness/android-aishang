@@ -43,6 +43,7 @@ import com.aishang.app.data.model.JSendCodeParams;
 import com.aishang.app.data.model.JSubscriptionParam;
 import com.aishang.app.data.model.JSuggestionParam;
 import com.aishang.app.data.model.JSysZoneParam;
+import com.aishang.app.data.model.JTagListParam;
 import com.aishang.app.data.remote.AiShangService;
 import com.google.gson.Gson;
 import java.text.SimpleDateFormat;
@@ -674,6 +675,17 @@ public class AiShangUtil {
     param.setMemberAccount(memberAccount);
     param.setCookie(cookies);
     param.setQueryDate(queryDate);
+
+    return gson.toJson(param);
+  }
+
+  public static String generTagListParam(int filter, int recStart, int recCount, int orderBy) {
+
+    JTagListParam param = new JTagListParam();
+    param.setFilter(filter);
+    param.setOrderBy(orderBy);
+    param.setRecCount(recCount);
+    param.setRecStart(recStart);
 
     return gson.toJson(param);
   }

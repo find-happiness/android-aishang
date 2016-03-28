@@ -139,7 +139,7 @@ public class RentFragment extends LazyFragment implements RentSaleMvpView {
     mRecyclerView.loadMoreComplete();
     adapter.getItems().addAll(items);
     adapter.notifyDataSetChanged();
-    mRecyclerView.refreshComplete();
+    //mRecyclerView.refreshComplete();
 
     if (adapter.getItemCount() >= total) {
       mRecyclerView.loadMoreComplete();

@@ -61,7 +61,7 @@ public class RentSalePresenter extends BasePresenter<RentSaleMvpView> {
                 .toUpperCase()
                 .equals(Constants.RESULT_SUCCESS.toUpperCase())) {
 
-              if (result.getRentalList().length <= 0) {
+              if (result.getRentalList().length <= 0 && type == NetWorkType.refresh) {
                 getMvpView().showEmpty();
               } else {
                 switch (type) {
@@ -78,7 +78,7 @@ public class RentSalePresenter extends BasePresenter<RentSaleMvpView> {
               }
             } else {
               getMvpView().showError(result.getResult());
-              getMvpView().showEmpty();
+              //getMvpView().showEmpty();
             }
           }
         });

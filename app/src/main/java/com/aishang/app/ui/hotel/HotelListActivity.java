@@ -27,6 +27,8 @@ import com.aishang.app.data.model.JHotelPriceCatListResult;
 import com.aishang.app.data.model.JHotelRoomCatListResult;
 import com.aishang.app.data.model.JHotelStarLevelListResult;
 import com.aishang.app.data.model.JSysZoneResult;
+import com.aishang.app.data.model.JTagListParam;
+import com.aishang.app.data.model.JTagListResult;
 import com.aishang.app.ui.base.BaseActivity;
 import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
@@ -274,7 +276,8 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
           CommonUtil.showSnackbar(R.string.no_net, layoutRoot);
         }
       }
-    }); mRecyclerView.setAdapter(hotelAdapter);
+    });
+    mRecyclerView.setAdapter(hotelAdapter);
   }
 
   private void asynHotel(NetWorkType type) {
@@ -289,8 +292,9 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
 
   private void asynHotel(int start, String checkinDate, String chinkOutDate, int selectZoneID,
       int priceID, String filterWords, int selectType, NetWorkType type) {
-    String json = AiShangUtil.generHotelParam(selectType, filterWords, start, 10, 0, checkinDate,
-        chinkOutDate, selectZoneID, 0, priceID, 0, 0, 0, "", 0, "", 0, 1);
+    String json =
+        AiShangUtil.generHotelParam(0, filterWords, start, 10, 0, checkinDate, chinkOutDate,
+            selectZoneID, 0, priceID, 0, 0, 0, "", 0, "\\," + selectType, 0, 1);
 
     presenter.loadHotel(1, json, type);
   }
@@ -301,11 +305,12 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
     presenter.loadZone(false, 0, AiShangUtil.gennerSysZone(2));
   }
 
-  @OnClick(R.id.tv_star_level) void onStarLevelClick() {
+  @OnClick(R.id.tv_star_level) void onTypelick() {
     progressDialog = DialogFactory.createProgressDialog(this, R.string.listview_loading);
     progressDialog.show();
     //presenter.loadStarLevelList(false, 0);
-    presenter.loadType(1);
+
+    presenter.loadType(1, AiShangUtil.generTagListParam(2, 0, 9, 0));
   }
 
   @OnClick(R.id.tv_price) void priceClick() {
@@ -341,7 +346,7 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
     mRecyclerView.loadMoreComplete();
     hotelAdapter.getHotels().addAll(hotels);
     hotelAdapter.notifyDataSetChanged();
-    mRecyclerView.refreshComplete();
+    //mRecyclerView.refreshComplete();
     Log.i(TAG,
         "loadMoreHotel: " + hotels.size() + "  total " + total + "  " + hotelAdapter.getHotels()
             .size());
@@ -445,18 +450,17 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
     }, getString(R.string.star_level_select)).show();
   }
 
-  @Override public void showSyncTypeDialog(
-      final List<JHotelRoomCatListResult.CatListEntity> catListEntities) {
+  @Override public void showSyncTypeDialog(final JTagListResult.Tag[] catListEntities) {
     if (progressDialog != null && progressDialog.isShowing()) {
       progressDialog.dismiss();
     }
 
     //Log.i(TAG, "showSysZoneDialog: " + catListEntities.size());
-    final String[] items = new String[catListEntities.size() + 1];
+    final String[] items = new String[catListEntities.length + 1];
     items[0] = this.getString(R.string.unlimited);
     int cur = 0;
     int index = 0;
-    for (JHotelRoomCatListResult.CatListEntity cat : catListEntities) {
+    for (JTagListResult.Tag cat : catListEntities) {
       items[index + 1] = cat.getName();
       if (selectType == cat.getId()) {
         cur = index + 1;
@@ -467,7 +471,7 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
     DialogFactory.createSingleChoiceDialog(this, items, cur, new DialogInterface.OnClickListener() {
       @Override public void onClick(DialogInterface dialog, int which) {
         int bakSelectType = selectType;
-        selectType = which == 0 ? 0 : catListEntities.get(which - 1).getId();
+        selectType = which == 0 ? 0 : catListEntities[which - 1].getId();
         dialog.dismiss();
 
         if (bakSelectType != selectType) proLoad();

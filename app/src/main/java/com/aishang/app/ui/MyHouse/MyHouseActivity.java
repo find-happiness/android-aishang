@@ -148,7 +148,7 @@ public class MyHouseActivity extends BaseActivity implements MyHouseMvpView {
     adapter.getItems()
         .addAll(new ArrayList<JMyBusinessBuyInListResult.BuyIn>(Arrays.asList(items)));
     adapter.notifyDataSetChanged();
-    mRecyclerView.refreshComplete();
+    //mRecyclerView.refreshComplete();
 
     if (adapter.getItems().size() >= total) {
       adapter.notifyDataSetChanged();

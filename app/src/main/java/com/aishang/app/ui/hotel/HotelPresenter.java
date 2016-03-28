@@ -6,6 +6,7 @@ import com.aishang.app.data.model.JHotelPriceCatListResult;
 import com.aishang.app.data.model.JHotelRoomCatListResult;
 import com.aishang.app.data.model.JHotelStarLevelListResult;
 import com.aishang.app.data.model.JSysZoneResult;
+import com.aishang.app.data.model.JTagListResult;
 import com.aishang.app.ui.base.BasePresenter;
 import com.aishang.app.util.Constants;
 import com.aishang.app.util.NetWorkType;
@@ -88,7 +89,7 @@ public class HotelPresenter extends BasePresenter<HotelMvpView> {
               }
             } else {
               getMvpView().showError(hotelListResult.getResult());
-              getMvpView().showHotelEmpty();
+              //getMvpView().showHotelEmpty();
             }
           }
         });
@@ -186,17 +187,17 @@ public class HotelPresenter extends BasePresenter<HotelMvpView> {
         });
   }
 
-  public void loadType(int version) {
+  public void loadType(int version,String json) {
     checkViewAttached();
 
     if (mTypeSubscription != null && mTypeSubscription.isUnsubscribed()) {
       mTypeSubscription.unsubscribe();
     }
 
-    mDataManager.syncHotelRoomCatList(1)
+    mDataManager.syncTagList(1,json)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
-        .subscribe(new Subscriber<JHotelRoomCatListResult>() {
+        .subscribe(new Subscriber<JTagListResult>() {
           @Override public void onCompleted() {
 
           }
@@ -205,13 +206,13 @@ public class HotelPresenter extends BasePresenter<HotelMvpView> {
             getMvpView().showError("网络异常");
           }
 
-          @Override public void onNext(JHotelRoomCatListResult jHotelRoomCatListResult) {
-            if (jHotelRoomCatListResult.getResult()
+          @Override public void onNext(JTagListResult result) {
+            if (result.getResult()
                 .toUpperCase()
                 .equals(Constants.RESULT_SUCCESS.toUpperCase())) {
-              getMvpView().showSyncTypeDialog(jHotelRoomCatListResult.getCatList());
+              getMvpView().showSyncTypeDialog(result.getTagList());
             }else{
-              getMvpView().showError(jHotelRoomCatListResult.getResult());
+              getMvpView().showError(result.getResult());
             }
           }
         });

@@ -35,6 +35,7 @@ import com.aishang.app.data.model.JMrePromResult;
 import com.aishang.app.data.model.JNewsListResult;
 import com.aishang.app.data.model.JSendCodeResult;
 import com.aishang.app.data.model.JSysZoneResult;
+import com.aishang.app.data.model.JTagListResult;
 import com.aishang.app.data.model.JUploadFileResult;
 import com.aishang.app.data.model.JVersionCheckResult;
 import com.aishang.app.data.remote.AiShangService;
@@ -291,6 +292,10 @@ import com.aishang.app.util.EventPosterHelper;
 
   public Observable<JHotelRoomCatListResult> syncHotelRoomCatList(int version) {
     return mAiShangService.syncHotelRoomCatList(version);
+  }
+
+  public Observable<JTagListResult> syncTagList(int version,String json) {
+    return mAiShangService.syncTagList(version,json);
   }
 
   public Observable<JHotelRoomFacilitesCatListResult> syncHotelRoomFacilitesCatList(int version) {

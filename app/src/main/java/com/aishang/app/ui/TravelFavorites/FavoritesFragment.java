@@ -245,7 +245,7 @@ public class FavoritesFragment extends LazyFragment implements TravelFavoritesMv
     mRecyclerView.loadMoreComplete();
     adapter.getItems().addAll(items);
     adapter.notifyDataSetChanged();
-    mRecyclerView.refreshComplete();
+    //mRecyclerView.refreshComplete();
 
     if (adapter.getItems().size() >= total) {
       mRecyclerView.loadMoreComplete();
@@ -285,7 +285,7 @@ public class FavoritesFragment extends LazyFragment implements TravelFavoritesMv
     mRecyclerView.loadMoreComplete();
     adapter.getItems().addAll(items);
     adapter.notifyDataSetChanged();
-    mRecyclerView.refreshComplete();
+    //mRecyclerView.refreshComplete();
 
     if (adapter.getItems().size() >= total) {
       adapter.notifyDataSetChanged();
@@ -324,7 +324,7 @@ public class FavoritesFragment extends LazyFragment implements TravelFavoritesMv
     mRecyclerView.loadMoreComplete();
     adapter.getItems().addAll(items);
     adapter.notifyDataSetChanged();
-    mRecyclerView.refreshComplete();
+    //mRecyclerView.refreshComplete();
 
     if (adapter.getItems().size() >= total) {
       mRecyclerView.loadMoreComplete();

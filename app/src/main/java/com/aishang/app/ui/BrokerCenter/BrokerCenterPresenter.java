@@ -60,7 +60,7 @@ public class BrokerCenterPresenter extends BasePresenter<BrokerCenterMvpView> {
           @Override public void onNext(JBusinessListResult result) {
             if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
 
-              if (result.getBusinessList().length <= 0) {
+              if (result.getBusinessList().length <= 0 && type == NetWorkType.refresh) {
                 getMvpView().showEmpty();
               } else {
                 switch (type) {
@@ -74,7 +74,7 @@ public class BrokerCenterPresenter extends BasePresenter<BrokerCenterMvpView> {
               }
             } else {
               getMvpView().showError(result.getResult());
-              getMvpView().showEmpty();
+              //getMvpView().showEmpty();
             }
           }
         });

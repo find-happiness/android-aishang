@@ -75,7 +75,7 @@ public class TravelFavoritesPresenter extends BasePresenter<TravelFavoritesMvpVi
               return new AdapterContentModel(result.getTotalCount(), myTravels);
             } else {
               getMvpView().showError(result.getResult());
-              getMvpView().showEmpty();
+              //getMvpView().showEmpty();
               return null;
             }
           }
@@ -91,7 +91,12 @@ public class TravelFavoritesPresenter extends BasePresenter<TravelFavoritesMvpVi
           }
 
           @Override public void onNext(AdapterContentModel myTravels) {
-            if (myTravels.getMyTravels().size() <= 0) {
+
+            if (myTravels == null) {
+              return;
+            }
+
+            if (myTravels.getMyTravels().size() <= 0 && type == NetWorkType.refresh) {
               getMvpView().showEmpty();
             } else {
               switch (type) {
@@ -197,7 +202,7 @@ public class TravelFavoritesPresenter extends BasePresenter<TravelFavoritesMvpVi
               return new AdapterContentModel(result.getTotalCount(), myTravels);
             } else {
               getMvpView().showError(result.getResult());
-              getMvpView().showEmpty();
+              //getMvpView().showEmpty();
               return null;
             }
           }
@@ -213,7 +218,10 @@ public class TravelFavoritesPresenter extends BasePresenter<TravelFavoritesMvpVi
           }
 
           @Override public void onNext(AdapterContentModel myTravels) {
-            if (myTravels.getMyTravels().size() <= 0) {
+
+            if (myTravels == null) return;
+
+            if (myTravels.getMyTravels().size() <= 0 && type == NetWorkType.refresh) {
               getMvpView().showEmpty();
             } else {
               switch (type) {

@@ -108,7 +108,7 @@ public class KanFanTuanActivity extends BaseActivity implements KanFangTuanMvpVi
     adapter.getItems()
         .addAll(new ArrayList<JMreActivityListResult.JActivityItem>(Arrays.asList(items)));
     adapter.notifyDataSetChanged();
-    mRecyclerView.refreshComplete();
+    //mRecyclerView.refreshComplete();
 
     if (adapter.getItems().size() >= total) {
       mRecyclerView.loadMoreComplete();

@@ -260,7 +260,7 @@ public class TravelListActivity extends BaseActivity implements TravelListMvpVie
     mRecyclerView.loadMoreComplete();
     adapter.getItems().addAll(loupanProducts);
     adapter.notifyDataSetChanged();
-    mRecyclerView.refreshComplete();
+    //mRecyclerView.refreshComplete();
 
     if (adapter.getItems().size() >= total) {
       adapter.notifyDataSetChanged();

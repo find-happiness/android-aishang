@@ -56,11 +56,9 @@ public class MyOrderPresenter extends BasePresenter<MyOrderMvpView> {
           }
 
           @Override public void onNext(JMyVacationApplyListResult result) {
-            if (result.getResult()
-                .toUpperCase()
-                .equals(Constants.RESULT_SUCCESS.toUpperCase())) {
+            if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
 
-              if (result.getItemList().length <= 0) {
+              if (result.getItemList().length <= 0 && type == NetWorkType.refresh) {
                 getMvpView().showEmpty();
               } else {
                 switch (type) {
@@ -68,14 +66,13 @@ public class MyOrderPresenter extends BasePresenter<MyOrderMvpView> {
                     getMvpView().refreshList(result.getItemList());
                     break;
                   case loadMore:
-                    getMvpView().loadMoreList(result.getItemList(),
-                        result.getTotalItem());
+                    getMvpView().loadMoreList(result.getItemList(), result.getTotalItem());
                     break;
                 }
               }
             } else {
               getMvpView().showError(result.getResult());
-              getMvpView().showEmpty();
+              //getMvpView().showEmpty();
             }
           }
         });

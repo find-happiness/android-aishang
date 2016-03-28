@@ -101,7 +101,7 @@ public class InSalePresenter extends BasePresenter<InSaleMvpView> {
               }
             } else {
               getMvpView().showError(hotelListResult.getResult());
-              getMvpView().showLoupanProductEmpty();
+              //getMvpView().showLoupanProductEmpty();
             }
           }
         });

@@ -137,7 +137,7 @@ public class BrokerCenterActivity extends BaseActivity implements BrokerCenterMv
     mRecyclerView.loadMoreComplete();
     adapter.getItems().addAll(new ArrayList<JBusinessListResult.Business>(Arrays.asList(items)));
     adapter.notifyDataSetChanged();
-    mRecyclerView.refreshComplete();
+    //mRecyclerView.refreshComplete();
 
     if (adapter.getItems().size() >= total) {
       adapter.notifyDataSetChanged();

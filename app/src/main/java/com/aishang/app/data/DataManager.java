@@ -25,6 +25,7 @@ import com.aishang.app.data.model.JMreActivityListResult;
 import com.aishang.app.data.model.JMyBusinessBuyInListResult;
 import com.aishang.app.data.model.JMyVacationApplyListResult;
 import com.aishang.app.data.model.JMyVacationListResult;
+import com.aishang.app.data.model.JNewsDetailResult;
 import com.aishang.app.data.model.JParticipationParam;
 import com.aishang.app.data.model.JParticipationReslut;
 import com.aishang.app.data.model.JReleaseResult;
@@ -295,11 +296,15 @@ import com.aishang.app.util.EventPosterHelper;
   }
 
   public Observable<JTagListResult> syncTagList(int version,String json) {
-    return mAiShangService.syncTagList(version,json);
+    return mAiShangService.syncTagList(version, json);
   }
 
   public Observable<JHotelRoomFacilitesCatListResult> syncHotelRoomFacilitesCatList(int version) {
     return mAiShangService.syncHotelRoomFacilitesCatList(version);
+  }
+
+  public Observable<JNewsDetailResult> syncTravelDetail(int version, String json) {
+    return mAiShangService.syncTravelDetail(version, json);
   }
 
   public JVersionCheckResult getVersionCheck() {

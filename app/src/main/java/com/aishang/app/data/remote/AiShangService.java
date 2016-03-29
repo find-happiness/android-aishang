@@ -26,6 +26,7 @@ import com.aishang.app.data.model.JMrePromResult;
 import com.aishang.app.data.model.JMyBusinessBuyInListResult;
 import com.aishang.app.data.model.JMyVacationApplyListResult;
 import com.aishang.app.data.model.JMyVacationListResult;
+import com.aishang.app.data.model.JNewsDetailResult;
 import com.aishang.app.data.model.JNewsListResult;
 import com.aishang.app.data.model.JParticipationReslut;
 import com.aishang.app.data.model.JReleaseResult;
@@ -242,6 +243,10 @@ public interface AiShangService {
 
   @Headers("connection:Keep-Alive") @GET("mobile/tags/tagList.ashx")
   Observable<JTagListResult> syncTagList(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/newsDetail.ashx")
+  Observable<JNewsDetailResult> syncTravelDetail(@Query(value = "v") int version,
       @Query(value = "q") String q);
 
   @GET("ribots") Observable<List<Ribot>> getRibots();

@@ -1,82 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layoutRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primary"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/padding_stutas_bar"
+    android:fitsSystemWindows="true"
+    tools:context="com.aishang.app.ui.TravelDetail.TravelDetailActivity"
+    >
 
-    tools:context="com.aishang.app.ui.TravelDetail.TravelDetailActivity">
-
-  <RelativeLayout
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:background="@color/blue"
-      android:paddingTop="@dimen/padding_stutas_bar">
+      android:layout_height="?attr/actionBarSize"
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+      >
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+  </android.support.v7.widget.Toolbar>
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:background="@android:color/white"
+      android:scrollbars="none"
+      >
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        android:layout_height="match_parent"
+        >
+      <WebView
+          android:id="@+id/webview"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          >
+      </WebView>
+    </LinearLayout>
+  </ScrollView>
 
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          />
-    </android.support.v7.widget.Toolbar>
-
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@android:color/white"
+      >
     <LinearLayout
         android:id="@+id/ll_action_btn_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@android:color/white"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        >
 
       <com.aishang.app.widget.ImgWithText
-          android:layout_width="0dp"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_weight="1"
           app:img="@mipmap/zaishou"
-          app:text="@string/zaishou">
+          app:text="@string/zaishou"
+          >
 
       </com.aishang.app.widget.ImgWithText>
 
       <com.aishang.app.widget.ImgWithText
-          android:layout_width="0dp"
+          android:id="@+id/pinglun"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_weight="1"
           app:img="@mipmap/zaishou"
-          app:text="@string/zaishou">
+          app:text="@string/zaishou"
+          >
 
       </com.aishang.app.widget.ImgWithText>
 
       <com.aishang.app.widget.ImgWithText
-          android:layout_width="0dp"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_weight="1"
           app:img="@mipmap/zaishou"
-          app:text="@string/zaishou">
+          app:text="@string/zaishou"
+          >
 
       </com.aishang.app.widget.ImgWithText>
 
       <com.aishang.app.widget.ImgWithText
-          android:layout_width="0dp"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_weight="1"
           app:img="@mipmap/zaishou"
-          app:text="@string/zaishou">
+          app:text="@string/zaishou"
+          >
 
       </com.aishang.app.widget.ImgWithText>
-
     </LinearLayout>
 
-    <WebView
-        android:id="@+id/webview"
+    <View
+        android:id="@+id/input"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/ll_action_btn_bottom"
-        android:layout_below="@id/toolbar">
+        android:layout_height="50dp"
+        android:background="@color/primary"
+        android:visibility="gone"
+        />
+  </FrameLayout>
 
-    </WebView>
-  </RelativeLayout>
-
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

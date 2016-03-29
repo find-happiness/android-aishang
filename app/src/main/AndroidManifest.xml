@@ -140,6 +140,7 @@
         android:screenOrientation="portrait"/>
     <activity
         android:name=".ui.TravelDetail.TravelDetailActivity"
+        android:windowSoftInputMode="adjustResize"
         android:screenOrientation="portrait">
     </activity>
     <activity

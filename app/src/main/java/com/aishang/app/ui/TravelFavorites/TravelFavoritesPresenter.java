@@ -24,7 +24,7 @@ import rx.schedulers.Schedulers;
  * Created by song on 2016/3/13.
  */
 public class TravelFavoritesPresenter extends BasePresenter<TravelFavoritesMvpView> {
-  private static final String TAG = "TravelListPresenter";
+  private static final String TAG = "TravelDetailPresenter";
 
   private final DataManager mDataManager;
   private Subscription mCollectSubscription;

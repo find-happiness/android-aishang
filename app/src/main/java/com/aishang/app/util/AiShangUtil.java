@@ -32,6 +32,7 @@ import com.aishang.app.data.model.JMyBusinessBuyInListParam;
 import com.aishang.app.data.model.JMyVacationApplyListParams;
 import com.aishang.app.data.model.JMyVacationListParam;
 import com.aishang.app.data.model.JMyVacationListResult;
+import com.aishang.app.data.model.JNewsDetailParam;
 import com.aishang.app.data.model.JNewsListParams;
 import com.aishang.app.data.model.JParticipationParam;
 import com.aishang.app.data.model.JPasswordChangeParams;
@@ -686,6 +687,14 @@ public class AiShangUtil {
     param.setOrderBy(orderBy);
     param.setRecCount(recCount);
     param.setRecStart(recStart);
+
+    return gson.toJson(param);
+  }
+
+  public static String generTravelDetail(int newsID) {
+
+    JNewsDetailParam param = new JNewsDetailParam();
+    param.setNewsID(newsID);
 
     return gson.toJson(param);
   }

@@ -14,6 +14,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -162,6 +163,16 @@ public class CommonUtil {
           (InputMethodManager) ctx.getSystemService(Context.INPUT_METHOD_SERVICE);
       imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+  }
+
+  /**
+   * 关闭软键盘
+   */
+  public static void closeKeybord(EditText mEditText, Context mContext) {
+    InputMethodManager imm =
+        (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+
+    imm.hideSoftInputFromWindow(mEditText.getWindowToken(), 0);
   }
 
   public static Date stringToDate(String str) {

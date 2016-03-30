@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -25,6 +27,7 @@ import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.DialogFactory;
 import com.aishang.app.util.NetworkUtil;
+import com.aishang.app.widget.SoftInputLinearLayout;
 import javax.inject.Inject;
 
 public class TravelDetailActivity extends BaseActivity implements TravelDetailMvpView {
@@ -32,44 +35,15 @@ public class TravelDetailActivity extends BaseActivity implements TravelDetailMv
   public static final String NEWS_URL = "news_url";
   private static final String TAG = "TravelDetailActivity";
 
-  private ViewTreeObserver.OnGlobalLayoutListener keyboardLayoutListener =
-      new ViewTreeObserver.OnGlobalLayoutListener() {
-        @Override public void onGlobalLayout() {
-          int heightDiff = layoutRoot.getRootView().getHeight() - layoutRoot.getHeight();
-          int contentViewTop = getWindow().findViewById(Window.ID_ANDROID_CONTENT).getTop();
-
-          LocalBroadcastManager broadcastManager =
-              LocalBroadcastManager.getInstance(TravelDetailActivity.this);
-
-          Log.i(TAG, "onGlobalLayout: --------->0     "
-              + heightDiff
-              + "     "
-              + contentViewTop
-              + "   "
-              + layoutRoot.getHeight() + "    " +layoutRoot.getRootView().getHeight());
-
-          if (heightDiff  <= contentViewTop) {
-            onHideKeyboard();
-
-            Intent intent = new Intent("KeyboardWillHide");
-            broadcastManager.sendBroadcast(intent);
-          } else {
-            int keyboardHeight = heightDiff - contentViewTop;
-            onShowKeyboard(keyboardHeight);
-
-            Intent intent = new Intent("KeyboardWillShow");
-            intent.putExtra("KeyboardHeight", keyboardHeight);
-            broadcastManager.sendBroadcast(intent);
-          }
-        }
-      };
-
   @Bind(R.id.toolbar) Toolbar toolbar;
   @Bind(R.id.webview) WebView webview;
-  @Bind(R.id.layoutRoot) LinearLayout layoutRoot;
+  @Bind(R.id.layoutRoot) SoftInputLinearLayout layoutRoot;
 
   @Inject TravelDetailPresenter presenter;
-  @Bind(R.id.input) View input;
+
+  @Bind(R.id.ll_action_btn_bottom) LinearLayout llActionBtnBottom;
+  @Bind(R.id.et_pinglun) AppCompatEditText etPinglun;
+  @Bind(R.id.pinglunContainer) RelativeLayout pinglunContainer;
 
   private Dialog progress;
 
@@ -154,9 +128,12 @@ public class TravelDetailActivity extends BaseActivity implements TravelDetailMv
   @Override protected void onDestroy() {
     super.onDestroy();
     presenter.detachView();
-    if (keyboardListenersAttached) {
-      layoutRoot.getViewTreeObserver().removeGlobalOnLayoutListener(keyboardLayoutListener);
-    }
+  }
+
+  @Override public void onBackPressed() {
+    super.onBackPressed();
+
+    CommonUtil.closeKeybord(etPinglun, this);
   }
 
   @OnClick(R.id.pinglun) public void onClick() {
@@ -170,17 +147,19 @@ public class TravelDetailActivity extends BaseActivity implements TravelDetailMv
     if (keyboardListenersAttached) {
       return;
     }
-    layoutRoot.getViewTreeObserver().addOnGlobalLayoutListener(keyboardLayoutListener);
+    layoutRoot.setOnSoftKeyboardListener(new SoftInputLinearLayout.OnSoftKeyboardListener() {
+      @Override public void onShown() {
+        pinglunContainer.setVisibility(View.VISIBLE);
+        llActionBtnBottom.setVisibility(View.GONE);
+        etPinglun.requestFocus();
+      }
+
+      @Override public void onHidden() {
+        pinglunContainer.setVisibility(View.GONE);
+        llActionBtnBottom.setVisibility(View.VISIBLE);
+      }
+    });
+
     keyboardListenersAttached = true;
-  }
-
-  protected void onShowKeyboard(int keyboardHeight) {
-    input.setVisibility(View.VISIBLE);
-    Log.i(TAG, "onShowKeyboard: ---------->1");
-  }
-
-  protected void onHideKeyboard() {
-    input.setVisibility(View.GONE);
-    Log.i(TAG, "onHideKeyboard: --------------------->2");
   }
 }

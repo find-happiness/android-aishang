@@ -32,6 +32,7 @@ import com.aishang.app.data.model.JMyBusinessBuyInListParam;
 import com.aishang.app.data.model.JMyVacationApplyListParams;
 import com.aishang.app.data.model.JMyVacationListParam;
 import com.aishang.app.data.model.JMyVacationListResult;
+import com.aishang.app.data.model.JNewsCriticismParam;
 import com.aishang.app.data.model.JNewsDetailParam;
 import com.aishang.app.data.model.JNewsListParams;
 import com.aishang.app.data.model.JParticipationParam;
@@ -676,6 +677,18 @@ public class AiShangUtil {
     param.setMemberAccount(memberAccount);
     param.setCookie(cookies);
     param.setQueryDate(queryDate);
+
+    return gson.toJson(param);
+  }
+
+  public static String generNewsCriticismParam(String memberAccount, String cookies, int newsID,
+      String comment) {
+
+    JNewsCriticismParam param = new JNewsCriticismParam();
+    param.setMemberAccount(memberAccount);
+    param.setCookie(cookies);
+    param.setNewsID(newsID);
+    param.setComment(comment);
 
     return gson.toJson(param);
   }

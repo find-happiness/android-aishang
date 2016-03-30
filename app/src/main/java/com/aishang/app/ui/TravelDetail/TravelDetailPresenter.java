@@ -2,7 +2,9 @@ package com.aishang.app.ui.TravelDetail;
 
 import com.aishang.app.data.DataManager;
 import com.aishang.app.data.model.JNewsDetailResult;
+import com.aishang.app.data.model.JNewsHitsResult;
 import com.aishang.app.data.model.JNewsListResult;
+import com.aishang.app.data.model.JResult;
 import com.aishang.app.data.model.JSysZoneResult;
 import com.aishang.app.ui.base.BasePresenter;
 import com.aishang.app.util.Constants;
@@ -66,6 +68,105 @@ public class TravelDetailPresenter extends BasePresenter<TravelDetailMvpView> {
             getMvpView().dimissDialog();
             if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
               getMvpView().loadTraveDetailFinish(result);
+            } else {
+              getMvpView().showError(result.getResult());
+              //getMvpView().showEmpty();
+            }
+          }
+        });
+  }
+
+  public void postFavoriteEdit(int version, String json) {
+    checkViewAttached();
+
+    if (mSubscription != null && !mSubscription.isUnsubscribed()) {
+      mSubscription.unsubscribe();
+    }
+
+    this.getMvpView().showDialog();
+    mSubscription = mDataManager.syncFavoriteEdit(version, json)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(Schedulers.io())
+        .subscribe(new Subscriber<JResult>() {
+          @Override public void onCompleted() {
+
+          }
+
+          @Override public void onError(Throwable e) {
+            getMvpView().dimissDialog();
+            getMvpView().showError("网络异常");
+          }
+
+          @Override public void onNext(JResult result) {
+            getMvpView().dimissDialog();
+            if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
+              //getMvpView().loadTraveDetailFinish(result);
+            } else {
+              getMvpView().showError(result.getResult());
+              //getMvpView().showEmpty();
+            }
+          }
+        });
+  }
+
+  public void postNewsHits(int version, String json) {
+    checkViewAttached();
+
+    if (mSubscription != null && !mSubscription.isUnsubscribed()) {
+      mSubscription.unsubscribe();
+    }
+
+    this.getMvpView().showDialog();
+    mSubscription = mDataManager.syncNewsHits(version, json)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(Schedulers.io())
+        .subscribe(new Subscriber<JNewsHitsResult>() {
+          @Override public void onCompleted() {
+
+          }
+
+          @Override public void onError(Throwable e) {
+            getMvpView().dimissDialog();
+            getMvpView().showError("网络异常");
+          }
+
+          @Override public void onNext(JNewsHitsResult result) {
+            getMvpView().dimissDialog();
+            if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
+              //getMvpView().loadTraveDetailFinish(result);
+            } else {
+              getMvpView().showError(result.getResult());
+              //getMvpView().showEmpty();
+            }
+          }
+        });
+  }
+
+  public void postNewsCriticism(int version, String json) {
+    checkViewAttached();
+
+    if (mSubscription != null && !mSubscription.isUnsubscribed()) {
+      mSubscription.unsubscribe();
+    }
+
+    this.getMvpView().showDialog();
+    mSubscription = mDataManager.syncNewsCriticism(version, json)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(Schedulers.io())
+        .subscribe(new Subscriber<JResult>() {
+          @Override public void onCompleted() {
+
+          }
+
+          @Override public void onError(Throwable e) {
+            getMvpView().dimissDialog();
+            getMvpView().showError("网络异常");
+          }
+
+          @Override public void onNext(JResult result) {
+            getMvpView().dimissDialog();
+            if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
+              //getMvpView().loadTraveDetailFinish(result);
             } else {
               getMvpView().showError(result.getResult());
               //getMvpView().showEmpty();

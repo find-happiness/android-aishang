@@ -26,6 +26,7 @@ import com.aishang.app.data.model.JMyBusinessBuyInListResult;
 import com.aishang.app.data.model.JMyVacationApplyListResult;
 import com.aishang.app.data.model.JMyVacationListResult;
 import com.aishang.app.data.model.JNewsDetailResult;
+import com.aishang.app.data.model.JNewsHitsResult;
 import com.aishang.app.data.model.JParticipationParam;
 import com.aishang.app.data.model.JParticipationReslut;
 import com.aishang.app.data.model.JReleaseResult;
@@ -295,7 +296,7 @@ import com.aishang.app.util.EventPosterHelper;
     return mAiShangService.syncHotelRoomCatList(version);
   }
 
-  public Observable<JTagListResult> syncTagList(int version,String json) {
+  public Observable<JTagListResult> syncTagList(int version, String json) {
     return mAiShangService.syncTagList(version, json);
   }
 
@@ -305,6 +306,18 @@ import com.aishang.app.util.EventPosterHelper;
 
   public Observable<JNewsDetailResult> syncTravelDetail(int version, String json) {
     return mAiShangService.syncTravelDetail(version, json);
+  }
+
+  public Observable<JResult> syncNewsCriticism(int version, String json) {
+    return mAiShangService.syncNewsCriticism(version, json);
+  }
+
+  public Observable<JNewsHitsResult> syncNewsHits(int version, String json) {
+    return mAiShangService.syncNewsHits(version, json);
+  }
+
+  public Observable<JResult> syncFavoriteEdit(int version, String json) {
+    return mAiShangService.syncFavoriteEdit(version, json);
   }
 
   public JVersionCheckResult getVersionCheck() {

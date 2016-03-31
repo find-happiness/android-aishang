@@ -5,6 +5,7 @@ import com.aishang.app.data.model.JLoupanProductListResult;
 import com.aishang.app.data.model.JNewsListResult;
 import com.aishang.app.data.model.JSysZoneResult;
 import com.aishang.app.data.model.LoupanProduct;
+import com.aishang.app.data.model.News;
 import com.aishang.app.ui.base.BasePresenter;
 import com.aishang.app.util.Constants;
 import com.aishang.app.util.NetWorkType;
@@ -12,9 +13,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.inject.Inject;
+import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.functions.Func3;
+import rx.functions.Func4;
 import rx.schedulers.Schedulers;
 
 /**
@@ -65,22 +70,43 @@ public class TravelListPresenter extends BasePresenter<TravelListMvpView> {
             getMvpView().showError("网络异常");
           }
 
-          @Override public void onNext(JNewsListResult result) {
+          @Override public void onNext(final JNewsListResult result) {
             if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
 
-              if (result.getNewsList().length <= 0 && type == NetWorkType.refresh) {
+              if (result.getNewsList().size() <= 0 && type == NetWorkType.refresh) {
                 getMvpView().showEmpty();
               } else {
-                switch (type) {
-                  case refresh:
-                    getMvpView().refreshList(new ArrayList<JNewsListResult.JNewsListItem>(
-                        Arrays.asList(result.getNewsList())));
-                    break;
-                  case loadMore:
-                    getMvpView().loadMoreList(new ArrayList<JNewsListResult.JNewsListItem>(
-                        Arrays.asList(result.getNewsList())), result.getTotalCount());
-                    break;
-                }
+
+                Observable.zip(Observable.from(result.getNewsList()),
+                    Observable.from(result.getUserImageUrlList()),
+                    Observable.from(result.getZoneName()),
+                    Observable.from(result.getEnshrinedCountList()),
+                    new Func4<JNewsListResult.NewsListEntity, String, String, Integer, News>() {
+                      @Override public News call(JNewsListResult.NewsListEntity newsListEntity,
+                          String userImage, String zoneName, Integer enshrinedCount) {
+                        return new News(newsListEntity, enshrinedCount, userImage, zoneName);
+                      }
+                    }).toList().subscribe(new Subscriber<List<News>>() {
+                  @Override public void onCompleted() {
+
+                  }
+
+                  @Override public void onError(Throwable e) {
+
+                  }
+
+                  @Override public void onNext(List<News> newses) {
+                    switch (type) {
+                      case refresh:
+                        getMvpView().refreshList(newses);
+                        break;
+                      case loadMore:
+                        getMvpView().loadMoreList(new ArrayList<News>(newses),
+                            result.getTotalCount());
+                        break;
+                    }
+                  }
+                });
               }
             } else {
               getMvpView().showError(result.getResult());

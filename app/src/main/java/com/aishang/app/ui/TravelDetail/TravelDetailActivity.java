@@ -13,8 +13,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -24,6 +27,7 @@ import com.aishang.app.BoilerplateApplication;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JNewsDetailResult;
+import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.ui.base.BaseActivity;
 import com.aishang.app.ui.login.LoginActivity;
 import com.aishang.app.util.AiShangUtil;
@@ -31,11 +35,14 @@ import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.DialogFactory;
 import com.aishang.app.util.NetworkUtil;
 import com.aishang.app.widget.SoftInputLinearLayout;
+import com.squareup.picasso.Picasso;
+import de.hdodenhof.circleimageview.CircleImageView;
 import javax.inject.Inject;
 
 public class TravelDetailActivity extends BaseActivity implements TravelDetailMvpView {
   public static final String NEWS_ID = "news_id";
   public static final String NEWS_URL = "news_url";
+  public static final String NEWS_IMG = "news_img";
   private static final String TAG = "TravelDetailActivity";
 
   @Bind(R.id.toolbar) Toolbar toolbar;
@@ -47,12 +54,19 @@ public class TravelDetailActivity extends BaseActivity implements TravelDetailMv
   @Bind(R.id.ll_action_btn_bottom) LinearLayout llActionBtnBottom;
   @Bind(R.id.et_pinglun) AppCompatEditText etPinglun;
   @Bind(R.id.pinglunContainer) RelativeLayout pinglunContainer;
+  @Bind(R.id.image) ImageView image;
+  @Bind(R.id.head) CircleImageView head;
+  @Bind(R.id.user_name) TextView userName;
+  @Bind(R.id.title) TextView title;
+  @Bind(R.id.backNum) TextView backNum;
+  @Bind(R.id.lookNum) TextView lookNum;
 
   private Dialog progress;
 
   private int newsID;
 
   private String newsUrl;
+  private String newsImgUrl;
 
   private boolean keyboardListenersAttached = false;
 
@@ -66,6 +80,17 @@ public class TravelDetailActivity extends BaseActivity implements TravelDetailMv
     return intent;
   }
 
+  /**
+   * Return an Intent to start this Activity.
+   */
+  public static Intent getStartIntent(Context context, int newsId, String newsUrl, String imgUrl) {
+    Intent intent = new Intent(context, TravelDetailActivity.class);
+    intent.putExtra(NEWS_ID, newsId);
+    intent.putExtra(NEWS_URL, newsUrl);
+    intent.putExtra(NEWS_IMG, imgUrl);
+    return intent;
+  }
+
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     this.getActivityComponent().inject(this);
@@ -74,14 +99,31 @@ public class TravelDetailActivity extends BaseActivity implements TravelDetailMv
     ButterKnife.bind(this);
     newsID = this.getIntent().getIntExtra(NEWS_ID, -1);
     newsUrl = this.getIntent().getStringExtra(NEWS_URL);
-    initToolbar();
-    initWebView();
+    newsImgUrl = this.getIntent().getStringExtra(NEWS_IMG);
+    initView();
     attachKeyboardListeners();
     if (NetworkUtil.isNetworkConnected(this)) {
       presenter.loadTravelDetail(0, AiShangUtil.generTravelDetail(newsID));
     } else {
       CommonUtil.showSnackbar(R.string.no_net, layoutRoot);
     }
+  }
+
+  private void initView() {
+    initToolbar();
+    initWebView();
+    initBannerImg();
+  }
+
+  private void initBannerImg() {
+    int[] size = CommonUtil.getHeightWithScreenWidth(this, 16, 9);
+    image.setLayoutParams(new FrameLayout.LayoutParams(size[0], size[1]));
+
+    Picasso.with(this)
+        .load(AiShangService.IMG_URL + newsImgUrl)
+        .placeholder(R.mipmap.banner)
+        .error(R.mipmap.banner)
+        .into(image);
   }
 
   private void initToolbar() {
@@ -113,6 +155,7 @@ public class TravelDetailActivity extends BaseActivity implements TravelDetailMv
 
   @Override public void loadTraveDetailFinish(JNewsDetailResult result) {
     AiShangUtil.setWebViewContent(webview, result.getContent());
+    title.setText(result.getTitle());
   }
 
   @Override public void showDialog() {
@@ -121,11 +164,23 @@ public class TravelDetailActivity extends BaseActivity implements TravelDetailMv
   }
 
   @Override public void showError(String error) {
-    CommonUtil.showSnackbar(R.string.no_net, layoutRoot);
+    CommonUtil.showSnackbar(error, layoutRoot);
   }
 
   @Override public void dimissDialog() {
     if (progress != null && progress.isShowing()) progress.dismiss();
+  }
+
+  @Override public void hitFinish() {
+    CommonUtil.showSnackbar("成功点赞", layoutRoot);
+  }
+
+  @Override public void favoriteFinish() {
+    CommonUtil.showSnackbar("收藏成功", layoutRoot);
+  }
+
+  @Override public void criticismFinish() {
+    CommonUtil.showSnackbar("评论成功", layoutRoot);
   }
 
   @Override protected void onDestroy() {
@@ -219,7 +274,9 @@ public class TravelDetailActivity extends BaseActivity implements TravelDetailMv
 
   private void onclickDianZang() {
     if (checkLogin()) {
-
+      String[] datas = getMemberAndCookies();
+      if (datas == null) return;
+      presenter.postNewsHits(0, AiShangUtil.generNewsHitsParam(datas[0], datas[1], newsID));
     } else {
       showLoginDialog();
     }
@@ -227,7 +284,9 @@ public class TravelDetailActivity extends BaseActivity implements TravelDetailMv
 
   private void onclickShouCang() {
     if (checkLogin()) {
-
+      String[] datas = getMemberAndCookies();
+      if (datas == null) return;
+      presenter.postFavoriteEdit(0, AiShangUtil.generFavoriteEditParam(datas[0], datas[1], newsID));
     } else {
       showLoginDialog();
     }

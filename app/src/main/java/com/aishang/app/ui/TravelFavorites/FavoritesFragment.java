@@ -334,7 +334,7 @@ public class FavoritesFragment extends LazyFragment implements TravelFavoritesMv
   }
 
   @Override public void showError(String error) {
-
+    CommonUtil.showSnackbar(error, layoutRoot);
   }
 
   @Override public void showEmpty() {

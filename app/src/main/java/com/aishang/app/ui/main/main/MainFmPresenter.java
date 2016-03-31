@@ -12,6 +12,7 @@ import com.aishang.app.data.model.JLoupanProductListResult;
 import com.aishang.app.data.model.JMrePromResult;
 import com.aishang.app.data.model.JNewsListResult;
 import com.aishang.app.data.model.JSysZoneResult;
+import com.aishang.app.data.model.News;
 import com.aishang.app.data.model.Ribot;
 import com.aishang.app.ui.ExchangeHouse.ExchangeHouseActivity;
 import com.aishang.app.ui.KanFanTuan.KanFanTuanActivity;
@@ -32,6 +33,8 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func4;
 import rx.schedulers.Schedulers;
 
 /**
@@ -207,27 +210,38 @@ public class MainFmPresenter extends BasePresenter<MainFmMvpView> {
             getMvpView().addNetCount();
           }
 
-          @Override public void onNext(JNewsListResult newsListResult) {
-            if (newsListResult.getResult()
-                .toUpperCase()
-                .equals(Constants.RESULT_SUCCESS.toUpperCase())) {
-              JNewsListResult.JNewsCatListItem cat = null;
-              for (JNewsListResult.JNewsCatListItem item : newsListResult.getNewsCatList()) {
+          @Override public void onNext(JNewsListResult result) {
+            if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
+              JNewsListResult.NewsCatListEntity cat = null;
+              for (JNewsListResult.NewsCatListEntity item : result.getNewsCatList()) {
                 if (item.getCatID() == 2) {
                   cat = item;
                 }
               }
 
-              if (cat != null && cat.getNewsList().length > 0) {
-                getMvpView().showTrave(
-                    new ArrayList<JNewsListResult.JNewsListItem>(Arrays.asList(cat.getNewsList())));
+              if (cat != null && cat.getNewsList().size() > 0) {
+                Observable.zip(Observable.from(cat.getNewsList()),
+                    Observable.from(result.getUserImageUrlList()),
+                    Observable.from(result.getZoneName()),
+                    Observable.from(result.getEnshrinedCountList()),
+                    new Func4<JNewsListResult.NewsListEntity, String, String, Integer, News>() {
+                      @Override public News call(JNewsListResult.NewsListEntity newsListEntity,
+                          String userImage, String zoneName, Integer enshrinedCount) {
+                        return new News(newsListEntity, enshrinedCount, userImage, zoneName);
+                      }
+                    }).toList().subscribe(new Action1<List<News>>() {
+                  @Override public void call(List<News> newses) {
+                    getMvpView().showTrave(newses);
+                  }
+                });
               } else {
                 getMvpView().showTraveEmpty();
               }
             } else {
-              getMvpView().showError(newsListResult.getResult());
+              getMvpView().showError(result.getResult());
               getMvpView().showTraveEmpty();
             }
+
             getMvpView().addNetCount();
           }
         });

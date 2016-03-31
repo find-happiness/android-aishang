@@ -17,4 +17,10 @@ public interface TravelDetailMvpView extends MvpView {
   void showError(String error);
 
   void dimissDialog();
+
+  void hitFinish();
+
+  void favoriteFinish();
+
+  void criticismFinish();
 }

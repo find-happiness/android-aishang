@@ -73,10 +73,18 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
         .placeholder(R.mipmap.banner)
         .into(holder.img3);
 
+    Picasso.with(holder.getContext())
+        .load(AiShangService.IMG_URL + item.getImageUrl())
+        .error(R.mipmap.img_head_default)
+        .placeholder(R.mipmap.img_head_default)
+        .into(holder.head);
+
     holder.shortDesc.setText(item.getShortDesc() + "");
     holder.dianzhang.setText(item.getHits() + "");
-    holder.pinglun.setText(item.getSupports() + "");
+    holder.pinglun.setText(item.getEnshrinedCount() + "");
     holder.reward.setText(item.getNewsID() + "");
+    holder.userName.setText(item.getSource() + "");
+    holder.title.setText(item.getTitle() + "");
     holder.date.setText(item.getDate() + "");
 
     holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +129,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
     @Bind(R.id.dianzhang) TextView dianzhang;
     @Bind(R.id.pinglun) TextView pinglun;
     @Bind(R.id.reward) TextView reward;
+    @Bind(R.id.title) TextView title;
 
     public Context getContext() {
       return this.itemView.getContext();

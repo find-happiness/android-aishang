@@ -101,6 +101,7 @@ public class TravelDetailPresenter extends BasePresenter<TravelDetailMvpView> {
             getMvpView().dimissDialog();
             if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
               //getMvpView().loadTraveDetailFinish(result);
+              getMvpView().favoriteFinish();
             } else {
               getMvpView().showError(result.getResult());
               //getMvpView().showEmpty();
@@ -134,6 +135,7 @@ public class TravelDetailPresenter extends BasePresenter<TravelDetailMvpView> {
             getMvpView().dimissDialog();
             if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
               //getMvpView().loadTraveDetailFinish(result);
+              getMvpView().hitFinish();
             } else {
               getMvpView().showError(result.getResult());
               //getMvpView().showEmpty();
@@ -167,6 +169,7 @@ public class TravelDetailPresenter extends BasePresenter<TravelDetailMvpView> {
             getMvpView().dimissDialog();
             if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
               //getMvpView().loadTraveDetailFinish(result);
+              getMvpView().criticismFinish();
             } else {
               getMvpView().showError(result.getResult());
               //getMvpView().showEmpty();

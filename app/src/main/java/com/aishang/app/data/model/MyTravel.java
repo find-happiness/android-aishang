@@ -13,6 +13,8 @@ public class MyTravel {
   private int supports;
   private String staticUrl;
   private int newsID;
+  private String source;
+  private int enshrinedCount;
 
   public MyTravel(String title, String shortDesc, String imageUrl, String date, int hits,
       int supports, String staticUrl, int newsID) {
@@ -24,6 +26,22 @@ public class MyTravel {
     this.supports = supports;
     this.staticUrl = staticUrl;
     this.newsID = newsID;
+  }
+
+  public String getSource() {
+    return source;
+  }
+
+  public void setSource(String source) {
+    this.source = source;
+  }
+
+  public int getEnshrinedCount() {
+    return enshrinedCount;
+  }
+
+  public void setEnshrinedCount(int enshrinedCount) {
+    this.enshrinedCount = enshrinedCount;
   }
 
   public int getNewsID() {

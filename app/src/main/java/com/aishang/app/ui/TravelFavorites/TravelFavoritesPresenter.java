@@ -88,6 +88,7 @@ public class TravelFavoritesPresenter extends BasePresenter<TravelFavoritesMvpVi
 
           @Override public void onError(Throwable e) {
             getMvpView().showError("网络异常");
+            Log.e(TAG, "loadTravelParticipation onError: " + e.toString());
           }
 
           @Override public void onNext(AdapterContentModel myTravels) {
@@ -141,7 +142,7 @@ public class TravelFavoritesPresenter extends BasePresenter<TravelFavoritesMvpVi
               return new AdapterContentModel(result.getTotalCount(), myTravels);
             } else {
               getMvpView().showError(result.getResult());
-              getMvpView().showEmpty();
+              //getMvpView().showEmpty();
               return null;
             }
           }
@@ -154,9 +155,15 @@ public class TravelFavoritesPresenter extends BasePresenter<TravelFavoritesMvpVi
 
           @Override public void onError(Throwable e) {
             getMvpView().showError("网络异常");
+            Log.e(TAG, "loadTravelParticipation onError: " + e.toString());
           }
 
           @Override public void onNext(AdapterContentModel myTravels) {
+
+            if (myTravels == null) {
+              return;
+            }
+
             if (myTravels.getMyTravels().size() <= 0) {
               getMvpView().showEmpty();
             } else {
@@ -215,6 +222,7 @@ public class TravelFavoritesPresenter extends BasePresenter<TravelFavoritesMvpVi
 
           @Override public void onError(Throwable e) {
             getMvpView().showError("网络异常");
+            Log.e(TAG, "loadTravelParticipation onError: "+ e.toString() );
           }
 
           @Override public void onNext(AdapterContentModel myTravels) {

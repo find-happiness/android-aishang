@@ -306,7 +306,7 @@ public class JParticipationReslut {
     private int visibleZoneID;
     private int hits;
     private int supports;
-    private int AuthorID;
+    private String AuthorID;
     private String content;
     private String shortDesc;
     private String imageUrl;
@@ -377,7 +377,7 @@ public class JParticipationReslut {
       this.supports = supports;
     }
 
-    public void setAuthorID(int AuthorID) {
+    public void setAuthorID(String AuthorID) {
       this.AuthorID = AuthorID;
     }
 
@@ -477,7 +477,7 @@ public class JParticipationReslut {
       return supports;
     }
 
-    public int getAuthorID() {
+    public String getAuthorID() {
       return AuthorID;
     }
 

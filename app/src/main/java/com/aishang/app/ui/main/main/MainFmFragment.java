@@ -36,6 +36,7 @@ import com.aishang.app.data.model.JMrePromResult;
 import com.aishang.app.data.model.JNewsListResult;
 import com.aishang.app.data.model.JSysZoneResult;
 import com.aishang.app.data.model.LoupanProduct;
+import com.aishang.app.data.model.News;
 import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.ui.HotelDetail.HotelDetailActivity;
 import com.aishang.app.ui.TravelDetail.TravelDetailActivity;
@@ -314,7 +315,7 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
     gvHotHotel.setAdapter(hotHotelAdapter);
   }
 
-  @Override public void showTrave(List<JNewsListResult.JNewsListItem> newsList) {
+  @Override public void showTrave(List<News> newsList) {
     avloadingIndicatorViewYouji.setVisibility(View.GONE);
     noDataYouji.setVisibility(View.GONE);
     hotYouJiAdapter = new HotYouJiAdapter(getContext());

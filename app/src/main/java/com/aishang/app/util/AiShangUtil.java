@@ -10,6 +10,7 @@ import com.aishang.app.data.model.JCashWithDrawApplyparam;
 import com.aishang.app.data.model.JCodeLoginParam;
 import com.aishang.app.data.model.JCollectParam;
 import com.aishang.app.data.model.JContactsAddParam;
+import com.aishang.app.data.model.JFavoriteEditParam;
 import com.aishang.app.data.model.JHotelDetailParam;
 import com.aishang.app.data.model.JHotelListParam;
 import com.aishang.app.data.model.JHotelRoomCatListByhotelIDParam;
@@ -34,6 +35,7 @@ import com.aishang.app.data.model.JMyVacationListParam;
 import com.aishang.app.data.model.JMyVacationListResult;
 import com.aishang.app.data.model.JNewsCriticismParam;
 import com.aishang.app.data.model.JNewsDetailParam;
+import com.aishang.app.data.model.JNewsHitsParam;
 import com.aishang.app.data.model.JNewsListParams;
 import com.aishang.app.data.model.JParticipationParam;
 import com.aishang.app.data.model.JPasswordChangeParams;
@@ -708,6 +710,33 @@ public class AiShangUtil {
 
     JNewsDetailParam param = new JNewsDetailParam();
     param.setNewsID(newsID);
+
+    return gson.toJson(param);
+  }
+
+  public static String generNewsHitsParam(String memberAccount, String cookies, int newsID) {
+
+    JNewsHitsParam param = new JNewsHitsParam();
+    //param.setMemberAccount(memberAccount);
+    //param.setCookie(cookies);
+    param.setNewsId(newsID);
+
+    return gson.toJson(param);
+  }
+
+  public static String generFavoriteEditParam(String memberAccount, String cookies, int newsID) {
+
+    JFavoriteEditParam param = new JFavoriteEditParam();
+
+    param.setCookie(cookies);
+    param.setMemberAccount(memberAccount);
+    JFavoriteEditParam.DataEntity dataEntity = new JFavoriteEditParam.DataEntity();
+    dataEntity.setPk(newsID+"");
+    dataEntity.setModel("enshrine");
+    //param.setData();
+    //param.setMemberAccount(memberAccount);
+    //param.setCookie(cookies);
+    param.setData(dataEntity);
 
     return gson.toJson(param);
   }

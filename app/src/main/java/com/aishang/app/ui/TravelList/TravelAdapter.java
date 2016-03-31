@@ -13,6 +13,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JNewsListResult;
+import com.aishang.app.data.model.News;
 import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.ui.TravelDetail.TravelDetailActivity;
 import com.aishang.app.util.ViewUtil;
@@ -27,12 +28,12 @@ import javax.inject.Inject;
  */
 public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder> {
 
-  List<JNewsListResult.JNewsListItem> items;
+  List<News> items;
   int imgWidth;
   int imgHeight;
 
   @Inject public TravelAdapter() {
-    items = new ArrayList<JNewsListResult.JNewsListItem>();
+    items = new ArrayList<News>();
   }
 
   @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -53,7 +54,9 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
 
   @Override public void onBindViewHolder(final ViewHolder holder, int position) {
 
-    final JNewsListResult.JNewsListItem item = items.get(position);
+    final News news = items.get(position);
+
+    final JNewsListResult.NewsListEntity item = news.getNews();
     Picasso.with(holder.getContext())
         .load(AiShangService.IMG_URL + item.getImageUrl())
         .error(R.mipmap.banner)
@@ -72,10 +75,18 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
         .placeholder(R.mipmap.banner)
         .into(holder.img3);
 
-    holder.shortDesc.setText(item.getTitle() + "");
+    Picasso.with(holder.getContext())
+        .load(AiShangService.IMG_URL + news.getUserImageUrl())
+        .error(R.mipmap.img_head_default)
+        .placeholder(R.mipmap.img_head_default)
+        .into(holder.head);
+
+    holder.shortDesc.setText(item.getShortDesc() + "");
     holder.dianzhang.setText(item.getHits() + "");
-    holder.pinglun.setText(item.getSupports() + "");
+    holder.pinglun.setText(news.getEnshrinedCount() + "");
     holder.reward.setText(item.getNewsID() + "");
+    holder.userName.setText(item.getSource() + "");
+    holder.title.setText(item.getTitle()+"");
     holder.date.setText(item.getDate() + "");
 
     holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +100,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
     return items.size();
   }
 
-  public List<JNewsListResult.JNewsListItem> getItems() {
+  public List<News> getItems() {
     return items;
   }
 
@@ -98,12 +109,13 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
     this.imgHeight = height;
   }
 
-  public void setItems(List<JNewsListResult.JNewsListItem> items) {
+  public void setItems(List<News> items) {
     this.items = items;
   }
 
-  private void intentToDetail(Context ctx, JNewsListResult.JNewsListItem item) {
-    Intent intent = TravelDetailActivity.getStartIntent(ctx, item.getNewsID(), item.getStaticUrl());
+  private void intentToDetail(Context ctx, JNewsListResult.NewsListEntity item) {
+    Intent intent = TravelDetailActivity.getStartIntent(ctx, item.getNewsID(), item.getStaticUrl(),
+        item.getImageUrl());
 
     ctx.startActivity(intent);
   }
@@ -120,6 +132,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
     @Bind(R.id.dianzhang) TextView dianzhang;
     @Bind(R.id.pinglun) TextView pinglun;
     @Bind(R.id.reward) TextView reward;
+    @Bind(R.id.title) TextView title;
 
     public Context getContext() {
       return this.itemView.getContext();

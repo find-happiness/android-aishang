@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JNewsListResult;
 import com.aishang.app.data.model.JSysZoneResult;
+import com.aishang.app.data.model.News;
 import com.aishang.app.ui.base.BaseActivity;
 import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
@@ -232,7 +233,7 @@ public class TravelListActivity extends BaseActivity implements TravelListMvpVie
     mPersenter.loadTravel(1, json, type);
   }
 
-  @Override public void refreshList(List<JNewsListResult.JNewsListItem> loupanProducts) {
+  @Override public void refreshList(List<News> newses) {
     if (avloadingIndicatorView.getVisibility() == View.VISIBLE) {
       avloadingIndicatorView.setVisibility(View.GONE);
     }
@@ -244,13 +245,13 @@ public class TravelListActivity extends BaseActivity implements TravelListMvpVie
     // Log.i(TAG, "refreshHotel: " + items.size());
 
     adapter.getItems().clear();
-    adapter.getItems().addAll(loupanProducts);
+    adapter.getItems().addAll(newses);
     adapter.notifyDataSetChanged();
     mRecyclerView.refreshComplete();
   }
 
   @Override
-  public void loadMoreList(List<JNewsListResult.JNewsListItem> loupanProducts, int total) {
+  public void loadMoreList(List<News> loupanProducts, int total) {
 
     if (noDataInSale.getVisibility() == View.VISIBLE) {
       noDataInSale.setVisibility(View.GONE);

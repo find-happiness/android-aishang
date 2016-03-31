@@ -11,6 +11,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JNewsListResult;
+import com.aishang.app.data.model.News;
 import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.injection.ActivityContext;
 import com.aishang.app.ui.TravelDetail.TravelDetailActivity;
@@ -27,7 +28,7 @@ import javax.inject.Inject;
 
   private final Context activity;
 
-  private List<JNewsListResult.JNewsListItem> hotYouJis;
+  private List<News> hotYouJis;
 
   @Inject public HotYouJiAdapter(Context activity) {
     this.activity = activity;
@@ -46,7 +47,7 @@ import javax.inject.Inject;
     return position;
   }
 
-  public void setHotYouJis(List<JNewsListResult.JNewsListItem> hotYouJis) {
+  public void setHotYouJis(List<News> hotYouJis) {
     this.hotYouJis = hotYouJis;
   }
 
@@ -62,8 +63,9 @@ import javax.inject.Inject;
     } else {
       holder = (ViewHolder) convertView.getTag();
     }
+    final News news = hotYouJis.get(position);
 
-    final JNewsListResult.JNewsListItem item = hotYouJis.get(position);
+    final JNewsListResult.NewsListEntity item = news.getNews();
 
     Picasso.with(activity)
         .load(AiShangService.IMG_URL + item.getImageUrl())
@@ -71,17 +73,25 @@ import javax.inject.Inject;
         .placeholder(R.mipmap.banner)
         .into(holder.imgHotYouji);
 
+    Picasso.with(activity)
+        .load(AiShangService.IMG_URL + news.getUserImageUrl())
+        .error(R.mipmap.img_head_default)
+        .placeholder(R.mipmap.img_head_default)
+        .into(holder.head);
+
     holder.shuoshuo.setText(item.getTitle() + "");
     holder.dianzhang.setText(item.getHits() + "");
-    holder.pinglun.setText(item.getSupports() + "");
+    holder.pinglun.setText(news.getEnshrinedCount() + "");
     holder.reward.setText(item.getNewsID() + "");
+    holder.name.setText(item.getSource() + "");
     convertView.setTag(holder);
 
     convertView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
 
         Intent intent =
-            TravelDetailActivity.getStartIntent(activity, item.getNewsID(), item.getStaticUrl());
+            TravelDetailActivity.getStartIntent(activity, item.getNewsID(), item.getStaticUrl(),
+                item.getImageUrl());
 
         activity.startActivity(intent);
       }

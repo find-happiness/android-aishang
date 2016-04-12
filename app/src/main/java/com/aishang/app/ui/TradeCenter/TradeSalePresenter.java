@@ -122,9 +122,9 @@ public class TradeSalePresenter extends BasePresenter<TradeSaleMvpView> {
           @Override public void onNext(JLoupanProductDetailResult result) {
             getMvpView().dimissDialog();
             if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
-
+              getMvpView().bindLoupanDetail(result);
             } else {
-
+              getMvpView().showError(result.getResult());
             }
           }
         });

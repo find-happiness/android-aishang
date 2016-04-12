@@ -1,5 +1,6 @@
 package com.aishang.app.ui.TradeCenter;
 
+import com.aishang.app.data.model.JLoupanProductDetailResult;
 import com.aishang.app.data.model.JLoupanProductVIPViewResult;
 import com.aishang.app.ui.base.MvpView;
 import java.util.List;
@@ -15,4 +16,6 @@ public interface TradeSaleMvpView extends MvpView {
   void showError(String error);
 
   void bindLoupan(List<JLoupanProductVIPViewResult.ZoneListBean.LoupanListBean> loupanBeans);
+
+  void bindLoupanDetail(JLoupanProductDetailResult result);
 }

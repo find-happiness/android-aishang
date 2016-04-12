@@ -1,8 +1,334 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/layoutRoot"
-    tools:context=".ui.TradeCenter.TradeSaleFragment">
+    tools:context=".ui.TradeCenter.TradeSaleFragment"
+    >
 
-</FrameLayout>
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_small"
+          android:layout_marginRight="@dimen/spacing_small"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:gravity="center_vertical"
+          android:orientation="horizontal"
+          >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:singleLine="true"
+            android:text="项目名称:"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"
+            />
+
+        <TextView
+            android:id="@+id/loupan_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.5"
+            android:background="@drawable/gray_stroke_corner"
+            android:paddingBottom="@dimen/spacing_medium"
+            android:paddingLeft="@dimen/spacing_small"
+            android:paddingRight="@dimen/spacing_small"
+            android:paddingTop="@dimen/spacing_medium"
+            android:singleLine="true"
+            android:text="项目名称;"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"
+            />
+      </LinearLayout>
+
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_small"
+          android:layout_marginRight="@dimen/spacing_small"
+
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:gravity="center_vertical"
+          android:orientation="horizontal"
+          >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:singleLine="true"
+            android:text="项目地址:"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"
+            />
+
+        <TextView
+            android:id="@+id/loupan_address"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.5"
+            android:background="@drawable/gray_stroke_corner"
+            android:paddingBottom="@dimen/spacing_medium"
+            android:paddingLeft="@dimen/spacing_small"
+            android:paddingRight="@dimen/spacing_small"
+            android:paddingTop="@dimen/spacing_medium"
+            android:singleLine="true"
+            android:text="项目地址"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"
+            />
+      </LinearLayout>
+
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_small"
+          android:layout_marginRight="@dimen/spacing_small"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:gravity="center_vertical"
+          android:orientation="horizontal"
+          >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:singleLine="true"
+            android:text="类型:"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"
+            />
+
+        <TextView
+            android:id="@+id/type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.5"
+            android:background="@drawable/gray_stroke_corner"
+            android:paddingBottom="@dimen/spacing_medium"
+            android:paddingLeft="@dimen/spacing_small"
+            android:paddingRight="@dimen/spacing_small"
+            android:paddingTop="@dimen/spacing_medium"
+            android:singleLine="true"
+            android:text="类型"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"
+            />
+      </LinearLayout>
+
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_small"
+          android:layout_marginRight="@dimen/spacing_small"
+          android:layout_marginTop="@dimen/spacing_medium"
+
+          android:gravity="center_vertical"
+          android:orientation="horizontal"
+          >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:singleLine="true"
+            android:text="交房日期:"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"
+            />
+
+        <TextView
+            android:id="@+id/move_in_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.5"
+            android:background="@drawable/gray_stroke_corner"
+            android:paddingBottom="@dimen/spacing_medium"
+            android:paddingLeft="@dimen/spacing_small"
+            android:paddingRight="@dimen/spacing_small"
+            android:paddingTop="@dimen/spacing_medium"
+            android:singleLine="true"
+            android:text="交房日期"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"
+            />
+      </LinearLayout>
+
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_small"
+          android:layout_marginRight="@dimen/spacing_small"
+          android:layout_marginTop="@dimen/spacing_medium"
+
+          android:gravity="center_vertical"
+          android:orientation="horizontal"
+          >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:singleLine="true"
+            android:text="购房日期:"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"
+            />
+
+        <TextView
+            android:id="@+id/buy_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.5"
+            android:background="@drawable/gray_stroke_corner"
+            android:paddingBottom="@dimen/spacing_medium"
+            android:paddingLeft="@dimen/spacing_small"
+            android:paddingRight="@dimen/spacing_small"
+            android:paddingTop="@dimen/spacing_medium"
+            android:singleLine="true"
+            android:text="购房日期"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"
+            />
+      </LinearLayout>
+
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_small"
+          android:layout_marginRight="@dimen/spacing_small"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:gravity="center_vertical"
+          android:orientation="horizontal"
+          >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right|center_vertical"
+            android:singleLine="true"
+            android:text="价格:"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"
+            />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.5"
+            android:background="@drawable/gray_stroke_corner"
+            android:paddingBottom="@dimen/spacing_medium"
+            android:paddingLeft="@dimen/spacing_small"
+            android:paddingRight="@dimen/spacing_small"
+            android:paddingTop="@dimen/spacing_medium"
+            android:singleLine="true"
+            android:text="价格"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"
+            />
+      </LinearLayout>
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:text="房源照片"
+          android:textSize="@dimen/text_large_body"
+          android:textStyle="bold"
+          />
+
+      <com.aishang.app.widget.NonScrollGridView
+          android:id="@+id/gridview_loupan_img"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:horizontalSpacing="5dp"
+          android:numColumns="2"
+          android:paddingLeft="10dp"
+          android:paddingRight="10dp"
+          android:stretchMode="columnWidth"
+          android:verticalSpacing="@dimen/spacing_small"
+          />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:text="证书展示"
+          android:textSize="@dimen/text_large_body"
+          android:textStyle="bold"
+          />
+
+      <com.aishang.app.widget.NonScrollGridView
+          android:id="@+id/gridview_zhenshu_img"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:horizontalSpacing="5dp"
+          android:numColumns="2"
+          android:paddingLeft="10dp"
+          android:paddingRight="10dp"
+          android:stretchMode="columnWidth"
+          android:verticalSpacing="@dimen/spacing_small"
+          />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:text="项目介绍"
+          android:textSize="@dimen/text_large_body"
+          android:textStyle="bold"
+          />
+
+      <WebView
+          android:id="@+id/description"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_marginTop="@dimen/spacing_medium"
+          >
+      </WebView>
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:text="交通位置"
+          android:textSize="@dimen/text_large_body"
+          android:textStyle="bold"
+          />
+      <WebView
+          android:id="@+id/transportation"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_marginTop="@dimen/spacing_medium"
+          >
+      </WebView>
+    </LinearLayout>
+
+  </FrameLayout>
+
+</android.support.v4.widget.NestedScrollView>
+
+

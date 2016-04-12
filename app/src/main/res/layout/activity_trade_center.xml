@@ -24,7 +24,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_gravity="center"
-          android:text="@string/youji"
+          android:text="@string/fabuzushou"
           android:textColor="@android:color/white"
           android:textSize="@dimen/text_title"/>
     </android.support.v7.widget.Toolbar>

@@ -17,6 +17,7 @@ import com.aishang.app.data.model.JHotelRoomCatListByhotelIDParam;
 import com.aishang.app.data.model.JLoupanPriceCatListParam;
 import com.aishang.app.data.model.JLoupanProductDetailParam;
 import com.aishang.app.data.model.JLoupanProductListParam;
+import com.aishang.app.data.model.JLoupanProductVIPViewParam;
 import com.aishang.app.data.model.JMemberBankAccount;
 import com.aishang.app.data.model.JMemberBankEditParam;
 import com.aishang.app.data.model.JMemberBankListParam;
@@ -731,7 +732,7 @@ public class AiShangUtil {
     param.setCookie(cookies);
     param.setMemberAccount(memberAccount);
     JFavoriteEditParam.DataEntity dataEntity = new JFavoriteEditParam.DataEntity();
-    dataEntity.setPk(newsID+"");
+    dataEntity.setPk(newsID + "");
     dataEntity.setModel("enshrine");
     //param.setData();
     //param.setMemberAccount(memberAccount);
@@ -750,5 +751,15 @@ public class AiShangUtil {
     } else {
       return true;
     }
+  }
+
+  public static String generLoupanProductVIPViewParam(String memberAccount, String cookie, int bLoupanList) {
+
+    JLoupanProductVIPViewParam param = new JLoupanProductVIPViewParam();
+    param.setMemberAccount(memberAccount);
+    param.setCookie(cookie);
+    param.setBLoupanList(bLoupanList);
+
+    return gson.toJson(param);
   }
 }

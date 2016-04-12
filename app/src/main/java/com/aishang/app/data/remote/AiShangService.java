@@ -14,6 +14,7 @@ import com.aishang.app.data.model.JLoupanPriceCatListResult;
 import com.aishang.app.data.model.JLoupanProductCatListResult;
 import com.aishang.app.data.model.JLoupanProductDetailResult;
 import com.aishang.app.data.model.JLoupanProductListResult;
+import com.aishang.app.data.model.JLoupanProductVIPViewResult;
 import com.aishang.app.data.model.JMemberBankListResult;
 import com.aishang.app.data.model.JMemberImgEditResult;
 import com.aishang.app.data.model.JMemberLoginResult;
@@ -262,7 +263,9 @@ public interface AiShangService {
   Observable<JResult> syncFavoriteEdit(@Query(value = "v") int version,
       @Query(value = "q") String q);
 
-
+  @Headers("connection:Keep-Alive") @GET("mobile/corp/loupanProductVIPView.ashx")
+  Observable<JLoupanProductVIPViewResult> syncLoupanProductVIPView(@Query(value = "v") int version,
+      @Query(value = "q") String q);
 
   @GET("ribots") Observable<List<Ribot>> getRibots();
 

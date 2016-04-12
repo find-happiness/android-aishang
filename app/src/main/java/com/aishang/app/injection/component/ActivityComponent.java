@@ -19,6 +19,8 @@ import com.aishang.app.ui.MyOrder.MyOrderActivity;
 import com.aishang.app.ui.ProjectJoint.ProjectJointActivity;
 import com.aishang.app.ui.RecommenCustomer.RecommenCustomerActivity;
 import com.aishang.app.ui.Setting.SettingActivity;
+import com.aishang.app.ui.TradeCenter.TradeCenterActivity;
+import com.aishang.app.ui.TradeCenter.TradeSaleFragment;
 import com.aishang.app.ui.TravelDetail.TravelDetailActivity;
 import com.aishang.app.ui.TravelFavorites.FavoritesFragment;
 import com.aishang.app.ui.TravelList.TravelListActivity;
@@ -108,4 +110,6 @@ public interface ActivityComponent {
   void inject(TravelCardActivity activity);
 
   void inject(TravelDetailActivity activity);
+
+  void inject(TradeSaleFragment fragment);
 }

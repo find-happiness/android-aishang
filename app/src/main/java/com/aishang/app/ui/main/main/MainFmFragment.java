@@ -199,6 +199,7 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
   }
 
   @OnClick(R.id.btn_fabuchuzu) void btnFaBuChuZu() {
+    mMainPresenter.IntentToTradeCenter();
   }
 
   @OnClick(R.id.btn_city) void onClickCity() {
@@ -252,7 +253,7 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
     }, ads)
         //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
         .setPageIndicator(new int[] { R.mipmap.ellipse_nomal, R.mipmap.ellipse_select })
-            //设置指示器的方向
+        //设置指示器的方向
         .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
 
     banner.setOnItemClickListener(new OnItemClickListener() {

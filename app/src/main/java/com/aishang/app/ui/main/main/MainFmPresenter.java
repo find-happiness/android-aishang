@@ -17,6 +17,7 @@ import com.aishang.app.data.model.Ribot;
 import com.aishang.app.ui.ExchangeHouse.ExchangeHouseActivity;
 import com.aishang.app.ui.KanFanTuan.KanFanTuanActivity;
 import com.aishang.app.ui.ProjectJoint.ProjectJointActivity;
+import com.aishang.app.ui.TradeCenter.TradeCenterActivity;
 import com.aishang.app.ui.TravelList.TravelListActivity;
 import com.aishang.app.ui.base.BasePresenter;
 import com.aishang.app.ui.hotel.HotelListActivity;
@@ -328,6 +329,13 @@ public class MainFmPresenter extends BasePresenter<MainFmMvpView> {
     Activity content = ((MainFmFragment) getMvpView()).getActivity();
     Intent intent = new Intent();
     intent.setClass(content, ExchangeHouseActivity.class);
+    content.startActivity(intent);
+  }
+
+  protected void IntentToTradeCenter() {
+    Activity content = ((MainFmFragment) getMvpView()).getActivity();
+    Intent intent = new Intent();
+    intent.setClass(content, TradeCenterActivity.class);
     content.startActivity(intent);
   }
 }

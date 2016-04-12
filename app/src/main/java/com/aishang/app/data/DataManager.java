@@ -15,6 +15,7 @@ import com.aishang.app.data.model.JLoupanPriceCatListResult;
 import com.aishang.app.data.model.JLoupanProductCatListResult;
 import com.aishang.app.data.model.JLoupanProductDetailResult;
 import com.aishang.app.data.model.JLoupanProductListResult;
+import com.aishang.app.data.model.JLoupanProductVIPViewResult;
 import com.aishang.app.data.model.JMemberBankListResult;
 import com.aishang.app.data.model.JMemberImgEditResult;
 import com.aishang.app.data.model.JMemberProfileEditResult;
@@ -318,6 +319,10 @@ import com.aishang.app.util.EventPosterHelper;
 
   public Observable<JResult> syncFavoriteEdit(int version, String json) {
     return mAiShangService.syncFavoriteEdit(version, json);
+  }
+
+  public Observable<JLoupanProductVIPViewResult> syncLoupanProductVIPView(int version, String json) {
+    return mAiShangService.syncLoupanProductVIPView(version, json);
   }
 
   public JVersionCheckResult getVersionCheck() {

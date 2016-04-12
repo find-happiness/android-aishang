@@ -1,11 +1,13 @@
 package com.aishang.app.ui.main.main;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -18,9 +20,11 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -479,6 +483,34 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
         return MotionEvent.ACTION_MOVE == event.getAction();
       }
     });
+
+    gvYouJi.getViewTreeObserver().addOnGlobalLayoutListener(
+        new ViewTreeObserver.OnGlobalLayoutListener() {
+
+          @SuppressLint("NewApi")
+          @Override
+          public void onGlobalLayout() {
+
+            int height = gvYouJi.getMeasuredHeight();
+
+            if (height != 0) {
+              gvYouJi
+                  .setLayoutParams(new android.widget.FrameLayout.LayoutParams(
+                      FrameLayout.LayoutParams.MATCH_PARENT,
+                      FrameLayout.LayoutParams.WRAP_CONTENT));
+
+              gvYouJi.requestLayout();
+              if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
+                gvYouJi.getViewTreeObserver()
+                    .removeOnGlobalLayoutListener(this);
+
+              } else {
+                gvYouJi.getViewTreeObserver()
+                    .removeGlobalOnLayoutListener(this);
+              }
+            }
+          }
+        });
   }
 
   private void asynBanner() {

@@ -324,6 +324,7 @@
               android:numColumns="1"
               android:paddingLeft="10dp"
               android:paddingRight="10dp"
+              android:scrollbars="none"
               android:stretchMode="columnWidth"
               android:verticalSpacing="@dimen/spacing_small"
               >

@@ -21,13 +21,10 @@ public class NetImageHolderView implements Holder<String> {
   }
 
   @Override public void UpdateUI(Context context, int position, String url) {
-
     Picasso.with(context)
         .load(url)
         .error(R.mipmap.banner)
         .placeholder(R.mipmap.banner)
         .into(imageView);
-
-
   }
 }

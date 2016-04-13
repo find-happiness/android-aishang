@@ -32,9 +32,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.aishang.app.BoilerplateApplication;
 import com.aishang.app.R;
+import com.aishang.app.data.model.AdapterImgModel;
 import com.aishang.app.data.model.HotelOrder;
 import com.aishang.app.data.model.JHotelDetailResult;
 import com.aishang.app.data.model.JHotelRoomCatListByhotelIDResult;
+import com.aishang.app.data.model.SmallImgModel;
 import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.ui.BuyHotel.BuyHotelActivity;
 import com.aishang.app.ui.base.BaseActivity;
@@ -179,13 +181,13 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
   @Override public boolean onKeyDown(int keyCode, KeyEvent event) {
     if (keyCode == KeyEvent.KEYCODE_BACK && View.VISIBLE == viewPager.getVisibility()) {
       BusProvider.getInstance()
-          .post(HotelDetailActivity.RoomImgPagerModel.create(0, 0, viewPager.getCurrentItem()));
+          .post(AdapterImgModel.create(0, 0, viewPager.getCurrentItem()));
       return false;
     }
     return super.onKeyDown(keyCode, event);
   }
 
-  @Subscribe public void onclickRoomCatImg(RoomImgModel model) {
+  @Subscribe public void onclickRoomCatImg(SmallImgModel model) {
     String[] photos = model.getPhotos();
 
     viewPager.setAdapter(new RoomImgPagerAdapter(this, photos));
@@ -217,10 +219,10 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
     animator.start();
   }
 
-  @Subscribe public void onTapRoomCatimg(RoomImgPagerModel model) {
+  @Subscribe public void onTapRoomCatimg(AdapterImgModel model) {
     viewPager.clearAnimation();
 
-    RoomImgModel roomImgModel = (RoomImgModel) viewPager.getTag();
+    SmallImgModel roomImgModel = (SmallImgModel) viewPager.getTag();
     int[] locations = roomImgModel.getLocations().get(model.getIndex());
     PropertyValuesHolder pvhSX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1f,
         (float) roomImgModel.getSize()[0] / (float) outMetrics.widthPixels);
@@ -671,97 +673,6 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
 
     public void setStatus(int status) {
       this.status = status;
-    }
-  }
-
-  public static class RoomImgModel {
-    int index;
-    String[] photos;
-    int[] size;
-    List<int[]> locations;
-
-    public static RoomImgModel create(int index, String[] photos, List<int[]> locations,
-        int[] size) {
-      return new RoomImgModel(index, photos, locations, size);
-    }
-
-    public RoomImgModel(int index, String[] photos, List<int[]> locations, int[] size) {
-      this.index = index;
-      this.photos = photos;
-      this.locations = locations;
-      this.size = size;
-    }
-
-    public int[] getSize() {
-      return size;
-    }
-
-    public void setSize(int[] size) {
-      this.size = size;
-    }
-
-    public List<int[]> getLocations() {
-      return locations;
-    }
-
-    public void setLocations(List<int[]> locations) {
-      this.locations = locations;
-    }
-
-    public int getIndex() {
-      return index;
-    }
-
-    public void setIndex(int index) {
-      this.index = index;
-    }
-
-    public String[] getPhotos() {
-      return photos;
-    }
-
-    public void setPhotos(String[] photos) {
-      this.photos = photos;
-    }
-  }
-
-  static class RoomImgPagerModel {
-    float x;
-    float y;
-    int index;
-
-    public static RoomImgPagerModel create(float x, float y, int index) {
-      return new RoomImgPagerModel(x, y, index);
-    }
-
-    private RoomImgPagerModel(float x, float y, int index) {
-      this.x = x;
-      this.y = y;
-      this.index = index;
-    }
-
-    public int getIndex() {
-      return index;
-    }
-
-    public void setIndex(int index) {
-      this.index = index;
-    }
-
-    public float getX() {
-      return x;
-    }
-
-    public void setX(float x) {
-      this.x = x;
-    }
-
-    public float getY() {
-      return y;
-    }
-
-    public void setY(float y) {
-      this.y = y;
     }
   }
 }

@@ -16,6 +16,7 @@ import butterknife.ButterKnife;
 import com.aishang.app.R;
 import com.aishang.app.data.model.HotelOrder;
 import com.aishang.app.data.model.JHotelRoomCatListByhotelIDResult;
+import com.aishang.app.data.model.SmallImgModel;
 import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.ui.PhotoGallery.PhotoGalleryActivity;
 import com.aishang.app.util.BusProvider;
@@ -269,8 +270,7 @@ public class RoomAdapter {
   private void roomImgClick(int index, String[] photos, List<int[]> locations, int[] size) {
     //Intent intent = PhotoGalleryActivity.getIntent(context, photos, index);
     //context.startActivity(intent);
-    BusProvider.getInstance()
-        .post(HotelDetailActivity.RoomImgModel.create(index, photos, locations, size));
+    BusProvider.getInstance().post(SmallImgModel.create(index, photos, locations, size));
   }
 
   private ObjectAnimator createRotateAnimator(final View target, final float from, final float to) {

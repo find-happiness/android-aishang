@@ -1,14 +1,14 @@
-package com.aishang.app.ui.HotelDetail;
+package com.aishang.app.ui.TradeCenter;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import com.aishang.app.R;
 import com.aishang.app.data.model.AdapterImgModel;
 import com.aishang.app.data.remote.AiShangService;
+import com.aishang.app.ui.HotelDetail.HotelDetailActivity;
 import com.aishang.app.util.BusProvider;
 import com.squareup.picasso.Picasso;
 import uk.co.senab.photoview.PhotoView;
@@ -17,14 +17,14 @@ import uk.co.senab.photoview.PhotoViewAttacher;
 /**
  * Created by song on 2016/3/20.
  */
-class RoomImgPagerAdapter extends PagerAdapter {
+class LoupanImgPagerAdapter extends PagerAdapter {
 
-  private static final String TAG = "RoomImgPagerAdapter";
+  private static final String TAG = "LoupanImgPagerAdapter";
 
   Context ctx;
   private String[] sDrawables;
 
-  public RoomImgPagerAdapter(Context ctx, String[] sDrawables) {
+  public LoupanImgPagerAdapter(Context ctx, String[] sDrawables) {
     this.ctx = ctx;
     this.sDrawables = sDrawables;
   }

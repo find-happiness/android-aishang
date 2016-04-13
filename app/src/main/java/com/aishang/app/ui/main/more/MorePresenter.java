@@ -47,7 +47,7 @@ public class MorePresenter extends BasePresenter<MoreMvpView> {
 
   @Override public void detachView() {
     if (mSubscription != null) mSubscription.unsubscribe();
-    if (mSubscriptionVersion != null) mSubscription.unsubscribe();
+    if (mSubscriptionVersion != null) mSubscriptionVersion.unsubscribe();
   }
 
   public void checkVersion() {
@@ -64,7 +64,7 @@ public class MorePresenter extends BasePresenter<MoreMvpView> {
       mSubscriptionVersion.unsubscribe();
     }
 
-    mSubscriptionVersion = mDataManager.syncVersionCheck(1,new Gson().toJson(param))
+    mSubscriptionVersion = mDataManager.syncVersionCheck(1, new Gson().toJson(param))
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
         .subscribe(new Subscriber<JVersionCheckResult>() {

@@ -13,7 +13,7 @@
       android:layout_height="@dimen/head_medium"
       android:layout_centerHorizontal="true"
       android:layout_marginTop="50dp"
-      android:src="@mipmap/img_head_default"/>
+      android:src="@mipmap/ic_img_user_default"/>
 
   <RelativeLayout
       android:id="@+id/rl_login_after"

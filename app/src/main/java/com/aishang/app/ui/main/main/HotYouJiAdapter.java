@@ -75,8 +75,8 @@ import javax.inject.Inject;
 
     Picasso.with(activity)
         .load(AiShangService.IMG_URL + news.getUserImageUrl())
-        .error(R.mipmap.img_head_default)
-        .placeholder(R.mipmap.img_head_default)
+        .error(R.mipmap.ic_img_user_default)
+        .placeholder(R.mipmap.ic_img_user_default)
         .into(holder.head);
 
     holder.shuoshuo.setText(item.getTitle() + "");

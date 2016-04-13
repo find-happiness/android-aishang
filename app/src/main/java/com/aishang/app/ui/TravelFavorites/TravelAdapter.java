@@ -75,8 +75,8 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
 
     Picasso.with(holder.getContext())
         .load(AiShangService.IMG_URL + item.getImageUrl())
-        .error(R.mipmap.img_head_default)
-        .placeholder(R.mipmap.img_head_default)
+        .error(R.mipmap.ic_img_user_default)
+        .placeholder(R.mipmap.ic_img_user_default)
         .into(holder.head);
 
     holder.shortDesc.setText(item.getShortDesc() + "");

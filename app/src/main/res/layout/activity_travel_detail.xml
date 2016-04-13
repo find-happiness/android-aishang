@@ -67,7 +67,7 @@
               android:id="@+id/head"
               android:layout_width="50dp"
               android:layout_height="50dp"
-              tools:src="@mipmap/img_head_default"/>
+              tools:src="@mipmap/ic_img_user_default"/>
 
           <TextView
               android:id="@+id/user_name"

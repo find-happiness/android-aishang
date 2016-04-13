@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.webkit.WebView;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.DatePicker;
@@ -162,6 +163,10 @@ public class TradeSaleFragment extends Fragment implements TradeSaleMvpView {
 
   @Override public void onStop() {
     super.onStop();
+  }
+
+  @Override public void onPause() {
+    super.onPause();
     BusProvider.getInstance().unregister(this);
   }
 
@@ -255,7 +260,8 @@ public class TradeSaleFragment extends Fragment implements TradeSaleMvpView {
         (float) model.getSize()[1] / (float) outMetrics.heightPixels, 1f);
 
     PropertyValuesHolder pvhTX = PropertyValuesHolder.ofFloat(View.X, locations[0], 0);
-    PropertyValuesHolder pvhTY = PropertyValuesHolder.ofFloat(View.Y, locations[1], 0);
+    PropertyValuesHolder pvhTY =
+        PropertyValuesHolder.ofFloat(View.Y, locations[1] - model.getSize()[1] / 2, 0);
 
     PropertyValuesHolder pvhA = PropertyValuesHolder.ofFloat(View.ALPHA, 0, 1);
 
@@ -521,7 +527,7 @@ public class TradeSaleFragment extends Fragment implements TradeSaleMvpView {
 
       convertView = holder.createView(activity);
 
-      convertView.setLayoutParams(new LinearLayout.LayoutParams(imgSize[0], imgSize[1]));
+      convertView.setLayoutParams(new AbsListView.LayoutParams(imgSize[0], imgSize[1]));
 
       holder.UpdateUI(activity, position, AiShangService.IMG_URL + images.get(position).getUrl());
       return convertView;

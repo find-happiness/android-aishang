@@ -3,12 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    >
 
   <LinearLayout
       android:id="@+id/contnet"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+      android:layout_height="wrap_content"
+      >
 
     <ImageView
         android:id="@+id/img_hot_youji"
@@ -17,26 +19,30 @@
         android:layout_weight="1"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
-        android:src="@mipmap/banner"/>
+        android:src="@mipmap/banner"
+        />
 
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="10dp"
-        android:layout_weight="2">
+        android:layout_weight="2"
+        >
 
       <RelativeLayout
           android:id="@+id/user"
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content">
+          android:layout_height="wrap_content"
+          >
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/head"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:scaleType="centerCrop"
-            tools:src="@mipmap/zaishou"/>
+            tools:src="@mipmap/zaishou"
+            />
 
         <TextView
             android:id="@+id/name"
@@ -46,7 +52,8 @@
             android:layout_toRightOf="@id/head"
             android:textSize="@dimen/text_title"
 
-            tools:text="宜春|曦园柳镇"/>
+            tools:text="宜春|曦园柳镇"
+            />
       </RelativeLayout>
 
 
@@ -57,9 +64,10 @@
           android:layout_below="@id/user"
           android:layout_marginTop="5dp"
           android:ellipsize="end"
-          android:maxLines="2"
-          android:textSize="@dimen/text_body"
-          tools:text="交房时间交房时间交房时间交房交房时间交房时间"/>
+          android:lines="1"
+          android:textSize="@dimen/text_small_body"
+          tools:text="交房时间交房时间交房时间交房交房时间交房时间"
+          />
 
       <TextView
           android:id="@+id/reward"
@@ -70,7 +78,8 @@
           android:drawableLeft="@mipmap/iconfont_hongbao"
           android:textColor="#ff0000"
           android:textSize="@dimen/text_body"
-          tools:text="奖金6920"/>
+          tools:text="奖金6920"
+          />
 
       <TextView
           android:id="@+id/pinglun"
@@ -81,7 +90,8 @@
           android:layout_marginTop="5dp"
           android:drawableLeft="@mipmap/iconfont_pinglun"
           android:textSize="@dimen/text_body"
-          tools:text="6920"/>
+          tools:text="6920"
+          />
 
       <TextView
           android:id="@+id/dianzhang"
@@ -93,7 +103,8 @@
           android:layout_toLeftOf="@id/pinglun"
           android:drawableLeft="@mipmap/iconfont_dianzan"
           android:textSize="@dimen/text_body"
-          tools:text="6920"/>
+          tools:text="6920"
+          />
 
     </RelativeLayout>
   </LinearLayout>

@@ -9,7 +9,7 @@
   <LinearLayout
       android:id="@+id/ll_action_button"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="?attr/actionBarSize"
       android:layout_alignParentBottom="true"
       android:orientation="horizontal">
 
@@ -19,12 +19,14 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
+        android:scaleType="fitXY"
         android:adjustViewBounds="true"
-        android:src="@mipmap/take_phone"/>
+        android:src="@drawable/take_phone"/>
 
     <ImageView
         android:id="@+id/take_online"
         android:layout_width="0dp"
+        android:visibility="gone"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"

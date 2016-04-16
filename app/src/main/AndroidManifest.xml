@@ -19,7 +19,6 @@
       android:allowBackup="false"
       android:exported="true"
       android:icon="@mipmap/ic_launcher"
-      android:theme="@style/AppTheme"
       tools:replace="android:allowBackup">
     <meta-data
         android:name="com.amap.api.v2.apikey"
@@ -29,7 +28,7 @@
         android:name=".ui.main.MainActivity"
         android:label="@string/app_name"
         android:screenOrientation="portrait"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        android:theme="@style/AppTheme"
         android:windowSoftInputMode="stateHidden">
     </activity>
 
@@ -52,71 +51,93 @@
         android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
     <activity
         android:name=".ui.insale.InSaleActivity"
-        android:screenOrientation="portrait"/>
+
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme"/>
     <activity
         android:name=".ui.insaleDetail.InSaleDetailActivity"
-        android:screenOrientation="portrait"/>
+
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme"/>
     <activity
         android:name=".ui.hotel.HotelListActivity"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme"/>
     <activity
         android:name=".ui.HotelDetail.HotelDetailActivity"
         android:screenOrientation="portrait"
         android:theme="@style/DetailTheme"/>
     <activity
         android:name=".ui.login.LoginActivity"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme"/>
     <activity
         android:name=".ui.MemberCenter.MemberCenterActivity"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme"/>
     <activity
         android:name=".ui.CashWithDrawApply.CashWithDrawApplyActivity"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme"/>
     <activity
         android:name=".ui.BrokerCenter.BrokerCenterActivity"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme"/>
     <activity
         android:name=".ui.RecommenCustomer.RecommenCustomerActivity"
         android:screenOrientation="portrait"
+        android:theme="@style/AppTheme"
         android:windowSoftInputMode="stateHidden">
     </activity>
     <activity
         android:name=".ui.MyOrder.MyOrderActivity"
-        android:screenOrientation="portrait"/>
+
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme"/>
     <activity
         android:name=".ui.MyHouse.MyHouseActivity"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme"/>
     <activity
         android:name=".ui.MyBuyAndSale.BuyAndSaleActivity"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme"/>
     <activity
         android:name=".ui.ChangePassword.ChangePasswordActivity"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme"/>
     <activity
         android:name=".ui.bank.BankListActivity"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme"/>
     <activity
         android:name=".ui.TravelFavorites.TravelFavoritesActivity"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme"/>
     <activity
         android:name=".ui.AccountCenter.AccountCenterActivity"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme"/>
     <activity
         android:name=".ui.edit.EditActivity"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme"/>
     <activity
         android:name=".ui.Setting.SettingActivity"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme"/>
     <activity
         android:name=".ui.suggestion.SuggestionActivity"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme"/>
     <activity
         android:name=".ui.about.AboutActivity"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme"/>
     <activity
         android:name=".ui.guide.GuideActivity"
         android:screenOrientation="portrait"
-        android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 
@@ -125,19 +146,24 @@
     </activity>
     <activity
         android:name=".ui.TravelList.TravelListActivity"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme"/>
     <activity
         android:name=".ui.ProjectJoint.ProjectJointActivity"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme"/>
     <activity
         android:name=".ui.register.RegisterActivity"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme"/>
     <activity
         android:name=".ui.ForgetPossword.ForgetPosswordActivity"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme"/>
     <activity
         android:name=".ui.KanFanTuan.KanFanTuanActivity"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme"/>
     <activity
         android:name=".ui.TravelDetail.TravelDetailActivity"
         android:screenOrientation="portrait"
@@ -146,39 +172,48 @@
     </activity>
     <activity
         android:name=".ui.about.KnowWeActivity"
-        android:screenOrientation="portrait">
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme">
     </activity>
     <activity
         android:name=".ui.about.BrokerActivity"
-        android:screenOrientation="portrait">
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme">
     </activity>
     <activity
         android:name=".ui.about.TravelActivity"
-        android:screenOrientation="portrait">
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme">
     </activity>
     <activity
         android:name=".ui.about.IssuesActivity"
-        android:screenOrientation="portrait">
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme">
     </activity>
     <activity
         android:name=".ui.about.MemberRuleActivity"
-        android:screenOrientation="portrait">
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme">
     </activity>
     <activity
         android:name=".ui.about.HongBaoActivity"
-        android:screenOrientation="portrait">
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme">
     </activity>
     <activity
         android:name=".ui.KanFangTuanDetail.KanFangTuanDetailActivity"
-        android:screenOrientation="portrait">
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme">
     </activity>
     <activity
         android:name=".ui.CanTuan.CanTuanActivity"
-        android:screenOrientation="portrait">
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme">
     </activity>
     <activity
         android:name=".ui.ExchangeHouse.ExchangeHouseActivity"
-        android:screenOrientation="portrait">
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme">
     </activity>
     <activity
         android:name="com.foamtrace.photopicker.PhotoPickerActivity"
@@ -191,11 +226,13 @@
         android:theme="@style/PhotoPickerTheme"/>
     <activity
         android:name=".ui.BuyLouPan.BuyLouPanActivity"
-        android:screenOrientation="portrait">
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme">
     </activity>
     <activity
         android:name=".ui.BuyHotel.BuyHotelActivity"
-        android:screenOrientation="portrait">
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme">
     </activity>
     <activity
         android:name="com.yalantis.ucrop.UCropActivity"
@@ -203,17 +240,20 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     <activity
         android:name=".ui.BankAdd.BankAddActivity"
-        android:screenOrientation="portrait">
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme">
     </activity>
     <activity android:name=".ui.PhotoGallery.PhotoGalleryActivity">
     </activity>
     <activity
         android:name=".ui.BankEdit.BankEditActivity"
-        android:screenOrientation="portrait">
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme">
     </activity>
     <activity
         android:name=".ui.MyCard.TravelCardActivity"
-        android:screenOrientation="portrait">
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme">
     </activity>
     <activity
         android:name=".ui.TradeCenter.TradeCenterActivity"

@@ -25,6 +25,7 @@ import com.aishang.app.ui.TravelDetail.TravelDetailActivity;
 import com.aishang.app.ui.TravelFavorites.FavoritesFragment;
 import com.aishang.app.ui.TravelList.TravelListActivity;
 import com.aishang.app.ui.bank.BankListActivity;
+import com.aishang.app.ui.guide.GuideActivity;
 import com.aishang.app.ui.hotel.HotelListActivity;
 import com.aishang.app.ui.insaleDetail.InSaleDetailActivity;
 import com.aishang.app.ui.login.LoginActivity;
@@ -44,6 +45,8 @@ import com.aishang.app.ui.main.more.MoreFragment;
  */
 @PerActivity @Component(dependencies = ApplicationComponent.class, modules = ActivityModule.class)
 public interface ActivityComponent {
+
+  void inject(GuideActivity mainActivity);
 
   void inject(MainActivity mainActivity);
 

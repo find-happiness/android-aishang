@@ -1,6 +1,7 @@
 package com.aishang.app.ui.TravelDetail;
 
 import com.aishang.app.data.DataManager;
+import com.aishang.app.data.model.JCriticismListResult;
 import com.aishang.app.data.model.JNewsDetailResult;
 import com.aishang.app.data.model.JNewsHitsResult;
 import com.aishang.app.data.model.JNewsListResult;
@@ -25,6 +26,7 @@ public class TravelDetailPresenter extends BasePresenter<TravelDetailMvpView> {
 
   private final DataManager mDataManager;
   private Subscription mSubscription;
+  private Subscription mCriticismListSubscription;
 
   @Inject public TravelDetailPresenter(DataManager dataManager) {
     mDataManager = dataManager;
@@ -37,6 +39,7 @@ public class TravelDetailPresenter extends BasePresenter<TravelDetailMvpView> {
   @Override public void detachView() {
     super.detachView();
     if (mSubscription != null) mSubscription.unsubscribe();
+    if (mCriticismListSubscription != null) mCriticismListSubscription.unsubscribe();
   }
 
   public void loadTravelDetail(int version, String json) {
@@ -170,6 +173,39 @@ public class TravelDetailPresenter extends BasePresenter<TravelDetailMvpView> {
             if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
               //getMvpView().loadTraveDetailFinish(result);
               getMvpView().criticismFinish();
+            } else {
+              getMvpView().showError(result.getResult());
+              //getMvpView().showEmpty();
+            }
+          }
+        });
+  }
+
+  public void getCriticismList(int version, String json) {
+    checkViewAttached();
+
+    if (mCriticismListSubscription != null && !mCriticismListSubscription.isUnsubscribed()) {
+      mCriticismListSubscription.unsubscribe();
+    }
+    mCriticismListSubscription = mDataManager.syncCriticismList(version, json)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(Schedulers.io())
+        .subscribe(new Subscriber<JCriticismListResult>() {
+          @Override public void onCompleted() {
+
+          }
+
+          @Override public void onError(Throwable e) {
+            getMvpView().dimissCriticismList();
+            getMvpView().showError("网络异常");
+          }
+
+          @Override public void onNext(JCriticismListResult result) {
+            //getMvpView().dimissDialog();
+            getMvpView().dimissCriticismList();
+            if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
+              //getMvpView().loadTraveDetailFinish(result);
+              getMvpView().criticismListFinish(result);
             } else {
               getMvpView().showError(result.getResult());
               //getMvpView().showEmpty();

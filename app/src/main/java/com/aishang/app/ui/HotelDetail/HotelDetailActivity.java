@@ -165,6 +165,7 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
   @Override protected void onPause() {
     super.onPause();
     mapView.onPause();
+    BusProvider.getInstance().unregister(this);
   }
 
   @Override protected void onDestroy() {
@@ -175,7 +176,6 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
 
   @Override protected void onStop() {
     super.onStop();
-    BusProvider.getInstance().unregister(this);
   }
 
   @Override public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -273,6 +273,8 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
           return;
         }
 
+        Log.i(TAG, "onclickBuy: room cat size" + roomAdapter.getRoomCat().size());
+
         roomAdapter.getOrderRooms().subscribe(new Action1<List<HotelOrder>>() {
           @Override public void call(List<HotelOrder> hotelOrders) {
             //Log.i(TAG, "onclickBuy: -------------------- >" + hotelOrders.size());
@@ -341,7 +343,6 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
     if (NetworkUtil.isNetworkConnected(this)) {
       progressDialog = DialogFactory.createProgressDialog(this, R.string.listview_loading);
       progressDialog.show();
-
       asynHotelDetail();
       asynHotelRoomCat();
     } else {
@@ -459,6 +460,8 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
     }
 
     roomAdapter = new RoomAdapter(roomCats, this);
+
+    Log.i(TAG, "bindRoomCat: room cats size" +roomCats.size());
 
     for (int i = 0; i < roomCats.size(); i++) {
       roomContainer.addView(roomAdapter.getView(i), i);

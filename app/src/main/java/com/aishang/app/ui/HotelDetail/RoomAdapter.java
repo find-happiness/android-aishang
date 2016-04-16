@@ -201,6 +201,7 @@ public class RoomAdapter {
       strImgUrl = strImgUrl.replace(prefix, "_237" + prefix);
       //Log.i(TAG, "bindData: " + strImgUrl);
 
+      if (i > 3) return;
       ImageView imgView = null;
       switch (i) {
         case 1:

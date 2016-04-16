@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+  <de.hdodenhof.circleimageview.CircleImageView
+      android:id="@+id/head_view"
+      android:layout_width="48dp"
+      android:layout_height="48dp"
+      android:layout_marginBottom="@dimen/spacing_medium"
+      android:layout_marginRight="@dimen/spacing_medium"
+      android:layout_marginTop="@dimen/spacing_medium"
+      />
+
+  <TextView
+      android:id="@+id/name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_toRightOf="@id/head_view"
+      android:singleLine="true"
+      android:text="name"
+      android:textColor="@android:color/black"
+      android:textSize="@dimen/text_large_body"
+      />
+
+  <TextView
+      android:id="@+id/create_time"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentRight="true"
+      android:singleLine="true"
+      android:text="name"
+      android:textColor="@color/gray"
+      android:textSize="@dimen/text_small_body"
+      />
+
+  <TextView
+      android:id="@+id/content"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/name"
+      android:layout_marginTop="@dimen/spacing_small"
+      android:layout_toRightOf="@id/head_view"
+      android:singleLine="true"
+      android:text="name"
+      android:textColor="@android:color/black"
+      android:textSize="@dimen/text_body"
+      />
+</RelativeLayout>

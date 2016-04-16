@@ -1,5 +1,6 @@
 package com.aishang.app.ui.TravelDetail;
 
+import com.aishang.app.data.model.JCriticismListResult;
 import com.aishang.app.data.model.JNewsDetailResult;
 import com.aishang.app.data.model.JNewsListResult;
 import com.aishang.app.data.model.JSysZoneResult;
@@ -23,4 +24,8 @@ public interface TravelDetailMvpView extends MvpView {
   void favoriteFinish();
 
   void criticismFinish();
+
+  void criticismListFinish(JCriticismListResult result);
+
+  void dimissCriticismList();
 }

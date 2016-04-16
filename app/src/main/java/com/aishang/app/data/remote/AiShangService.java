@@ -3,6 +3,7 @@ package com.aishang.app.data.remote;
 import com.aishang.app.data.model.JBusinessListResult;
 import com.aishang.app.data.model.JCodeLoginResult;
 import com.aishang.app.data.model.JCollectResult;
+import com.aishang.app.data.model.JCriticismListResult;
 import com.aishang.app.data.model.JHotelDetailResult;
 import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JHotelPriceCatListResult;
@@ -265,6 +266,10 @@ public interface AiShangService {
 
   @Headers("connection:Keep-Alive") @GET("mobile/corp/loupanProductVIPView.ashx")
   Observable<JLoupanProductVIPViewResult> syncLoupanProductVIPView(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/criticismList.ashx")
+  Observable<JCriticismListResult> syncCriticismList(@Query(value = "v") int version,
       @Query(value = "q") String q);
 
   @GET("ribots") Observable<List<Ribot>> getRibots();

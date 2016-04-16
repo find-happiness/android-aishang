@@ -12,7 +12,6 @@
       android:id="@+id/layoutRoot"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="@color/primary"
       >
 
     <android.support.v7.widget.Toolbar
@@ -20,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_alignParentTop="true"
+        android:background="@color/primary"
         app:layout_collapseMode="pin"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         >
@@ -37,7 +37,7 @@
     <LinearLayout
         android:id="@+id/ll_action_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         >
@@ -47,8 +47,8 @@
           android:layout_height="wrap_content"
           android:layout_gravity="center"
           android:layout_weight="1"
-          android:adjustViewBounds="true"
-          android:src="@mipmap/take_phone"
+          android:scaleType="fitXY"
+          android:src="@drawable/take_phone"
           />
 
       <ImageView
@@ -56,6 +56,7 @@
           android:layout_height="wrap_content"
           android:layout_gravity="center"
           android:layout_weight="1"
+          android:visibility="gone"
           android:adjustViewBounds="true"
           android:src="@mipmap/take_online"
           />

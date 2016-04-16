@@ -10,6 +10,7 @@ import com.aishang.app.data.model.JCashWithDrawApplyparam;
 import com.aishang.app.data.model.JCodeLoginParam;
 import com.aishang.app.data.model.JCollectParam;
 import com.aishang.app.data.model.JContactsAddParam;
+import com.aishang.app.data.model.JCriticismListParam;
 import com.aishang.app.data.model.JFavoriteEditParam;
 import com.aishang.app.data.model.JHotelDetailParam;
 import com.aishang.app.data.model.JHotelListParam;
@@ -541,7 +542,8 @@ public class AiShangUtil {
   }
 
   public static String generMemberProfileBasicEdit(String cookies, String memberAccount, int gender,
-      String email, String certifyType, String certifyID) {
+      String email, String certifyType, String certifyID, String qq, String weixin,
+      String dateOfBirth) {
 
     JMemberProfileBasicEditParam p = new JMemberProfileBasicEditParam();
 
@@ -555,6 +557,11 @@ public class AiShangUtil {
     data.setCertifyID(certifyID);
     data.setGender(gender + "");
     data.setCertifyType(certifyType);
+    data.setEmail(email);
+    data.setDateOfBirth(dateOfBirth);
+    data.setQq(qq);
+    data.setWeixin(weixin);
+
     p.setData(data);
     return gson.toJson(p);
   }
@@ -753,13 +760,25 @@ public class AiShangUtil {
     }
   }
 
-  public static String generLoupanProductVIPViewParam(String memberAccount, String cookie, int bLoupanList) {
+  public static String generLoupanProductVIPViewParam(String memberAccount, String cookie,
+      int bLoupanList) {
 
     JLoupanProductVIPViewParam param = new JLoupanProductVIPViewParam();
     param.setMemberAccount(memberAccount);
     param.setCookie(cookie);
     param.setBLoupanList(bLoupanList);
 
+    return gson.toJson(param);
+  }
+
+  public static String generCriticismListParam(int newsID,int start,int count) {
+
+    JCriticismListParam param = new JCriticismListParam();
+    param.setNewsID(newsID);
+    param.setRecCount(count);
+    param.setRecStart(start);
+    param.setMemberAccount("");
+    param.setCookie("");
     return gson.toJson(param);
   }
 }

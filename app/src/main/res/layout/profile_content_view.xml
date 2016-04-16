@@ -69,7 +69,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:paddingBottom="@dimen/spacing_medium"
-            custom:img="@mipmap/iconfont_fangchan"
+            custom:img="@mipmap/iconfont_lvjuka"
             custom:text="@string/travel_card" />
 
         <View

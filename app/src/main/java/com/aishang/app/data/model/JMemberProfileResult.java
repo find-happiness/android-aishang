@@ -33,12 +33,21 @@ public class JMemberProfileResult {
     public String nickname;
     public String address;
     public String dateOfBirth;
+    public String qq;
     public JMemberIM[] imList;
     public JMemberBankAccount[] bankAccountList;
     public JMemberAddress[] addressList;
 
     public String getDateOfBirth() {
       return dateOfBirth;
+    }
+
+    public String getQq() {
+      return qq;
+    }
+
+    public void setQq(String qq) {
+      this.qq = qq;
     }
 
     public void setDateOfBirth(String dateOfBirth) {

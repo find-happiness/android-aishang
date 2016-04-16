@@ -89,7 +89,7 @@ public class MemberCenterActivity extends BaseActivity
   @Bind(R.id.email) TextView email;
   private Bitmap mPhoto;
   private String mCurrentPhotoPath;
-  ;
+
   Uri resultUri;
 
   private Uri mDestinationUri;
@@ -239,7 +239,7 @@ public class MemberCenterActivity extends BaseActivity
       CommonUtil.showSnackbar("没有请求到数据！", layoutRoot);
       return;
     }
-    Intent intent = EditActivity.getStartIntent(this, "昵称", (String)rlNeCheng.getTag(), NE_CHENG);
+    Intent intent = EditActivity.getStartIntent(this, "昵称", (String) rlNeCheng.getTag(), NE_CHENG);
 
     this.startActivityForResult(intent, NE_CHENG);
   }
@@ -289,6 +289,8 @@ public class MemberCenterActivity extends BaseActivity
 
     DialogFactory.createIosSheetAlertDialog(this, null, GENDER, new OnItemClickListener() {
       @Override public void onItemClick(Object o, int position) {
+
+        if (position < 0) return;
         rlGender.setTag((position - 1) + "");
 
         gender.setText(GENDER[position]);
@@ -455,6 +457,7 @@ public class MemberCenterActivity extends BaseActivity
       filePresenter.postData(2, new Gson().toJson(param), new File(resultUri.getPath()));
     } else {
       dimissDialog();
+      DialogFactory.createSimpleOkErrorDialog(this, "scuess", "个人资料修改成功").show();
     }
   }
 
@@ -466,7 +469,10 @@ public class MemberCenterActivity extends BaseActivity
         AiShangUtil.generMemberProfileBasicEdit(app.getMemberLoginResult().getData().getCookies(),
             app.getMemberAccount(), Integer.parseInt((String) rlGender.getTag()),
             (String) rlEmail.getTag(), profile.getData().getCertifyType(),
-            profile.getData().getCertifyID());
+            profile.getData().getCertifyID(), profile.getData().getQq(),
+            profile.getData().getWeixin(),
+            rlBirthday.getTag() == null ? profile.getData().getDateOfBirth()
+                : dateOfBirth.getText().toString());
 
     presenter.postProfileEdit(2, json);
   }

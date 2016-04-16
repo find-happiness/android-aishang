@@ -65,6 +65,33 @@ public class JMemberProfileBasicEditParam {
     public String email;
     public String certifyType;
     public String certifyID;
+    public String qq;
+    public String weixin;
+    public String dateOfBirth;
+
+    public String getQq() {
+      return qq;
+    }
+
+    public void setQq(String qq) {
+      this.qq = qq;
+    }
+
+    public String getWeixin() {
+      return weixin;
+    }
+
+    public void setWeixin(String weixin) {
+      this.weixin = weixin;
+    }
+
+    public String getDateOfBirth() {
+      return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+      this.dateOfBirth = dateOfBirth;
+    }
 
     public String getGender() {
       return gender;

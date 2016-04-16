@@ -17,6 +17,7 @@
       android:layout_alignParentTop="true"
       app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
       app:theme="@style/ToolBarStyle"
+      android:background="@color/primary"
       >
 
     <TextView

@@ -16,6 +16,12 @@
       android:src="@mipmap/banner"
       />
 
+  <ImageView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom"
+      android:background="@mipmap/vip_hotel_bg"
+      />
 
   <RelativeLayout
       android:layout_width="match_parent"

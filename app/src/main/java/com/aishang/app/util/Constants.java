@@ -19,4 +19,13 @@ public class Constants {
   public final static String RESULT_ERROR_PARAMETER = "error_parameter";
   public final static String RESULT_ERROR_UNKNOW = "error_unknow";
 
+  /**
+   * first time use the application
+   */
+  public final static short FIRSTUSAGE = 0;
+  /**
+   * not first time use the application
+   */
+  public final static short FIRSTUSAGE_NOT = 1;
+
 }

@@ -89,7 +89,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
 
     holder.itemView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        intentToDetail(holder.getContext(), item);
+        //intentToDetail(holder.getContext(), item);
       }
     });
   }

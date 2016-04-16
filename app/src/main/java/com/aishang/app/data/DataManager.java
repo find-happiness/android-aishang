@@ -4,6 +4,7 @@ import android.util.Log;
 import com.aishang.app.data.model.JBusinessListResult;
 import com.aishang.app.data.model.JCodeLoginResult;
 import com.aishang.app.data.model.JCollectResult;
+import com.aishang.app.data.model.JCriticismListResult;
 import com.aishang.app.data.model.JHotelDetailResult;
 import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JHotelPriceCatListResult;
@@ -321,8 +322,21 @@ import com.aishang.app.util.EventPosterHelper;
     return mAiShangService.syncFavoriteEdit(version, json);
   }
 
-  public Observable<JLoupanProductVIPViewResult> syncLoupanProductVIPView(int version, String json) {
+  public Observable<JLoupanProductVIPViewResult> syncLoupanProductVIPView(int version,
+      String json) {
     return mAiShangService.syncLoupanProductVIPView(version, json);
+  }
+
+  public Observable<JCriticismListResult> syncCriticismList(int version, String json) {
+    return mAiShangService.syncCriticismList(version, json);
+  }
+
+  public int firstUsage() {
+    return mPreferencesHelper.getFirstUsageState();
+  }
+
+  public void writeFirstUsage() {
+    mPreferencesHelper.setFirstUsageNot();
   }
 
   public JVersionCheckResult getVersionCheck() {

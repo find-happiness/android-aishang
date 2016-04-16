@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebSettings;
@@ -16,6 +18,7 @@ import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.Bind;
@@ -25,6 +28,7 @@ import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import com.aishang.app.BoilerplateApplication;
 import com.aishang.app.R;
+import com.aishang.app.data.model.JCriticismListResult;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JNewsDetailResult;
 import com.aishang.app.data.remote.AiShangService;
@@ -34,9 +38,12 @@ import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.DialogFactory;
 import com.aishang.app.util.NetworkUtil;
+import com.aishang.app.widget.LinearListView;
 import com.aishang.app.widget.SoftInputLinearLayout;
+import com.aishang.app.widget.SuperSwipeRefreshLayout;
 import com.squareup.picasso.Picasso;
 import de.hdodenhof.circleimageview.CircleImageView;
+import java.util.List;
 import javax.inject.Inject;
 
 public class TravelDetailActivity extends BaseActivity implements TravelDetailMvpView {
@@ -60,6 +67,13 @@ public class TravelDetailActivity extends BaseActivity implements TravelDetailMv
   @Bind(R.id.title) TextView title;
   @Bind(R.id.backNum) TextView backNum;
   @Bind(R.id.lookNum) TextView lookNum;
+  @Bind(R.id.swipe_refresh) SuperSwipeRefreshLayout swipeRefresh;
+  @Bind(R.id.criticismList) LinearListView criticismList;
+
+  // Footer View
+  private ProgressBar footerProgressBar;
+  private TextView footerTextView;
+  private ImageView footerImageView;
 
   private Dialog progress;
 
@@ -69,6 +83,8 @@ public class TravelDetailActivity extends BaseActivity implements TravelDetailMv
   private String newsImgUrl;
 
   private boolean keyboardListenersAttached = false;
+
+  CriticismAdapter criticismAdapter;
 
   /**
    * Return an Intent to start this Activity.
@@ -102,17 +118,70 @@ public class TravelDetailActivity extends BaseActivity implements TravelDetailMv
     newsImgUrl = this.getIntent().getStringExtra(NEWS_IMG);
     initView();
     attachKeyboardListeners();
-    if (NetworkUtil.isNetworkConnected(this)) {
-      presenter.loadTravelDetail(0, AiShangUtil.generTravelDetail(newsID));
-    } else {
-      CommonUtil.showSnackbar(R.string.no_net, layoutRoot);
-    }
+    autoLoad();
   }
 
   private void initView() {
     initToolbar();
     initWebView();
     initBannerImg();
+    initSwipeRefresh();
+  }
+
+  private void initSwipeRefresh() {
+    swipeRefresh.setFooterView(createFooterView());
+    swipeRefresh.setTargetScrollWithLayout(false);
+    swipeRefresh.setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
+
+      @Override public void onRefresh() {
+        swipeRefresh.setRefreshing(false);
+      }
+
+      @Override public void onPullDistance(int distance) {
+        // pull distance
+      }
+
+      @Override public void onPullEnable(boolean enable) {
+      }
+    });
+
+    swipeRefresh.setOnPushLoadMoreListener(new SuperSwipeRefreshLayout.OnPushLoadMoreListener() {
+
+      @Override public void onLoadMore() {
+        if (NetworkUtil.isNetworkConnected(TravelDetailActivity.this)) {
+          footerTextView.setText("正在加载...");
+          footerImageView.setVisibility(View.GONE);
+          footerProgressBar.setVisibility(View.VISIBLE);
+          loadCriticismList(criticismAdapter == null ? 1 : criticismAdapter.getCount() + 1);
+        } else {
+          CommonUtil.showSnackbar(R.string.no_net, layoutRoot);
+        }
+      }
+
+      @Override public void onPushEnable(boolean enable) {
+        footerTextView.setText(enable ? "松开加载" : "上拉加载");
+        footerImageView.setVisibility(View.VISIBLE);
+        footerImageView.setRotation(enable ? 0 : 180);
+      }
+
+      @Override public void onPushDistance(int distance) {
+        // TODO Auto-generated method stub
+
+      }
+    });
+  }
+
+  private View createFooterView() {
+    View footerView =
+        LayoutInflater.from(swipeRefresh.getContext()).inflate(R.layout.layout_footer, null);
+    footerProgressBar = (ProgressBar) footerView.findViewById(R.id.footer_pb_view);
+    footerImageView = (ImageView) footerView.findViewById(R.id.footer_image_view);
+    footerTextView = (TextView) footerView.findViewById(R.id.footer_text_view);
+    footerProgressBar.setVisibility(View.GONE);
+    footerImageView.setVisibility(View.VISIBLE);
+    footerImageView.setImageResource(R.drawable.down_arrow);
+    footerTextView.setText("上拉加载更多...");
+    return footerView;
   }
 
   private void initBannerImg() {
@@ -153,7 +222,32 @@ public class TravelDetailActivity extends BaseActivity implements TravelDetailMv
     });
   }
 
+  private void loadData() {
+    if (NetworkUtil.isNetworkConnected(this)) {
+      swipeRefresh.setRefreshing(true);
+      presenter.loadTravelDetail(0, AiShangUtil.generTravelDetail(newsID));
+      loadCriticismList(1);
+    } else {
+      CommonUtil.showSnackbar(R.string.no_net, layoutRoot);
+    }
+  }
+
+  private void autoLoad() {
+    new Handler().postDelayed(new Runnable() {
+      @Override public void run() {
+        loadData();
+      }
+    }, 100);
+  }
+
+  private void loadCriticismList(int start) {
+    presenter.getCriticismList(0, AiShangUtil.generCriticismListParam(newsID, start, 3));
+  }
+
   @Override public void loadTraveDetailFinish(JNewsDetailResult result) {
+
+    if (swipeRefresh.isRefreshing()) swipeRefresh.setRefreshing(false);
+
     AiShangUtil.setWebViewContent(webview, result.getContent());
     title.setText(result.getTitle());
   }
@@ -181,6 +275,36 @@ public class TravelDetailActivity extends BaseActivity implements TravelDetailMv
 
   @Override public void criticismFinish() {
     CommonUtil.showSnackbar("评论成功", layoutRoot);
+
+    if (criticismAdapter != null) {
+      criticismAdapter.getCriticismList().clear();
+      criticismAdapter.notifyDataSetChanged();
+    }
+
+    loadCriticismList(1);
+  }
+
+  @Override public void criticismListFinish(JCriticismListResult result) {
+
+    footerImageView.setVisibility(View.VISIBLE);
+    footerProgressBar.setVisibility(View.GONE);
+    swipeRefresh.setLoadMore(false);
+
+    if (criticismAdapter == null) {
+      criticismAdapter = new CriticismAdapter(this, result.getCriticismList());
+      criticismList.setAdapter(criticismAdapter);
+    } else {
+      List<JCriticismListResult.CriticismListEntity> criticismList =
+          criticismAdapter.getCriticismList();
+      criticismList.addAll(result.getCriticismList());
+      criticismAdapter.notifyDataSetChanged();
+    }
+  }
+
+  @Override public void dimissCriticismList() {
+    footerImageView.setVisibility(View.VISIBLE);
+    footerProgressBar.setVisibility(View.GONE);
+    swipeRefresh.setLoadMore(false);
   }
 
   @Override protected void onDestroy() {
@@ -236,9 +360,13 @@ public class TravelDetailActivity extends BaseActivity implements TravelDetailMv
   }
 
   private void onClickPingLun() {
-    InputMethodManager inputMethodManager =
-        (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-    inputMethodManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+    if (checkLogin()) {
+      InputMethodManager inputMethodManager =
+          (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+      inputMethodManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+    } else {
+      showLoginDialog();
+    }
   }
 
   private void onClickShare() {

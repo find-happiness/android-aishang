@@ -82,17 +82,15 @@ import javax.inject.Inject;
     holder.shuoshuo.setText(item.getTitle() + "");
     holder.dianzhang.setText(item.getHits() + "");
     holder.pinglun.setText(news.getEnshrinedCount() + "");
-    holder.reward.setText(item.getNewsID() + "");
-    holder.name.setText(item.getSource() + "");
+    holder.reward.setText("奖金");
+    holder.name.setText(news.getUserName() + "");
     convertView.setTag(holder);
 
     convertView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-
         Intent intent =
             TravelDetailActivity.getStartIntent(activity, item.getNewsID(), item.getStaticUrl(),
                 item.getImageUrl());
-
         activity.startActivity(intent);
       }
     });

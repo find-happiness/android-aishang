@@ -250,6 +250,7 @@ public class TravelDetailActivity extends BaseActivity implements TravelDetailMv
 
     AiShangUtil.setWebViewContent(webview, result.getContent());
     title.setText(result.getTitle());
+    userName.setText(result.getAuthorName() + "");
   }
 
   @Override public void showDialog() {

@@ -1,196 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/spacing_medium"
     android:layout_marginRight="@dimen/spacing_medium"
-    android:background="@android:color/white"
     >
-
-  <ImageView
-      android:id="@+id/img_in_sale"
+  <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_weight="1"
-      android:adjustViewBounds="true"
-      android:scaleType="centerCrop"
-      android:src="@mipmap/banner"
-      />
-
-  <RelativeLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/img_in_sale"
-      android:layout_gravity="center"
-      android:layout_marginLeft="@dimen/spacing_small"
-      android:layout_marginRight="@dimen/spacing_small"
-      android:layout_marginTop="@dimen/spacing_medium"
-      android:layout_weight="2"
-      android:paddingBottom="@dimen/spacing_medium"
+      android:background="@android:color/white"
       >
 
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@id/price_text"
-        android:ellipsize="end"
-        android:gravity="center_vertical"
-        android:singleLine="true"
-        android:textSize="@dimen/text_body"
-        tools:text="宜春|曦园柳镇"
-        />
-
-    <TextView
-        android:id="@+id/price_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:textColor="@color/price"
-        android:textSize="@dimen/text_body"
-        tools:text="5.9万"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/price_text"
-        android:text="￥"
-        android:textColor="@color/price"
-        android:textSize="@dimen/text_body"
-        />
-
-    <LinearLayout
-        android:id="@+id/ll_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/name"
-        android:orientation="vertical"
-        >
-
-      <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="交房时间:"
-          android:textColor="@color/text_gray"
-          android:textSize="@dimen/text_small_body"
-          />
-
-      <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="项目地址:"
-          android:textColor="@color/text_gray"
-          android:textSize="@dimen/text_small_body"
-          />
-
-      <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="特        色:"
-          android:textColor="@color/text_gray"
-          android:textSize="@dimen/text_small_body"
-          />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/ll_detail"
-        android:layout_toRightOf="@id/ll_detail"
-        android:orientation="vertical"
-        >
-
-      <TextView
-          android:id="@+id/time"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:ellipsize="marquee"
-          android:focusable="true"
-          android:focusableInTouchMode="true"
-          android:lines="1"
-          android:marqueeRepeatLimit="marquee_forever"
-          android:maxEms="10"
-          android:scrollHorizontally="true"
-          android:textColor="@color/text_gray"
-          android:textSize="@dimen/text_small_body"
-          tools:text="交房时间:"
-          />
-
-      <TextView
-          android:id="@+id/address"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:ellipsize="marquee"
-          android:focusable="true"
-          android:focusableInTouchMode="true"
-          android:lines="1"
-          android:marqueeRepeatLimit="marquee_forever"
-          android:scrollHorizontally="true"
-          android:textColor="@color/text_gray"
-          android:textSize="@dimen/text_small_body"
-          tools:text="项目地址:"
-          />
-
-      <TextView
-          android:id="@+id/tese"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:ellipsize="marquee"
-          android:focusable="true"
-          android:focusableInTouchMode="true"
-          android:lines="1"
-          android:marqueeRepeatLimit="marquee_forever"
-          android:maxEms="10"
-          android:scrollHorizontally="true"
-          android:textColor="@color/text_gray"
-          android:textSize="@dimen/text_small_body"
-          tools:text="特         色:"
-          />
-    </LinearLayout>
-
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/img_in_sale"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ll_detail"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/banner"
+        />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/img_in_sale"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/spacing_small"
+        android:layout_marginRight="@dimen/spacing_small"
+        android:layout_marginTop="@dimen/spacing_medium"
+        android:layout_weight="2"
         android:paddingBottom="@dimen/spacing_medium"
-        android:visibility="gone"
         >
 
       <TextView
-          android:id="@+id/buy"
+          android:id="@+id/name"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentLeft="true"
+          android:layout_toLeftOf="@id/price_text"
+          android:ellipsize="end"
+          android:gravity="center_vertical"
+          android:singleLine="true"
+          android:textSize="@dimen/text_body"
+          tools:text="宜春|曦园柳镇"
+          />
+
+      <TextView
+          android:id="@+id/price_text"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_alignParentRight="true"
-          android:layout_marginLeft="5dp"
-          android:layout_marginTop="@dimen/spacing_small"
-          android:background="@drawable/red_stroke_corner"
-          android:paddingLeft="@dimen/spacing_medium"
-          android:paddingRight="@dimen/spacing_medium"
-          android:text="@string/buy_now"
-          android:textColor="@color/red_buy"
+          android:textColor="@color/price"
+          android:textSize="@dimen/text_body"
+          tools:text="5.9万"
           />
 
       <TextView
-          android:id="@+id/look"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_marginRight="5dp"
-          android:layout_marginTop="@dimen/spacing_small"
-          android:layout_toLeftOf="@id/buy"
-          android:background="@drawable/tu_stroke_corner"
-          android:paddingBottom="@dimen/spacing_small"
-          android:paddingLeft="@dimen/spacing_medium"
-          android:paddingRight="@dimen/spacing_medium"
-          android:paddingTop="@dimen/spacing_small"
-          android:text="@string/kanfangduan"
-          android:textColor="@color/text_tu"
-          android:textSize="@dimen/text_xsmall_body"
-          android:visibility="gone"
+          android:layout_toLeftOf="@id/price_text"
+          android:text="￥"
+          android:textColor="@color/price"
+          android:textSize="@dimen/text_body"
           />
 
+      <LinearLayout
+          android:id="@+id/ll_detail"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/name"
+          android:orientation="vertical"
+          >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="交房时间:"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_small_body"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="项目地址:"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_small_body"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="特        色:"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_small_body"
+            />
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignTop="@id/ll_detail"
+          android:layout_toRightOf="@id/ll_detail"
+          android:orientation="vertical"
+          >
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:lines="1"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:maxEms="10"
+            android:scrollHorizontally="true"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_small_body"
+            tools:text="交房时间:"
+            />
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:lines="1"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_small_body"
+            tools:text="项目地址:"
+            />
+
+        <TextView
+            android:id="@+id/tese"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:lines="1"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:maxEms="10"
+            android:scrollHorizontally="true"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_small_body"
+            tools:text="特         色:"
+            />
+      </LinearLayout>
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/ll_detail"
+          android:paddingBottom="@dimen/spacing_medium"
+          android:visibility="gone"
+          >
+
+        <TextView
+            android:id="@+id/buy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:background="@drawable/red_stroke_corner"
+            android:paddingLeft="@dimen/spacing_medium"
+            android:paddingRight="@dimen/spacing_medium"
+            android:text="@string/buy_now"
+            android:textColor="@color/red_buy"
+            />
+
+        <TextView
+            android:id="@+id/look"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_toLeftOf="@id/buy"
+            android:background="@drawable/tu_stroke_corner"
+            android:paddingBottom="@dimen/spacing_small"
+            android:paddingLeft="@dimen/spacing_medium"
+            android:paddingRight="@dimen/spacing_medium"
+            android:paddingTop="@dimen/spacing_small"
+            android:text="@string/kanfangduan"
+            android:textColor="@color/text_tu"
+            android:textSize="@dimen/text_xsmall_body"
+            android:visibility="gone"
+            />
+
+      </RelativeLayout>
     </RelativeLayout>
   </RelativeLayout>
-</RelativeLayout>
+</android.support.v7.widget.CardView>

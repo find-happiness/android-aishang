@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
+import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -222,5 +223,10 @@ public class CommonUtil {
       e.printStackTrace();
     }
     return bitmap;
+  }
+
+  public static boolean isCanTakePhone(Context ctx){
+    TelephonyManager tm = (TelephonyManager) ctx.getSystemService(Context.TELEPHONY_SERVICE);
+    return tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE;
   }
 }

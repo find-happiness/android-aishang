@@ -34,6 +34,15 @@ public class JNewsDetailResult {
   private String content;
   private int hits;
   private int support;
+  private String AuthorName;
+
+  public String getAuthorName() {
+    return AuthorName;
+  }
+
+  public void setAuthorName(String authorName) {
+    AuthorName = authorName;
+  }
 
   public String getResult() {
     return result;

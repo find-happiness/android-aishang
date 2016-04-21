@@ -1,7 +1,6 @@
 package com.aishang.app.ui.HotelDetail;
 
 import android.animation.Animator;
-import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.app.DatePickerDialog;
@@ -19,7 +18,6 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.ScaleAnimation;
 import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.DatePicker;
@@ -61,7 +59,6 @@ import com.amap.api.maps2d.model.MarkerOptions;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
-import com.github.aakira.expandablelayout.Utils;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
@@ -95,6 +92,7 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
   @Bind(R.id.toolbar_title) TextView toolbarText;
   @Bind(R.id.room_container) LinearLayout roomContainer;
   @Bind(R.id.view_pager) HackyViewPager viewPager;
+  @Bind(R.id.take_phone) ImageView takePhone;
 
   private String hotelName;
   private int hotelID;
@@ -180,8 +178,7 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
 
   @Override public boolean onKeyDown(int keyCode, KeyEvent event) {
     if (keyCode == KeyEvent.KEYCODE_BACK && View.VISIBLE == viewPager.getVisibility()) {
-      BusProvider.getInstance()
-          .post(AdapterImgModel.create(0, 0, viewPager.getCurrentItem()));
+      BusProvider.getInstance().post(AdapterImgModel.create(0, 0, viewPager.getCurrentItem()));
       return false;
     }
     return super.onKeyDown(keyCode, event);
@@ -461,7 +458,7 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
 
     roomAdapter = new RoomAdapter(roomCats, this);
 
-    Log.i(TAG, "bindRoomCat: room cats size" +roomCats.size());
+    Log.i(TAG, "bindRoomCat: room cats size" + roomCats.size());
 
     for (int i = 0; i < roomCats.size(); i++) {
       roomContainer.addView(roomAdapter.getView(i), i);
@@ -594,12 +591,30 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
     }, ads)
         //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
         .setPageIndicator(new int[] { R.mipmap.ellipse_nomal, R.mipmap.ellipse_select })
-            //设置指示器的方向
+        //设置指示器的方向
         .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
   }
 
   private boolean checkLogin() {
     return BoilerplateApplication.get(this).getMemberLoginResult() != null;
+  }
+
+  @OnClick(R.id.take_phone) public void onClickTakePhone() {
+
+    if (!CommonUtil.isCanTakePhone(this)) {
+      CommonUtil.showSnackbar("您的设备不能打电话!", layoutRoot);
+      return;
+    }
+
+    if (hotel != null) {
+      try {
+        CommonUtil.intentToCall(hotel.getDataSet().getBaseInfo().getPhone(), this);
+      } catch (Exception e) {
+        Log.e(TAG, "oncliclTakePhone: " + e.toString());
+      }
+    } else {
+      CommonUtil.showSnackbar("未获取到数据，请稍后再试！", layoutRoot);
+    }
   }
 
   public class NetImageHolderView implements Holder<String> {

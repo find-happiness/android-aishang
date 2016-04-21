@@ -55,6 +55,7 @@ public class JNewsListResult {
   private List<Integer> enshrinedCountList;
   private List<String> zoneName;
   private List<String> userImageUrlList;
+  private List<String> userNameList;
 
   public String getResult() {
     return result;
@@ -86,6 +87,14 @@ public class JNewsListResult {
 
   public void setNewsCatList(List<NewsCatListEntity> newsCatList) {
     this.newsCatList = newsCatList;
+  }
+
+  public List<String> getUserNameList() {
+    return userNameList;
+  }
+
+  public void setUserNameList(List<String> userNameList) {
+    this.userNameList = userNameList;
   }
 
   public List<Integer> getEnshrinedCountList() {

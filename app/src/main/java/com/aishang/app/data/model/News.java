@@ -13,12 +13,31 @@ public class News {
 
   String zoneName;
 
+  String userName;
+
   public News(JNewsListResult.NewsListEntity news, int enshrinedCount, String userImageUrl,
       String zoneName) {
     this.news = news;
     this.enshrinedCount = enshrinedCount;
     this.userImageUrl = userImageUrl;
     this.zoneName = zoneName;
+  }
+
+  public News(JNewsListResult.NewsListEntity news, int enshrinedCount, String userImageUrl,
+      String zoneName, String userName) {
+    this.news = news;
+    this.enshrinedCount = enshrinedCount;
+    this.userImageUrl = userImageUrl;
+    this.zoneName = zoneName;
+    this.userName = userName;
+  }
+
+  public String getUserName() {
+    return userName;
+  }
+
+  public void setUserName(String userName) {
+    this.userName = userName;
   }
 
   public JNewsListResult.NewsListEntity getNews() {

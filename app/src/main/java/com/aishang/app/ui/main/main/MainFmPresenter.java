@@ -36,6 +36,7 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func4;
+import rx.functions.Func5;
 import rx.schedulers.Schedulers;
 
 /**
@@ -225,10 +226,13 @@ public class MainFmPresenter extends BasePresenter<MainFmMvpView> {
                     Observable.from(result.getUserImageUrlList()),
                     Observable.from(result.getZoneName()),
                     Observable.from(result.getEnshrinedCountList()),
-                    new Func4<JNewsListResult.NewsListEntity, String, String, Integer, News>() {
+                    Observable.from(result.getUserNameList()),
+                    new Func5<JNewsListResult.NewsListEntity, String, String, Integer, String, News>() {
                       @Override public News call(JNewsListResult.NewsListEntity newsListEntity,
-                          String userImage, String zoneName, Integer enshrinedCount) {
-                        return new News(newsListEntity, enshrinedCount, userImage, zoneName);
+                          String userImage, String zoneName, Integer enshrinedCount,
+                          String userName) {
+                        return new News(newsListEntity, enshrinedCount, userImage, zoneName,
+                            userName);
                       }
                     }).toList().subscribe(new Action1<List<News>>() {
                   @Override public void call(List<News> newses) {

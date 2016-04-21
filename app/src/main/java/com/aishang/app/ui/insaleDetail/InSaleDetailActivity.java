@@ -12,6 +12,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.transition.Slide;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -51,7 +52,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class InSaleDetailActivity extends BaseActivity implements InSaleDetailMvpView {
-
+  private static final String TAG = "InSaleDetailActivity";
   public static final String LOUPAN_PRODUCT_ID = "loupan_id";
   public static final String LOUPAN_PRODUCT_NAME = "loupan_name";
   private static final String EXTRA_IMAGE = "com.antonioleiva.materializeyourapp.extraImage";
@@ -178,8 +179,18 @@ public class InSaleDetailActivity extends BaseActivity implements InSaleDetailMv
   }
 
   @OnClick(R.id.take_phone) void oncliclTakePhone() {
+
+    if (!CommonUtil.isCanTakePhone(this)) {
+      CommonUtil.showSnackbar("您的设备不能打电话!", layoutRoot);
+      return;
+    }
+
     if (loupan != null) {
-      CommonUtil.intentToCall("", this);
+      try {
+        CommonUtil.intentToCall("", this);
+      } catch (Exception e) {
+        Log.e(TAG, "oncliclTakePhone: " + e.toString());
+      }
     } else {
       CommonUtil.showSnackbar("未获取到数据，请稍后再试！", layoutRoot);
     }
@@ -391,7 +402,7 @@ public class InSaleDetailActivity extends BaseActivity implements InSaleDetailMv
     }, localImages)
         //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
         .setPageIndicator(new int[] { R.mipmap.ellipse_nomal, R.mipmap.ellipse_select })
-            //设置指示器的方向
+        //设置指示器的方向
         .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
     //设置翻页的效果，不需要翻页效果可用不设
     //.setPageTransformer(Transformer.DefaultTransformer);    //集成特效之后会有白屏现象，新版已经分离，如果要集成特效的例子可以看Demo的点击响应。

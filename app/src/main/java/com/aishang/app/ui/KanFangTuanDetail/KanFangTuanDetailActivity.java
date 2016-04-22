@@ -115,6 +115,12 @@ public class KanFangTuanDetailActivity extends BaseActivity implements KanFangTu
   }
 
   @OnClick(R.id.take_phone) void onTakePhone() {
+
+    if (!CommonUtil.isCanTakePhone(this)) {
+      CommonUtil.showSnackbar("您的设备不能打电话!", layoutRoot);
+      return;
+    }
+
     if (!TextUtils.isEmpty(activityItem.getContactPhone())) {
       CommonUtil.intentToCall(activityItem.getContactPhone(), this);
     } else {

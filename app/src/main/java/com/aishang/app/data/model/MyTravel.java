@@ -15,9 +15,11 @@ public class MyTravel {
   private int newsID;
   private String source;
   private int enshrinedCount;
+  private String userName;
+
 
   public MyTravel(String title, String shortDesc, String imageUrl, String date, int hits,
-      int supports, String staticUrl, int newsID) {
+      int supports, String staticUrl, int newsID,String userName) {
     this.title = title;
     this.shortDesc = shortDesc;
     this.imageUrl = imageUrl;
@@ -26,6 +28,14 @@ public class MyTravel {
     this.supports = supports;
     this.staticUrl = staticUrl;
     this.newsID = newsID;
+  }
+
+  public String getUserName() {
+    return userName;
+  }
+
+  public void setUserName(String userName) {
+    this.userName = userName;
   }
 
   public String getSource() {

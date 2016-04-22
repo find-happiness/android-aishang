@@ -2,6 +2,7 @@ package com.aishang.app.ui.CanTuan;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -27,7 +28,10 @@ import com.aishang.app.util.BusProvider;
 import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.DialogFactory;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
+import rx.Observable;
+import rx.functions.Action1;
 
 public class CanTuanActivity extends BaseActivity implements CanTuanMvpView {
 
@@ -71,10 +75,12 @@ public class CanTuanActivity extends BaseActivity implements CanTuanMvpView {
     ButterKnife.bind(this);
     initToolbar();
   }
+
   @Override protected void onDestroy() {
     presenter.detachView();
     super.onDestroy();
   }
+
   @Override public boolean onCreateOptionsMenu(Menu menu) {
     MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.menu_push, menu);
@@ -107,6 +113,9 @@ public class CanTuanActivity extends BaseActivity implements CanTuanMvpView {
   }
 
   private void postDate() {
+
+    CommonUtil.hideSoftInput(this);
+
     if (isNameEmpty()) {
       showNameError();
       return;
@@ -171,7 +180,18 @@ public class CanTuanActivity extends BaseActivity implements CanTuanMvpView {
 
   @Override public void showSuccess() {
     dimissDialog();
-    CommonUtil.showSnackbar("报名成功", layoutRoot);
+    //CommonUtil.showSnackbar("报名成功", layoutRoot);
+    //Observable.timer(1, TimeUnit.SECONDS).subscribe(new Action1<Long>() {
+    //  @Override public void call(Long aLong) {
+    //    CanTuanActivity.this.finish();
+    //  }
+    //});
+
+    DialogFactory.createGenericSuccessDialog(this, "报名成功", new DialogInterface.OnClickListener() {
+      @Override public void onClick(DialogInterface dialog, int which) {
+        CanTuanActivity.this.finish();
+      }
+    }).show();
   }
 
   private void dimissDialog() {

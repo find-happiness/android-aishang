@@ -36,6 +36,7 @@ public class RecommenCustomerActivity extends BaseActivity implements RecommentM
   @Bind(R.id.intent_price) ClearEditText intentPrice;
   @Bind(R.id.commit) ClearEditText commit;
   @Bind(R.id.layoutRoot) RelativeLayout layoutRoot;
+  @Bind(R.id.gender) TextView tvGender;
 
   final String[] genders = new String[] { "保密", "男", "女" };
 
@@ -48,10 +49,12 @@ public class RecommenCustomerActivity extends BaseActivity implements RecommentM
     ButterKnife.bind(this);
     initToolbar();
   }
+
   @Override protected void onDestroy() {
     presenter.detachView();
     super.onDestroy();
   }
+
   @Override public boolean onCreateOptionsMenu(Menu menu) {
     MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.menu_push, menu);
@@ -63,15 +66,24 @@ public class RecommenCustomerActivity extends BaseActivity implements RecommentM
   }
 
   @Override public void showSuccess() {
-    DialogFactory.createGenericSuccessDialog(this, "添加成功").show();
+    DialogFactory.createGenericSuccessDialog(this, "添加成功", new DialogInterface.OnClickListener() {
+      @Override public void onClick(DialogInterface dialog, int which) {
+        RecommenCustomerActivity.this.finish();
+      }
+    }).show();
   }
 
   @OnClick(R.id.gender) void genderClick() {
-    DialogFactory.createSingleChoiceDialog(this, genders, 0, new DialogInterface.OnClickListener() {
-      @Override public void onClick(DialogInterface dialog, int which) {
-        dialog.dismiss();
-      }
-    }, getString(R.string.gender)).show();
+
+    int defaultGender = tvGender.getTag() == null ? 0 : ((int) tvGender.getTag());
+    DialogFactory.createSingleChoiceDialog(this, genders, defaultGender,
+        new DialogInterface.OnClickListener() {
+          @Override public void onClick(DialogInterface dialog, int which) {
+            tvGender.setText(genders[which]);
+            tvGender.setTag(which);
+            dialog.dismiss();
+          }
+        }, getString(R.string.gender)).show();
   }
 
   private void initToolbar() {

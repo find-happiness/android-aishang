@@ -18,6 +18,7 @@ import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.NetWorkType;
 import com.aishang.app.util.NetworkUtil;
 import com.aishang.app.util.ViewUtil;
+import com.aishang.app.widget.SpacesItemDecoration;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView;
@@ -122,18 +123,16 @@ public class FavoritesFragment extends LazyFragment implements TravelFavoritesMv
     this.getActivity().getWindowManager().getDefaultDisplay().getMetrics(localDisplayMetrics);
     int mScreenWidth = localDisplayMetrics.widthPixels;
     int pacing = ViewUtil.dpToPx(8);
-    int width = (mScreenWidth - 4 * pacing) / 3;
-    adapter.setImgSize(width, width * 3 / 4);
+    int width = (mScreenWidth - 2 * pacing);
+    adapter.setImgSize(width, width * 2 / 3);
   }
 
   private void initRefreshLayout() {
     LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity());
     layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
     mRecyclerView.setLayoutManager(layoutManager);
-
-    mRecyclerView.addItemDecoration(
-        new HorizontalDividerItemDecoration.Builder(this.getActivity()).colorResId(
-            android.R.color.darker_gray).sizeResId(R.dimen.divider).build());
+    mRecyclerView.addItemDecoration(new SpacesItemDecoration(
+        this.getResources().getDimensionPixelSize(R.dimen.spacing_medium)));
     mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallScaleRipple);
     mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);
     //mRecyclerView.setArrowImageView(R.drawable.iconfont_downgrey);

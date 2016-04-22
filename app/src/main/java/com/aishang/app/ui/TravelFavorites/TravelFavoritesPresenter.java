@@ -67,7 +67,7 @@ public class TravelFavoritesPresenter extends BasePresenter<TravelFavoritesMvpVi
                 MyTravel travel =
                     new MyTravel(entity.getTitle(), entity.getShortDesc(), entity.getImageUrl(),
                         entity.getCreateDate(), entity.getHits(), entity.getSupports(),
-                        entity.getStaticUrl(), entity.getID());
+                        entity.getStaticUrl(), entity.getID(), entity.getAuthorID());
 
                 myTravels.add(travel);
               }
@@ -134,7 +134,7 @@ public class TravelFavoritesPresenter extends BasePresenter<TravelFavoritesMvpVi
                 MyTravel travel =
                     new MyTravel(entity.getTitle(), entity.getShortDesc(), entity.getImageUrl(),
                         entity.getCreateDate(), entity.getHits(), entity.getSupports(),
-                        entity.getStaticUrl(), entity.getID());
+                        entity.getStaticUrl(), entity.getID(), entity.getAuthorID());
 
                 myTravels.add(travel);
               }
@@ -201,7 +201,7 @@ public class TravelFavoritesPresenter extends BasePresenter<TravelFavoritesMvpVi
                 MyTravel travel =
                     new MyTravel(entity.getTitle(), entity.getShortDesc(), entity.getImageUrl(),
                         entity.getCreateDate(), entity.getHits(), entity.getSupports(),
-                        entity.getStaticUrl(), entity.getID());
+                        entity.getStaticUrl(), entity.getID(), entity.getAuthorID());
 
                 myTravels.add(travel);
               }
@@ -222,7 +222,7 @@ public class TravelFavoritesPresenter extends BasePresenter<TravelFavoritesMvpVi
 
           @Override public void onError(Throwable e) {
             getMvpView().showError("网络异常");
-            Log.e(TAG, "loadTravelParticipation onError: "+ e.toString() );
+            Log.e(TAG, "loadTravelParticipation onError: " + e.toString());
           }
 
           @Override public void onNext(AdapterContentModel myTravels) {

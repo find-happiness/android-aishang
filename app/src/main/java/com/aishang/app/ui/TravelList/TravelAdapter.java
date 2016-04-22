@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,7 +19,6 @@ import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.ui.TravelDetail.TravelDetailActivity;
 import com.aishang.app.util.ViewUtil;
 import com.squareup.picasso.Picasso;
-import de.hdodenhof.circleimageview.CircleImageView;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -41,14 +41,8 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
         LayoutInflater.from(parent.getContext()).inflate(R.layout.item_travel, parent, false);
 
     ViewHolder holder = new ViewHolder(view);
-    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(imgWidth, imgHeight);
-    //layoutParams.setMargins(0, 0, ViewUtil.dpToPx(8), 0);
-    layoutParams.setMargins(0, 0, ViewUtil.dpToPx(8), 0);
-    holder.img1.setLayoutParams(layoutParams);
-    holder.img2.setLayoutParams(layoutParams);
-    LinearLayout.LayoutParams layoutParams2 = new LinearLayout.LayoutParams(imgWidth, imgHeight);
-    layoutParams2.setMargins(0, 0, 0, 0);
-    holder.img3.setLayoutParams(layoutParams2);
+    FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(imgWidth, imgHeight);
+    holder.image.setLayoutParams(layoutParams);
     return holder;
   }
 
@@ -61,33 +55,14 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
         .load(AiShangService.IMG_URL + item.getImageUrl())
         .error(R.mipmap.banner)
         .placeholder(R.mipmap.banner)
-        .into(holder.img1);
+        .into(holder.image);
 
-    Picasso.with(holder.getContext())
-        .load(AiShangService.IMG_URL + item.getImageUrl())
-        .error(R.mipmap.banner)
-        .placeholder(R.mipmap.banner)
-        .into(holder.img2);
-
-    Picasso.with(holder.getContext())
-        .load(AiShangService.IMG_URL + item.getImageUrl())
-        .error(R.mipmap.banner)
-        .placeholder(R.mipmap.banner)
-        .into(holder.img3);
-
-    Picasso.with(holder.getContext())
-        .load(AiShangService.IMG_URL + news.getUserImageUrl())
-        .error(R.mipmap.ic_img_user_default)
-        .placeholder(R.mipmap.ic_img_user_default)
-        .into(holder.head);
-
-    holder.shortDesc.setText(item.getShortDesc() + "");
+    holder.shortDesc.setText(item.getTitle() + "");
     holder.dianzhang.setText(item.getHits() + "");
     holder.pinglun.setText(news.getEnshrinedCount() + "");
     holder.reward.setText(item.getNewsID() + "");
-    holder.userName.setText(item.getSource() + "");
-    holder.title.setText(item.getTitle()+"");
-    holder.date.setText(item.getDate() + "");
+    holder.userName.setText("作者:" + news.getUserName());
+    holder.localOrDate.setText(news.getZoneName());
 
     holder.itemView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
@@ -120,27 +95,23 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
     ctx.startActivity(intent);
   }
 
-  public class ViewHolder extends RecyclerView.ViewHolder {
-
-    @Bind(R.id.head) CircleImageView head;
-    @Bind(R.id.user_name) TextView userName;
-    @Bind(R.id.date) TextView date;
+  static class ViewHolder extends RecyclerView.ViewHolder {
+    @Bind(R.id.image) ImageView image;
     @Bind(R.id.short_desc) TextView shortDesc;
-    @Bind(R.id.img1) ImageView img1;
-    @Bind(R.id.img2) ImageView img2;
-    @Bind(R.id.img3) ImageView img3;
+    @Bind(R.id.user_name) TextView userName;
     @Bind(R.id.dianzhang) TextView dianzhang;
     @Bind(R.id.pinglun) TextView pinglun;
     @Bind(R.id.reward) TextView reward;
-    @Bind(R.id.title) TextView title;
-
-    public Context getContext() {
-      return this.itemView.getContext();
-    }
+    @Bind(R.id.local_or_date) TextView localOrDate;
 
     public ViewHolder(View itemView) {
       super(itemView);
+
       ButterKnife.bind(this, itemView);
+    }
+
+    public Context getContext() {
+      return this.itemView.getContext();
     }
   }
 }

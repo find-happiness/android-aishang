@@ -28,6 +28,7 @@ import com.aishang.app.util.DialogFactory;
 import com.aishang.app.util.NetWorkType;
 import com.aishang.app.util.NetworkUtil;
 import com.aishang.app.util.ViewUtil;
+import com.aishang.app.widget.SpacesItemDecoration;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView;
@@ -86,8 +87,8 @@ public class TravelListActivity extends BaseActivity implements TravelListMvpVie
     this.getWindowManager().getDefaultDisplay().getMetrics(localDisplayMetrics);
     int mScreenWidth = localDisplayMetrics.widthPixels;
     int pacing = ViewUtil.dpToPx(8);
-    int width = (mScreenWidth - 4 * pacing) / 3;
-    adapter.setImgSize(width, width * 3 / 4);
+    int width = (mScreenWidth - 2 * pacing);
+    adapter.setImgSize(width, width * 2 / 3);
   }
 
   private void initToolbar() {
@@ -112,10 +113,9 @@ public class TravelListActivity extends BaseActivity implements TravelListMvpVie
     layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
     mRecyclerView.setLayoutManager(layoutManager);
 
-    mRecyclerView.addItemDecoration(
-        new HorizontalDividerItemDecoration.Builder(this).colorResId(android.R.color.darker_gray)
-            .sizeResId(R.dimen.divider)
-            .build());
+    mRecyclerView.addItemDecoration(new SpacesItemDecoration(
+        this.getResources().getDimensionPixelSize(R.dimen.spacing_medium)));
+
     mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallScaleRipple);
     mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);
     //mRecyclerView.setArrowImageView(R.drawable.iconfont_downgrey);

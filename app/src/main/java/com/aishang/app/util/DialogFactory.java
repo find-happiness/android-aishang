@@ -61,6 +61,15 @@ public final class DialogFactory {
     return alertDialog.create();
   }
 
+  public static Dialog createGenericSuccessDialog(Context context, String message,
+      DialogInterface.OnClickListener okClick) {
+    AlertDialog.Builder alertDialog =
+        new AlertDialog.Builder(context).setTitle(context.getString(R.string.dialog_Ok_title))
+            .setMessage(message)
+            .setPositiveButton(R.string.dialog_action_ok, okClick);
+    return alertDialog.create();
+  }
+
   public static Dialog createGenericSuccessDialog(Context context, String message) {
     AlertDialog.Builder alertDialog =
         new AlertDialog.Builder(context).setTitle(context.getString(R.string.dialog_Ok_title))

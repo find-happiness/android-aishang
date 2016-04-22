@@ -6,6 +6,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     tools:context="com.aishang.app.ui.main.MainActivity"
+    android:id="@+id/layoutRoot"
     tools:ignore="MergeRootFrame"
     >
 

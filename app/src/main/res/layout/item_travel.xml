@@ -1,135 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="@dimen/spacing_small"
+    android:layout_marginRight="@dimen/spacing_small"
     android:background="@android:color/white"
-    android:orientation="vertical"
-    android:padding="@dimen/spacing_medium">
+    android:orientation="vertical">
 
-  <RelativeLayout
-      android:id="@+id/ll_user"
+
+  <ImageView
+      android:id="@+id/image"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:orientation="horizontal">
+      android:scaleType="centerCrop"/>
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/head"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:scaleType="centerCrop"
-        />
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom"
+      android:background="@drawable/new_title_bg">
+
+    <TextView
+        android:id="@+id/short_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_body"
+        tools:text="站在这里，如沐浴星海。不知道李安在拍摄《少年Pi》的时候有没有受到过这个地铁站的触动，因为电影里夜空下平静却光亮的大海，与之实在是有异曲同工之妙。"/>
+
+    <TextView
+        android:id="@+id/dianzhang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/short_desc"
+        android:layout_marginTop="5dp"
+        android:drawableLeft="@drawable/iconfont_dianzan_white"
+        android:drawablePadding="@dimen/spacing_medium"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_body"
+        tools:text="6920"/>
+
+    <TextView
+        android:id="@+id/pinglun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/short_desc"
+        android:layout_marginLeft="@dimen/spacing_medium"
+        android:layout_marginRight="@dimen/spacing_medium"
+        android:layout_marginTop="5dp"
+        android:layout_toLeftOf="@id/dianzhang"
+        android:drawableLeft="@drawable/iconfont_pinglun_white"
+        android:drawablePadding="@dimen/spacing_medium"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_body"
+        tools:text="6920"/>
+
+    <TextView
+        android:id="@+id/reward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/short_desc"
+        android:layout_marginTop="5dp"
+        android:layout_toLeftOf="@id/pinglun"
+        android:drawableLeft="@drawable/iconfont_hongbao_white"
+        android:drawablePadding="@dimen/spacing_medium"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_body"
+        tools:text="奖金6920"/>
 
     <TextView
         android:id="@+id/user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/head"
+        android:layout_alignBottom="@id/reward"
+        android:layout_below="@id/short_desc"
         android:singleLine="true"
-        android:textColor="@color/primary"
-        android:textSize="@dimen/text_title"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_body"
         tools:text="hahahhhhs"/>
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/head"
-        android:layout_toRightOf="@id/head"
-        android:singleLine="true"
-        android:textSize="@dimen/text_body"
-        tools:text="sdfjsdjf"/>
-
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/spacing_medium"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="@dimen/text_body"
-        tools:text="2016-01-22"/>
-
   </RelativeLayout>
 
   <TextView
-      android:id="@+id/short_desc"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/ll_user"
-      android:layout_marginTop="@dimen/spacing_small"
-      android:ellipsize="end"
-      android:maxLines="2"
-      android:textSize="@dimen/text_body"
-      tools:text="站在这里，如沐浴星海。不知道李安在拍摄《少年Pi》的时候有没有受到过这个地铁站的触动，因为电影里夜空下平静却光亮的大海，与之实在是有异曲同工之妙。"/>
-
-  <LinearLayout
-      android:id="@+id/gridview_img"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/short_desc"
-      android:orientation="horizontal">
-
-    <ImageView
-        android:id="@+id/img1"
-        android:layout_width="116dp"
-        android:layout_height="90dp"
-        android:layout_marginRight="@dimen/spacing_medium"
-        android:scaleType="fitXY"
-        tools:src="@mipmap/banner"/>
-
-    <ImageView
-        android:id="@+id/img2"
-        android:layout_width="116dp"
-        android:layout_height="90dp"
-        android:layout_marginRight="@dimen/spacing_medium"
-        android:scaleType="fitXY"
-        tools:src="@mipmap/banner"/>
-
-    <ImageView
-        android:id="@+id/img3"
-        android:layout_width="116dp"
-        android:layout_height="90dp"
-        android:scaleType="fitXY"
-        tools:src="@mipmap/banner"/>
-
-  </LinearLayout>
-
-  <TextView
-      android:id="@+id/dianzhang"
+      android:id="@+id/local_or_date"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_alignParentRight="true"
-      android:layout_below="@id/gridview_img"
-      android:layout_marginLeft="5dp"
-      android:layout_marginTop="5dp"
-      android:drawableLeft="@mipmap/iconfont_dianzan"
-      android:textSize="@dimen/text_body"
-      tools:text="6920"/>
+      android:layout_marginTop="@dimen/spacing_medium"
+      android:background="@drawable/new_title_bg"
+      android:textColor="@android:color/white"/>
 
-  <TextView
-      android:id="@+id/pinglun"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/gridview_img"
-      android:layout_marginLeft="5dp"
-      android:layout_marginTop="5dp"
-      android:layout_toLeftOf="@id/dianzhang"
-      android:drawableLeft="@mipmap/iconfont_pinglun"
-      android:textSize="@dimen/text_body"
-      tools:text="6920"/>
-
-  <TextView
-      android:id="@+id/reward"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/gridview_img"
-      android:layout_marginTop="5dp"
-      android:layout_toLeftOf="@id/pinglun"
-      android:drawableLeft="@mipmap/iconfont_hongbao"
-      android:textColor="#ff0000"
-      android:textSize="@dimen/text_body"
-      tools:text="奖金6920"/>
-
-
-</RelativeLayout>
+</android.support.v7.widget.CardView>

@@ -1,10 +1,8 @@
 package com.aishang.app.ui.TravelList;
 
 import com.aishang.app.data.DataManager;
-import com.aishang.app.data.model.JLoupanProductListResult;
 import com.aishang.app.data.model.JNewsListResult;
 import com.aishang.app.data.model.JSysZoneResult;
-import com.aishang.app.data.model.LoupanProduct;
 import com.aishang.app.data.model.News;
 import com.aishang.app.ui.base.BasePresenter;
 import com.aishang.app.util.Constants;
@@ -17,9 +15,7 @@ import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.functions.Func3;
-import rx.functions.Func4;
+import rx.functions.Func5;
 import rx.schedulers.Schedulers;
 
 /**
@@ -81,10 +77,13 @@ public class TravelListPresenter extends BasePresenter<TravelListMvpView> {
                     Observable.from(result.getUserImageUrlList()),
                     Observable.from(result.getZoneName()),
                     Observable.from(result.getEnshrinedCountList()),
-                    new Func4<JNewsListResult.NewsListEntity, String, String, Integer, News>() {
+                    Observable.from(result.getUserNameList()),
+                    new Func5<JNewsListResult.NewsListEntity, String, String, Integer, String, News>() {
                       @Override public News call(JNewsListResult.NewsListEntity newsListEntity,
-                          String userImage, String zoneName, Integer enshrinedCount) {
-                        return new News(newsListEntity, enshrinedCount, userImage, zoneName);
+                          String userImage, String zoneName, Integer enshrinedCount,
+                          String userName) {
+                        return new News(newsListEntity, enshrinedCount, userImage, zoneName,
+                            userName);
                       }
                     }).toList().subscribe(new Subscriber<List<News>>() {
                   @Override public void onCompleted() {

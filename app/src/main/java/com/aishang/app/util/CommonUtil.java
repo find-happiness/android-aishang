@@ -1,6 +1,7 @@
 package com.aishang.app.util;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -228,5 +229,21 @@ public class CommonUtil {
   public static boolean isCanTakePhone(Context ctx){
     TelephonyManager tm = (TelephonyManager) ctx.getSystemService(Context.TELEPHONY_SERVICE);
     return tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE;
+  }
+
+  public static void exit(Activity context) {
+    int sdk_Version = android.os.Build.VERSION.SDK_INT;
+    if (sdk_Version >= 8) {
+      Intent startMain = new Intent(Intent.ACTION_MAIN);
+      startMain.addCategory(Intent.CATEGORY_HOME);
+      startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      context.startActivity(startMain);
+      context.finish();
+      System.exit(0);
+    } else if (sdk_Version < 8) {
+      ActivityManager activityMgr =
+          (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+      activityMgr.restartPackage(context.getPackageName());
+    }
   }
 }

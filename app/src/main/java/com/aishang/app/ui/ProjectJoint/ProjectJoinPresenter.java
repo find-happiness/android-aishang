@@ -1,5 +1,6 @@
 package com.aishang.app.ui.ProjectJoint;
 
+import android.util.Log;
 import com.aishang.app.data.DataManager;
 import com.aishang.app.data.model.JResult;
 import com.aishang.app.ui.base.BasePresenter;
@@ -15,6 +16,7 @@ import rx.schedulers.Schedulers;
  */
 public class ProjectJoinPresenter extends BasePresenter<ProjectJoinMvpView> {
 
+  private static final String TAG = "ProjectJoinPresenter";
   private final DataManager mDataManager;
   private Subscription subscription;
 
@@ -45,6 +47,7 @@ public class ProjectJoinPresenter extends BasePresenter<ProjectJoinMvpView> {
           }
 
           @Override public void onError(Throwable e) {
+            Log.e(TAG, "onError: " + e.toString() );
             getMvpView().showError("网络异常");
           }
 

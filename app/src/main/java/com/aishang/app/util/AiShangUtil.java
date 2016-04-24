@@ -478,22 +478,20 @@ public class AiShangUtil {
   }
 
   public static String generProjectChangeParam(String propertyOwner, String IDNumber,
-      String houseAddress, String houseNumber, String roomType, float area, String resStartDate,
-      String resEndDate, String contactsPhone, String contactsMobile, String Email, String Img) {
+      String houseAddress, String roomType, String area, String contactsMobile, String email,
+      String appliancesType, String homeFurnishingType, String status) {
 
     JProjectChangeParam param = new JProjectChangeParam();
     param.setPropertyOwner(propertyOwner);
     param.setIDNumber(IDNumber);
     param.setHouseAddress(houseAddress);
-    param.setHouseNumber(houseNumber);
     param.setRoomType(roomType);
-    param.setArea(area);
-    param.setResStartDate(resStartDate);
-    param.setResEndDate(resEndDate);
-    param.setContactsPhone(contactsPhone);
+    param.setArea(area + "");
     param.setContactsMobile(contactsMobile);
-    param.setEmail(Email);
-    param.setImg(Img);
+    param.setEmail(email);
+    param.setAppliancesType(appliancesType);
+    param.setHomeFurnishingType(homeFurnishingType);
+    param.setStatus(status);
 
     return gson.toJson(param);
   }
@@ -771,7 +769,7 @@ public class AiShangUtil {
     return gson.toJson(param);
   }
 
-  public static String generCriticismListParam(int newsID,int start,int count) {
+  public static String generCriticismListParam(int newsID, int start, int count) {
 
     JCriticismListParam param = new JCriticismListParam();
     param.setNewsID(newsID);

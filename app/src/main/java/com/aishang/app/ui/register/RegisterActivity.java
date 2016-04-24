@@ -67,12 +67,14 @@ public class RegisterActivity extends BaseActivity implements RegisterMvpView {
   }
 
   @OnClick(R.id.btn_get_verification_code) void onGetVerificationCodeClick() {
+
     String strPhone = phone.getText().toString().trim();
 
     if (TextUtils.isEmpty(strPhone) || !RegexUtils.checkMobile(strPhone)) {
+      CommonUtil.hideSoftInput(this);
       CommonUtil.showSnackbar(R.string.error_phone, layoutRoot);
     } else {
-      mPresenter.checkPhone(1, AiShangUtil.generSendCodeParam(strPhone, "您的注册验证码！", false));
+      mPresenter.checkPhone(1, AiShangUtil.generSendCodeParam(strPhone, "1", false));
     }
   }
 
@@ -81,7 +83,7 @@ public class RegisterActivity extends BaseActivity implements RegisterMvpView {
     String strPhone = phone.getText().toString().trim();
     String psw = password.getText().toString().trim();
     String code = verifyCode.getText().toString().trim();
-
+    CommonUtil.hideSoftInput(this);
     if (TextUtils.isEmpty(strPhone) || !RegexUtils.checkMobile(strPhone)) {
       CommonUtil.showSnackbar(R.string.error_phone, layoutRoot);
       return;
@@ -102,11 +104,13 @@ public class RegisterActivity extends BaseActivity implements RegisterMvpView {
   }
 
   @Override public void showError(String error) {
+    CommonUtil.hideSoftInput(this);
     CommonUtil.showSnackbar(error, layoutRoot);
     Log.e(TAG, "showError: " + error);
   }
 
   @Override public void showCheckPhoneSuccess() {
+    CommonUtil.hideSoftInput(this);
     CommonUtil.showSnackbar("短信已发送，请注意查收", layoutRoot);
   }
 
@@ -117,6 +121,7 @@ public class RegisterActivity extends BaseActivity implements RegisterMvpView {
   }
 
   @Override public void showRegisterSuccess() {
+    CommonUtil.hideSoftInput(this);
     CommonUtil.showSnackbar("注册成功！", layoutRoot);
   }
 

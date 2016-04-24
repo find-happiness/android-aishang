@@ -99,7 +99,7 @@ public class LoginActivity extends BaseActivity
    * 普通用户和CRM用户登录失败后统一的的回调函数，根据错误做相应的处理
    */
   public void loginFaild(String errorStr) {
-
+    CommonUtil.hideSoftInput(this);
     if (Constants.RESULT_MBNOTEXISTORPSWERROR.equals(errorStr)) {// 用户名或密码错误
 
       CommonUtil.showSnackbar(R.string.login_nameorpsw_wrong, layoutRoot);
@@ -125,7 +125,7 @@ public class LoginActivity extends BaseActivity
           .show();
     } else {
       //BaseHelper.toastError(this, errorStr);
-      Log.i(TAG, "loginFaild: " +errorStr);
+      Log.i(TAG, "loginFaild: " + errorStr);
       CommonUtil.showSnackbar(errorStr, layoutRoot);
     }
   }
@@ -136,7 +136,8 @@ public class LoginActivity extends BaseActivity
   }
 
   @Override public void showGetVerificationSuccess() {
-
+    CommonUtil.hideSoftInput(this);
+    CommonUtil.showSnackbar("短信已发送，请注意查收", layoutRoot);
   }
 
   @Override public void dismissDialog() {
@@ -151,11 +152,12 @@ public class LoginActivity extends BaseActivity
   }
 
   @Override public void onPswLogin(String phone, String psw) {
+    CommonUtil.hideSoftInput(this);
     presenter.Login(2, AiShangUtil.gennerLogin(psw, phone));
   }
 
   @Override public void onVerificationCodeLogin(String strPhone, String code) {
-
+    CommonUtil.hideSoftInput(this);
     if (TextUtils.isEmpty(strPhone) || !RegexUtils.checkMobile(strPhone)) {
       CommonUtil.showSnackbar(R.string.error_phone, layoutRoot);
       return;
@@ -174,11 +176,11 @@ public class LoginActivity extends BaseActivity
   }
 
   public void getVerificationCode(String strPhone) {
+    CommonUtil.hideSoftInput(this);
     if (TextUtils.isEmpty(strPhone) || !RegexUtils.checkMobile(strPhone)) {
       CommonUtil.showSnackbar(R.string.error_phone, layoutRoot);
     } else {
-      presenter.getVerificationCode(1,
-          AiShangUtil.generSendCodeParam(strPhone, "您的短信登录验证码！", true));
+      presenter.getVerificationCode(1, AiShangUtil.generSendCodeParam(strPhone, "2", true));
     }
   }
 

@@ -6,49 +6,59 @@
     android:id="@+id/layoutRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.aishang.app.ui.TravelList.TravelListActivity">
+    tools:context="com.aishang.app.ui.TravelList.TravelListActivity"
+    >
 
   <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:background="@color/primary"
-      android:paddingTop="@dimen/padding_stutas_bar"
       >
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
-      <android.support.v7.widget.Toolbar
-          android:id="@+id/toolbar"
+      <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:background="@color/primary">
+          >
 
-        <TextView
-            android:id="@+id/toolbar_title"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            android:background="@color/primary"
+            >
+
+          <TextView
+              android:id="@+id/toolbar_title"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:text="@string/youji"
+              android:textColor="@android:color/white"
+              android:textSize="@dimen/text_title"
+              />
+        </android.support.v7.widget.Toolbar>
+
+        <com.quinny898.library.persistentsearch.SearchBox
+            android:id="@+id/searchbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/youji"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_title"/>
-      </android.support.v7.widget.Toolbar>
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="-6dp"
+            android:layout_marginRight="-6dp"
+            android:layout_marginTop="-6dp"
+            android:layout_marginBottom="-6dp"
+            android:visibility="gone"/>
 
+      </RelativeLayout>
     </android.support.design.widget.AppBarLayout>
-
-    <com.quinny898.library.persistentsearch.SearchBox
-        android:id="@+id/searchbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="-6dp"
-        android:layout_marginRight="-6dp"
-        android:layout_marginTop="-6dp"
-        android:visibility="gone"/>
-
     <LinearLayout
         android:id="@+id/ll_sreach"
         android:layout_width="match_parent"
@@ -56,7 +66,8 @@
         android:layout_below="@id/app_bar_layout"
         android:background="@android:color/white"
         android:orientation="horizontal"
-        android:visibility="gone">
+        android:visibility="gone"
+        >
 
       <TextView
           android:layout_width="0dp"
@@ -69,12 +80,14 @@
           android:paddingLeft="5dp"
           android:paddingRight="5dp"
           android:paddingTop="10dp"
-          android:text="国内"/>
+          android:text="国内"
+          />
 
       <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
-          android:background="@android:color/darker_gray"/>
+          android:background="@android:color/darker_gray"
+          />
 
       <TextView
           android:layout_width="0dp"
@@ -87,12 +100,14 @@
           android:paddingLeft="5dp"
           android:paddingRight="5dp"
           android:paddingTop="10dp"
-          android:text="日韩"/>
+          android:text="日韩"
+          />
 
       <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
-          android:background="@android:color/darker_gray"/>
+          android:background="@android:color/darker_gray"
+          />
 
       <TextView
           android:layout_width="0dp"
@@ -105,12 +120,14 @@
           android:paddingLeft="5dp"
           android:paddingRight="5dp"
           android:paddingTop="10dp"
-          android:text="欧美"/>
+          android:text="欧美"
+          />
 
       <View
           android:layout_width="1dp"
           android:layout_height="match_parent"
-          android:background="@android:color/darker_gray"/>
+          android:background="@android:color/darker_gray"
+          />
 
       <TextView
           android:layout_width="0dp"
@@ -123,23 +140,26 @@
           android:paddingLeft="5dp"
           android:paddingRight="5dp"
           android:paddingTop="10dp"
-          android:text="新马泰"/>
+          android:text="新马泰"
+          />
     </LinearLayout>
 
     <View
         android:id="@+id/view_line"
         android:layout_width="match_parent"
-        android:visibility="gone"
         android:layout_height="1dp"
         android:layout_below="@id/ll_sreach"
-        android:background="@android:color/darker_gray"/>
+        android:background="@android:color/darker_gray"
+        android:visibility="gone"
+        />
 
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/view_line"
-        android:background="@android:color/white"/>
+        android:background="@android:color/white"
+        />
   </RelativeLayout>
 
   <RelativeLayout

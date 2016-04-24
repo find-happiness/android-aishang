@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -34,12 +36,15 @@ import com.foamtrace.photopicker.PhotoPickerActivity;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.inject.Inject;
 import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Action1;
 import rx.functions.Func1;
+import rx.functions.Func2;
 import rx.observables.GroupedObservable;
 
 public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouseMvpView {
@@ -229,12 +234,20 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
 
     //Log.i(TAG, "post: imgData size " + selectImgData.length());
 
-    String json = AiShangUtil.generProjectChangeParam(owner.getText().toString().trim(),
-        idNumber.getText().toString().trim(), houseAddress.getText().toString().trim(), "",
-        roomType.getText().toString().trim(), Float.parseFloat(area.getText().toString().trim()),
-        "", "", contactsPhone.getText().toString().trim(), "", Email.getText().toString().trim(),
-        selectImgData);
-    presenter.postData(1, json);
+    Observable.zip(facilitesType1Adapter.getChecked(), facilitesType2Adapter.getChecked(),
+        new Func2<String, String, String>() {
+          @Override public String call(String s, String s2) {
+            return AiShangUtil.generProjectChangeParam(owner.getText().toString().trim(),
+                idNumber.getText().toString().trim(), houseAddress.getText().toString().trim(),
+                roomType.getText().toString().trim(), area.getText().toString().trim(),
+                contactsPhone.getText().toString().trim(), Email.getText().toString().trim(), s, s2,
+                "1");
+          }
+        }).subscribe(new Action1<String>() {
+      @Override public void call(String s) {
+        presenter.postData(1, s);
+      }
+    });
   }
 
   private boolean isOwnerEmpty() {
@@ -406,6 +419,8 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
 
     Activity act;
 
+    private Map<Integer, String> checked = new HashMap<>();
+
     public FaciliteAdapter(Activity act) {
       this.facilites = new ArrayList<>();
       this.act = act;
@@ -424,10 +439,31 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
       return position;
     }
 
-    @Override public View getView(int position, View convertView, ViewGroup parent) {
+    @Override public View getView(final int position, View convertView, ViewGroup parent) {
       CheckBox checkBox = new CheckBox(act);
-      checkBox.setText(facilites.get(position).getFacilitesName());
+
+      final String str = facilites.get(position).getFacilitesName();
+
+      checkBox.setText(str);
+
+      checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+          if (isChecked) {
+            if (!checked.containsKey(position)) checked.put(position, str);
+          } else {
+            checked.remove(position);
+          }
+        }
+      });
       return checkBox;
+    }
+
+    public Observable<String> getChecked() {
+      return Observable.from(checked.values()).reduce(new Func2<String, String, String>() {
+        @Override public String call(String s, String s2) {
+          return s + "," + s2;
+        }
+      });
     }
   }
 }

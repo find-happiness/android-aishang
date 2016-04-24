@@ -158,8 +158,8 @@ public interface AiShangService {
   Observable<JResult> syncMreActivityEnroll(@Query(value = "v") int version,
       @Query(value = "q") String q);
 
-  @Headers("Content-Type:application/json") @Multipart @POST("mobile/projecCtooperation.ashx")
-  Observable<JResult> syncProjecCtooperation(@Part("v") int version, @Part("q") String q);
+  @Headers("connection:Keep-Alive") @GET("mobile/projecCtooperation.ashx")
+  Observable<JResult> syncProjecCtooperation(@Query("v") int version, @Query("q") String q);
 
   @Headers("connection:Keep-Alive") @GET("mobile/subscription.ashx")
   Observable<JResult> syncSubscription(@Query(value = "v") int version,

@@ -106,7 +106,7 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
           }
 
           @Override public void onError(Throwable e) {
-            getMvpView().showError("网络异常");
+            //getMvpView().showError("网络异常");
             Log.e(TAG, "onError: " + e.toString());
           }
 

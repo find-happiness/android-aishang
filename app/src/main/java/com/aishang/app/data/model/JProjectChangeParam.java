@@ -4,18 +4,32 @@ package com.aishang.app.data.model;
  * Created by song on 2016/2/16.
  */
 public class JProjectChangeParam {
+
+  /**
+   * propertyOwner : asddf
+   * IDNumber : 500239166001306118
+   * houseAddress : sdfsdf
+   * roomType : sfsdfs
+   * area : 34
+   * contactsMobile : 13212345678
+   * Email : dfsfsdfs@dsdfs.com
+   * appliancesType : 宽带上网,空调,24小时热水,吹风机
+   * homeFurnishingType : 沙发
+   * status : 1
+   */
+
+
+
   private String propertyOwner;
   private String IDNumber;
   private String houseAddress;
-  private String houseNumber;
   private String roomType;
-  private float area;
-  private String resStartDate;
-  private String resEndDate;
-  private String contactsPhone;
+  private String area;
   private String contactsMobile;
   private String Email;
-  private String Img;
+  private String appliancesType;
+  private String homeFurnishingType;
+  private String status;
 
   public String getPropertyOwner() {
     return propertyOwner;
@@ -41,14 +55,6 @@ public class JProjectChangeParam {
     this.houseAddress = houseAddress;
   }
 
-  public String getHouseNumber() {
-    return houseNumber;
-  }
-
-  public void setHouseNumber(String houseNumber) {
-    this.houseNumber = houseNumber;
-  }
-
   public String getRoomType() {
     return roomType;
   }
@@ -57,36 +63,12 @@ public class JProjectChangeParam {
     this.roomType = roomType;
   }
 
-  public float getArea() {
+  public String getArea() {
     return area;
   }
 
-  public void setArea(float area) {
+  public void setArea(String area) {
     this.area = area;
-  }
-
-  public String getResStartDate() {
-    return resStartDate;
-  }
-
-  public void setResStartDate(String resStartDate) {
-    this.resStartDate = resStartDate;
-  }
-
-  public String getResEndDate() {
-    return resEndDate;
-  }
-
-  public void setResEndDate(String resEndDate) {
-    this.resEndDate = resEndDate;
-  }
-
-  public String getContactsPhone() {
-    return contactsPhone;
-  }
-
-  public void setContactsPhone(String contactsPhone) {
-    this.contactsPhone = contactsPhone;
   }
 
   public String getContactsMobile() {
@@ -101,15 +83,31 @@ public class JProjectChangeParam {
     return Email;
   }
 
-  public void setEmail(String email) {
-    Email = email;
+  public void setEmail(String Email) {
+    this.Email = Email;
   }
 
-  public String getImg() {
-    return Img;
+  public String getAppliancesType() {
+    return appliancesType;
   }
 
-  public void setImg(String img) {
-    Img = img;
+  public void setAppliancesType(String appliancesType) {
+    this.appliancesType = appliancesType;
+  }
+
+  public String getHomeFurnishingType() {
+    return homeFurnishingType;
+  }
+
+  public void setHomeFurnishingType(String homeFurnishingType) {
+    this.homeFurnishingType = homeFurnishingType;
+  }
+
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
   }
 }

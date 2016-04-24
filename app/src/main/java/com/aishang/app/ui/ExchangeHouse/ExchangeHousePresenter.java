@@ -1,5 +1,6 @@
 package com.aishang.app.ui.ExchangeHouse;
 
+import android.util.Log;
 import com.aishang.app.data.DataManager;
 import com.aishang.app.data.model.JHotelRoomFacilitesCatListResult;
 import com.aishang.app.data.model.JResult;
@@ -16,6 +17,7 @@ import rx.schedulers.Schedulers;
  */
 public class ExchangeHousePresenter extends BasePresenter<ExchangeHouseMvpView> {
 
+  private static final String TAG = "ExchangeHousePresenter";
   private final DataManager mDataManager;
   private Subscription subscription;
   private Subscription facilitesSubscription;
@@ -40,7 +42,6 @@ public class ExchangeHousePresenter extends BasePresenter<ExchangeHouseMvpView> 
     }
 
     getMvpView().showNetProgress();
-
     subscription = mDataManager.syncProjecCtooperation(version, json)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
@@ -50,6 +51,7 @@ public class ExchangeHousePresenter extends BasePresenter<ExchangeHouseMvpView> 
 
           @Override public void onError(Throwable e) {
             getMvpView().dimissNetProgress();
+            Log.i(TAG, "onError: "+e.toString());
             getMvpView().showError("网络异常");
           }
 
@@ -67,12 +69,12 @@ public class ExchangeHousePresenter extends BasePresenter<ExchangeHouseMvpView> 
   public void loadFacilites(int version) {
     checkViewAttached();
 
-    if (subscription != null && !subscription.isUnsubscribed()) {
-      subscription.unsubscribe();
+    if (facilitesSubscription != null && !facilitesSubscription.isUnsubscribed()) {
+      facilitesSubscription.unsubscribe();
     }
 
     getMvpView().showNetProgress();
-    subscription = mDataManager.syncHotelRoomFacilitesCatList(version)
+    facilitesSubscription = mDataManager.syncHotelRoomFacilitesCatList(version)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
         .subscribe(new Subscriber<JHotelRoomFacilitesCatListResult>() {

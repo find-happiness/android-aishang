@@ -35,7 +35,9 @@ public class MyHouseAdapter extends RecyclerView.Adapter<MyHouseAdapter.ViewHold
 
     final JMyBusinessBuyInListResult.BuyIn item = items.get(position);
 
-    //TODO 绑定数据
+    holder.name.setText(item.getName());
+    holder.inMoney.setText("");
+    holder.outMoney.setText("");
 
     holder.itemView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
@@ -65,6 +67,7 @@ public class MyHouseAdapter extends RecyclerView.Adapter<MyHouseAdapter.ViewHold
    *         (http://github.com/avast)
    */
   static class ViewHolder extends RecyclerView.ViewHolder {
+
     @Bind(R.id.name) TextView name;
     @Bind(R.id.room_num) TextView roomNum;
     @Bind(R.id.address) TextView address;

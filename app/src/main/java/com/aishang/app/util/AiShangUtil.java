@@ -348,37 +348,27 @@ public class AiShangUtil {
   /**
    * 生成请求的参数
    */
-  public static String generBusinessListJson(String memberAccount, String cookie, int filterType,
-      String startDate, String endDate, int recStart, int recCount, String orderby, int memberLevel,
-      String subMemberPhone) {
+  public static String generBusinessListJson(String memberAccount, String cookie) {
 
     JBusinessListParam param = new JBusinessListParam();
     param.setMemberAccount(memberAccount);
     param.setCookie(cookie);
-    param.setFilterType(filterType);
-    param.setStartDate(startDate);
-    param.setEndDate(endDate);
-    param.setOrderby(orderby);
-    param.setRecStart(recStart);
-    param.setRecCount(recCount);
-    param.setMemberLevel(memberLevel);
-    param.setSubMemberPhone(subMemberPhone);
 
     return gson.toJson(param);
   }
 
   public static String generContactsAddParam(String phone, String name, String cookie,
-      String member) {
+      String member, String RDescription, String RAddress, String RComment) {
 
     JContactsAddParam p = new JContactsAddParam();
     p.setCookie(cookie);
     p.setMemberAccount(member);
+    p.setRAddress(RAddress);
+    p.setRDescription(RDescription);
+    p.setRComment(RComment);
+    p.setRPhone(phone);
+    p.setRName(name);
 
-    JContactsAddParam.Item[] item = new JContactsAddParam.Item[1];
-    item[0] = p.new Item();
-    item[0].setName(name);
-    item[0].setPhone(phone);
-    p.setItemList(item);
     return new Gson().toJson(p);
   }
 

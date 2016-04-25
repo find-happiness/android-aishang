@@ -54,21 +54,22 @@ public class BrokerCenterPresenter extends BasePresenter<BrokerCenterMvpView> {
           }
 
           @Override public void onError(Throwable e) {
+            getMvpView().loadError(e);
             getMvpView().showError("网络异常");
           }
 
           @Override public void onNext(JBusinessListResult result) {
             if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
 
-              if (result.getBusinessList().length <= 0 && type == NetWorkType.refresh) {
+              if (result.getListJData().size() <= 0 && type == NetWorkType.refresh) {
                 getMvpView().showEmpty();
               } else {
                 switch (type) {
                   case refresh:
-                    getMvpView().refreshList(result.getBusinessList());
+                    getMvpView().refreshList(result.getListJData());
                     break;
                   case loadMore:
-                    getMvpView().loadMoreList(result.getBusinessList(), result.getRecCount());
+                    getMvpView().loadMoreList(result.getListJData(), result.getListJData().size());
                     break;
                 }
               }

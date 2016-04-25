@@ -9,7 +9,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -27,18 +26,15 @@ public class RecommenCustomerActivity extends BaseActivity implements RecommentM
 
   @Inject ReccommentPresenter presenter;
   @Bind(R.id.toolbar) Toolbar toolbar;
-  @Bind(R.id.name) ClearEditText name;
-  @Bind(R.id.phone) ClearEditText phone;
-  @Bind(R.id.age) ClearEditText age;
-  @Bind(R.id.job) ClearEditText job;
-  @Bind(R.id.address) ClearEditText address;
-  @Bind(R.id.intent) ClearEditText intent;
-  @Bind(R.id.intent_price) ClearEditText intentPrice;
-  @Bind(R.id.commit) ClearEditText commit;
-  @Bind(R.id.layoutRoot) RelativeLayout layoutRoot;
-  @Bind(R.id.gender) TextView tvGender;
 
   final String[] genders = new String[] { "保密", "男", "女" };
+
+  @Bind(R.id.name) ClearEditText name;
+  @Bind(R.id.phone) ClearEditText phone;
+  @Bind(R.id.address) ClearEditText address;
+  @Bind(R.id.intent) ClearEditText intent;
+  @Bind(R.id.commit) ClearEditText commit;
+  @Bind(R.id.layoutRoot) RelativeLayout layoutRoot;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -71,19 +67,6 @@ public class RecommenCustomerActivity extends BaseActivity implements RecommentM
         RecommenCustomerActivity.this.finish();
       }
     }).show();
-  }
-
-  @OnClick(R.id.gender) void genderClick() {
-
-    int defaultGender = tvGender.getTag() == null ? 0 : ((int) tvGender.getTag());
-    DialogFactory.createSingleChoiceDialog(this, genders, defaultGender,
-        new DialogInterface.OnClickListener() {
-          @Override public void onClick(DialogInterface dialog, int which) {
-            tvGender.setText(genders[which]);
-            tvGender.setTag(which);
-            dialog.dismiss();
-          }
-        }, getString(R.string.gender)).show();
   }
 
   private void initToolbar() {
@@ -142,7 +125,9 @@ public class RecommenCustomerActivity extends BaseActivity implements RecommentM
   private void asynPush(String name, String phone) {
     String cookie = BoilerplateApplication.get(this).getMemberLoginResult().getData().getCookies();
     String member = BoilerplateApplication.get(this).getMemberAccount();
-    String json = AiShangUtil.generContactsAddParam(phone, name, cookie, member);
+    String json = AiShangUtil.generContactsAddParam(phone, name, cookie, member,
+        address.getText().toString().trim(), intent.getText().toString().trim(),
+        commit.getText().toString().trim());
 
     presenter.pushContacts(1, json);
   }

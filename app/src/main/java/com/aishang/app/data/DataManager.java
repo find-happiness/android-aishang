@@ -212,6 +212,10 @@ import com.aishang.app.util.EventPosterHelper;
     return mAiShangService.syncProjecCtooperation(version, json);
   }
 
+  public Observable<JResult> syncProjectChange(int version, String json) {
+    return mAiShangService.syncProjectChange(version, json);
+  }
+
   public Observable<JResult> syncSubscription(int version, String json) {
     return mAiShangService.syncSubscription(version, json);
   }

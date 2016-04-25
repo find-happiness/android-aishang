@@ -42,7 +42,7 @@ public class ExchangeHousePresenter extends BasePresenter<ExchangeHouseMvpView> 
     }
 
     getMvpView().showNetProgress();
-    subscription = mDataManager.syncProjecCtooperation(version, json)
+    subscription = mDataManager.syncProjectChange(version, json)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
         .subscribe(new Subscriber<JResult>() {

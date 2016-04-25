@@ -25,11 +25,10 @@ public class BrokerCenterAdapter extends RecyclerView.Adapter<BrokerCenterAdapte
   public Date checkInDate;
   public Date checkOutDate;
 
-  List<JBusinessListResult.Business> items;
-
+  List<JBusinessListResult.ListJDataBean> items;
 
   @Inject public BrokerCenterAdapter() {
-    items = new ArrayList<JBusinessListResult.Business>();
+    items = new ArrayList<JBusinessListResult.ListJDataBean>();
   }
 
   @Override public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -40,7 +39,13 @@ public class BrokerCenterAdapter extends RecyclerView.Adapter<BrokerCenterAdapte
 
   @Override public void onBindViewHolder(final ViewHolder holder, int position) {
 
-    final JBusinessListResult.Business hotel = items.get(position);
+    final JBusinessListResult.ListJDataBean item = items.get(position);
+
+    holder.name.setText(item.getName());
+    holder.phone.setText(item.getTelephone());
+    holder.status.setText(item.getStatus());
+    holder.date.setText(item.getCreateTime());
+    holder.price.setText("分佣" + item.getCommission());
 
     holder.itemView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
@@ -61,11 +66,11 @@ public class BrokerCenterAdapter extends RecyclerView.Adapter<BrokerCenterAdapte
     this.checkOutDate = checkOutDate;
   }
 
-  public List<JBusinessListResult.Business> getItems() {
+  public List<JBusinessListResult.ListJDataBean> getItems() {
     return items;
   }
 
-  public void setItems(List<JBusinessListResult.Business> items) {
+  public void setItems(List<JBusinessListResult.ListJDataBean> items) {
     this.items = items;
   }
 
@@ -89,7 +94,6 @@ public class BrokerCenterAdapter extends RecyclerView.Adapter<BrokerCenterAdapte
     @Bind(R.id.phone) TextView phone;
     @Bind(R.id.status) TextView status;
     @Bind(R.id.date) TextView date;
-    @Bind(R.id.time) TextView time;
     @Bind(R.id.price) TextView price;
 
     public Context getContext() {

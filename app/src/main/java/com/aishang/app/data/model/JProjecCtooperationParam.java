@@ -4,6 +4,7 @@ package com.aishang.app.data.model;
  * Created by song on 2016/2/16.
  */
 public class JProjecCtooperationParam {
+
   public String projectName;
   public String projectAddress;
   public String projectCount;

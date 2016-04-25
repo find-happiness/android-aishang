@@ -1,17 +1,24 @@
 package com.aishang.app.data.model;
 
 public class JContactsAddParam {
-	//
-	// { memberAccount:string,
-	// cookie:string,
-	// itemList:[
-	// {name:string, phone:string}, бн
-	// ]
-	// }
+
+	/**
+	 * memberAccount : %2718983979230%27
+	 * cookie : %27B20C3F7FAC5DDDC2D8F50072C58557F4%27
+	 * RName : %27谭智君%27
+	 * RPhone : %2718983979230%27
+	 * RDescription : %27描述%27
+	 * RAddress : %27重庆市南岸区%27
+	 * RComment : %27备注内容%27
+	 */
 
 	private String memberAccount;
 	private String cookie;
-	private Item[] itemList;
+	private String RName;
+	private String RPhone;
+	private String RDescription;
+	private String RAddress;
+	private String RComment;
 
 	public String getMemberAccount() {
 		return memberAccount;
@@ -29,34 +36,43 @@ public class JContactsAddParam {
 		this.cookie = cookie;
 	}
 
-	public Item[] getItemList() {
-		return itemList;
+	public String getRName() {
+		return RName;
 	}
 
-	public void setItemList(Item[] itemList) {
-		this.itemList = itemList;
+	public void setRName(String RName) {
+		this.RName = RName;
 	}
 
-	public class Item {
+	public String getRPhone() {
+		return RPhone;
+	}
 
-		private String name;
-		private String phone;
+	public void setRPhone(String RPhone) {
+		this.RPhone = RPhone;
+	}
 
-		public String getName() {
-			return name;
-		}
+	public String getRDescription() {
+		return RDescription;
+	}
 
-		public void setName(String name) {
-			this.name = name;
-		}
+	public void setRDescription(String RDescription) {
+		this.RDescription = RDescription;
+	}
 
-		public String getPhone() {
-			return phone;
-		}
+	public String getRAddress() {
+		return RAddress;
+	}
 
-		public void setPhone(String phone) {
-			this.phone = phone;
-		}
+	public void setRAddress(String RAddress) {
+		this.RAddress = RAddress;
+	}
 
+	public String getRComment() {
+		return RComment;
+	}
+
+	public void setRComment(String RComment) {
+		this.RComment = RComment;
 	}
 }

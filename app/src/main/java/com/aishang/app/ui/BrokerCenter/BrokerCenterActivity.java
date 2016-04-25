@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -28,9 +29,12 @@ import com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import javax.inject.Inject;
 
 public class BrokerCenterActivity extends BaseActivity implements BrokerCenterMvpView {
+
+  private static final String TAG = "BrokerCenterActivity";
 
   @Inject BrokerCenterAdapter adapter;
   @Inject BrokerCenterPresenter presenter;
@@ -52,10 +56,12 @@ public class BrokerCenterActivity extends BaseActivity implements BrokerCenterMv
     initRefreshLayout();
     proLoad();
   }
+
   @Override protected void onDestroy() {
     presenter.detachView();
     super.onDestroy();
   }
+
   private void initToolbar() {
     toolbar.setTitle("");
     this.setSupportActionBar(toolbar);
@@ -112,7 +118,7 @@ public class BrokerCenterActivity extends BaseActivity implements BrokerCenterMv
     adapter.notifyDataSetChanged();
   }
 
-  @Override public void refreshList(JBusinessListResult.Business[] items) {
+  @Override public void refreshList(List<JBusinessListResult.ListJDataBean> items) {
 
     if (avloadingIndicatorView.getVisibility() == View.VISIBLE) {
       avloadingIndicatorView.setVisibility(View.GONE);
@@ -123,19 +129,19 @@ public class BrokerCenterActivity extends BaseActivity implements BrokerCenterMv
     }
 
     adapter.getItems().clear();
-    adapter.getItems().addAll(new ArrayList<JBusinessListResult.Business>(Arrays.asList(items)));
+    adapter.getItems().addAll(items);
     adapter.notifyDataSetChanged();
     mRecyclerView.refreshComplete();
   }
 
-  @Override public void loadMoreList(JBusinessListResult.Business[] items, int total) {
+  @Override public void loadMoreList(List<JBusinessListResult.ListJDataBean> items, int total) {
 
     if (noDataHotel.getVisibility() == View.VISIBLE) {
       noDataHotel.setVisibility(View.GONE);
     }
 
     mRecyclerView.loadMoreComplete();
-    adapter.getItems().addAll(new ArrayList<JBusinessListResult.Business>(Arrays.asList(items)));
+    adapter.getItems().addAll(items);
     adapter.notifyDataSetChanged();
     //mRecyclerView.refreshComplete();
 
@@ -143,6 +149,11 @@ public class BrokerCenterActivity extends BaseActivity implements BrokerCenterMv
       adapter.notifyDataSetChanged();
       mRecyclerView.loadMoreComplete();
     }
+  }
+
+  @Override public void loadError(Throwable e) {
+    mRecyclerView.refreshComplete();
+    Log.e(TAG, "loadError: "+ e.toString() );
   }
 
   @OnClick(R.id.btn_contacts_add) void contactsAdd() {
@@ -191,6 +202,8 @@ public class BrokerCenterActivity extends BaseActivity implements BrokerCenterMv
     //        false);
     // mRecyclerView.addHeaderView(header);
 
+    mRecyclerView.setLoadingMoreEnabled(false);
+
     mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
       @Override public void onRefresh() {
         if (NetworkUtil.isNetworkConnected(BrokerCenterActivity.this)) {
@@ -202,32 +215,21 @@ public class BrokerCenterActivity extends BaseActivity implements BrokerCenterMv
       }
 
       @Override public void onLoadMore() {
-        if (NetworkUtil.isNetworkConnected(BrokerCenterActivity.this)) {
-          asynBusiness(0, "", "", adapter.getItems().size(), 10, "asc", 0, "",
-              NetWorkType.loadMore);
-        } else {
-          //mRecyclerView.loadMoreComplete();
-          mRecyclerView.cancelLoadMore();
-          CommonUtil.showSnackbar(R.string.no_net, layoutRoot);
-        }
       }
     });
     mRecyclerView.setAdapter(adapter);
   }
 
-  private void asynBusiness(NetWorkType type) {
-    asynBusiness(0, "", "", 0, 10, "asc", 0, "", type);
-  }
+  //private void asynBusiness(NetWorkType type) {
+  //  asynBusiness(0, "", "", 0, 10, "asc", 0, "", type);
+  //}
 
-  private void asynBusiness(int filterType, String startDate, String endDate, int recStart,
-      int recCount, String orderby, int memberLevel, String subMemberPhone, NetWorkType type) {
+  private void asynBusiness(NetWorkType type) {
 
     String cookie = BoilerplateApplication.get(this).getMemberLoginResult().getData().getCookies();
     String member = BoilerplateApplication.get(this).getMemberAccount();
-    String json =
-        AiShangUtil.generBusinessListJson(member, cookie, filterType, startDate, endDate, recStart,
-            recCount, orderby, memberLevel, subMemberPhone);
+    String json = AiShangUtil.generBusinessListJson(member, cookie);
 
-    presenter.loadBusiness(3, json, type);
+    presenter.loadBusiness(0, json, type);
   }
 }

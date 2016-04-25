@@ -68,38 +68,6 @@
           android:singleLine="true"
           />
 
-      <TextView
-          android:id="@+id/gender"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_vertical"
-          android:layout_marginTop="@dimen/spacing_large"
-          android:background="@mipmap/edit_backgroud"
-          android:drawableRight="@mipmap/iconfont_fanhuidingbu"
-          android:gravity="center_vertical"
-          android:hint="性别"
-          android:paddingRight="@dimen/spacing_large"
-          />
-
-      <com.aishang.app.widget.ClearEditText
-          android:id="@+id/age"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/spacing_large"
-          android:background="@mipmap/edit_backgroud"
-          android:hint="年龄"
-          android:singleLine="true"
-          />
-
-      <com.aishang.app.widget.ClearEditText
-          android:id="@+id/job"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/spacing_large"
-          android:background="@mipmap/edit_backgroud"
-          android:hint="职业"
-          android:singleLine="true"
-          />
 
       <com.aishang.app.widget.ClearEditText
           android:id="@+id/address"
@@ -117,17 +85,7 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/spacing_large"
           android:background="@mipmap/edit_backgroud"
-          android:hint="意向项目"
-          android:singleLine="true"
-          />
-
-      <com.aishang.app.widget.ClearEditText
-          android:id="@+id/intent_price"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/spacing_large"
-          android:background="@mipmap/edit_backgroud"
-          android:hint="意向价格"
+          android:hint="描述"
           android:singleLine="true"
           />
 

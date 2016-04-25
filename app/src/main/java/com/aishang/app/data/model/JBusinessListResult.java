@@ -1,34 +1,29 @@
 package com.aishang.app.data.model;
+
+import java.util.List;
+
 /**
  * /mobile/member/businessList.ashx version 3
  * @author wang
  *
  */
 public class JBusinessListResult {
-	// {
-	// result:string,
-	// awardTotal:decimal(10,2),
-	// awardTotalNot:decimal(10,2),
-	// recCount:int,
-	// businessList:[
-	// {sno:string,
-	// idx:int,
-	// typeText:string,
-	// priceText:string,
-	// dealText:string,
-	// dealDateText:string,
-	// creditPoint:int,
-	// award:decimal(10,2),
-	// statusAward:int,
-	// comment:string
-	// }, ….
-	// ]
-	// }
+
+	/**
+	 * result : success
+	 * listJData : [{"name":"谭智君","telephone":"18983979230","createTime":"2016-04-25T09:11:53","status":"仅提交","commission":0},{"name":"谭智君","telephone":"18983979230","createTime":"2016-04-25T09:11:13","status":"仅提交","commission":0},{"name":"谭智君","telephone":"18983979230","createTime":"2016-04-25T09:09:21","status":"仅提交","commission":0},{"name":"谭智君","telephone":"18983979230","createTime":"2016-04-21T15:23:02","status":"仅提交","commission":0},{"name":"谭智君","telephone":"18983979230","createTime":"2016-04-21T13:48:02","status":"仅提交","commission":0},{"name":"谭智君","telephone":"18983979230","createTime":"2016-04-21T11:58:18","status":"仅提交","commission":0}]
+	 */
+
 	private String result;
-	private float awardTotal;
-	private float awardTotalNot;
-	private int recCount;
-	private Business[] businessList;
+	/**
+	 * name : 谭智君
+	 * telephone : 18983979230
+	 * createTime : 2016-04-25T09:11:53
+	 * status : 仅提交
+	 * commission : 0
+	 */
+
+	private List<ListJDataBean> listJData;
 
 	public String getResult() {
 		return result;
@@ -38,171 +33,59 @@ public class JBusinessListResult {
 		this.result = result;
 	}
 
-	public float getAwardTotal() {
-		return awardTotal;
+	public List<ListJDataBean> getListJData() {
+		return listJData;
 	}
 
-	public void setAwardTotal(float awardTotal) {
-		this.awardTotal = awardTotal;
+	public void setListJData(List<ListJDataBean> listJData) {
+		this.listJData = listJData;
 	}
 
-	public float getAwardTotalNot() {
-		return awardTotalNot;
-	}
+	public static class ListJDataBean {
+		private String name;
+		private String telephone;
+		private String createTime;
+		private String status;
+		private int commission;
 
-	public void setAwardTotalNot(float awardTotalNot) {
-		this.awardTotalNot = awardTotalNot;
-	}
-
-	public int getRecCount() {
-		return recCount;
-	}
-
-	public void setRecCount(int recCount) {
-		this.recCount = recCount;
-	}
-
-	public Business[] getBusinessList() {
-		return businessList;
-	}
-
-	public void setBusinessList(Business[] businessList) {
-		this.businessList = businessList;
-	}
-
-	public class Business {
-
-		//
-		// sno:string,
-		// idx:int,
-		// typeText:string,
-		// priceText:string,
-		// dealText:string,
-		// dealDateText:string,
-		// creditPoint:int,
-		// awardSelf:decimal(10,2),
-		// award2Parent:decimal(10,2),
-		// statusAward:int,
-		// comment:string
-		// memberName:string,
-		// memberPhone:string,
-
-		public String sno;
-		public int idx;
-		private String typeText;
-		private String priceText;
-		private String dealText;
-		private String dealDateText;
-		private int creditPoint;
-		private float awardSelf;
-		private float award2Parent;
-		private int statusAward;
-		private String comment;
-		private String memberName;
-		private String memberPhone;
-
-		public String getSno() {
-			return sno;
+		public String getName() {
+			return name;
 		}
 
-		public void setSno(String sno) {
-			this.sno = sno;
+		public void setName(String name) {
+			this.name = name;
 		}
 
-		public int getIdx() {
-			return idx;
+		public String getTelephone() {
+			return telephone;
 		}
 
-		public void setIdx(int idx) {
-			this.idx = idx;
+		public void setTelephone(String telephone) {
+			this.telephone = telephone;
 		}
 
-		public String getTypeText() {
-			return typeText;
+		public String getCreateTime() {
+			return createTime;
 		}
 
-		public void setTypeText(String typeText) {
-			this.typeText = typeText;
+		public void setCreateTime(String createTime) {
+			this.createTime = createTime;
 		}
 
-		public String getPriceText() {
-			return priceText;
+		public String getStatus() {
+			return status;
 		}
 
-		public void setPriceText(String priceText) {
-			this.priceText = priceText;
+		public void setStatus(String status) {
+			this.status = status;
 		}
 
-		public String getDealText() {
-			return dealText;
+		public int getCommission() {
+			return commission;
 		}
 
-		public void setDealText(String dealText) {
-			this.dealText = dealText;
-		}
-
-		public String getDealDateText() {
-			return dealDateText;
-		}
-
-		public void setDealDateText(String dealDateText) {
-			this.dealDateText = dealDateText;
-		}
-
-		public int getCreditPoint() {
-			return creditPoint;
-		}
-
-		public void setCreditPoint(int creditPoint) {
-			this.creditPoint = creditPoint;
-		}
-
-		public float getAwardSelf() {
-			return awardSelf;
-		}
-
-		public void setAwardSelf(float awardSelf) {
-			this.awardSelf = awardSelf;
-		}
-
-		public float getAward2Parent() {
-			return award2Parent;
-		}
-
-		public void setAward2Parent(float award2Parent) {
-			this.award2Parent = award2Parent;
-		}
-
-		public int getStatusAward() {
-			return statusAward;
-		}
-
-		public void setStatusAward(int statusAward) {
-			this.statusAward = statusAward;
-		}
-
-		public String getComment() {
-			return comment;
-		}
-
-		public void setComment(String comment) {
-			this.comment = comment;
-		}
-
-		public String getMemberName() {
-			return memberName;
-		}
-
-		public void setMemberName(String memberName) {
-			this.memberName = memberName;
-		}
-
-		public String getMemberPhone() {
-			return memberPhone;
-		}
-
-		public void setMemberPhone(String memberPhone) {
-			this.memberPhone = memberPhone;
+		public void setCommission(int commission) {
+			this.commission = commission;
 		}
 	}
 }

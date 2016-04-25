@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary"
-    android:id="@+id/layoutRoot"
     android:paddingTop="@dimen/padding_stutas_bar"
     tools:context="com.aishang.app.ui.MemberCenter.MemberCenterActivity">
 
@@ -41,7 +41,8 @@
         android:background="@color/blue"
         android:paddingLeft="@dimen/spacing_xlarge"
         android:paddingRight="@dimen/spacing_xlarge"
-        android:text="推荐客户"/>
+        android:text="推荐客户"
+        android:textColor="@android:color/white"/>
   </LinearLayout>
 
   <FrameLayout
@@ -49,12 +50,14 @@
       android:layout_height="match_parent"
       android:layout_above="@id/ll_tuijian"
       android:layout_below="@+id/toolbar"
-      android:background="@color/gray">
+      android:background="@android:color/white">
 
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/spacing_medium"
+        android:layout_marginRight="@dimen/spacing_medium">
 
     </com.jcodecraeer.xrecyclerview.XRecyclerView>
 

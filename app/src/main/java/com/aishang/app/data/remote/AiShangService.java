@@ -127,11 +127,11 @@ public interface AiShangService {
   Observable<JMyVacationApplyListResult> sysMyVacationApplyList(@Query(value = "v") int version,
       @Query(value = "q") String q);
 
-  @Headers("connection:Keep-Alive") @GET("mobile/member/businessList.ashx")
+  @Headers("connection:Keep-Alive") @GET("mobile/businessListv2.ashx")
   Observable<JBusinessListResult> sysBusinessList(@Query(value = "v") int version,
       @Query(value = "q") String q);
 
-  @Headers("connection:Keep-Alive") @GET("mobile/member/contactsAdd.ashx")
+  @Headers("connection:Keep-Alive") @GET("mobile/recommendmember.ashx")
   Observable<JResult> sysContactsAdd(@Query(value = "v") int version, @Query(value = "q") String q);
 
   @Headers("connection:Keep-Alive") @GET("mobile/member/myBusinessBuyInList.ashx")
@@ -160,6 +160,9 @@ public interface AiShangService {
 
   @Headers("connection:Keep-Alive") @GET("mobile/projecCtooperation.ashx")
   Observable<JResult> syncProjecCtooperation(@Query("v") int version, @Query("q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("/mobile/projectChange.ashx")
+  Observable<JResult> syncProjectChange(@Query("v") int version, @Query("q") String q);
 
   @Headers("connection:Keep-Alive") @GET("mobile/subscription.ashx")
   Observable<JResult> syncSubscription(@Query(value = "v") int version,

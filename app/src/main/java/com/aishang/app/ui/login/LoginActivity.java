@@ -20,14 +20,22 @@ import butterknife.ButterKnife;
 import com.aishang.app.BoilerplateApplication;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JMemberLoginResult;
+import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.injection.ApplicationContext;
 import com.aishang.app.ui.base.BaseActivity;
 import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.Constants;
 import com.aishang.app.util.DialogFactory;
+import com.aishang.app.util.OkHttpUtils;
 import com.aishang.app.util.RegexUtils;
 import javax.inject.Inject;
+import okhttp3.Cookie;
+import okhttp3.HttpUrl;
+import rx.Observable;
+import rx.Subscriber;
+import rx.functions.Action1;
+import rx.functions.Func1;
 
 public class LoginActivity extends BaseActivity
     implements LoginMvpView, PasswordFragment.OnPasswordFragmentInteractionListener,
@@ -156,7 +164,7 @@ public class LoginActivity extends BaseActivity
     presenter.Login(2, AiShangUtil.gennerLogin(psw, phone));
   }
 
-  @Override public void onVerificationCodeLogin(String strPhone, String code) {
+  @Override public void onVerificationCodeLogin(final String strPhone, final String code) {
     CommonUtil.hideSoftInput(this);
     if (TextUtils.isEmpty(strPhone) || !RegexUtils.checkMobile(strPhone)) {
       CommonUtil.showSnackbar(R.string.error_phone, layoutRoot);
@@ -168,7 +176,30 @@ public class LoginActivity extends BaseActivity
       return;
     }
 
-    presenter.codeLogin(2, AiShangUtil.generCodeLoginParam(strPhone, code));
+    Observable.from(OkHttpUtils.getInstance()
+        .getCookieStore()
+        .get(HttpUrl.parse(AiShangService.AiShangHost + "mobile/member/sendCode.ashx")))
+        .map(new Func1<Cookie, String>() {
+          @Override public String call(Cookie cookie) {
+            if (cookie == null) {
+              new IllegalArgumentException("验证码有误，请重新获取！");
+            }
+            return cookie.toString();
+          }
+        })
+        .subscribe(new Subscriber<String>() {
+          @Override public void onCompleted() {
+
+          }
+
+          @Override public void onError(Throwable e) {
+            CommonUtil.showSnackbar(e.toString(), layoutRoot);
+          }
+
+          @Override public void onNext(String s) {
+            presenter.codeLogin(2, AiShangUtil.generCodeLoginParam(strPhone, code), s);
+          }
+        });
   }
 
   @Override public void onRegister() {

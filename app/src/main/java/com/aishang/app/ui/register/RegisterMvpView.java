@@ -17,4 +17,5 @@ public interface RegisterMvpView extends MvpView {
 
   void showNetDialog();
 
+  void showGetCodeError(String error);
 }

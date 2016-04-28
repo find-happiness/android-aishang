@@ -15,13 +15,24 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.aishang.app.R;
+import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.ui.base.BaseActivity;
 import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.DialogFactory;
+import com.aishang.app.util.OkHttpUtils;
 import com.aishang.app.util.RegexUtils;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
+import okhttp3.Cookie;
+import okhttp3.HttpUrl;
+import rx.Observable;
+import rx.Subscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 public class RegisterActivity extends BaseActivity implements RegisterMvpView {
 
@@ -37,6 +48,10 @@ public class RegisterActivity extends BaseActivity implements RegisterMvpView {
 
   private ProgressDialog progressDialog;
 
+  private Subscription subscriptionAgain;
+
+  private static final int AGAIN_GET_CODE = 60;
+
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     this.getActivityComponent().inject(this);
@@ -48,6 +63,10 @@ public class RegisterActivity extends BaseActivity implements RegisterMvpView {
 
   @Override protected void onDestroy() {
     mPresenter.detachView();
+
+    if(subscriptionAgain != null)
+      subscriptionAgain.unsubscribe();
+
     super.onDestroy();
   }
 
@@ -75,14 +94,37 @@ public class RegisterActivity extends BaseActivity implements RegisterMvpView {
       CommonUtil.showSnackbar(R.string.error_phone, layoutRoot);
     } else {
       mPresenter.checkPhone(1, AiShangUtil.generSendCodeParam(strPhone, "1", false));
+
+      btnGetVerificationCode.setClickable(false);
+
+      subscriptionAgain = Observable.interval(1, TimeUnit.SECONDS)
+          .observeOn(AndroidSchedulers.mainThread())
+          .subscribeOn(Schedulers.io())
+          .limit(AGAIN_GET_CODE)
+          .subscribe(new Subscriber<Long>() {
+            @Override public void onCompleted() {
+              //Log.i(TAG, "onCompleted: ---------->");
+              btnGetVerificationCode.setClickable(true);
+              btnGetVerificationCode.setText("重新获取");
+            }
+
+            @Override public void onError(Throwable e) {
+            }
+
+            @Override public void onNext(Long aLong) {
+              //Log.i(TAG, "onNext: ------->" + aLong);
+              btnGetVerificationCode.setText("重新发送(" + (AGAIN_GET_CODE - aLong) + ")");
+            }
+          });
+
     }
   }
 
   @OnClick(R.id.btn_register) void onClickRegister() {
 
-    String strPhone = phone.getText().toString().trim();
-    String psw = password.getText().toString().trim();
-    String code = verifyCode.getText().toString().trim();
+    final String strPhone = phone.getText().toString().trim();
+    final String psw = password.getText().toString().trim();
+    final String code = verifyCode.getText().toString().trim();
     CommonUtil.hideSoftInput(this);
     if (TextUtils.isEmpty(strPhone) || !RegexUtils.checkMobile(strPhone)) {
       CommonUtil.showSnackbar(R.string.error_phone, layoutRoot);
@@ -99,14 +141,36 @@ public class RegisterActivity extends BaseActivity implements RegisterMvpView {
       return;
     }
 
-    mPresenter.submit(1, AiShangUtil.generMemberNoteRegisterParam(strPhone, code,
-        CommonUtil.getEncodeMD5(psw).toUpperCase()));
+    Observable.from(OkHttpUtils.getInstance()
+        .getCookieStore()
+        .get(HttpUrl.parse(AiShangService.AiShangHost + "mobile/member/sendCode.ashx")))
+        .map(new Func1<Cookie, String>() {
+          @Override public String call(Cookie cookie) {
+            if (cookie == null) {
+              new IllegalArgumentException("验证码有误，请重新获取！");
+            }
+            return cookie.toString();
+          }
+        })
+        .subscribe(new Subscriber<String>() {
+          @Override public void onCompleted() {
+
+          }
+
+          @Override public void onError(Throwable e) {
+            CommonUtil.showSnackbar(e.toString(), layoutRoot);
+          }
+
+          @Override public void onNext(String s) {
+            mPresenter.submit(1, AiShangUtil.generMemberNoteRegisterParam(strPhone, code,
+                CommonUtil.getEncodeMD5(psw).toUpperCase()), s);
+          }
+        });
   }
 
   @Override public void showError(String error) {
     CommonUtil.hideSoftInput(this);
     CommonUtil.showSnackbar(error, layoutRoot);
-    Log.e(TAG, "showError: " + error);
   }
 
   @Override public void showCheckPhoneSuccess() {
@@ -128,5 +192,16 @@ public class RegisterActivity extends BaseActivity implements RegisterMvpView {
   @Override public void showNetDialog() {
     progressDialog = DialogFactory.createProgressDialog(this, R.string.posting);
     progressDialog.show();
+  }
+
+  @Override public void showGetCodeError(String error) {
+    CommonUtil.hideSoftInput(this);
+    CommonUtil.showSnackbar(error, layoutRoot);
+    if(subscriptionAgain != null){
+      subscriptionAgain.unsubscribe();
+    }
+
+    btnGetVerificationCode.setClickable(true);
+    btnGetVerificationCode.setText("获取验证码");
   }
 }

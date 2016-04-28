@@ -41,19 +41,27 @@ import com.aishang.app.data.model.JTagListResult;
 import com.aishang.app.data.model.JUploadFileResult;
 import com.aishang.app.data.model.JVersionCheckResult;
 import com.aishang.app.data.model.Ribot;
+import com.aishang.app.util.OkHttpUtils;
 import com.aishang.app.util.gson.EmptyStringObjectAdapterFactory;
+import com.aishang.app.util.okhttp.CookieJarImpl;
+import com.aishang.app.util.okhttp.store.MemoryCookieStore;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.RequestBody;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.GsonConverterFactory;
 import retrofit2.Retrofit;
 import retrofit2.RxJavaCallAdapterFactory;
 import retrofit2.http.Field;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -215,14 +223,14 @@ public interface AiShangService {
 
   @Headers("connection:Keep-Alive") @GET("mobile/member/memberNoteRegister.ashx")
   Observable<JResult> syncMemberNoteRegister(@Query(value = "v") int version,
-      @Query(value = "q") String q);
+      @Query(value = "q") String q,@Header("Cookie")String cookie);
 
   @Headers("connection:Keep-Alive") @POST("mobile/member/codeLogin.ashx") @Multipart
   Observable<JCodeLoginResult> syncCodeLogin(@PartMap Map<String, RequestBody> body);
 
   @Headers({ "Content-Type: application/json;charset=UTF-8", "connection:Keep-Alive" })
   @GET("mobile/member/codeLogin.ashx") Observable<JCodeLoginResult> syncCodeLogin(
-      @Query(value = "q") String q);
+      @Header("Cookie")String cookie ,@Query(value = "q") String q);
 
   @Headers("connection:Keep-Alive") @GET("mobile/member/collect.ashx")
   Observable<JCollectResult> syncCollect(@Query(value = "v") int version,
@@ -282,20 +290,21 @@ public interface AiShangService {
 
     public static AiShangService newAiShangService() {
       Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").create();
-
-      HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-      // set your desired log level
-      logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-      OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-
-      // add logging as last interceptor
-      httpClient.interceptors().add(logging);  // <-- this is the important line!
+      //
+      //HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+      //// set your desired log level
+      //logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+      //
+      //OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+      //
+      //// add logging as last interceptor
+      //httpClient.interceptors().add(logging);  // <-- this is the important line!
+      //httpClient.cookieJar(new CookieJarImpl(new MemoryCookieStore()));
 
       Retrofit retrofit = new Retrofit.Builder().baseUrl(AiShangService.AiShangHost)
           .addConverterFactory(GsonConverterFactory.create(gson))
           .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-          .client(httpClient.build())
+          .client(OkHttpUtils.getInstance().debug().getOkHttpClient())
           .build();
 
       return retrofit.create(AiShangService.class);

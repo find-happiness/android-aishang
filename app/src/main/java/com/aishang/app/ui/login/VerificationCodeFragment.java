@@ -3,14 +3,22 @@ package com.aishang.app.ui.login;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.aishang.app.R;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import java.util.concurrent.TimeUnit;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,9 +30,14 @@ import com.rengwuxian.materialedittext.MaterialEditText;
  */
 public class VerificationCodeFragment extends Fragment {
 
+  private static final String TAG = "VerificationCode";
   @Bind(R.id.phone) MaterialEditText phone;
   @Bind(R.id.verify_code) MaterialEditText verifyCode;
+  @Bind(R.id.btn_get_verification_code) TextView btnGetVerifCode;
+
   private OnVerificationCodeFragmentInteractionListener mListener;
+
+  private static final int AGAIN_GET_CODE = 60;
 
   public VerificationCodeFragment() {
     // Required empty public constructor
@@ -83,9 +96,34 @@ public class VerificationCodeFragment extends Fragment {
 
   @OnClick(R.id.btn_get_verification_code) void getVerificationCodeClick() {
 
-    if (mListener != null) {
-      ((LoginActivity) mListener).getVerificationCode(phone.getText().toString());
+    if (mListener == null) {
+      return;
     }
+
+    ((LoginActivity) mListener).getVerificationCode(phone.getText().toString());
+
+    btnGetVerifCode.setClickable(false);
+
+    Observable.interval(1, TimeUnit.SECONDS)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(Schedulers.io())
+        .limit(AGAIN_GET_CODE)
+        .subscribe(new Subscriber<Long>() {
+          @Override public void onCompleted() {
+            //Log.i(TAG, "onCompleted: ---------->");
+            btnGetVerifCode.setClickable(true);
+            btnGetVerifCode.setText("重新获取");
+          }
+
+          @Override public void onError(Throwable e) {
+
+          }
+
+          @Override public void onNext(Long aLong) {
+            //Log.i(TAG, "onNext: ------->" + aLong);
+            btnGetVerifCode.setText("重新发送(" + (AGAIN_GET_CODE - aLong) + ")");
+          }
+        });
   }
 
   @Override public void onDestroyView() {

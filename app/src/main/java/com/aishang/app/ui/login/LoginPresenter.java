@@ -8,6 +8,7 @@ import com.aishang.app.data.model.JCodeLoginResult;
 import com.aishang.app.data.model.JMemberLoginParam;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JSendCodeResult;
+import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.ui.ChangePassword.ChangePasswordActivity;
 import com.aishang.app.ui.ForgetPossword.ForgetPosswordActivity;
 import com.aishang.app.ui.base.BasePresenter;
@@ -15,14 +16,20 @@ import com.aishang.app.ui.main.MainActivity;
 import com.aishang.app.ui.register.RegisterActivity;
 
 import com.aishang.app.util.Constants;
+import com.aishang.app.util.OkHttpUtils;
 import com.google.gson.Gson;
 import java.util.HashMap;
 import javax.inject.Inject;
+import okhttp3.Cookie;
+import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -125,7 +132,7 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
         });
   }
 
-  public void codeLogin(int version, final String json) {
+  public void codeLogin(int version, final String json,String cookie) {
     checkViewAttached();
 
     if (mCodeLoginSubscription != null && !mCodeLoginSubscription.isUnsubscribed()) {
@@ -133,12 +140,12 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
     }
     getMvpView().showNetDialog();
 
-    HashMap<String, RequestBody> map = new HashMap<>();
-    RequestBody jsonBody = RequestBody.create(MediaType.parse("application/json"), json);
-    map.put("q", jsonBody);
+    //HashMap<String, RequestBody> map = new HashMap<>();
+    //RequestBody jsonBody = RequestBody.create(MediaType.parse("application/json"), json);
+    //map.put("q", jsonBody);
     //map.put("v", RequestBody.create(MediaType.parse("text/plain"), version + ""));
 
-    mCodeLoginSubscription = mDataManager.syncCodeLogin(map)
+    mCodeLoginSubscription = mDataManager.syncCodeLogin(cookie,json)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
         .subscribe(new Subscriber<JCodeLoginResult>() {
@@ -159,6 +166,7 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
 
               Log.i(TAG, "onNext: codelogin success!");
             } else {
+              Log.i(TAG, "onNext: " + new Gson().toJson(jMemberLoginResult));
               getMvpView().loginFaild(jMemberLoginResult.getResult());
             }
           }

@@ -270,17 +270,23 @@ import com.aishang.app.util.EventPosterHelper;
     return mAiShangService.syncSendCode(version, json);
   }
 
-  public Observable<JResult> syncMemberNoteRegister(int version, String json) {
-    return mAiShangService.syncMemberNoteRegister(version, json);
+  public Observable<JResult> syncMemberNoteRegister(int version, String json,String cookie) {
+    return mAiShangService.syncMemberNoteRegister(version, json,cookie);
   }
 
   public Observable<JCodeLoginResult> syncCodeLogin(Map<String, RequestBody> body) {
     return mAiShangService.syncCodeLogin(body);
   }
 
-  public Observable<JCodeLoginResult> syncCodeLoginGet(int version, String json) {
-    return mAiShangService.syncCodeLogin(json);
+  public Observable<JCodeLoginResult> syncCodeLogin(String cookie, String json) {
+
+
+    return mAiShangService.syncCodeLogin(cookie,json);
   }
+
+  //public Observable<JCodeLoginResult> syncCodeLoginGet(int version, String json) {
+  //  return mAiShangService.syncCodeLogin(json);
+  //}
 
   public Observable<JReleaseResult> syncTravelRelease(int version, String json) {
     return mAiShangService.syncRelease(version, json);

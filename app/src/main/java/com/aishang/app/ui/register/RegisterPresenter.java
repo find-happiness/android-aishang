@@ -57,7 +57,7 @@ public class RegisterPresenter extends BasePresenter<RegisterMvpView> {
 
           @Override public void onError(Throwable e) {
             getMvpView().dismissDialog();
-            getMvpView().showError("网络异常");
+            getMvpView().showGetCodeError(e.toString());
             Log.e(TAG, "onError: " + e.toString());
           }
 
@@ -67,27 +67,27 @@ public class RegisterPresenter extends BasePresenter<RegisterMvpView> {
               if (result.isStatus()) {
                 getMvpView().showCheckPhoneSuccess();
               } else {
-                getMvpView().showError("该号码已经注册，请直接登录。");
+                getMvpView().showGetCodeError("该号码已经注册，请直接登录。");
               }
             } else {
-              getMvpView().showError(result.getResult());
+              getMvpView().showGetCodeError(result.getResult());
             }
           }
         });
   }
 
-  public void submit(int version, String json) {
-    submit(false, version, json);
+  public void submit(int version, String json,String cookie) {
+    submit(false, version, json,cookie);
   }
 
-  public void submit(boolean allowMemoryCacheVersion, int version, String json) {
+  public void submit(boolean allowMemoryCacheVersion, int version, String json,String cookie) {
     checkViewAttached();
 
     if (mSubmitSubscription != null && !mSubmitSubscription.isUnsubscribed()) {
       mSubmitSubscription.unsubscribe();
     }
     getMvpView().showNetDialog();
-    mSubmitSubscription = mDataManager.syncMemberNoteRegister(version, json)
+    mSubmitSubscription = mDataManager.syncMemberNoteRegister(version, json,cookie)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
         .subscribe(new Subscriber<JResult>() {
@@ -96,7 +96,7 @@ public class RegisterPresenter extends BasePresenter<RegisterMvpView> {
 
           @Override public void onError(Throwable e) {
             getMvpView().dismissDialog();
-            getMvpView().showError("网络异常");
+            //getMvpView().showError("网络异常");
             Log.e(TAG, "onError: " + e.toString());
           }
 

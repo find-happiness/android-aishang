@@ -80,6 +80,7 @@
             android:layout_marginTop="@dimen/spacing_medium"
             android:background="@color/primary"
             android:gravity="center"
+            android:ems="6"
             android:paddingBottom="@dimen/spacing_small"
             android:paddingTop="@dimen/spacing_small"
             android:text="获取验证码"

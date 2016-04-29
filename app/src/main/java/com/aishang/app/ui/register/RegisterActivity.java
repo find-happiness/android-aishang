@@ -1,6 +1,7 @@
 package com.aishang.app.ui.register;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
@@ -64,8 +65,7 @@ public class RegisterActivity extends BaseActivity implements RegisterMvpView {
   @Override protected void onDestroy() {
     mPresenter.detachView();
 
-    if(subscriptionAgain != null)
-      subscriptionAgain.unsubscribe();
+    if (subscriptionAgain != null) subscriptionAgain.unsubscribe();
 
     super.onDestroy();
   }
@@ -116,7 +116,6 @@ public class RegisterActivity extends BaseActivity implements RegisterMvpView {
               btnGetVerificationCode.setText("重新发送(" + (AGAIN_GET_CODE - aLong) + ")");
             }
           });
-
     }
   }
 
@@ -186,7 +185,13 @@ public class RegisterActivity extends BaseActivity implements RegisterMvpView {
 
   @Override public void showRegisterSuccess() {
     CommonUtil.hideSoftInput(this);
-    CommonUtil.showSnackbar("注册成功！", layoutRoot);
+    //CommonUtil.showSnackbar("注册成功！", layoutRoot);
+
+    DialogFactory.createGenericSuccessDialog(this, "注册成功！", new DialogInterface.OnClickListener() {
+      @Override public void onClick(DialogInterface dialog, int which) {
+        RegisterActivity.this.finish();
+      }
+    }).show();
   }
 
   @Override public void showNetDialog() {
@@ -197,7 +202,7 @@ public class RegisterActivity extends BaseActivity implements RegisterMvpView {
   @Override public void showGetCodeError(String error) {
     CommonUtil.hideSoftInput(this);
     CommonUtil.showSnackbar(error, layoutRoot);
-    if(subscriptionAgain != null){
+    if (subscriptionAgain != null) {
       subscriptionAgain.unsubscribe();
     }
 

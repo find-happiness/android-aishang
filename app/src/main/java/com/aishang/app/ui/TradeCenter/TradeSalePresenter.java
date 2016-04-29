@@ -61,7 +61,7 @@ public class TradeSalePresenter extends BasePresenter<TradeSaleMvpView> {
 
           @Override public void onError(Throwable e) {
             getMvpView().dimissDialog();
-            getMvpView().showError("网络异常");
+            //getMvpView().showError("网络异常");
           }
 
           @Override public void onNext(JLoupanProductVIPViewResult result) {
@@ -115,7 +115,7 @@ public class TradeSalePresenter extends BasePresenter<TradeSaleMvpView> {
 
           @Override public void onError(Throwable e) {
             getMvpView().dimissDialog();
-            getMvpView().showError("网络异常");
+            //getMvpView().showError("网络异常");
             Log.e(TAG, "onError: " + e.toString());
           }
 
@@ -148,7 +148,7 @@ public class TradeSalePresenter extends BasePresenter<TradeSaleMvpView> {
 
           @Override public void onError(Throwable e) {
             getMvpView().dimissDialog();
-            getMvpView().showError("网络异常");
+            //getMvpView().showError("网络异常");
           }
 
           @Override public void onNext(JResult result) {

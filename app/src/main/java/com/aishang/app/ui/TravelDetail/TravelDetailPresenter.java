@@ -64,7 +64,8 @@ public class TravelDetailPresenter extends BasePresenter<TravelDetailMvpView> {
 
           @Override public void onError(Throwable e) {
             getMvpView().dimissDialog();
-            getMvpView().showError("网络异常");
+            //getMvpView().showError("网络异常");
+            System.out.print(e.toString());
           }
 
           @Override public void onNext(JNewsDetailResult result) {
@@ -97,7 +98,8 @@ public class TravelDetailPresenter extends BasePresenter<TravelDetailMvpView> {
 
           @Override public void onError(Throwable e) {
             getMvpView().dimissDialog();
-            getMvpView().showError("网络异常");
+            //getMvpView().showError("网络异常");
+            System.out.print(e.toString());
           }
 
           @Override public void onNext(JResult result) {
@@ -131,7 +133,8 @@ public class TravelDetailPresenter extends BasePresenter<TravelDetailMvpView> {
 
           @Override public void onError(Throwable e) {
             getMvpView().dimissDialog();
-            getMvpView().showError("网络异常");
+            //getMvpView().showError("网络异常");
+            System.out.print(e.toString());
           }
 
           @Override public void onNext(JNewsHitsResult result) {
@@ -165,7 +168,8 @@ public class TravelDetailPresenter extends BasePresenter<TravelDetailMvpView> {
 
           @Override public void onError(Throwable e) {
             getMvpView().dimissDialog();
-            getMvpView().showError("网络异常");
+            //getMvpView().showError("网络异常");
+            System.out.print(e.toString());
           }
 
           @Override public void onNext(JResult result) {
@@ -197,7 +201,7 @@ public class TravelDetailPresenter extends BasePresenter<TravelDetailMvpView> {
 
           @Override public void onError(Throwable e) {
             getMvpView().dimissCriticismList();
-            getMvpView().showError("网络异常");
+            getMvpView().showError(e.getMessage());
           }
 
           @Override public void onNext(JCriticismListResult result) {

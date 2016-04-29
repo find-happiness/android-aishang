@@ -278,7 +278,7 @@ import com.aishang.app.util.EventPosterHelper;
     return mAiShangService.syncCodeLogin(body);
   }
 
-  public Observable<JCodeLoginResult> syncCodeLogin(String cookie, String json) {
+  public Observable<JMemberLoginResult> syncCodeLogin(String cookie, String json) {
 
 
     return mAiShangService.syncCodeLogin(cookie,json);

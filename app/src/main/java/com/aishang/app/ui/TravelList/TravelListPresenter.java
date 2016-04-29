@@ -63,7 +63,8 @@ public class TravelListPresenter extends BasePresenter<TravelListMvpView> {
           }
 
           @Override public void onError(Throwable e) {
-            getMvpView().showError("网络异常");
+            //getMvpView().showError(e.getMessage());
+            System.out.print(e.toString());
           }
 
           @Override public void onNext(final JNewsListResult result) {
@@ -131,7 +132,8 @@ public class TravelListPresenter extends BasePresenter<TravelListMvpView> {
           }
 
           @Override public void onError(Throwable e) {
-            getMvpView().showError("网络异常:" + e.toString());
+            //getMvpView().showError(e.getMessage());
+            System.out.print(e.toString());
           }
 
           @Override public void onNext(JSysZoneResult zoneResult) {

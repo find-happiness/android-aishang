@@ -87,7 +87,7 @@ public class TravelFavoritesPresenter extends BasePresenter<TravelFavoritesMvpVi
           }
 
           @Override public void onError(Throwable e) {
-            getMvpView().showError("网络异常");
+            //getMvpView().showError(e.getMessage());
             Log.e(TAG, "loadTravelParticipation onError: " + e.toString());
           }
 
@@ -154,7 +154,7 @@ public class TravelFavoritesPresenter extends BasePresenter<TravelFavoritesMvpVi
           }
 
           @Override public void onError(Throwable e) {
-            getMvpView().showError("网络异常");
+            //getMvpView().showError(e.getMessage());
             Log.e(TAG, "loadTravelParticipation onError: " + e.toString());
           }
 
@@ -221,7 +221,7 @@ public class TravelFavoritesPresenter extends BasePresenter<TravelFavoritesMvpVi
           }
 
           @Override public void onError(Throwable e) {
-            getMvpView().showError("网络异常");
+            //getMvpView().showError(e.getMessage());
             Log.e(TAG, "loadTravelParticipation onError: " + e.toString());
           }
 

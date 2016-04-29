@@ -61,7 +61,7 @@ public class FileUploadPresenter extends BasePresenter<FileUploadMvpView> {
 
           @Override public void onError(Throwable e) {
             Log.e(TAG, "onError: " + e.toString());
-            getMvpView().showUploadFileError("网络异常");
+            getMvpView().showUploadFileError("上传失败！");
           }
 
           @Override public void onNext(JUploadFileResult result) {

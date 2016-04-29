@@ -2,13 +2,8 @@ package com.aishang.app;
 
 import android.app.Application;
 import android.content.Context;
-
 import cn.jpush.android.api.JPushInterface;
 import com.aishang.app.data.model.JMemberLoginResult;
-import com.crashlytics.android.Crashlytics;
-
-import io.fabric.sdk.android.Fabric;
-import com.aishang.app.BuildConfig;
 import com.aishang.app.injection.component.ApplicationComponent;
 import com.aishang.app.injection.component.DaggerApplicationComponent;
 import com.aishang.app.injection.module.ApplicationModule;
@@ -25,7 +20,7 @@ public class BoilerplateApplication extends Application {
 
     if (BuildConfig.DEBUG) {
       //Timber.plant(new Timber.DebugTree());
-      Fabric.with(this, new Crashlytics());
+      //Fabric.with(this, new Crashlytics());
       JPushInterface.setDebugMode(true);
     }
 

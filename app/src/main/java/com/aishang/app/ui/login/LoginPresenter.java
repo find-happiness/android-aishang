@@ -83,9 +83,7 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
             getMvpView().dismissDialog();
             if (jMemberLoginResult.getResult().toUpperCase().equals("success".toUpperCase())) {
               getMvpView().loginScuess(jMemberLoginResult);
-
               JMemberLoginParam param = new Gson().fromJson(json, JMemberLoginParam.class);
-
               getMvpView().saveLoginData(param.getMemberAccount(), param.getPassword());
             } else {
               getMvpView().loginFaild(jMemberLoginResult.getResult());
@@ -148,25 +146,26 @@ public class LoginPresenter extends BasePresenter<LoginMvpView> {
     mCodeLoginSubscription = mDataManager.syncCodeLogin(cookie,json)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
-        .subscribe(new Subscriber<JCodeLoginResult>() {
+        .subscribe(new Subscriber<JMemberLoginResult>() {
           @Override public void onCompleted() {
           }
 
           @Override public void onError(Throwable e) {
 
             Log.i(TAG, "onError: " + e);
-
             getMvpView().dismissDialog();
             getMvpView().showError(e.toString());
           }
 
-          @Override public void onNext(JCodeLoginResult jMemberLoginResult) {
+          @Override public void onNext(JMemberLoginResult jMemberLoginResult) {
             getMvpView().dismissDialog();
             if (jMemberLoginResult.getResult().toUpperCase().equals("success".toUpperCase())) {
-
-              Log.i(TAG, "onNext: codelogin success!");
+              getMvpView().loginScuess(jMemberLoginResult);
+              JMemberLoginParam param = new Gson().fromJson(json, JMemberLoginParam.class);
+              getMvpView().saveLoginData(param.getMemberAccount(), param.getPassword());
+              //Log.i(TAG, "onNext: codelogin success!");
             } else {
-              Log.i(TAG, "onNext: " + new Gson().toJson(jMemberLoginResult));
+              //Log.i(TAG, "onNext: " + new Gson().toJson(jMemberLoginResult));
               getMvpView().loginFaild(jMemberLoginResult.getResult());
             }
           }

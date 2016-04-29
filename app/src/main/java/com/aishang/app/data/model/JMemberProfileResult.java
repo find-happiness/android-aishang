@@ -34,9 +34,27 @@ public class JMemberProfileResult {
     public String address;
     public String dateOfBirth;
     public String qq;
+    public int VIPStatus;
+    public float awardLeft;
     public JMemberIM[] imList;
     public JMemberBankAccount[] bankAccountList;
     public JMemberAddress[] addressList;
+
+    public int getVIPStatus() {
+      return VIPStatus;
+    }
+
+    public void setVIPStatus(int VIPStatus) {
+      this.VIPStatus = VIPStatus;
+    }
+
+    public float getAwardLeft() {
+      return awardLeft;
+    }
+
+    public void setAwardLeft(float awardLeft) {
+      this.awardLeft = awardLeft;
+    }
 
     public String getDateOfBirth() {
       return dateOfBirth;

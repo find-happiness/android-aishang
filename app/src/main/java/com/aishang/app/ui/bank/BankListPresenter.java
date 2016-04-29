@@ -1,5 +1,6 @@
 package com.aishang.app.ui.bank;
 
+import android.util.Log;
 import com.aishang.app.data.DataManager;
 import com.aishang.app.data.model.JMemberBankListResult;
 import com.aishang.app.data.model.JResult;

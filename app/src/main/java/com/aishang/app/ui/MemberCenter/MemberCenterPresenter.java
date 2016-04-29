@@ -88,6 +88,7 @@ public class MemberCenterPresenter extends BasePresenter<MemberCenterMvpView> {
           }
 
           @Override public void onError(Throwable e) {
+            Log.e(TAG, "onError: " + e.toString());
             getMvpView().showError("网络异常");
           }
 

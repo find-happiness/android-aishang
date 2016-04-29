@@ -1,6 +1,7 @@
 package com.aishang.app.ui.suggestion;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -77,7 +78,13 @@ public class SuggestionActivity extends BaseActivity implements SuggestionMvpVie
 
   @Override public void showSuccess() {
     dimissDialog();
-    CommonUtil.showSnackbar("提交成功", layoutRoot);
+    //CommonUtil.showSnackbar("提交成功", layoutRoot);
+
+    DialogFactory.createGenericSuccessDialog(this, "提交成功", new DialogInterface.OnClickListener() {
+      @Override public void onClick(DialogInterface dialog, int which) {
+        SuggestionActivity.this.finish();
+      }
+    }).show();
   }
 
   private void submit() {

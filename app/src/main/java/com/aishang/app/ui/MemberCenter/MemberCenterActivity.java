@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -180,8 +181,6 @@ public class MemberCenterActivity extends BaseActivity
 
     rlEmail.setTag(data.getEmail());
 
-    rlGender.setTag(data.getGender());
-
     rlRealName.setTag(data.getMemberName());
 
     email.setText(data.getEmail());
@@ -192,7 +191,16 @@ public class MemberCenterActivity extends BaseActivity
 
     dateOfBirth.setText(data.getDateOfBirth());
 
-    gender.setText(GENDER[Integer.parseInt(data.getGender()) + 1]);
+    int genderIndex = -1;
+    if(!TextUtils.isEmpty(data.getGender())){
+      try{
+        genderIndex = Integer.parseInt(data.getGender());
+        rlGender.setTag(genderIndex+"");
+      }catch (Exception e){
+        Log.i(TAG, "bindDataToView: " + e.toString());
+      }
+    }
+    gender.setText(GENDER[genderIndex + 1]);
   }
 
   @OnClick(R.id.rl_head_img) void onClickRlHeadImg() {

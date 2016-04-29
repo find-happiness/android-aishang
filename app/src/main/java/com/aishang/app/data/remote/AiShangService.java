@@ -229,7 +229,7 @@ public interface AiShangService {
   Observable<JCodeLoginResult> syncCodeLogin(@PartMap Map<String, RequestBody> body);
 
   @Headers({ "Content-Type: application/json;charset=UTF-8", "connection:Keep-Alive" })
-  @GET("mobile/member/codeLogin.ashx") Observable<JCodeLoginResult> syncCodeLogin(
+  @GET("mobile/member/codeLogin.ashx") Observable<JMemberLoginResult> syncCodeLogin(
       @Header("Cookie")String cookie ,@Query(value = "q") String q);
 
   @Headers("connection:Keep-Alive") @GET("mobile/member/collect.ashx")

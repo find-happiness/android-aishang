@@ -533,9 +533,9 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
 
     MarkerOptions markerOption = new MarkerOptions();
     markerOption.position(latLng);
-    markerOption.title(title).snippet(address);
+    //markerOption.title(title).snippet(address);
     markerOption.draggable(false);
-    markerOption.icon(BitmapDescriptorFactory.fromResource(R.mipmap.arrow));
+    markerOption.icon(BitmapDescriptorFactory.fromResource(R.drawable.spotlight));
     Marker marker2 = aMap.addMarker(markerOption);
     marker2.showInfoWindow();
 

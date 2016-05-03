@@ -380,9 +380,9 @@ public class InSaleDetailActivity extends BaseActivity implements InSaleDetailMv
 
     MarkerOptions markerOption = new MarkerOptions();
     markerOption.position(latLng);
-    markerOption.title(title).snippet(address);
+    //markerOption.title(title).snippet(address);
     markerOption.draggable(false);
-    markerOption.icon(BitmapDescriptorFactory.fromResource(R.mipmap.arrow));
+    markerOption.icon(BitmapDescriptorFactory.fromResource(R.drawable.spotlight));
     Marker marker2 = aMap.addMarker(markerOption);
     marker2.showInfoWindow();
 
@@ -416,12 +416,11 @@ public class InSaleDetailActivity extends BaseActivity implements InSaleDetailMv
 
     public View createView(Context context) {
       imageView = new ImageView(context);
-      imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+      imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
       return imageView;
     }
 
     @Override public void UpdateUI(Context context, int position, String url) {
-
       Picasso.with(context)
           .load(AiShangService.AiShangHost + url)
           .error(R.mipmap.banner)

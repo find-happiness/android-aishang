@@ -21,6 +21,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -196,6 +197,7 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
   }
 
   @OnClick(R.id.btn_store) void btnStore() {
+    mMainPresenter.IntentToStore();
   }
 
   @OnClick(R.id.btn_kanfangtuan) void btnKanFangDuan() {
@@ -232,7 +234,7 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
       index++;
     }
     Log.i(TAG, "showSysZoneDialog: item size :" + items.length);
-    DialogFactory.createSingleChoiceDialog(getActivity(), items, cur,
+    Dialog dialog = DialogFactory.createSingleChoiceDialog(getActivity(), items, cur,
         new DialogInterface.OnClickListener() {
           @Override public void onClick(DialogInterface dialog, int which) {
 
@@ -246,7 +248,16 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
             startActivity(HotelListActivity.getIntent(MainFmFragment.this.getActivity(),
                 which == 0 ? 2 : zones.get(which - 1).getZoneID()));
           }
-        }, getString(R.string.zone_select)).show();
+        }, getString(R.string.zone_select));
+
+    dialog.show();
+
+    int[] size = CommonUtil.getHeightWithScreenWidth(this.getActivity(), 4, 5);
+
+    WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+    params.width = size[0];
+    params.height = size[1];
+    dialog.getWindow().setAttributes(params);
   }
 
   @Override public void showBanner(final List<JMrePromResult.Ad> ads) {
@@ -484,29 +495,23 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
       }
     });
 
-    gvYouJi.getViewTreeObserver().addOnGlobalLayoutListener(
-        new ViewTreeObserver.OnGlobalLayoutListener() {
+    gvYouJi.getViewTreeObserver()
+        .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 
-          @SuppressLint("NewApi")
-          @Override
-          public void onGlobalLayout() {
+          @SuppressLint("NewApi") @Override public void onGlobalLayout() {
 
             int height = gvYouJi.getMeasuredHeight();
 
             if (height != 0) {
-              gvYouJi
-                  .setLayoutParams(new android.widget.FrameLayout.LayoutParams(
-                      FrameLayout.LayoutParams.MATCH_PARENT,
+              gvYouJi.setLayoutParams(
+                  new android.widget.FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
                       FrameLayout.LayoutParams.WRAP_CONTENT));
 
               gvYouJi.requestLayout();
               if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
-                gvYouJi.getViewTreeObserver()
-                    .removeOnGlobalLayoutListener(this);
-
+                gvYouJi.getViewTreeObserver().removeOnGlobalLayoutListener(this);
               } else {
-                gvYouJi.getViewTreeObserver()
-                    .removeGlobalOnLayoutListener(this);
+                gvYouJi.getViewTreeObserver().removeGlobalOnLayoutListener(this);
               }
             }
           }

@@ -8,6 +8,7 @@
     android:layout_marginLeft="@dimen/spacing_medium"
     android:layout_marginRight="@dimen/spacing_medium"
     >
+
   <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -161,22 +162,6 @@
             >
 
           <TextView
-              android:id="@+id/tese"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:ellipsize="marquee"
-              android:focusable="true"
-              android:focusableInTouchMode="true"
-              android:lines="1"
-              android:marqueeRepeatLimit="marquee_forever"
-              android:maxEms="10"
-              android:scrollHorizontally="true"
-              android:textColor="@color/text_gray"
-              android:textSize="@dimen/text_small_body"
-              tools:text="特         色:"
-              />
-
-          <TextView
               android:id="@+id/total"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
@@ -189,6 +174,23 @@
               android:paddingLeft="@dimen/spacing_medium"
               android:text="共有50套房源"
               android:textColor="@android:color/black"
+              />
+
+          <TextView
+              android:id="@+id/tese"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_toLeftOf="@id/total"
+              android:ellipsize="marquee"
+              android:focusable="true"
+              android:focusableInTouchMode="true"
+              android:lines="1"
+              android:marqueeRepeatLimit="marquee_forever"
+              android:maxEms="10"
+              android:scrollHorizontally="true"
+              android:textColor="@color/text_gray"
+              android:textSize="@dimen/text_small_body"
+              tools:text="特         色:"
               />
         </RelativeLayout>
       </LinearLayout>

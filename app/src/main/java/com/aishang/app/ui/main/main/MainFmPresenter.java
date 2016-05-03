@@ -23,6 +23,7 @@ import com.aishang.app.ui.base.BasePresenter;
 import com.aishang.app.ui.hotel.HotelListActivity;
 import com.aishang.app.ui.insale.InSaleActivity;
 
+import com.aishang.app.ui.store.StoreActivity;
 import com.aishang.app.util.Constants;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -340,6 +341,13 @@ public class MainFmPresenter extends BasePresenter<MainFmMvpView> {
     Activity content = ((MainFmFragment) getMvpView()).getActivity();
     Intent intent = new Intent();
     intent.setClass(content, TradeCenterActivity.class);
+    content.startActivity(intent);
+  }
+
+  protected void IntentToStore() {
+    Activity content = ((MainFmFragment) getMvpView()).getActivity();
+    Intent intent = new Intent();
+    intent.setClass(content, StoreActivity.class);
     content.startActivity(intent);
   }
 }

@@ -16,7 +16,7 @@ import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
 
 public class KnowWeActivity extends AppCompatActivity {
 
-  final int[] page = new int[] { R.mipmap.konw_we_1, R.mipmap.konw_we_2, R.mipmap.konw_we_3 };
+  final int[] page = new int[] { R.mipmap.konw_we_1, R.mipmap.konw_we_2, R.mipmap.konw_we_3 ,R.mipmap.konw_we_4, R.mipmap.konw_we_5, R.mipmap.konw_we_6, R.mipmap.konw_we_7};
   @Bind(R.id.toolbar) Toolbar toolbar;
   @Bind(R.id.vertical_viewpager) RecyclerViewPager mRecyclerView;
 

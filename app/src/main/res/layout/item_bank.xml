@@ -21,10 +21,10 @@
 
     <ImageView
         android:id="@+id/card_type_img"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_marginLeft="@dimen/spacing_medium"
-        android:scaleType="fitXY"
+        android:scaleType="fitCenter"
         android:src="@mipmap/icbc"/>
 
 

@@ -5,11 +5,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JMemberBankAccount;
+import com.aishang.app.data.remote.AiShangService;
+import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -43,9 +46,62 @@ public class BankAdapter extends RecyclerView.Adapter<BankAdapter.ViewHolder> {
 
     holder.holder.setText(item.getHolder());
     holder.bankName.setText(item.getBankName());
-
     holder.accountNumber.setText(item.getAccountNumber());
 
+    String cardImgUrl = "";
+    switch (item.getBankName()) {
+      case "中国银行":
+        cardImgUrl = "/images/bank_%20(11).png";
+        break;
+      case "中国农业银行":
+        cardImgUrl = "/images/bank_%20(5).png";
+        break;
+      case "中国工商银行":
+        cardImgUrl = "/images/bank_%20(16).png";
+        break;
+      case "中国建设银行":
+        cardImgUrl = "/images/bank_%20(2).png";
+        break;
+      case "招商银行":
+        cardImgUrl = "/images/bank_%20(10).png";
+        break;
+      case "交通银行":
+        cardImgUrl = "/images/bank_%20(3).png";
+        break;
+      case "中信银行":
+        cardImgUrl = "/images/bank_%20(13).png";
+        break;
+      case "中国光大银行":
+        cardImgUrl = "/images/bank_%20(17).png";
+        break;
+      case "中国民生银行":
+        cardImgUrl = "/images/bank_%20(4).png";
+        break;
+      case "广发银行":
+        cardImgUrl = "/images/bank_%20(18).png";
+        break;
+      case "华夏银行":
+        cardImgUrl = "/images/bank_%20(1).png";
+        break;
+      case "浦发银行":
+        cardImgUrl = "/images/bank_%20(7).png";
+        break;
+      case "兴业银行":
+        cardImgUrl = "/images/bank_%20(9).png";
+        break;
+      case "中国邮政储蓄银行":
+        cardImgUrl = "/images/bank_%20(12).png";
+        break;
+      default:
+        cardImgUrl = "/images/bank_%20(11).png";
+        break;
+    }
+
+    Picasso.with(holder.getContext())
+        .load(AiShangService.IMG_URL + cardImgUrl)
+        .error(R.mipmap.default_error)
+        .placeholder(R.mipmap.default_error)
+        .into(holder.cardTypeImg);
     holder.itemView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         if (listener != null) {
@@ -80,6 +136,7 @@ public class BankAdapter extends RecyclerView.Adapter<BankAdapter.ViewHolder> {
     @Bind(R.id.holder) TextView holder;
     @Bind(R.id.accountNumber) TextView accountNumber;
     @Bind(R.id.type) TextView type;
+    @Bind(R.id.card_type_img) ImageView cardTypeImg;
 
     public Context getContext() {
       return this.itemView.getContext();

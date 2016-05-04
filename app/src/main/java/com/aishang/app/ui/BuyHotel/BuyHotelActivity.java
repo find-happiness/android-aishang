@@ -1,11 +1,13 @@
 package com.aishang.app.ui.BuyHotel;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -18,28 +20,34 @@ import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.aishang.app.BoilerplateApplication;
 import com.aishang.app.R;
 import com.aishang.app.data.model.HotelOrder;
 import com.aishang.app.data.model.JHotelDetailResult;
 import com.aishang.app.data.model.JHotelRoomCatListByhotelIDResult;
 import com.aishang.app.data.model.JMemberLoginResult;
+import com.aishang.app.data.model.JMemberProfileResult;
+import com.aishang.app.data.model.JMyVacationListResult;
 import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.ui.base.BaseActivity;
+import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.DialogFactory;
 import com.aishang.app.util.NetImageHolderView;
+import com.aishang.app.util.NetworkUtil;
 import com.aishang.app.util.NumberPickerDelegate;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import rx.Observable;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.functions.Func2;
 
-public class BuyHotelActivity extends BaseActivity {
+public class BuyHotelActivity extends BaseActivity implements BuyHotelMvpView {
 
   private static final String HOTEL = "hotel";
   private static final String ORDER = "order";
@@ -60,10 +68,14 @@ public class BuyHotelActivity extends BaseActivity {
   @Bind(R.id.order_container) LinearLayout orderContainer;
   @Bind(R.id.total_price) TextView totalPrice;
 
+  @Inject BuyHotelPresenter presenter;
+  ProgressDialog progressDialog;
+  @Bind(R.id.card) TextView card;
   private JHotelDetailResult hotel;
   private ArrayList<HotelOrder> orderList;
   private String checkInDate;
   private String checkOutDate;
+  JMyVacationListResult vacationResult;
 
   public static Intent getStartIntent(Context ctx, JHotelDetailResult loupan,
       ArrayList<HotelOrder> orders, String checkInDate, String checkOutDate) {
@@ -77,6 +89,8 @@ public class BuyHotelActivity extends BaseActivity {
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    this.getActivityComponent().inject(this);
+    presenter.attachView(this);
     setContentView(R.layout.activity_buy_hotel);
     ButterKnife.bind(this);
     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE
@@ -109,6 +123,8 @@ public class BuyHotelActivity extends BaseActivity {
     initToolbar();
     initBanner();
     bindData();
+
+    loadMemberProfile();
   }
 
   @Override protected void onSaveInstanceState(Bundle outState) {
@@ -118,6 +134,33 @@ public class BuyHotelActivity extends BaseActivity {
     outState.putSerializable(HOTEL, hotel);
 
     super.onSaveInstanceState(outState);
+  }
+
+  private void loadMemberProfile() {
+    if (NetworkUtil.isNetworkConnected(this)) {
+      showProgressDialog();
+
+      JMemberLoginResult result = BoilerplateApplication.get(this).getMemberLoginResult();
+      String json =
+          AiShangUtil.generMemberProfileParam(BoilerplateApplication.get(this).getMemberAccount(),
+              result.getData().getCookies());
+
+      presenter.loadProfile(2, json);
+    } else {
+      showError(this.getString(R.string.no_net));
+    }
+  }
+
+  private void loadVacation() {
+    if (NetworkUtil.isNetworkConnected(this)) {
+      String cookie =
+          BoilerplateApplication.get(this).getMemberLoginResult().getData().getCookies();
+      String member = BoilerplateApplication.get(this).getMemberAccount();
+      String json = AiShangUtil.generMyVacationListParam(member, cookie, "2012-01-01");
+      presenter.loadVacation(0, json);
+    } else {
+      showError(this.getString(R.string.no_net));
+    }
   }
 
   private void initToolbar() {
@@ -155,7 +198,7 @@ public class BuyHotelActivity extends BaseActivity {
     }, ads)
         //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
         .setPageIndicator(new int[] { R.mipmap.ellipse_nomal, R.mipmap.ellipse_select })
-            //设置指示器的方向
+        //设置指示器的方向
         .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
   }
 
@@ -166,20 +209,20 @@ public class BuyHotelActivity extends BaseActivity {
     //type.setText(dataSet.getBaseInfo().get);
     address.setText(dataSet.getBaseInfo().getAddress());
     bindRoom();
-    bindMyInfo();
+    //bindMyInfo();
   }
 
   private void bindMyInfo() {
-    JMemberLoginResult result = BoilerplateApplication.get(this).getMemberLoginResult();
-
-    if (result == null) {
-      Toast.makeText(this, R.string.error_not_login, Toast.LENGTH_LONG).show();
-      this.finish();
-    } else {
-      guestName.setText(result.getData().getMemberName());
-      phone.setText(BoilerplateApplication.get(this).getMemberAccount());
-      //email.setText();
-    }
+    //JMemberLoginResult result = BoilerplateApplication.get(this).getMemberLoginResult();
+    //
+    //if (result == null) {
+    //  Toast.makeText(this, R.string.error_not_login, Toast.LENGTH_LONG).show();
+    //  this.finish();
+    //} else {
+    //  guestName.setText(result.getData().getMemberName());
+    //  phone.setText(BoilerplateApplication.get(this).getMemberAccount());
+    //  //email.setText();
+    //}
   }
 
   private void bindRoom() {
@@ -213,7 +256,7 @@ public class BuyHotelActivity extends BaseActivity {
 
           holder.guestNum.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
-              DialogFactory.createNumberPicker(act, (int) holder.guestNum.getTag(), 100, 1, "入住人数",
+              DialogFactory.createNumberPicker(act, (int) holder.guestNum.getTag(), 10, 1, "入住人数",
                   new NumberPickerDelegate() {
                     @Override public void OnPick(NumberPicker picker, int num) {
                       holder.guestNum.setTag(num);
@@ -251,6 +294,84 @@ public class BuyHotelActivity extends BaseActivity {
       iv.setLayoutParams(params);
       starContainer.addView(iv);
     }
+  }
+
+  private void showProgressDialog() {
+    progressDialog = DialogFactory.createProgressDialog(this, R.string.listview_loading);
+    progressDialog.show();
+  }
+
+  private void dimissDialog() {
+    if (progressDialog != null && progressDialog.isShowing()) {
+      progressDialog.dismiss();
+    }
+  }
+
+  @Override public void showError(String error) {
+    CommonUtil.showSnackbar(error, layoutRoot);
+  }
+
+  @Override public void showSuccess() {
+
+  }
+
+  @Override public void showGetProfileSuccess(JMemberProfileResult result) {
+    if (result == null) {
+      Toast.makeText(this, R.string.error_not_login, Toast.LENGTH_LONG).show();
+      this.finish();
+    } else {
+      guestName.setText(result.getData().getMemberName());
+      phone.setText(result.getData().getMobilePhone());
+      email.setText(result.getData().getEmail());
+
+      loadVacation();
+    }
+  }
+
+  @Override public void showGetVacationSuccess(JMyVacationListResult result) {
+
+    dimissDialog();
+
+    vacationResult = result;
+    card.setText(result.getMyVaList()[0].getCardID());
+    card.setTag(0);
+  }
+
+  @Override public void showVacationEmpty() {
+
+    dimissDialog();
+    card.setClickable(false);
+    Snackbar.make(layoutRoot, "没有查询到旅居卡,暂时不能预订！", Snackbar.LENGTH_INDEFINITE)
+        .setAction(android.R.string.ok, new View.OnClickListener() {
+          @Override public void onClick(View v) {
+            BuyHotelActivity.this.finish();
+          }
+        })
+        .show();
+  }
+
+  @OnClick(R.id.card) public void onClick() {
+
+    Observable.from(vacationResult.getMyVaList())
+        .map(new Func1<JMyVacationListResult.JMyVacationListMyVaList, String>() {
+          @Override public String call(
+              JMyVacationListResult.JMyVacationListMyVaList jMyVacationListMyVaList) {
+            return jMyVacationListMyVaList.getCardID();
+          }
+        })
+        .toList()
+        .subscribe(new Action1<List<String>>() {
+          @Override public void call(final List<String> strings) {
+            DialogFactory.createSingleChoiceDialog(BuyHotelActivity.this,
+                strings.toArray(new String[strings.size()]), (int) card.getTag(),
+                new DialogInterface.OnClickListener() {
+                  @Override public void onClick(DialogInterface dialog, int which) {
+                    card.setTag(which);
+                    card.setText(strings.get(which));
+                  }
+                }, "选择旅居卡").show();
+          }
+        });
   }
 
   static class RoomViewHolder {

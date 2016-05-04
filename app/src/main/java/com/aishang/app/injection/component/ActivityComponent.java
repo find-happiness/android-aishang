@@ -1,6 +1,7 @@
 package com.aishang.app.injection.component;
 
 import com.aishang.app.ui.BrokerCenter.BrokerCenterActivity;
+import com.aishang.app.ui.BuyHotel.BuyHotelActivity;
 import com.aishang.app.ui.BuyLouPan.BuyLouPanActivity;
 import com.aishang.app.ui.CanTuan.CanTuanActivity;
 import com.aishang.app.ui.CashWithDrawApply.CashWithDrawApplyActivity;
@@ -115,4 +116,6 @@ public interface ActivityComponent {
   void inject(TravelDetailActivity activity);
 
   void inject(TradeSaleFragment fragment);
+
+  void inject(BuyHotelActivity activity);
 }

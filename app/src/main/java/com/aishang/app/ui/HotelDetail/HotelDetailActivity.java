@@ -276,11 +276,15 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
           @Override public void call(List<HotelOrder> hotelOrders) {
             //Log.i(TAG, "onclickBuy: -------------------- >" + hotelOrders.size());
             if (hotelOrders.size() > 0) {
-              Intent intent = BuyHotelActivity.getStartIntent(HotelDetailActivity.this, hotel,
-                  new ArrayList<HotelOrder>(hotelOrders),
-                  AiShangUtil.dateFormat(new Date(checkInDate)),
-                  AiShangUtil.dateFormat(new Date(checkOutDate)));
-              HotelDetailActivity.this.startActivity(intent);
+              if (hotelOrders.size() > 1) {
+                CommonUtil.showSnackbar("只能同时预订一种房间！", layoutRoot);
+              } else {
+                Intent intent = BuyHotelActivity.getStartIntent(HotelDetailActivity.this, hotel,
+                    new ArrayList<HotelOrder>(hotelOrders),
+                    AiShangUtil.dateFormat(new Date(checkInDate)),
+                    AiShangUtil.dateFormat(new Date(checkOutDate)));
+                HotelDetailActivity.this.startActivity(intent);
+              }
             } else {
               CommonUtil.showSnackbar("您没有选择房间！", layoutRoot);
             }

@@ -1,21 +1,26 @@
 package com.aishang.app.ui.BankAdd;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JMemberBankAccount;
 import com.aishang.app.util.CommonUtil;
+import com.aishang.app.util.DialogFactory;
 
 public class BankAddActivity extends AppCompatActivity {
 
@@ -32,12 +37,31 @@ public class BankAddActivity extends AppCompatActivity {
     setContentView(R.layout.activity_bank_add);
     ButterKnife.bind(this);
     initToolbar();
+    initEtBankName();
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
     MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.menu_save, menu);
     return true;
+  }
+
+  private void initEtBankName() {
+    bankName.setInputType(InputType.TYPE_NULL);
+
+    bankName.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        DialogFactory.createSingleChoiceDialog(BankAddActivity.this, R.array.bank, -1,
+            new DialogInterface.OnClickListener() {
+              @Override public void onClick(DialogInterface dialog, int which) {
+                bankName.setText(
+                    BankAddActivity.this.getResources().getStringArray(R.array.bank)[which]);
+                bankName.setTag(which);
+                dialog.dismiss();
+              }
+            }, R.string.select_bank).show();
+      }
+    });
   }
 
   private void initToolbar() {
@@ -69,7 +93,7 @@ public class BankAddActivity extends AppCompatActivity {
           account.setBankName(bankName.getText().toString().trim());
           account.setHolder(holder.getText().toString().trim());
           account.setId(0);
-          intent.putExtra(ACCOUNT,account);
+          intent.putExtra(ACCOUNT, account);
 
           BankAddActivity.this.setResult(100,
               intent);// 设置回传数据。resultCode值是1，这个值在主窗口将用来区分回传数据的来源，以做不同的处理

@@ -14,8 +14,8 @@
       android:layout_width="match_parent"
       android:layout_height="?attr/actionBarSize"
       android:background="@color/primary"
-      app:theme="@style/ToolBarStyle"
       app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+      app:theme="@style/ToolBarStyle"
       >
 
     <TextView
@@ -51,8 +51,8 @@
           android:layout_height="wrap_content"
           android:layout_marginBottom="@dimen/spacing_small"
           android:layout_marginLeft="@dimen/spacing_medium"
+          android:focusable="false"
           android:hint="开户行"
-          android:inputType="text"
           android:singleLine="true"
           android:textSize="@dimen/text_body"
           app:met_clearButton="true"

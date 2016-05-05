@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.annotation.ArrayRes;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.widget.NumberPicker;
@@ -102,7 +103,7 @@ public final class DialogFactory {
     return alertDialog.create();
   }
 
-  public static Dialog createSingleChoiceDialog(Context context, @StringRes int items,
+  public static Dialog createSingleChoiceDialog(Context context, @ArrayRes int items,
       int checkedItem, DialogInterface.OnClickListener itemClickLister, @StringRes int title) {
 
     AlertDialog.Builder alertDialog =

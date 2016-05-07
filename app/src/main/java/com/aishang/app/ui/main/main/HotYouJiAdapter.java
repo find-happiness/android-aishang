@@ -1,10 +1,13 @@
 package com.aishang.app.ui.main.main;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.Bind;
@@ -15,6 +18,7 @@ import com.aishang.app.data.model.News;
 import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.injection.ActivityContext;
 import com.aishang.app.ui.TravelDetail.TravelDetailActivity;
+import com.aishang.app.util.ViewUtil;
 import com.squareup.picasso.Picasso;
 import de.hdodenhof.circleimageview.CircleImageView;
 import java.util.ArrayList;
@@ -26,13 +30,24 @@ import javax.inject.Inject;
  */
 @ActivityContext public class HotYouJiAdapter extends BaseAdapter {
 
-  private final Context activity;
+  private final Activity activity;
 
   private List<News> hotYouJis;
 
-  @Inject public HotYouJiAdapter(Context activity) {
+  int[] imgSize = new int[2];
+
+  @Inject public HotYouJiAdapter(Activity activity) {
     this.activity = activity;
     hotYouJis = new ArrayList<>();
+
+    DisplayMetrics localDisplayMetrics = new DisplayMetrics();
+    activity.getWindowManager().getDefaultDisplay().getMetrics(localDisplayMetrics);
+    int mScreenWidth = localDisplayMetrics.widthPixels;
+    int pacing = ViewUtil.dpToPx(8);
+    int width = (mScreenWidth - 2 * pacing);
+
+    imgSize[0] = width;
+    imgSize[1] = width * 400 / 640;
   }
 
   @Override public int getCount() {
@@ -58,7 +73,7 @@ import javax.inject.Inject;
   @Override public View getView(int position, View convertView, ViewGroup parent) {
     ViewHolder holder = null;
     if (convertView == null) {
-      convertView = View.inflate(activity, R.layout.item_youji, null);
+      convertView = View.inflate(activity, R.layout.item_travel, null);
       holder = new ViewHolder(convertView);
     } else {
       holder = (ViewHolder) convertView.getTag();
@@ -67,23 +82,20 @@ import javax.inject.Inject;
 
     final JNewsListResult.NewsListEntity item = news.getNews();
 
+    FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(imgSize[0], imgSize[1]);
+    holder.image.setLayoutParams(layoutParams);
     Picasso.with(activity)
         .load(AiShangService.IMG_URL + item.getImageUrl())
         .error(R.mipmap.banner)
         .placeholder(R.mipmap.banner)
-        .into(holder.imgHotYouji);
+        .into(holder.image);
 
-    Picasso.with(activity)
-        .load(AiShangService.IMG_URL + news.getUserImageUrl())
-        .error(R.mipmap.ic_img_user_default)
-        .placeholder(R.mipmap.ic_img_user_default)
-        .into(holder.head);
-
-    holder.shuoshuo.setText(item.getTitle() + "");
+    holder.shortDesc.setText(item.getTitle() + "");
     holder.dianzhang.setText(item.getHits() + "");
     holder.pinglun.setText(news.getEnshrinedCount() + "");
-    holder.reward.setText("奖金");
-    holder.name.setText(news.getUserName() + "");
+    holder.reward.setText(item.getNewsID() + "");
+    holder.userName.setText("作者:" + news.getUserName());
+    holder.localOrDate.setText(news.getZoneName());
     convertView.setTag(holder);
 
     convertView.setOnClickListener(new View.OnClickListener() {
@@ -105,13 +117,13 @@ import javax.inject.Inject;
    *         (http://github.com/avast)
    */
   static class ViewHolder {
-    @Bind(R.id.img_hot_youji) ImageView imgHotYouji;
-    @Bind(R.id.head) CircleImageView head;
-    @Bind(R.id.name) TextView name;
-    @Bind(R.id.shuoshuo) TextView shuoshuo;
-    @Bind(R.id.reward) TextView reward;
-    @Bind(R.id.pinglun) TextView pinglun;
+    @Bind(R.id.image) ImageView image;
+    @Bind(R.id.short_desc) TextView shortDesc;
+    @Bind(R.id.user_name) TextView userName;
     @Bind(R.id.dianzhang) TextView dianzhang;
+    @Bind(R.id.pinglun) TextView pinglun;
+    @Bind(R.id.reward) TextView reward;
+    @Bind(R.id.local_or_date) TextView localOrDate;
 
     ViewHolder(View view) {
       ButterKnife.bind(this, view);

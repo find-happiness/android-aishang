@@ -1,67 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="@android:color/white"
-    android:layout_height="wrap_content">
-
-  <ImageView
-      android:id="@+id/img_hot_hotel"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:scaleType="centerCrop"
-      android:adjustViewBounds="true"
-      android:src="@mipmap/banner"/>
-
-  <TextView
-      android:id="@+id/name"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/img_hot_hotel"
-      android:layout_marginLeft="10dp"
-      android:gravity="center_vertical"
-      android:singleLine="true"
-      android:ellipsize="end"
-      android:textSize="@dimen/text_body"
-      tools:text="宜春|曦园柳镇"/>
-
-  <TextView
-      android:id="@+id/tese"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/name"
-      android:layout_marginLeft="10dp"
-      android:textSize="@dimen/text_small_body"
-      tools:text="宜春|曦园柳镇"/>
-
+    >
   <RelativeLayout
-      android:layout_width="match_parent"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/spacing_small"
-      android:layout_below="@id/tese">
+      >
 
-    <TextView
-        android:id="@+id/book"
-        android:layout_width="wrap_content"
+    <ImageView
+        android:id="@+id/img_hot_hotel"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/tu_stroke_corner"
-        android:textColor="@color/text_tu"
-        android:text="@string/book_hotel"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/banner"
         />
 
     <TextView
-        android:id="@+id/price_text"
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/book"
-        android:layout_alignParentLeft="true"
+        android:layout_below="@id/img_hot_hotel"
         android:layout_marginLeft="10dp"
-        android:layout_toLeftOf="@id/book"
-        android:textColor="@color/price"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:singleLine="true"
         android:textSize="@dimen/text_body"
-        tools:text="5.9万"/>
+        tools:text="宜春|曦园柳镇"
+        />
+
+    <TextView
+        android:id="@+id/tese"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name"
+        android:layout_marginLeft="10dp"
+        android:textSize="@dimen/text_small_body"
+        tools:text="宜春|曦园柳镇"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tese"
+        android:layout_marginBottom="@dimen/spacing_small"
+        >
+
+      <TextView
+          android:id="@+id/book"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentRight="true"
+          android:layout_centerVertical="true"
+          android:layout_marginRight="10dp"
+          android:background="@drawable/tu_stroke_corner"
+          android:text="@string/book_hotel"
+          android:textColor="@color/text_tu"
+          />
+
+      <TextView
+          android:id="@+id/price_text"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignBottom="@id/book"
+          android:layout_alignParentLeft="true"
+          android:layout_marginLeft="10dp"
+          android:textColor="@color/price"
+          android:textSize="@dimen/text_body"
+          tools:text="5.9万"
+          />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignBottom="@id/book"
+          android:layout_toRightOf="@id/price_text"
+          android:textColor="@android:color/black"
+          android:textSize="@dimen/text_body"
+          android:text="/晚"
+          />
+    </RelativeLayout>
   </RelativeLayout>
-</RelativeLayout>
+</android.support.v7.widget.CardView>

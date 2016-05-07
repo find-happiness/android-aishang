@@ -26,6 +26,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -334,7 +335,7 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
   @Override public void showTrave(List<News> newsList) {
     avloadingIndicatorViewYouji.setVisibility(View.GONE);
     noDataYouji.setVisibility(View.GONE);
-    hotYouJiAdapter = new HotYouJiAdapter(getContext());
+    hotYouJiAdapter = new HotYouJiAdapter(getActivity());
     hotYouJiAdapter.setHotYouJis(newsList);
     gvYouJi.setAdapter(hotYouJiAdapter);
   }
@@ -434,7 +435,7 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
 
   private void initBanner() {
 
-    int[] size = CommonUtil.getHeightWithScreenWidth(this.getActivity(), 16, 9);
+    int[] size = CommonUtil.getHeightWithScreenWidth(this.getActivity(), 640, 240);
     LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(size[0], size[1]);
 
     banner.setLayoutParams(layoutParams);
@@ -474,6 +475,8 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
         return MotionEvent.ACTION_MOVE == event.getAction();
       }
     });
+
+
   }
 
   private void initGvZaiShou() {

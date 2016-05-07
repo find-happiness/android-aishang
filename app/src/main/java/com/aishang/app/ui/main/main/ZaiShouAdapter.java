@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.Bind;
@@ -46,10 +47,10 @@ import javax.inject.Inject;
     activity.getWindowManager().getDefaultDisplay().getMetrics(localDisplayMetrics);
     int mScreenWidth = localDisplayMetrics.widthPixels;
     int pacing = ViewUtil.dpToPx(8);
-    int width = (mScreenWidth - 2 * pacing - ViewUtil.dpToPx(4)) / 2;
+    int width = (mScreenWidth - 2 * pacing);
 
     imgSize[0] = width;
-    imgSize[1] = width * 10 / 16;
+    imgSize[1] = width * 400 / 640;
   }
 
   @Override public int getCount() {
@@ -89,6 +90,7 @@ import javax.inject.Inject;
   //}
 
   @Override public View getView(int position, View convertView, ViewGroup parent) {
+
     HotYouJiHolder holder = null;
     if (convertView == null) {
       convertView = View.inflate(activity, R.layout.item_in_sale, null);

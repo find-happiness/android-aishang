@@ -1,72 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
     >
 
-  <ImageView
-      android:id="@+id/img_in_sale"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_weight="1"
-      android:adjustViewBounds="true"
-      android:scaleType="fitXY"
-      android:src="@mipmap/banner"
-      />
-
-  <ImageView
+  <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_gravity="bottom"
-      android:background="@mipmap/vip_hotel_bg"
-      />
-
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_gravity="bottom"
+      android:orientation="vertical"
       >
 
-    <TextView
-        android:id="@+id/price_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/text_small_body"
-        tools:text="5.9万"
-        />
-
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@id/price_text"
-        android:ellipsize="end"
-        android:gravity="center_vertical"
-        android:singleLine="true"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/text_small_body"
-        tools:text="宜春|曦园柳镇"
-        />
-
-    <TextView
-        android:id="@+id/address"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/name"
-        android:ellipsize="end"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:lines="1"
-        android:marqueeRepeatLimit="marquee_forever"
-        android:scrollHorizontally="true"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/text_xsmall_body"
-        tools:text="项目地址:"
-        />
-  </RelativeLayout>
-</FrameLayout>
+        >
+      <ImageView
+          android:id="@+id/img_in_sale"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_weight="1"
+          android:adjustViewBounds="true"
+          android:scaleType="fitXY"
+          android:src="@mipmap/banner"
+          />
+
+      <TextView
+          android:gravity="center_vertical"
+          android:id="@+id/price_text"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:paddingLeft="@dimen/spacing_large"
+          android:layout_alignParentRight="true"
+          android:textColor="@color/price"
+          android:layout_gravity="bottom"
+          android:background="@mipmap/vip_hotel_bg"
+          android:textSize="@dimen/text_small_body"
+          tools:text="5.9万"
+          />
+    </FrameLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:paddingLeft="@dimen/spacing_medium"
+        >
+
+      <TextView
+          android:id="@+id/name"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentLeft="true"
+          android:ellipsize="end"
+          android:gravity="center_vertical"
+          android:singleLine="true"
+          android:textColor="@android:color/black"
+          android:textSize="@dimen/text_body"
+          tools:text="宜春|曦园柳镇"
+          />
+
+      <TextView
+          android:id="@+id/address"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/name"
+          android:ellipsize="end"
+          android:focusable="true"
+          android:focusableInTouchMode="true"
+          android:lines="1"
+          android:marqueeRepeatLimit="marquee_forever"
+          android:scrollHorizontally="true"
+          android:textColor="@color/text_gray"
+          android:textSize="@dimen/text_xsmall_body"
+          tools:text="项目地址:"
+          />
+    </RelativeLayout>
+  </LinearLayout>
+</android.support.v7.widget.CardView>

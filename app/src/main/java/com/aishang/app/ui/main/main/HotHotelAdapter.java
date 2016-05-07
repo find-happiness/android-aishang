@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -42,6 +43,7 @@ import butterknife.ButterKnife;
  */
 @ActivityContext public class HotHotelAdapter extends BaseAdapter {
 
+  private static final String TAG = "HotHotelAdapter";
   private final Context activity;
 
   private List<JHotelListResult.Hotel> hotHotels;
@@ -98,8 +100,18 @@ import butterknife.ButterKnife;
         .placeholder(R.mipmap.banner)
         .into(holder.imgHotel);
     holder.name.setText(hotel.getName());
-    holder.tese.setText(hotel.getPromotionText());
-    holder.price.setText("￥" + hotel.getPriceText());
+    holder.tese.setText(hotel.getTags());
+
+    String p = hotel.getPriceText();
+
+    try{
+      if(p.indexOf(".") >0)
+        p = p.substring(0,p.indexOf("."));
+    }catch (Exception e){
+      Log.e(TAG, "getView: "+ e.toString() );
+    }
+
+    holder.price.setText("￥" +  p);
 
     holder.imgHotel.setLayoutParams(new RelativeLayout.LayoutParams(imgSize[0], imgSize[1]));
     convertView.setTag(holder);

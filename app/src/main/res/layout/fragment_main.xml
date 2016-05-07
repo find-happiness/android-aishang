@@ -6,7 +6,6 @@
     android:id="@+id/layoutRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/line"
     >
 
   <android.support.v4.widget.SwipeRefreshLayout
@@ -19,11 +18,13 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="@dimen/spacing_medium"
         >
 
       <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:background="@color/white"
           android:focusable="true"
           android:focusableInTouchMode="true"
           android:orientation="vertical"
@@ -36,11 +37,20 @@
             app:canLoop="true"
             />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacing_medium"
+            android:background="@color/space"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line"
+            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/spacing_large"
-            android:layout_marginRight="@dimen/spacing_large"
             android:orientation="horizontal"
             >
 
@@ -57,6 +67,12 @@
               app:text="@string/huangzujiudian"
               />
 
+          <View
+              android:layout_width="1dp"
+              android:layout_height="match_parent"
+              android:background="@color/line"
+              />
+
           <com.aishang.app.widget.ImgWithText
               android:id="@+id/btn_zaishou"
               android:layout_width="match_parent"
@@ -68,6 +84,11 @@
               android:paddingTop="8dp"
               app:img="@mipmap/zaishou"
               app:text="@string/zaishou"
+              />
+          <View
+              android:layout_width="1dp"
+              android:layout_height="match_parent"
+              android:background="@color/line"
               />
 
           <com.aishang.app.widget.ImgWithText
@@ -92,16 +113,19 @@
               android:gravity="center"
               android:paddingBottom="8dp"
               android:paddingTop="8dp"
+              android:visibility="gone"
               app:img="@mipmap/xiangmuhezuo"
               app:text="@string/xiangmuhezuo"
               />
         </LinearLayout>
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line"
+            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:orientation="horizontal"
             >
 
@@ -117,7 +141,11 @@
               app:img="@mipmap/dujiawu"
               app:text="@string/dujiawu"
               />
-
+          <View
+              android:layout_width="1dp"
+              android:layout_height="match_parent"
+              android:background="@color/line"
+              />
           <com.aishang.app.widget.ImgWithText
               android:id="@+id/btn_store"
               android:layout_width="match_parent"
@@ -130,7 +158,11 @@
               app:img="@mipmap/business_store"
               app:text="@string/store"
               />
-
+          <View
+              android:layout_width="1dp"
+              android:layout_height="match_parent"
+              android:background="@color/line"
+              />
           <com.aishang.app.widget.ImgWithText
               android:id="@+id/btn_kanfangtuan"
               android:layout_width="match_parent"
@@ -143,7 +175,6 @@
               app:img="@mipmap/kanfangtuan"
               app:text="@string/kanfangduan"
               />
-
           <com.aishang.app.widget.ImgWithText
               android:id="@+id/btn_fabuchuzu"
               android:layout_width="match_parent"
@@ -153,80 +184,22 @@
               android:gravity="center"
               android:paddingBottom="8dp"
               android:paddingTop="8dp"
+              android:visibility="gone"
               app:img="@mipmap/fabuchuzu"
               app:text="@string/fabuzushou"
               />
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/line"
+            />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/spacing_medium"
-            >
-
-          <TextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="@string/zaishou"
-              android:textSize="@dimen/text_headline"
-              />
-
-          <TextView
-              android:id="@+id/insale_more"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_alignParentBottom="true"
-              android:layout_alignParentRight="true"
-              android:text="@string/look_more"
-              android:textSize="@dimen/text_body"
-              />
-        </RelativeLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-
-          <com.aishang.app.widget.NonScrollGridView
-              android:id="@+id/gridview_in_sale"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:horizontalSpacing="5dp"
-              android:numColumns="2"
-              android:paddingLeft="10dp"
-              android:paddingRight="10dp"
-              android:stretchMode="columnWidth"
-              android:verticalSpacing="@dimen/spacing_small"
-              >
-          </com.aishang.app.widget.NonScrollGridView>
-
-          <com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView
-              android:id="@+id/avloadingIndicatorView_in_sale"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_gravity="center"
-              android:visibility="visible"
-              app:indicator="LineScale"
-              app:indicator_color="@android:color/holo_red_light"
-              />
-
-          <TextView
-              android:id="@+id/no_data_in_sale"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_gravity="center"
-              android:text="@string/no_data"
-              android:textColor="@android:color/holo_red_light"
-              android:textSize="@dimen/text_title"
-              android:visibility="gone"
-              />
-        </FrameLayout>
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/spacing_medium"
+            android:background="@color/space"
+            android:padding="@dimen/spacing_medium"
             >
 
           <TextView
@@ -242,7 +215,9 @@
               android:layout_height="wrap_content"
               android:layout_alignParentBottom="true"
               android:layout_alignParentRight="true"
-              android:text="@string/look_more"
+              android:drawablePadding="@dimen/spacing_xsmall"
+              android:drawableRight="@drawable/blue_arrow"
+              android:text="@string/more"
               android:textSize="@dimen/text_body"
               />
         </RelativeLayout>
@@ -250,18 +225,20 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/space"
+            android:paddingBottom="@dimen/spacing_medium"
             >
 
           <com.aishang.app.widget.NonScrollGridView
               android:id="@+id/gridview_hot_hotel"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:horizontalSpacing="5dp"
+              android:layout_height="match_parent"
+              android:horizontalSpacing="@dimen/spacing_medium"
               android:numColumns="2"
               android:paddingLeft="10dp"
               android:paddingRight="10dp"
               android:stretchMode="columnWidth"
-              android:verticalSpacing="@dimen/spacing_small"
+              android:verticalSpacing="@dimen/spacing_medium"
               >
           </com.aishang.app.widget.NonScrollGridView>
 
@@ -296,6 +273,72 @@
           <TextView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
+              android:text="@string/zaishou"
+              android:textSize="@dimen/text_headline"
+              />
+
+          <TextView
+              android:id="@+id/insale_more"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentBottom="true"
+              android:layout_alignParentRight="true"
+              android:drawablePadding="@dimen/spacing_xsmall"
+              android:drawableRight="@drawable/blue_arrow"
+              android:text="@string/more"
+              android:textSize="@dimen/text_body"
+              />
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+          <com.aishang.app.widget.NonScrollGridView
+              android:id="@+id/gridview_in_sale"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:numColumns="1"
+              android:paddingLeft="10dp"
+              android:paddingRight="10dp"
+              android:scrollbars="none"
+              android:stretchMode="columnWidth"
+              android:verticalSpacing="@dimen/spacing_large"
+              >
+          </com.aishang.app.widget.NonScrollGridView>
+
+          <com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView
+              android:id="@+id/avloadingIndicatorView_in_sale"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:visibility="visible"
+              app:indicator="LineScale"
+              app:indicator_color="@android:color/holo_red_light"
+              />
+
+          <TextView
+              android:id="@+id/no_data_in_sale"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:text="@string/no_data"
+              android:textColor="@android:color/holo_red_light"
+              android:textSize="@dimen/text_title"
+              android:visibility="gone"
+              />
+        </FrameLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/spacing_medium"
+            >
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
               android:text="@string/youji"
               android:textSize="@dimen/text_headline"
               />
@@ -306,7 +349,9 @@
               android:layout_height="wrap_content"
               android:layout_alignParentBottom="true"
               android:layout_alignParentRight="true"
-              android:text="@string/look_more"
+              android:drawablePadding="@dimen/spacing_xsmall"
+              android:drawableRight="@drawable/blue_arrow"
+              android:text="@string/more"
               android:textSize="@dimen/text_body"
               />
 
@@ -326,7 +371,7 @@
               android:paddingRight="10dp"
               android:scrollbars="none"
               android:stretchMode="columnWidth"
-              android:verticalSpacing="@dimen/spacing_small"
+              android:verticalSpacing="@dimen/spacing_large"
               >
           </com.aishang.app.widget.NonScrollGridView>
 

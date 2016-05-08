@@ -88,6 +88,33 @@ public class JMreActivityListResult implements Serializable {
     private int enrollStatus;
     private int beScored;
     private String avgScores;
+    private String score1Title;
+    private String score2Title;
+    private String score3Title;
+
+    public String getScore1Title() {
+      return score1Title;
+    }
+
+    public void setScore1Title(String score1Title) {
+      this.score1Title = score1Title;
+    }
+
+    public String getScore2Title() {
+      return score2Title;
+    }
+
+    public void setScore2Title(String score2Title) {
+      this.score2Title = score2Title;
+    }
+
+    public String getScore3Title() {
+      return score3Title;
+    }
+
+    public void setScore3Title(String score3Title) {
+      this.score3Title = score3Title;
+    }
 
     public int getActivityID() {
       return activityID;

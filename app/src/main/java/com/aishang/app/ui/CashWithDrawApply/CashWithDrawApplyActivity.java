@@ -1,8 +1,12 @@
 package com.aishang.app.ui.CashWithDrawApply;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -29,6 +33,7 @@ public class CashWithDrawApplyActivity extends BaseActivity {
   @Bind(R.id.toolbar) Toolbar toolbar;
   @Bind(R.id.moretab_indicator) ScrollIndicatorView mIndicator;
   @Bind(R.id.moretab_viewPager) ViewPager mViewPager;
+  @Bind(R.id.app_bar_layout) AppBarLayout appBarLayout;
   private IndicatorViewPager indicatorViewPager;
 
   final String[] titles = new String[] { "充值", "申请提现" };
@@ -40,7 +45,8 @@ public class CashWithDrawApplyActivity extends BaseActivity {
     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     ButterKnife.bind(this);
     indicatorViewPager = new IndicatorViewPager(mIndicator, mViewPager);
-    mIndicator.setScrollBar(new ColorBar(this, Color.rgb(0x45, 0xa5, 0xe2), 4));
+    mIndicator.setScrollBar(new ColorBar(this, Color.rgb(0x45, 0xa5, 0xe2),
+        getResources().getDimensionPixelSize(R.dimen.spacing_small)));
     indicatorViewPager.setAdapter(
         new IndicatorViewPager.IndicatorFragmentPagerAdapter(this.getSupportFragmentManager()) {
 
@@ -101,6 +107,11 @@ public class CashWithDrawApplyActivity extends BaseActivity {
         onBackPressed();
       }
     });
+
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+      ViewCompat.setElevation(appBarLayout,
+          getResources().getDimensionPixelSize(R.dimen.spacing_small));
+    }
   }
 
   @Override public void onBackPressed() {

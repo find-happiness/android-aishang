@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
   <TextView
       android:layout_width="match_parent"
@@ -14,39 +15,133 @@
       android:layout_marginTop="@dimen/spacing_medium"
       android:text="重庆爱旅科技有限公司"
       android:textColor="@android:color/black"
-      android:textSize="@dimen/text_large_body"/>
+      android:textSize="@dimen/text_large_body"
+      />
 
   <View
       android:layout_width="match_parent"
       android:layout_height="1dp"
       android:layout_marginTop="@dimen/spacing_medium"
-      android:background="@color/space"/>
+      android:background="@color/space"
+      />
 
 
-  <com.aishang.app.widget.TextInputLayout
+  <RelativeLayout
+      android:layout_marginLeft="@dimen/spacing_large"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      >
+
+    <TextView
+        android:id="@id/hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="@string/bank"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/text_body"
+        />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/spacing_small"
+        android:layout_toRightOf="@id/hint"
+        android:focusable="false"
+        android:singleLine="true"
+        android:textSize="@dimen/text_body"
+        android:hint="@string/bank"
+        app:met_hideUnderline="true"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/edit"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:background="@color/space"
+        />
+  </RelativeLayout>
+
+  <RelativeLayout
       android:layout_marginLeft="@dimen/spacing_large"
-      app:editable="false"
-      app:hint="@string/bank">
-
-  </com.aishang.app.widget.TextInputLayout>
-
-  <com.aishang.app.widget.TextInputLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      >
+
+    <TextView
+        android:id="@id/hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="@string/dui_fang_zhan_hao"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/text_body"
+        />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/dui_fang_zhan_hao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/spacing_small"
+        android:layout_toRightOf="@id/hint"
+        android:focusable="false"
+        android:singleLine="true"
+        android:textSize="@dimen/text_body"
+        android:hint="@string/dui_fang_zhan_hao"
+        app:met_hideUnderline="true"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/dui_fang_zhan_hao"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:background="@color/space"
+        />
+  </RelativeLayout>
+
+
+  <RelativeLayout
       android:layout_marginLeft="@dimen/spacing_large"
-      app:editable="false"
-      app:hint="@string/dui_fang_zhan_hao">
-
-  </com.aishang.app.widget.TextInputLayout>
-
-  <com.aishang.app.widget.TextInputLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginLeft="@dimen/spacing_large"
-      app:editable="false"
-      app:hint="@string/chong_zi_jin_e">
+      >
 
-  </com.aishang.app.widget.TextInputLayout>
+    <TextView
+        android:id="@id/hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="@string/chong_zi_jin_e"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/text_body"
+        />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/chong_zi_jin_e"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/spacing_small"
+        android:layout_toRightOf="@id/hint"
+        android:focusable="false"
+        android:singleLine="true"
+        android:textSize="@dimen/text_body"
+        android:hint="@string/chong_zi_jin_e"
+        app:met_hideUnderline="true"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/chong_zi_jin_e"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:background="@color/space"
+        />
+  </RelativeLayout>
+
 </LinearLayout>

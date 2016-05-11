@@ -11,10 +11,11 @@
     <attr format="dimension" name="dividerThickness"/>
   </declare-styleable>
 
-  <declare-styleable name="TextInputLayout">
-    <attr format="reference" name="hint"/>
-    <attr format="dimension" name="android:textSize"/>
-    <attr format="color" name="hintColor"></attr>
-    <attr name="editable" format="boolean"/>
+  <declare-styleable name="TextInputView">
+    <attr format="string" name="hintText"/>
+    <attr format="dimension" name="strSize"/>
+    <attr format="color" name="editColor"></attr>
+    <attr format="color" name="hintTextColor"></attr>
+    <attr format="boolean" name="editTextable"/>
   </declare-styleable>
 </resources>

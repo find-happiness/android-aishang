@@ -153,4 +153,9 @@
   <string name="shoucang">收藏</string>
   <string name="dianzan">点赞</string>
   <string name="select_bank">选择银行</string>
+  <string name="xing_cheng_jian_jie">行程简介</string>
+  <string name="chong_zi_jin_e">充值金额</string>
+  <string name="bank">开户行</string>
+  <string name="dui_fang_zhan_hao">对方账号</string>
+
 </resources>

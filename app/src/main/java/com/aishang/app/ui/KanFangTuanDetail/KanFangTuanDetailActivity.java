@@ -164,7 +164,7 @@ public class KanFangTuanDetailActivity extends BaseActivity implements KanFangTu
 
   private void setTitle() {
     tvTitleName.setText(activityItem.getTitle());
-    toolbarTitle.setText(activityItem.getTitle());
+    toolbarTitle.setText(activityItem.getPosition());
   }
 
   private void setTime() {
@@ -176,7 +176,7 @@ public class KanFangTuanDetailActivity extends BaseActivity implements KanFangTu
   }
 
   private void setPrice() {
-    price.setText(activityItem.getFee() + "元");
+    price.setText("￥" + activityItem.getFee() + "元");
   }
 
   private void setPostion() {

@@ -53,12 +53,12 @@
         <ImageView
             android:id="@+id/take_online"
             android:layout_width="0dp"
-            android:visibility="gone"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:adjustViewBounds="true"
-            android:src="@mipmap/take_online"/>
+            android:src="@mipmap/take_online"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/cantuan"
@@ -97,21 +97,30 @@
               android:id="@+id/tv_title_name"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:maxLength="8"
+              android:ellipsize="end"
               android:padding="@dimen/spacing_medium"
               android:singleLine="true"
-              android:textSize="@dimen/text_large_body"
+              android:textSize="@dimen/text_body"
               tools:text="宜春|宜春宜春宜"/>
+
+          <TextView
+              android:id="@+id/price"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/spacing_small"
+              android:textColor="@color/price"
+              android:textSize="@dimen/text_headline"
+              tools:text="100"/>
 
           <TextView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginLeft="@dimen/spacing_medium"
               android:layout_marginTop="@dimen/spacing_medium"
-              android:drawableLeft="@mipmap/line_red"
+              android:drawableLeft="@mipmap/line_blue"
               android:drawablePadding="@dimen/spacing_small"
               android:gravity="center"
-              android:text="@string/jianjie"
+              android:text="@string/xing_cheng_jian_jie"
               android:textSize="@dimen/text_body"/>
 
           <View
@@ -129,36 +138,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spacing_medium"
+                android:layout_marginBottom="@dimen/spacing_xsmall"
                 android:orientation="horizontal">
 
               <TextView
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:textSize="@dimen/text_body"
-                  android:text="活动费用:"/>
-
-              <TextView
-                  android:id="@+id/price"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginLeft="@dimen/spacing_small"
-                  android:textColor="@color/price"
-                  android:textSize="@dimen/text_body"
-                  tools:text="100"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spacing_medium"
-                android:orientation="horizontal">
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textSize="@dimen/text_body"
-                  android:text="报名时间:"/>
+                  android:text="报名时间:"
+                  android:textSize="@dimen/text_body"/>
 
               <TextView
                   android:id="@+id/enrollTime"
@@ -173,14 +160,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spacing_medium"
+                android:layout_marginBottom="@dimen/spacing_xsmall"
                 android:orientation="horizontal">
 
               <TextView
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:textSize="@dimen/text_body"
-                  android:text="活动时间:"/>
+                  android:text="活动时间:"
+                  android:textSize="@dimen/text_body"/>
 
               <TextView
                   android:id="@+id/time"
@@ -195,14 +182,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spacing_medium"
                 android:orientation="horizontal">
 
               <TextView
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:textSize="@dimen/text_body"
-                  android:text="地        点:"/>
+                  android:text="地        点:"
+                  android:textSize="@dimen/text_body"/>
 
               <TextView
                   android:id="@+id/postion"
@@ -220,7 +206,7 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginLeft="@dimen/spacing_medium"
-              android:drawableLeft="@mipmap/line_red"
+              android:drawableLeft="@mipmap/line_blue"
               android:drawablePadding="@dimen/spacing_small"
               android:gravity="center"
               android:text="行程详情"
@@ -243,9 +229,9 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginLeft="@dimen/spacing_medium"
-              android:drawablePadding="@dimen/spacing_small"
               android:layout_marginTop="@dimen/spacing_medium"
-              android:drawableLeft="@mipmap/line_red"
+              android:drawableLeft="@mipmap/line_blue"
+              android:drawablePadding="@dimen/spacing_small"
               android:gravity="center"
               android:text="参团须知"
               android:textSize="@dimen/text_body"/>
@@ -255,14 +241,16 @@
               android:layout_height="1dp"
               android:layout_marginTop="@dimen/spacing_medium"
               android:background="@color/gray"/>
-            <WebView
-                android:id="@+id/wv_know"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_medium"/>
-          </LinearLayout>
+
+          <WebView
+              android:id="@+id/wv_know"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/spacing_medium"/>
+        </LinearLayout>
       </android.support.v4.widget.NestedScrollView>
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/rl_net_status"
         android:layout_width="match_parent"

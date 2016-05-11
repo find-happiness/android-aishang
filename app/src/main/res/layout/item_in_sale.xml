@@ -36,7 +36,9 @@
           android:layout_alignParentRight="true"
           android:textColor="@color/price"
           android:layout_gravity="bottom"
-          android:background="@mipmap/vip_hotel_bg"
+          android:layout_marginBottom="@dimen/spacing_large"
+          android:paddingRight="@dimen/spacing_large"
+          android:background="@drawable/date_or_loc_bg"
           android:textSize="@dimen/text_small_body"
           tools:text="5.9万"
           />

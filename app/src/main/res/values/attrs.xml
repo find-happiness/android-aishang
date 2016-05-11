@@ -7,7 +7,14 @@
   </declare-styleable>
 
   <declare-styleable name="LinearListView">
-    <attr name="android:entries" />
-    <attr name="dividerThickness" format="dimension" />
+    <attr name="android:entries"/>
+    <attr format="dimension" name="dividerThickness"/>
+  </declare-styleable>
+
+  <declare-styleable name="TextInputLayout">
+    <attr format="reference" name="hint"/>
+    <attr format="dimension" name="android:textSize"/>
+    <attr format="color" name="hintColor"></attr>
+    <attr name="editable" format="boolean"/>
   </declare-styleable>
 </resources>

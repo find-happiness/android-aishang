@@ -1,6 +1,7 @@
 package com.aishang.app.ui.CashWithDrawApply;
 
 import com.aishang.app.data.DataManager;
+import com.aishang.app.data.model.JMemberBankListResult;
 import com.aishang.app.data.model.JResult;
 import com.aishang.app.ui.RecommenCustomer.RecommentMvpView;
 import com.aishang.app.ui.base.BasePresenter;
@@ -18,6 +19,7 @@ public class CashWithDrawApplyPresenter extends BasePresenter<CashWithDrawApplyM
 
   private final DataManager mDataManager;
   private Subscription subscription;
+  private Subscription subscriptionBank;
 
   @Inject public CashWithDrawApplyPresenter(DataManager dataManager) {
     mDataManager = dataManager;
@@ -60,8 +62,44 @@ public class CashWithDrawApplyPresenter extends BasePresenter<CashWithDrawApplyM
         });
   }
 
+  public void loadBank(int version, String json) {
+    loadBank(false, version, json);
+  }
+
+  public void loadBank(boolean allowMemoryCacheVersion, int version, String json) {
+    checkViewAttached();
+
+    if (subscriptionBank != null && !subscriptionBank.isUnsubscribed()) {
+      subscriptionBank.unsubscribe();
+    }
+
+    subscriptionBank = mDataManager.syncBankList(version, json)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(Schedulers.io())
+        .subscribe(new Subscriber<JMemberBankListResult>() {
+          @Override public void onCompleted() {
+          }
+
+          @Override public void onError(Throwable e) {
+            getMvpView().showError("网络异常");
+          }
+
+          @Override public void onNext(JMemberBankListResult result) {
+            if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
+              if (result.getBankAccountList().length > 0) {
+                getMvpView().loadBankSuccess(result.getBankAccountList());
+              } else {
+                getMvpView().loadBankEmpty();
+              }
+            } else {
+              getMvpView().showError(result.getResult());
+            }
+          }
+        });
+  }
   @Override public void detachView() {
     super.detachView();
     if (subscription != null) subscription.unsubscribe();
+    if(subscriptionBank != null) subscriptionBank.unsubscribe();
   }
 }

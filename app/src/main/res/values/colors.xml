@@ -17,4 +17,5 @@
   <color name="red_buy">#ff6600</color>
   <color name="white">#ffffff</color>
   <color name="space">#f5f5f5</color>
+  <color name="space_line">#cbcbcb</color>
 </resources>

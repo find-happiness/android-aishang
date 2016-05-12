@@ -2,75 +2,157 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/layoutRoot"
+    android:background="@color/space"
     tools:context="com.aishang.app.ui.CashWithDrawApply.CashWithDrawFragment"
     >
 
   <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_margin="@dimen/spacing_large"
-      android:orientation="vertical">
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:paddingTop="@dimen/spacing_large">
 
-    <LinearLayout
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/spacing_medium"
+        android:background="@color/space_line"
+        />
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_large"
-        android:orientation="horizontal">
+        android:background="@color/white"
+        android:paddingLeft="@dimen/spacing_large"
+        >
 
       <TextView
+          android:id="@id/hint"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="通用积分："
-          android:textSize="@dimen/text_headline"/>
+          android:layout_centerVertical="true"
+          android:text="到账银行卡"
+          android:textColor="@android:color/black"
+          android:textSize="@dimen/text_body"
+          />
+
+      <ImageView
+          android:id="@+id/img"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentRight="true"
+          android:layout_centerVertical="true"
+          android:layout_marginRight="@dimen/spacing_medium"
+          android:src="@drawable/img_bank_select"/>
 
       <TextView
-          android:id="@+id/tv_price_jifen"
+          android:id="@+id/bank"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_centerVertical="true"
+          android:layout_marginBottom="@dimen/spacing_medium"
+          android:layout_marginLeft="@dimen/spacing_small"
+          android:layout_marginRight="@dimen/spacing_large"
+          android:layout_marginTop="@dimen/spacing_medium"
+          android:layout_toLeftOf="@id/img"
+          android:layout_toRightOf="@id/hint"
+          android:gravity="right"
+          android:hint="请选择到帐银行"
+          android:singleLine="true"
+          android:textColor="@color/primary"
+          android:textSize="@dimen/text_body"
+          />
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:layout_below="@id/bank"
+          android:layout_marginTop="@dimen/spacing_large"
+          android:background="@color/space_line"
+          />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/spacing_large"
+        >
+
+      <TextView
+          android:id="@id/hint"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="200"
-          android:textSize="@dimen/text_headline"/>
-    </LinearLayout>
+          android:layout_centerVertical="true"
+          android:text="提现金额     ￥"
+          android:textColor="@android:color/black"
+          android:textSize="@dimen/text_body"
+          />
 
+      <com.rengwuxian.materialedittext.MaterialEditText
+          android:id="@+id/amount"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_centerVertical="true"
+          android:layout_marginLeft="@dimen/spacing_small"
+          android:layout_toRightOf="@id/hint"
+          android:hint="请输入提现金额"
+          android:inputType="numberDecimal"
+          android:singleLine="true"
+          android:textColorHint="@color/gray"
+          android:textSize="@dimen/text_body"
+          app:met_hideUnderline="true"
+          />
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/amount"
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:layout_below="@id/amount"
+          android:layout_marginTop="@dimen/spacing_large"
+          android:background="@color/space_line"
+          android:visibility="invisible"
+          />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/space_line"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spacing_xlarge"
+        android:background="@color/white"
+        />
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_large"
-        android:hint="提现金额"
-        android:inputType="numberDecimal"
-        app:met_floatingLabel="normal"/>
+        android:layout_centerVertical="true"
+        android:layout_marginTop="@dimen/spacing_medium"
+        android:gravity="center"
+        android:text="小爱将两个工作日内处理，该笔业务"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/text_body"
+        />
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/bank"
+    <Button
+        android:id="@+id/submint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_large"
-        android:hint="开户行"
-        android:inputType="text"
-        app:met_floatingLabel="normal"/>
-
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/holder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_large"
-        android:hint="户名"
-        android:inputType="text"
-        app:met_floatingLabel="normal"/>
-
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/accountNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/spacing_large"
-        android:layout_marginTop="@dimen/spacing_large"
-        android:hint="账户"
-        android:inputType="numberSigned"
-        app:met_floatingLabel="normal"/>
+        android:layout_marginLeft="@dimen/spacing_large"
+        android:layout_marginRight="@dimen/spacing_large"
+        android:layout_marginTop="@dimen/spacing_medium"
+        android:background="@color/primary"
+        android:paddingBottom="@dimen/spacing_medium"
+        android:paddingTop="@dimen/spacing_medium"
+        android:text="提现"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_large_body"/>
   </LinearLayout>
 </ScrollView>
 

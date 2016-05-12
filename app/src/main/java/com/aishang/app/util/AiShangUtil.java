@@ -348,17 +348,20 @@ public class AiShangUtil {
   /**
    * 生成请求的参数
    */
-  public static String generBusinessListJson(String memberAccount, String cookie) {
+  public static String generBusinessListJson(String memberAccount, String cookie, int start,
+      int count) {
 
     JBusinessListParam param = new JBusinessListParam();
     param.setMemberAccount(memberAccount);
     param.setCookie(cookie);
+    param.setRecIndex(start);
+    param.setRecCount(count);
 
     return gson.toJson(param);
   }
 
   public static String generContactsAddParam(String phone, String name, String cookie,
-      String member, String RDescription, String RAddress, String RComment) {
+      String member, String RDescription, String RAddress, String RComment,String age ,String sex,String job) {
 
     JContactsAddParam p = new JContactsAddParam();
     p.setCookie(cookie);
@@ -368,6 +371,9 @@ public class AiShangUtil {
     p.setRComment(RComment);
     p.setRPhone(phone);
     p.setRName(name);
+    p.setJob(job);
+    p.setSex(sex);
+    p.setAge(age);
 
     return new Gson().toJson(p);
   }

@@ -9,12 +9,16 @@ package com.aishang.app.data.model;
 public class JBusinessListParam {
 
 	/**
-	 * memberAccount : 18983979230
-	 * cookie : B20C3F7FAC5DDDC2D8F50072C58557F4
+	 * memberAccount : 13883224451
+	 * cookie : A3250BAEFDDF7EBD0C7BB2AE7B5F0247
+	 * recIndex : 1
+	 * recCount : 5
 	 */
 
 	private String memberAccount;
 	private String cookie;
+	private int recIndex;
+	private int recCount;
 
 	public String getMemberAccount() {
 		return memberAccount;
@@ -30,5 +34,21 @@ public class JBusinessListParam {
 
 	public void setCookie(String cookie) {
 		this.cookie = cookie;
+	}
+
+	public int getRecIndex() {
+		return recIndex;
+	}
+
+	public void setRecIndex(int recIndex) {
+		this.recIndex = recIndex;
+	}
+
+	public int getRecCount() {
+		return recCount;
+	}
+
+	public void setRecCount(int recCount) {
+		this.recCount = recCount;
 	}
 }

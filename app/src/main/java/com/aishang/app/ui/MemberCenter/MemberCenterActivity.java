@@ -82,7 +82,6 @@ public class MemberCenterActivity extends BaseActivity
   @Bind(R.id.rl_bank) RelativeLayout rlBank;
   @Bind(R.id.rl_email) RelativeLayout rlEmail;
   @Bind(R.id.phone) TextView phone;
-
   @Bind(R.id.nick_name) TextView nickName;
   @Bind(R.id.memberName) TextView memberName;
   @Bind(R.id.dateOfBirth) TextView dateOfBirth;

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layoutRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary"
+    android:orientation="vertical"
     android:paddingTop="@dimen/padding_stutas_bar"
     tools:context="com.aishang.app.ui.MemberCenter.MemberCenterActivity"
     >
@@ -36,7 +36,7 @@
       xmlns:tools="http://schemas.android.com/tools"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_below="@id/toolbar"
+      android:layout_weight="1"
       android:background="@color/gray"
       android:scrollbars="none"
       tools:context=".ui.RecommenCustomer.BrokerCenterFragment"
@@ -55,6 +55,7 @@
           android:layout_height="wrap_content"
           android:background="@mipmap/edit_backgroud"
           android:hint="用户名"
+          android:inputType="textPersonName"
           android:singleLine="true"
           />
 
@@ -65,9 +66,46 @@
           android:layout_marginTop="@dimen/spacing_large"
           android:background="@mipmap/edit_backgroud"
           android:hint="电话"
+          android:inputType="phone"
           android:singleLine="true"
           />
 
+
+      <TextView
+          android:id="@+id/gender"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_large"
+          android:background="@mipmap/edit_backgroud"
+          android:drawableRight="@mipmap/iconfont_fanhuidingbu"
+          android:gravity="center_vertical"
+          android:hint="性别"
+          android:paddingRight="@dimen/spacing_medium"
+          android:singleLine="true"
+          android:textSize="@dimen/text_body"
+          />
+
+      <com.aishang.app.widget.ClearEditText
+          android:id="@+id/age"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_large"
+          android:background="@mipmap/edit_backgroud"
+          android:hint="年龄"
+          android:inputType="numberSigned"
+          android:singleLine="true"
+          />
+
+      <com.aishang.app.widget.ClearEditText
+          android:id="@+id/work"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_large"
+          android:background="@mipmap/edit_backgroud"
+          android:hint="职业"
+          android:inputType="text"
+          android:singleLine="true"
+          />
 
       <com.aishang.app.widget.ClearEditText
           android:id="@+id/address"
@@ -76,6 +114,7 @@
           android:layout_marginTop="@dimen/spacing_large"
           android:background="@mipmap/edit_backgroud"
           android:hint="地区（省/市/区）"
+          android:inputType="text"
           android:singleLine="true"
           />
 
@@ -86,6 +125,7 @@
           android:layout_marginTop="@dimen/spacing_large"
           android:background="@mipmap/edit_backgroud"
           android:hint="描述"
+          android:inputType="text"
           android:singleLine="true"
           />
 
@@ -93,19 +133,21 @@
           android:id="@+id/commit"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/spacing_large"
           android:layout_marginTop="@dimen/spacing_large"
           android:background="@mipmap/edit_backgroud"
-          android:layout_marginBottom="@dimen/spacing_large"
           android:hint="备注"
+          android:inputType="text"
           />
 
-        <View
-            android:visibility="invisible"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/spacing_large"/>
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/spacing_large"
+          android:visibility="invisible"
+          />
     </LinearLayout>
   </ScrollView>
-</RelativeLayout>
+</LinearLayout>
 
 
 

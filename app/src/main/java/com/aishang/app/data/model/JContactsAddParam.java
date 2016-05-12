@@ -2,77 +2,104 @@ package com.aishang.app.data.model;
 
 public class JContactsAddParam {
 
-	/**
-	 * memberAccount : %2718983979230%27
-	 * cookie : %27B20C3F7FAC5DDDC2D8F50072C58557F4%27
-	 * RName : %27谭智君%27
-	 * RPhone : %2718983979230%27
-	 * RDescription : %27描述%27
-	 * RAddress : %27重庆市南岸区%27
-	 * RComment : %27备注内容%27
-	 */
+  /**
+   * memberAccount : %2718983979230%27
+   * cookie : %27B20C3F7FAC5DDDC2D8F50072C58557F4%27
+   * RName : %27谭智君%27
+   * RPhone : %2718983979230%27
+   * RDescription : %27描述%27
+   * RAddress : %27重庆市南岸区%27
+   * RComment : %27备注内容%27
+   */
 
-	private String memberAccount;
-	private String cookie;
-	private String RName;
-	private String RPhone;
-	private String RDescription;
-	private String RAddress;
-	private String RComment;
+  private String memberAccount;
+  private String cookie;
+  private String RName;
+  private String RPhone;
+  private String RDescription;
+  private String RAddress;
+  private String RComment;
+  private String age;
+  private String sex;
+  private String job;
 
-	public String getMemberAccount() {
-		return memberAccount;
-	}
+  public String getAge() {
+    return age;
+  }
 
-	public void setMemberAccount(String memberAccount) {
-		this.memberAccount = memberAccount;
-	}
+  public void setAge(String age) {
+    this.age = age;
+  }
 
-	public String getCookie() {
-		return cookie;
-	}
+  public String getSex() {
+    return sex;
+  }
 
-	public void setCookie(String cookie) {
-		this.cookie = cookie;
-	}
+  public void setSex(String sex) {
+    this.sex = sex;
+  }
 
-	public String getRName() {
-		return RName;
-	}
+  public String getJob() {
+    return job;
+  }
 
-	public void setRName(String RName) {
-		this.RName = RName;
-	}
+  public void setJob(String job) {
+    this.job = job;
+  }
 
-	public String getRPhone() {
-		return RPhone;
-	}
+  public String getMemberAccount() {
+    return memberAccount;
+  }
 
-	public void setRPhone(String RPhone) {
-		this.RPhone = RPhone;
-	}
+  public void setMemberAccount(String memberAccount) {
+    this.memberAccount = memberAccount;
+  }
 
-	public String getRDescription() {
-		return RDescription;
-	}
+  public String getCookie() {
+    return cookie;
+  }
 
-	public void setRDescription(String RDescription) {
-		this.RDescription = RDescription;
-	}
+  public void setCookie(String cookie) {
+    this.cookie = cookie;
+  }
 
-	public String getRAddress() {
-		return RAddress;
-	}
+  public String getRName() {
+    return RName;
+  }
 
-	public void setRAddress(String RAddress) {
-		this.RAddress = RAddress;
-	}
+  public void setRName(String RName) {
+    this.RName = RName;
+  }
 
-	public String getRComment() {
-		return RComment;
-	}
+  public String getRPhone() {
+    return RPhone;
+  }
 
-	public void setRComment(String RComment) {
-		this.RComment = RComment;
-	}
+  public void setRPhone(String RPhone) {
+    this.RPhone = RPhone;
+  }
+
+  public String getRDescription() {
+    return RDescription;
+  }
+
+  public void setRDescription(String RDescription) {
+    this.RDescription = RDescription;
+  }
+
+  public String getRAddress() {
+    return RAddress;
+  }
+
+  public void setRAddress(String RAddress) {
+    this.RAddress = RAddress;
+  }
+
+  public String getRComment() {
+    return RComment;
+  }
+
+  public void setRComment(String RComment) {
+    this.RComment = RComment;
+  }
 }

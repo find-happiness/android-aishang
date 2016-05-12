@@ -8,7 +8,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -20,6 +21,7 @@ import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.DialogFactory;
 import com.aishang.app.util.RegexUtils;
 import com.aishang.app.widget.ClearEditText;
+import com.happiness.alterview.OnItemClickListener;
 import javax.inject.Inject;
 
 public class RecommenCustomerActivity extends BaseActivity implements RecommentMvpView {
@@ -27,23 +29,27 @@ public class RecommenCustomerActivity extends BaseActivity implements RecommentM
   @Inject ReccommentPresenter presenter;
   @Bind(R.id.toolbar) Toolbar toolbar;
 
-  final String[] genders = new String[] { "保密", "男", "女" };
+  final String[] GENDER = new String[] { "保密", "男", "女" };
 
   @Bind(R.id.name) ClearEditText name;
   @Bind(R.id.phone) ClearEditText phone;
   @Bind(R.id.address) ClearEditText address;
   @Bind(R.id.intent) ClearEditText intent;
   @Bind(R.id.commit) ClearEditText commit;
-  @Bind(R.id.layoutRoot) RelativeLayout layoutRoot;
+  @Bind(R.id.layoutRoot) LinearLayout layoutRoot;
+
+  @Bind(R.id.age) ClearEditText age;
+  @Bind(R.id.work) ClearEditText work;
+  @Bind(R.id.gender) TextView gender;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     this.getActivityComponent().inject(this);
     presenter.attachView(this);
-
     setContentView(R.layout.activity_recommen_customer);
     ButterKnife.bind(this);
     initToolbar();
+    gender.setTag(-1);
   }
 
   @Override protected void onDestroy() {
@@ -123,12 +129,27 @@ public class RecommenCustomerActivity extends BaseActivity implements RecommentM
   }
 
   private void asynPush(String name, String phone) {
+
+
     String cookie = BoilerplateApplication.get(this).getMemberLoginResult().getData().getCookies();
     String member = BoilerplateApplication.get(this).getMemberAccount();
     String json = AiShangUtil.generContactsAddParam(phone, name, cookie, member,
         address.getText().toString().trim(), intent.getText().toString().trim(),
-        commit.getText().toString().trim());
+        commit.getText().toString().trim(), age.getText().toString().trim(),
+        GENDER[(int) gender.getTag()], work.getText().toString().trim());
 
     presenter.pushContacts(1, json);
+  }
+
+  @OnClick(R.id.gender) void onclickGender() {
+    CommonUtil.hideSoftInput(this);
+    DialogFactory.createIosSheetAlertDialog(this, null, GENDER, new OnItemClickListener() {
+      @Override public void onItemClick(Object o, int position) {
+
+        if (position < 0) return;
+        gender.setTag((position - 1));
+        gender.setText(GENDER[position]);
+      }
+    }).show();
   }
 }

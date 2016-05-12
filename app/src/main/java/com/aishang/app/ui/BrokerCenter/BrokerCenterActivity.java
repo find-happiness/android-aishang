@@ -153,7 +153,7 @@ public class BrokerCenterActivity extends BaseActivity implements BrokerCenterMv
 
   @Override public void loadError(Throwable e) {
     mRecyclerView.refreshComplete();
-    Log.e(TAG, "loadError: "+ e.toString() );
+    Log.e(TAG, "loadError: " + e.toString());
   }
 
   @OnClick(R.id.btn_contacts_add) void contactsAdd() {
@@ -202,7 +202,7 @@ public class BrokerCenterActivity extends BaseActivity implements BrokerCenterMv
     //        false);
     // mRecyclerView.addHeaderView(header);
 
-    mRecyclerView.setLoadingMoreEnabled(false);
+    //mRecyclerView.setLoadingMoreEnabled(false);
 
     mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
       @Override public void onRefresh() {
@@ -215,21 +215,25 @@ public class BrokerCenterActivity extends BaseActivity implements BrokerCenterMv
       }
 
       @Override public void onLoadMore() {
+        if(NetworkUtil.isNetworkConnected(BrokerCenterActivity.this)){
+          asynBusiness(NetWorkType.loadMore,adapter.getItems().size()+1);
+        }else{
+          mRecyclerView.cancelLoadMore();
+          CommonUtil.showSnackbar(R.string.no_net,layoutRoot);
+        }
       }
     });
     mRecyclerView.setAdapter(adapter);
   }
 
-  //private void asynBusiness(NetWorkType type) {
-  //  asynBusiness(0, "", "", 0, 10, "asc", 0, "", type);
-  //}
-
   private void asynBusiness(NetWorkType type) {
+    asynBusiness(type, 1);
+  }
 
+  private void asynBusiness(NetWorkType type, int start) {
     String cookie = BoilerplateApplication.get(this).getMemberLoginResult().getData().getCookies();
     String member = BoilerplateApplication.get(this).getMemberAccount();
-    String json = AiShangUtil.generBusinessListJson(member, cookie);
-
+    String json = AiShangUtil.generBusinessListJson(member, cookie,start,10);
     presenter.loadBusiness(0, json, type);
   }
 }

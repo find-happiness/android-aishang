@@ -211,24 +211,28 @@
             android:orientation="vertical"
             />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:drawableLeft="@mipmap/line_red"
-            android:gravity="center"
-            android:paddingLeft="@dimen/spacing_medium"
-            android:text="酒店详情"
-            android:textSize="@dimen/text_body"
-            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/spacing_medium"
             android:layout_marginTop="@dimen/spacing_large"
+            android:background="@color/white"
             android:orientation="vertical"
+            android:paddingLeft="@dimen/spacing_medium"
             >
+
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="@dimen/spacing_large"
+              android:layout_marginTop="@dimen/spacing_medium"
+              android:drawableLeft="@mipmap/line_blue"
+              android:drawablePadding="@dimen/spacing_small"
+              android:gravity="center"
+              android:paddingLeft="@dimen/spacing_medium"
+              android:text="酒店详情"
+              android:textSize="@dimen/text_body"
+              />
 
           <LinearLayout
               android:layout_width="match_parent"
@@ -239,6 +243,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:src="@mipmap/ic_hotel_faclilite"
                 />
 
@@ -262,6 +267,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:src="@mipmap/ic_hotel_service"
                 />
 
@@ -285,6 +291,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:src="@mipmap/ic_hotel_special"
                 />
 
@@ -296,14 +303,18 @@
                 />
 
           </LinearLayout>
+
         </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_medium"
-            android:drawableLeft="@mipmap/line_red"
-            android:gravity="center"
+            android:drawableLeft="@mipmap/line_blue"
+            android:paddingTop="@dimen/spacing_medium"
+            android:drawablePadding="@dimen/spacing_small"
+            android:paddingBottom="@dimen/spacing_medium"
+            android:gravity="left"
+            android:background="@color/white"
             android:paddingLeft="@dimen/spacing_medium"
             android:text="入住须知"
             android:textSize="@dimen/text_body"
@@ -312,7 +323,6 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="@dimen/spacing_small"
             android:background="@color/gray"
             />
 
@@ -320,11 +330,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
+            android:background="@color/white"
             >
 
           <ImageView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
               android:layout_marginLeft="@dimen/spacing_medium"
               android:layout_marginTop="@dimen/spacing_medium"
               android:src="@mipmap/ic_hotel_rule"
@@ -334,7 +346,6 @@
               android:id="@+id/wv_rules"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:background="@color/tab_bg"
               />
         </LinearLayout>
 
@@ -342,7 +353,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_medium"
-            android:drawableLeft="@mipmap/line_red"
+            android:drawableLeft="@mipmap/line_blue"
+            android:drawablePadding="@dimen/spacing_small"
             android:gravity="center"
             android:paddingLeft="@dimen/spacing_medium"
             android:text="@string/traffic_position"
@@ -363,6 +375,22 @@
             android:layout_marginTop="@dimen/spacing_medium"
             android:scaleType="fitXY"
             />
+
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
+            android:layout_marginLeft="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:drawableLeft="@drawable/spotlight"
+            android:drawablePadding="@dimen/spacing_small"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacing_xlarge"/>
       </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
   </RelativeLayout>

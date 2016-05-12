@@ -93,6 +93,7 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
   @Bind(R.id.room_container) LinearLayout roomContainer;
   @Bind(R.id.view_pager) HackyViewPager viewPager;
   @Bind(R.id.take_phone) ImageView takePhone;
+  @Bind(R.id.address) TextView address;
 
   private String hotelName;
   private int hotelID;
@@ -396,6 +397,10 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
     presenter.loadHotelRoomCat(1, AiShangUtil.generHotelRoomCatByHotelIDParam(this.hotelID));
   }
 
+  public View getLayoutRoot() {
+    return layoutRoot;
+  }
+
   @Override public void showError(String error) {
     dismissDialog();
     Log.e(TAG, "showError: " + error);
@@ -566,7 +571,7 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
 
     MarkerOptions markerOption = new MarkerOptions();
     markerOption.position(latLng);
-    //markerOption.title(title).snippet(address);
+    this.address.setText(address);
     markerOption.draggable(false);
     markerOption.icon(BitmapDescriptorFactory.fromResource(R.drawable.spotlight));
     Marker marker2 = aMap.addMarker(markerOption);

@@ -24,6 +24,7 @@ import com.aishang.app.ui.BuyHotel.BuyHotelActivity;
 import com.aishang.app.ui.PhotoGallery.PhotoGalleryActivity;
 import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.BusProvider;
+import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.DialogFactory;
 import com.aishang.app.util.EventPosterHelper;
 import com.aishang.app.util.ViewUtil;
@@ -44,12 +45,12 @@ public class RoomAdapter {
 
   private static final String TAG = "RoomAdapter";
   private List<RoomCat> roomCat;
-  private Activity context;
+  private HotelDetailActivity context;
   int[] imgSize;
 
   private List<ViewHolder> viewHolders = new ArrayList<>();
 
-  public RoomAdapter(List<RoomCat> roomCat, Activity context) {
+  public RoomAdapter(List<RoomCat> roomCat, HotelDetailActivity context) {
     this.roomCat = roomCat;
     this.context = context;
     imgSize = calculationImageSize();
@@ -187,12 +188,19 @@ public class RoomAdapter {
 
     holder.btnBuy.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        HotelOrder order = new HotelOrder(
-            (JHotelRoomCatListByhotelIDResult.GRoomTypeListEntity) holder.type.getTag(),
-            (JHotelRoomCatListByhotelIDResult.HotelRoomCatListEntity) holder.expandableLayout.getTag(),
-            1);
 
-        BusProvider.getInstance().post(order);
+        int roomNum = (int) holder.orderRoomNum.getTag();
+
+        if (roomNum > 0) {
+          HotelOrder order = new HotelOrder(
+              (JHotelRoomCatListByhotelIDResult.GRoomTypeListEntity) holder.type.getTag(),
+              (JHotelRoomCatListByhotelIDResult.HotelRoomCatListEntity) holder.expandableLayout.getTag(),
+              (int) holder.orderRoomNum.getTag());
+
+          BusProvider.getInstance().post(order);
+        } else {
+          CommonUtil.showSnackbar("您没有选择房间数！", context.getLayoutRoot());
+        }
       }
     });
     return roomItem;

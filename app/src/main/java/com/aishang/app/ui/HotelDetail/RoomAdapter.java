@@ -7,26 +7,32 @@ import android.content.Intent;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import com.aishang.app.BoilerplateApplication;
 import com.aishang.app.R;
 import com.aishang.app.data.model.HotelOrder;
 import com.aishang.app.data.model.JHotelRoomCatListByhotelIDResult;
 import com.aishang.app.data.model.SmallImgModel;
 import com.aishang.app.data.remote.AiShangService;
+import com.aishang.app.ui.BuyHotel.BuyHotelActivity;
 import com.aishang.app.ui.PhotoGallery.PhotoGalleryActivity;
+import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.BusProvider;
 import com.aishang.app.util.DialogFactory;
+import com.aishang.app.util.EventPosterHelper;
 import com.aishang.app.util.ViewUtil;
 import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 import com.github.aakira.expandablelayout.Utils;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import rx.Observable;
 import rx.functions.Func1;
@@ -179,6 +185,16 @@ public class RoomAdapter {
       }
     });
 
+    holder.btnBuy.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        HotelOrder order = new HotelOrder(
+            (JHotelRoomCatListByhotelIDResult.GRoomTypeListEntity) holder.type.getTag(),
+            (JHotelRoomCatListByhotelIDResult.HotelRoomCatListEntity) holder.expandableLayout.getTag(),
+            1);
+
+        BusProvider.getInstance().post(order);
+      }
+    });
     return roomItem;
   }
 
@@ -312,6 +328,10 @@ public class RoomAdapter {
     }).toList();
   }
 
+  private boolean checkLogin() {
+    return BoilerplateApplication.get(context).getMemberLoginResult() != null;
+  }
+
   static class ViewHolder {
     @Bind(R.id.type) TextView type;
     @Bind(R.id.room_cat) TextView roomCat;
@@ -338,6 +358,7 @@ public class RoomAdapter {
     @Bind(R.id.maxGuest) TextView maxGuest;
     @Bind(R.id.comment) TextView comment;
     @Bind(R.id.expandableLayout) ExpandableRelativeLayout expandableLayout;
+    @Bind(R.id.buy) Button btnBuy;
 
     ViewHolder(View view) {
       ButterKnife.bind(this, view);

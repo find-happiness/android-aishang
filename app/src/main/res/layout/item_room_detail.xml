@@ -82,6 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@id/button"
+        android:visibility="gone"
         android:orientation="horizontal">
 
       <ImageView
@@ -211,6 +212,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/room_des"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_imgs"
@@ -238,6 +240,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_weight="1"
+            android:gravity="right"
             android:text="$300"
             android:textColor="@android:color/black"
             android:textSize="@dimen/text_body"/>
@@ -266,6 +269,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_weight="1"
+            android:gravity="right"
             android:text="$300"
             android:textColor="@android:color/black"
             android:textSize="@dimen/text_body"/>
@@ -293,5 +297,16 @@
     </LinearLayout>
 
 
+    <Button
+        android:id="@+id/buy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/room_des"
+        android:layout_marginBottom="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_medium"
+        android:background="@color/primary"
+        android:text="@string/buy_now"
+        android:textColor="@color/white"/>
   </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 </RelativeLayout>

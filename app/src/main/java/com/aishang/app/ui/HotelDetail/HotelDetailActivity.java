@@ -253,6 +253,35 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
     });
   }
 
+  @Subscribe public void onBuyRoomClick(HotelOrder order) {
+
+    if (hotel != null) {
+      if (checkLogin()) {
+        ArrayList<HotelOrder> orders = new ArrayList<>();
+        orders.add(order);
+
+        Intent intent = BuyHotelActivity.getStartIntent(HotelDetailActivity.this, hotel, orders,
+            AiShangUtil.dateFormat(new Date(checkInDate)),
+            AiShangUtil.dateFormat(new Date(checkOutDate)));
+        HotelDetailActivity.this.startActivity(intent);
+      } else {
+        DialogFactory.createSimpleDialog(this, R.string.error_not_login, R.string.intent_login,
+            android.R.string.ok, android.R.string.cancel, new DialogInterface.OnClickListener() {
+              @Override public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                IntentToLogin();
+              }
+            }, new DialogInterface.OnClickListener() {
+              @Override public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+              }
+            }).show();
+      }
+    } else {
+      CommonUtil.showSnackbar("未获取到数据，请稍后再试！", layoutRoot);
+    }
+  }
+
   /**
    * 方法必须重写
    */

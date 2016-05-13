@@ -5,10 +5,12 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import com.aishang.app.BoilerplateApplication;
+import com.aishang.app.data.model.JAwardDetailListV2Param;
 import com.aishang.app.data.model.JBusinessListParam;
 import com.aishang.app.data.model.JCashWithDrawApplyparam;
 import com.aishang.app.data.model.JCodeLoginParam;
 import com.aishang.app.data.model.JCollectParam;
+import com.aishang.app.data.model.JCommonIntegralParam;
 import com.aishang.app.data.model.JContactsAddParam;
 import com.aishang.app.data.model.JCriticismListParam;
 import com.aishang.app.data.model.JFavoriteEditParam;
@@ -361,7 +363,8 @@ public class AiShangUtil {
   }
 
   public static String generContactsAddParam(String phone, String name, String cookie,
-      String member, String RDescription, String RAddress, String RComment,String age ,String sex,String job) {
+      String member, String RDescription, String RAddress, String RComment, String age, String sex,
+      String job) {
 
     JContactsAddParam p = new JContactsAddParam();
     p.setCookie(cookie);
@@ -774,5 +777,30 @@ public class AiShangUtil {
     param.setMemberAccount("");
     param.setCookie("");
     return gson.toJson(param);
+  }
+
+  public static String generCommonIntegral(String member, String cookie, int recStart, int recCount,
+      String startDate, String endDate) {
+    JCommonIntegralParam params = new JCommonIntegralParam();
+    params.setCookie(cookie);
+    params.setMemberAccount(member);
+    params.setRecCount(recCount);
+    params.setRecStart(recStart);
+    params.setStartDate(startDate);
+    params.setEndDate(endDate);
+    return gson.toJson(params);
+  }
+
+  public static String generAwardDetailListV2Param(String member, String cookie, int recStart,
+      int recCount, String startDate, String endDate, boolean earnings) {
+    JAwardDetailListV2Param params = new JAwardDetailListV2Param();
+    params.setCookie(cookie);
+    params.setMemberAccount(member);
+    params.setRecCount(recCount);
+    params.setRecIndex(recStart);
+    params.setStartDate(startDate);
+    params.setEndDate(endDate);
+    params.setIsEarnings(earnings);
+    return gson.toJson(params);
   }
 }

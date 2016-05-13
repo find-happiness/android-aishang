@@ -1,8 +1,10 @@
 package com.aishang.app.data.remote;
 
+import com.aishang.app.data.model.JAwardDetailListV2Result;
 import com.aishang.app.data.model.JBusinessListResult;
 import com.aishang.app.data.model.JCodeLoginResult;
 import com.aishang.app.data.model.JCollectResult;
+import com.aishang.app.data.model.JCommonIntegralResult;
 import com.aishang.app.data.model.JCriticismListResult;
 import com.aishang.app.data.model.JHotelDetailResult;
 import com.aishang.app.data.model.JHotelListResult;
@@ -223,14 +225,14 @@ public interface AiShangService {
 
   @Headers("connection:Keep-Alive") @GET("mobile/member/memberNoteRegister.ashx")
   Observable<JResult> syncMemberNoteRegister(@Query(value = "v") int version,
-      @Query(value = "q") String q,@Header("Cookie")String cookie);
+      @Query(value = "q") String q, @Header("Cookie") String cookie);
 
   @Headers("connection:Keep-Alive") @POST("mobile/member/codeLogin.ashx") @Multipart
   Observable<JCodeLoginResult> syncCodeLogin(@PartMap Map<String, RequestBody> body);
 
   @Headers({ "Content-Type: application/json;charset=UTF-8", "connection:Keep-Alive" })
   @GET("mobile/member/codeLogin.ashx") Observable<JMemberLoginResult> syncCodeLogin(
-      @Header("Cookie")String cookie ,@Query(value = "q") String q);
+      @Header("Cookie") String cookie, @Query(value = "q") String q);
 
   @Headers("connection:Keep-Alive") @GET("mobile/member/collect.ashx")
   Observable<JCollectResult> syncCollect(@Query(value = "v") int version,
@@ -281,6 +283,14 @@ public interface AiShangService {
 
   @Headers("connection:Keep-Alive") @GET("mobile/criticismList.ashx")
   Observable<JCriticismListResult> syncCriticismList(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/commonIntegral.ashx")
+  Observable<JCommonIntegralResult> syncCommonIntegral(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/member/AwardDetailListV2.ashx")
+  Observable<JAwardDetailListV2Result> syncAwardDetailListV2(@Query(value = "v") int version,
       @Query(value = "q") String q);
 
   @GET("ribots") Observable<List<Ribot>> getRibots();

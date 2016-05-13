@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/spacing_large"
+    android:paddingTop="@dimen/spacing_large"
+    >
+
+  <TextView
+      android:id="@+id/left"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textColor="@color/tab_account_left_selector"
+      android:textSize="@dimen/text_headline"
+      tools:text="50"/>
+
+  <TextView
+      android:id="@+id/name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textColor="@color/tab_account_selector"
+      android:textSize="@dimen/text_large_body"
+      tools:text="通用积分"/>
+</LinearLayout>

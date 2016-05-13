@@ -1,9 +1,11 @@
 package com.aishang.app.data;
 
 import android.util.Log;
+import com.aishang.app.data.model.JAwardDetailListV2Result;
 import com.aishang.app.data.model.JBusinessListResult;
 import com.aishang.app.data.model.JCodeLoginResult;
 import com.aishang.app.data.model.JCollectResult;
+import com.aishang.app.data.model.JCommonIntegralResult;
 import com.aishang.app.data.model.JCriticismListResult;
 import com.aishang.app.data.model.JHotelDetailResult;
 import com.aishang.app.data.model.JHotelListResult;
@@ -339,6 +341,14 @@ import com.aishang.app.util.EventPosterHelper;
 
   public Observable<JCriticismListResult> syncCriticismList(int version, String json) {
     return mAiShangService.syncCriticismList(version, json);
+  }
+
+  public Observable<JCommonIntegralResult> syncCommonIntegral(int version, String json) {
+    return mAiShangService.syncCommonIntegral(version, json);
+  }
+
+  public Observable<JAwardDetailListV2Result> syncAwardDetailListV2(int version, String json) {
+    return mAiShangService.syncAwardDetailListV2(version, json);
   }
 
   public int firstUsage() {

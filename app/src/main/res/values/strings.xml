@@ -158,4 +158,7 @@
   <string name="bank">开户行</string>
   <string name="dui_fang_zhan_hao">对方账号</string>
 
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

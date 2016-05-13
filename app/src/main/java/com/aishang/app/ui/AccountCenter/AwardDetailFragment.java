@@ -17,7 +17,6 @@ import butterknife.ButterKnife;
 import com.aishang.app.BoilerplateApplication;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JAwardDetailListV2Result;
-import com.aishang.app.data.model.JMemberBankAccount;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
@@ -26,7 +25,6 @@ import com.aishang.app.util.NetworkUtil;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -37,6 +35,8 @@ import javax.inject.Inject;
  */
 public class AwardDetailFragment extends Fragment implements AwardDetailMvpView {
 
+  private static final int REC_COUNT = 10;
+  private static final String TAG = "AwardDetailFragment";
   @Bind(R.id.recyclerView) XRecyclerView recyclerView;
   @Bind(R.id.no_data) TextView noData;
 
@@ -45,6 +45,8 @@ public class AwardDetailFragment extends Fragment implements AwardDetailMvpView 
   @Bind(R.id.swipe_refresh) SwipeRefreshLayout swipeRefreshLayout;
 
   @Inject AwardDetailAdapter adapter;
+
+
 
   /**
    * Use this factory method to create a new instance of
@@ -101,12 +103,13 @@ public class AwardDetailFragment extends Fragment implements AwardDetailMvpView 
   @Override
   public void showLoadMore(List<JAwardDetailListV2Result.DataListBean> dataList, int total) {
     noData.setVisibility(View.GONE);
-
+    Log.i(TAG, "showLoadMore: " + adapter.getItemCount() +"   " + dataList.size());
     recyclerView.loadMoreComplete();
     adapter.addData(new ArrayList<JAwardDetailListV2Result.DataListBean>(dataList));
     adapter.notifyDataSetChanged();
 
     if (adapter.getItemCount() >= total) {
+
       recyclerView.loadMoreComplete();
       adapter.notifyDataSetChanged();
       recyclerView.loadMoreComplete();
@@ -120,6 +123,7 @@ public class AwardDetailFragment extends Fragment implements AwardDetailMvpView 
     adapter.clearDate();
     adapter.addData(dataList);
     adapter.notifyDataSetChanged();
+    recyclerView.refreshComplete();
   }
 
   @Override public void showEmpty() {
@@ -130,7 +134,7 @@ public class AwardDetailFragment extends Fragment implements AwardDetailMvpView 
   private void autoRefresh() {
     new Handler().postDelayed(new Runnable() {
       @Override public void run() {
-        loadData();
+        refreshData();
       }
     }, 100);
   }
@@ -159,7 +163,7 @@ public class AwardDetailFragment extends Fragment implements AwardDetailMvpView 
         }
 
         if (NetworkUtil.isNetworkConnected(AwardDetailFragment.this.getActivity())) {
-          getAwardDetail(NetWorkType.loadMore, adapter.getItemCount() + 1);
+          getAwardDetail(NetWorkType.loadMore, adapter.getItemCount() / REC_COUNT + 1);
         } else {
           recyclerView.cancelLoadMore();
           showError(AwardDetailFragment.this.getString(R.string.no_net));
@@ -173,12 +177,12 @@ public class AwardDetailFragment extends Fragment implements AwardDetailMvpView 
   private void initSwipeRefresh() {
     swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
       @Override public void onRefresh() {
-        loadData();
+        refreshData();
       }
     });
   }
 
-  private void loadData() {
+  private void refreshData() {
     if (NetworkUtil.isNetworkConnected(this.getActivity())) {
       swipeRefreshLayout.setRefreshing(true);
       getAwardDetail(NetWorkType.refresh);
@@ -197,7 +201,7 @@ public class AwardDetailFragment extends Fragment implements AwardDetailMvpView 
         BoilerplateApplication.get(this.getActivity()).getMemberLoginResult();
     String json = AiShangUtil.generAwardDetailListV2Param(
         BoilerplateApplication.get(this.getActivity()).getMemberAccount(),
-        result.getData().getCookies(), start, 10, "", "", true);
+        result.getData().getCookies(), start, REC_COUNT, "", "", true);
 
     presenter.loadData(1, json, type);
   }

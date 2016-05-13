@@ -159,7 +159,7 @@ public class AccountCenterActivity extends BaseActivity implements AccountCenter
         case 0:
           return AwardDetailFragment.newInstance();
         case 1:
-          return AwardDetailFragment.newInstance();
+          return CreditLeftFragment.newInstance();
       }
       return null;
     }

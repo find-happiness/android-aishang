@@ -5,16 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JAwardDetailListV2Result;
-import com.aishang.app.data.model.JMemberBankAccount;
-import com.aishang.app.data.remote.AiShangService;
-import com.aishang.app.ui.bank.BankListActivity;
-import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -38,17 +33,29 @@ public class AwardDetailAdapter extends RecyclerView.Adapter<AwardDetailAdapter.
   @Override public void onBindViewHolder(final ViewHolder holder, int position) {
 
     final JAwardDetailListV2Result.DataListBean item = items.get(position);
+
+    String createTime = item.getCreateTime();
+
+    int spiltIndex = createTime.lastIndexOf(" ");
+
+    holder.date.setText(createTime.substring(0, spiltIndex));
+
+    holder.time.setText(createTime.substring(spiltIndex + 1, createTime.length()));
+
+    holder.dealMerchant.setText(item.getDealMerchant());
+
+    holder.preAmount.setText(item.getPreAmount() + "");
   }
 
   @Override public int getItemCount() {
     return items.size();
   }
 
-  public void clearDate(){
+  public void clearDate() {
     items.clear();
   }
 
-  public void addData(List<JAwardDetailListV2Result.DataListBean> list){
+  public void addData(List<JAwardDetailListV2Result.DataListBean> list) {
     items.addAll(list);
   }
 
@@ -61,6 +68,10 @@ public class AwardDetailAdapter extends RecyclerView.Adapter<AwardDetailAdapter.
    *         (http://github.com/avast)
    */
   static class ViewHolder extends RecyclerView.ViewHolder {
+    @Bind(R.id.date) TextView date;
+    @Bind(R.id.time) TextView time;
+    @Bind(R.id.dealMerchant) TextView dealMerchant;
+    @Bind(R.id.preAmount) TextView preAmount;
 
     public Context getContext() {
       return this.itemView.getContext();

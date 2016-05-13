@@ -5,7 +5,6 @@
     android:id="@+id/layoutRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary"
     android:paddingTop="@dimen/padding_stutas_bar"
     >
 
@@ -24,7 +23,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:gravity="center_vertical"
-        android:text="银行账户"
+        android:text="添加银行账户"
         android:textColor="@android:color/white"
         android:textSize="@dimen/text_title"
         />
@@ -34,59 +33,192 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_below="@id/toolbar"
-      android:background="@android:color/white"
+      android:background="@color/space"
+      android:orientation="vertical"
       >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_medium"
+        android:layout_marginLeft="@dimen/spacing_large"
+        android:layout_marginTop="@dimen/spacing_medium"
+        android:singleLine="true"
+        android:text="请绑定持卡人本人的银行卡"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/text_body"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:orientation="vertical"
-        android:padding="@dimen/spacing_large"
         >
 
-
-      <com.rengwuxian.materialedittext.MaterialEditText
-          android:id="@+id/bankName"
+      <View
           android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginBottom="@dimen/spacing_small"
-          android:layout_marginLeft="@dimen/spacing_medium"
-          android:focusable="false"
-          android:hint="开户行"
-          android:singleLine="true"
-          android:textSize="@dimen/text_body"
-          app:met_clearButton="true"
-          app:met_floatingLabel="normal"
+          android:layout_height="1dp"
+          android:background="@color/space_line"
           />
 
-
-      <com.rengwuxian.materialedittext.MaterialEditText
-          android:id="@+id/holder"
+      <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginBottom="@dimen/spacing_small"
-          android:layout_marginLeft="@dimen/spacing_medium"
-          android:hint="户名"
-          android:inputType="text"
-          android:singleLine="true"
-          android:textSize="@dimen/text_body"
-          app:met_clearButton="true"
-          app:met_floatingLabel="normal"
-          />
+          android:background="@color/white"
+          android:paddingLeft="@dimen/spacing_large"
+          >
 
+        <TextView
+            android:id="@id/hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:ems="4"
+            android:hint="真实姓名"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_body"
+            />
 
-      <com.rengwuxian.materialedittext.MaterialEditText
-          android:id="@+id/accountNumber"
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/holder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/spacing_small"
+            android:layout_toRightOf="@id/hint"
+            android:hint="请输入真实姓名"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textColorHint="@color/gray"
+            android:textSize="@dimen/text_body"
+            app:met_hideUnderline="true"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/holder"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:background="@color/space_line"
+            />
+      </RelativeLayout>
+
+      <RelativeLayout
+          android:id="@+id/rl_bank"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginLeft="@dimen/spacing_medium"
-          android:hint="账号"
-          android:inputType="numberSigned"
-          android:singleLine="true"
-          android:textSize="@dimen/text_body"
-          app:met_clearButton="true"
-          app:met_floatingLabel="normal"
+          android:background="@color/white"
+          android:paddingLeft="@dimen/spacing_large"
+          >
+
+        <TextView
+            android:id="@id/hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:ems="4"
+            android:hint="开户银行"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_body"
+            />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/bankName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/spacing_small"
+            android:layout_toRightOf="@id/hint"
+            android:hint="请选择开户银行"
+            android:singleLine="true"
+            android:textColorHint="@color/gray"
+            android:textSize="@dimen/text_body"
+            app:met_hideUnderline="true"
+            />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/bankName"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:background="@color/space_line"
+            />
+
+        <View
+            android:id="@+id/aphle_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_small"
+            android:layout_toRightOf="@id/hint"
+            android:layout_alignBottom="@id/line"
+            android:layout_alignParentTop="true"
+            />
+      </RelativeLayout>
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="@color/white"
+          android:paddingLeft="@dimen/spacing_large"
+          >
+
+        <TextView
+            android:id="@id/hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:ems="4"
+            android:hint="卡号"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_body"
+            />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/accountNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/spacing_small"
+            android:layout_toRightOf="@id/hint"
+            android:hint="请输入银行卡卡号"
+            android:inputType="numberSigned"
+            android:singleLine="true"
+            android:textColorHint="@color/gray"
+            android:textSize="@dimen/text_body"
+            app:met_hideUnderline="true"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/accountNumber"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:background="@color/space_line"
+            android:visibility="invisible"
+            />
+      </RelativeLayout>
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/space_line"
           />
+
+      <Button
+
+          android:id="@+id/submint"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginLeft="@dimen/spacing_large"
+          android:layout_marginRight="@dimen/spacing_large"
+          android:layout_marginTop="@dimen/spacing_xlarge"
+          android:background="@color/primary"
+          android:paddingBottom="@dimen/spacing_medium"
+          android:paddingTop="@dimen/spacing_medium"
+          android:text="提交"
+          android:textColor="@color/white"
+          android:textSize="@dimen/text_large_body"/>
     </LinearLayout>
   </LinearLayout>
 </RelativeLayout>

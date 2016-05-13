@@ -79,12 +79,12 @@ public class MineFragment extends Fragment implements MineMvpView {
     if (result != null) {
       headViewHolder.rlLoginAfter.setVisibility(View.VISIBLE);
       headViewHolder.llActionButton.setVisibility(View.GONE);
-      headViewHolder.ivHeadDefault.setVisibility(View.GONE);
+      //headViewHolder.ivHeadDefault.setVisibility(View.GONE);
       setUserData(result);
     } else {
       headViewHolder.rlLoginAfter.setVisibility(View.GONE);
       headViewHolder.llActionButton.setVisibility(View.VISIBLE);
-      headViewHolder.ivHeadDefault.setVisibility(View.VISIBLE);
+      //headViewHolder.ivHeadDefault.setVisibility(View.VISIBLE);
     }
   }
 

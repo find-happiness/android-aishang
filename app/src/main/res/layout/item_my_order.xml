@@ -4,8 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingLeft="@dimen/spacing_medium"
-    android:paddingRight="@dimen/spacing_medium"
+    android:paddingBottom="@dimen/spacing_medium"
+    android:paddingLeft="@dimen/spacing_large"
+    android:paddingRight="@dimen/spacing_large"
+    android:paddingTop="@dimen/spacing_medium"
     >
 
   <LinearLayout
@@ -41,8 +43,11 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/spacing_xsmall"
+      android:drawableLeft="@mipmap/ic_house_blue"
+      android:drawablePadding="@dimen/spacing_small"
       android:ellipsize="end"
       android:singleLine="true"
+      android:textColor="@color/gray"
       android:textSize="@dimen/text_body"
       tools:text="海滨度假屋"
       />
@@ -52,8 +57,11 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/spacing_xsmall"
+      android:drawableLeft="@mipmap/ic_time"
+      android:drawablePadding="@dimen/spacing_small"
       android:ellipsize="end"
       android:singleLine="true"
+      android:textColor="@color/gray"
       android:textSize="@dimen/text_body"
       tools:text="海滨度假屋"
       />
@@ -70,8 +78,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/spacing_xsmall"
         android:layout_weight="3"
+        android:drawableLeft="@mipmap/ic_local"
+        android:drawablePadding="@dimen/spacing_small"
         android:ellipsize="end"
         android:singleLine="true"
+        android:textColor="@color/gray"
         android:textSize="@dimen/text_body"
         tools:text="海滨度假屋"
         />
@@ -82,6 +93,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="right"
+        android:textColor="@color/price"
         android:textSize="@dimen/text_large_body"
         tools:text="$45220"
         />

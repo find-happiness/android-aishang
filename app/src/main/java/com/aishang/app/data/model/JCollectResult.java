@@ -265,7 +265,7 @@ public class JCollectResult {
    * tagIDs :
    */
 
-  private List<ListCollectEntity> listCollect;
+  private List<ListCollectEntity> listNews;
 
   public void setResult(String result) {
     this.result = result;
@@ -276,7 +276,7 @@ public class JCollectResult {
   }
 
   public void setListCollect(List<ListCollectEntity> listCollect) {
-    this.listCollect = listCollect;
+    this.listNews = listCollect;
   }
 
   public String getResult() {
@@ -288,7 +288,7 @@ public class JCollectResult {
   }
 
   public List<ListCollectEntity> getListCollect() {
-    return listCollect;
+    return listNews;
   }
 
   public static class ListCollectEntity {

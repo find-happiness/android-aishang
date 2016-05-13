@@ -79,8 +79,8 @@ public class TravelDetailActivity extends BaseActivity implements TravelDetailMv
 
   private int newsID;
 
-  private String newsUrl;
-  private String newsImgUrl;
+  private String newsUrl = "";
+  private String newsImgUrl = "";
 
   private boolean keyboardListenersAttached = false;
 

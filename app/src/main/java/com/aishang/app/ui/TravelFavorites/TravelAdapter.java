@@ -70,6 +70,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
 
     holder.itemView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
+        intentToDetail(holder.getContext(), news);
       }
     });
   }
@@ -92,7 +93,8 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
   }
 
   private void intentToDetail(Context ctx, MyTravel item) {
-    Intent intent = TravelDetailActivity.getStartIntent(ctx, item.getNewsID(), item.getStaticUrl());
+    Intent intent = TravelDetailActivity.getStartIntent(ctx, item.getNewsID(), item.getStaticUrl(),
+        item.getImageUrl());
 
     ctx.startActivity(intent);
   }

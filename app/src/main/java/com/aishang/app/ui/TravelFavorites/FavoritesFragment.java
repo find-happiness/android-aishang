@@ -190,7 +190,7 @@ public class FavoritesFragment extends LazyFragment implements TravelFavoritesMv
   }
 
   private void asynTravel(NetWorkType type) {
-    asynTravel(0, 10, type);
+    asynTravel(1, 10, type);
   }
 
   private void asynTravel(int recStart, int recCount, NetWorkType type) {

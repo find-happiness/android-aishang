@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="bottom"
+    android:background="@color/primary"
     android:gravity="top">
 
   <de.hdodenhof.circleimageview.CircleImageView
@@ -13,106 +14,202 @@
       android:layout_height="@dimen/head_medium"
       android:layout_centerHorizontal="true"
       android:layout_marginTop="50dp"
-      android:src="@mipmap/ic_img_user_default"/>
+      android:src="@mipmap/ic_img_user_default"
+      android:visibility="gone"/>
 
   <RelativeLayout
       android:id="@+id/rl_login_after"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
       android:visibility="visible">
 
     <LinearLayout
-        android:id="@+id/ll_jifen_title"
+        android:id="@+id/jen_fen"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:divider="@mipmap/ic_img_line_v"
+        android:dividerPadding="@dimen/spacing_large"
+        android:orientation="horizontal"
+        android:showDividers="middle"
+        >
 
-      <TextView
+      <RelativeLayout
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_gravity="center"
+          android:layout_marginBottom="@dimen/spacing_medium"
           android:layout_weight="1"
-          android:gravity="center"
-          android:text="通用积分"
-          android:textColor="#ffffff"
-          android:textSize="18sp"/>
+          android:orientation="vertical">
 
-      <TextView
+        <TextView
+            android:id="@+id/tong_yong_ji_fen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:ems="4"
+            android:gravity="center"
+            android:text="通用积分"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_body"/>
+
+        <TextView
+            android:id="@+id/tv_awardLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tong_yong_ji_fen"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/text_body"
+            tools:text="50"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_above="@id/tv_awardLeft"
+            android:layout_alignLeft="@id/tong_yong_ji_fen"
+            android:layout_alignRight="@id/tong_yong_ji_fen"
+            android:layout_marginBottom="@dimen/spacing_small"
+            android:background="@color/white"
+            />
+
+      </RelativeLayout>
+
+      <RelativeLayout
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_gravity="center"
+          android:layout_marginBottom="@dimen/spacing_medium"
           android:layout_weight="1"
-          android:gravity="center"
-          android:text="换住积分"
-          android:textColor="#ffffff"
-          android:textSize="18sp"/>
+          android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/huan_zhu_ji_fen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:ems="4"
+            android:gravity="center"
+            android:text="换住积分"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_body"/>
+
+        <TextView
+            android:id="@+id/tv_creditLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/huan_zhu_ji_fen"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/text_body"
+            tools:text="50"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_above="@id/tv_creditLeft"
+            android:layout_alignLeft="@id/huan_zhu_ji_fen"
+            android:layout_alignRight="@id/huan_zhu_ji_fen"
+            android:layout_marginBottom="@dimen/spacing_small"
+            android:background="@color/white"
+            />
+
+      </RelativeLayout>
+
+      <RelativeLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="@dimen/spacing_medium"
+          android:layout_weight="1"
+          android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/lv_ju_quan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:ems="4"
+            android:gravity="center"
+            android:text="旅居劵"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_body"/>
+
+        <TextView
+            android:id="@+id/tv_lv_ju_quan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/lv_ju_quan"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/text_body"
+            tools:text="50"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_above="@id/tv_lv_ju_quan"
+            android:layout_alignLeft="@id/lv_ju_quan"
+            android:layout_alignRight="@id/lv_ju_quan"
+            android:layout_marginBottom="@dimen/spacing_small"
+            android:background="@color/white"
+            />
+
+      </RelativeLayout>
+
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ll_jifen"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/ll_jifen_title"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:layout_above="@+id/jen_fen"
+        android:layout_marginBottom="@dimen/spacing_large"
+        android:orientation="horizontal">
 
       <TextView
-          android:id="@+id/tv_awardLeft"
-          android:layout_width="0dp"
+          android:id="@+id/tv_user_name"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:layout_weight="1"
-          android:gravity="center"
+          android:layout_above="@id/ll_jifen"
+          android:layout_centerHorizontal="true"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_marginTop="2dp"
           android:textColor="#ffffff"
-          android:textSize="18sp"
-          tools:text="50"/>
+          android:textSize="16sp"
+          tools:text="qawdqwdqwdqwdwqd"/>
 
+      <de.hdodenhof.circleimageview.CircleImageView
+          android:id="@+id/iv_user_head"
+          android:layout_width="@dimen/head_medium"
+          android:layout_height="@dimen/head_medium"
+          android:layout_toLeftOf="@id/tv_user_name"
+          android:contentDescription="@string/app_name"
+          tools:src="@mipmap/ic_img_user_default"/>
 
       <TextView
-          android:id="@+id/tv_creditLeft"
-          android:layout_width="0dp"
+          android:id="@+id/tv_member_account"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:layout_weight="1"
-          android:gravity="center"
+          android:layout_alignBottom="@id/iv_user_head"
+          android:layout_alignLeft="@+id/tv_user_name"
+          android:layout_centerHorizontal="true"
+          android:layout_marginBottom="@dimen/spacing_small"
+          android:layout_marginTop="2dp"
+          android:layout_toRightOf="@id/iv_user_head"
           android:textColor="#ffffff"
-          android:textSize="18sp"
-          tools:text="4000"/>
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv_member_account"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/ll_jifen"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="2dp"
-        android:textColor="#ffffff"
-        android:textSize="16sp"
-        tools:text="qawdqwdqwdqwdwqd"/>
-
-    <TextView
-        android:id="@+id/tv_user_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/tv_member_account"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="2dp"
-        android:textColor="#ffffff"
-        android:textSize="16sp"
-        tools:text="qawdqwdqwdqwdwqd"/>
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/iv_user_head"
-        android:layout_width="@dimen/head_medium"
-        android:layout_height="@dimen/head_medium"
-        android:layout_above="@id/tv_user_name"
-        android:layout_centerHorizontal="true"
-        android:contentDescription="@string/app_name"
-        tools:src="@mipmap/ic_img_user_default"/>
+          android:textSize="16sp"
+          tools:text="qawdqwdqwdqwdwqd"/>
+    </RelativeLayout>
 
     <com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView
         android:id="@+id/avloadingIndicatorView"
@@ -122,7 +219,7 @@
         android:layout_alignParentLeft="true"
         android:visibility="gone"
         app:indicator="BallClipRotateMultiple"
-        app:indicator_color="@color/blue"
+        app:indicator_color="@color/white"
         />
 
   </RelativeLayout>
@@ -132,7 +229,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
-      android:background="#66000000"
+      android:background="#10000000"
       android:divider="@mipmap/ic_img_line_v"
       android:dividerPadding="@dimen/spacing_medium"
       android:showDividers="middle">

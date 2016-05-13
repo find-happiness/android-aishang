@@ -68,7 +68,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
     }
 
     holder.status.setText(status);
-    holder.price.setText(item.getCreditByCard() + "");
+    holder.price.setText("￥" + item.getCreditByCard() + "");
 
     holder.itemView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {

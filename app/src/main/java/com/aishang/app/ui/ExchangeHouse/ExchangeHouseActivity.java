@@ -55,9 +55,9 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
 
   @Inject ExchangeHousePresenter presenter;
   @Bind(R.id.toolbar) Toolbar toolbar;
-  @Bind(R.id.expandable_text) TextView expandableText;
-  @Bind(R.id.expand_collapse) ImageButton expandCollapse;
-  @Bind(R.id.expand_text_view) ExpandableTextView expandTextView;
+  //@Bind(R.id.expandable_text) TextView expandableText;
+  //@Bind(R.id.expand_collapse) ImageButton expandCollapse;
+  //@Bind(R.id.expand_text_view) ExpandableTextView expandTextView;
   @Bind(R.id.layoutRoot) RelativeLayout layoutRoot;
   @Bind(R.id.banner) ImageView banner;
   @Bind(R.id.owner) MaterialEditText owner;
@@ -92,7 +92,7 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
     initBanner();
     initFaciliteType1();
     initFaciliteType2();
-    expandTextView.setText(this.getString(R.string.holiday_house_rule));
+    // expandTextView.setText(this.getString(R.string.holiday_house_rule));
     facilitesType1Adapter = new FaciliteAdapter(this);
     facilitesType1.setAdapter(facilitesType1Adapter);
     facilitesType2Adapter = new FaciliteAdapter(this);
@@ -443,9 +443,7 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
       CheckBox checkBox = new CheckBox(act);
 
       final String str = facilites.get(position).getFacilitesName();
-
       checkBox.setText(str);
-
       checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
         @Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
           if (isChecked) {

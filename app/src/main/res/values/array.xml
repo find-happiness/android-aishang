@@ -17,4 +17,17 @@
     <item>中国邮政储蓄银行</item>
     <item>浦发银行</item>
   </string-array>
+
+  <string-array name="house_type">
+    <item>洋房</item>
+    <item>住宅</item>
+    <item>其他</item>
+  </string-array>
+  <string-array name="room_type">
+    <item>单间配套</item>
+    <item>一室一厅</item>
+    <item>两室一厅</item>
+    <item>三室一厅</item>
+    <item>其他</item>
+  </string-array>
 </resources>

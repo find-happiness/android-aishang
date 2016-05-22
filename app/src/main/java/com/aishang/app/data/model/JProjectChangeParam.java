@@ -6,19 +6,18 @@ package com.aishang.app.data.model;
 public class JProjectChangeParam {
 
   /**
-   * propertyOwner : asddf
-   * IDNumber : 500239166001306118
-   * houseAddress : sdfsdf
-   * roomType : sfsdfs
-   * area : 34
-   * contactsMobile : 13212345678
-   * Email : dfsfsdfs@dsdfs.com
-   * appliancesType : 宽带上网,空调,24小时热水,吹风机
-   * homeFurnishingType : 沙发
+   * propertyOwner : 挖红薯淀
+   * IDNumber : 000000000000000000
+   * houseAddress : 北京市 北京市 崇文区 啥豆沙红第三方斯蒂芬
+   * roomType : 单间配套
+   * area : 32
+   * contactsMobile : 13312121212
+   * Email :
+   * appliancesType :
+   * homeFurnishingType :
    * status : 1
+   * houseType : 洋房
    */
-
-
 
   private String propertyOwner;
   private String IDNumber;
@@ -30,6 +29,7 @@ public class JProjectChangeParam {
   private String appliancesType;
   private String homeFurnishingType;
   private String status;
+  private String houseType;
 
   public String getPropertyOwner() {
     return propertyOwner;
@@ -109,5 +109,13 @@ public class JProjectChangeParam {
 
   public void setStatus(String status) {
     this.status = status;
+  }
+
+  public String getHouseType() {
+    return houseType;
+  }
+
+  public void setHouseType(String houseType) {
+    this.houseType = houseType;
   }
 }

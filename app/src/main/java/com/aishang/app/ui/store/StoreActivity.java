@@ -2,7 +2,6 @@ package com.aishang.app.ui.store;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.graphics.drawable.DrawableUtils;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -13,8 +12,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.aishang.app.R;
 import com.aishang.app.util.CommonUtil;
-import com.amap.api.maps2d.model.BitmapDescriptor;
-import com.amap.api.maps2d.model.BitmapDescriptorFactory;
 
 public class StoreActivity extends AppCompatActivity {
 

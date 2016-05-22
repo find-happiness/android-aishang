@@ -2,38 +2,36 @@ package com.aishang.app.ui.ExchangeHouse;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JHotelRoomFacilitesCatListResult;
 import com.aishang.app.ui.base.BaseActivity;
 import com.aishang.app.util.AiShangUtil;
+import com.aishang.app.util.Area;
 import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.DialogFactory;
 import com.aishang.app.util.RegexUtils;
-import com.aishang.app.widget.NonScrollGridView;
 import com.foamtrace.photopicker.PhotoPickerActivity;
-import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,7 +39,6 @@ import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
 import rx.Observable;
-import rx.Subscriber;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.functions.Func2;
@@ -61,22 +58,32 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
   @Bind(R.id.layoutRoot) RelativeLayout layoutRoot;
   @Bind(R.id.banner) ImageView banner;
   @Bind(R.id.owner) MaterialEditText owner;
-  @Bind(R.id.id_number) MaterialEditText idNumber;
-  @Bind(R.id.house_address) MaterialEditText houseAddress;
-  @Bind(R.id.room_type) MaterialEditText roomType;
+  //@Bind(R.id.id_number) MaterialEditText idNumber;
+  //@Bind(R.id.house_address) MaterialEditText houseAddress;
   @Bind(R.id.area) MaterialEditText area;
   @Bind(R.id.contactsPhone) MaterialEditText contactsPhone;
-  @Bind(R.id.Email) MaterialEditText Email;
-  @Bind(R.id.facilitesType1) NonScrollGridView facilitesType1;
-  @Bind(R.id.facilitesType2) NonScrollGridView facilitesType2;
+  @Bind(R.id.province) TextView province;
+  @Bind(R.id.city) TextView city;
+  @Bind(R.id.county) TextView county;
+  @Bind(R.id.house_name) MaterialEditText houseName;
+  @Bind(R.id.house_type) TextView houseType;
+  @Bind(R.id.room_type) TextView roomType;
+  @Bind(R.id.layout_province) RelativeLayout layoutProvince;
+  @Bind(R.id.layout_city) RelativeLayout layoutCity;
+  @Bind(R.id.layout_county) RelativeLayout layoutCounty;
+  @Bind(R.id.layout_house_type) LinearLayout layoutHouseType;
+  @Bind(R.id.layout_room_type) LinearLayout layoutRoomType;
+  //@Bind(R.id.Email) MaterialEditText Email;
+  //@Bind(R.id.facilitesType1) NonScrollGridView facilitesType1;
+  //@Bind(R.id.facilitesType2) NonScrollGridView facilitesType2;
   private ProgressDialog progressDialog;
 
   private String selectImgUrl;
 
   private boolean loadImgScuess = false;
 
-  private FaciliteAdapter facilitesType1Adapter;
-  private FaciliteAdapter facilitesType2Adapter;
+  //private FaciliteAdapter facilitesType1Adapter;
+  //private FaciliteAdapter facilitesType2Adapter;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -90,14 +97,14 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
 
     initToolbar();
     initBanner();
-    initFaciliteType1();
-    initFaciliteType2();
+    //initFaciliteType1();
+    //initFaciliteType2();
     // expandTextView.setText(this.getString(R.string.holiday_house_rule));
-    facilitesType1Adapter = new FaciliteAdapter(this);
-    facilitesType1.setAdapter(facilitesType1Adapter);
-    facilitesType2Adapter = new FaciliteAdapter(this);
-    facilitesType2.setAdapter(facilitesType2Adapter);
-    presenter.loadFacilites(1);
+    //facilitesType1Adapter = new FaciliteAdapter(this);
+    //facilitesType1.setAdapter(facilitesType1Adapter);
+    //facilitesType2Adapter = new FaciliteAdapter(this);
+    //facilitesType2.setAdapter(facilitesType2Adapter);
+    //presenter.loadFacilites(1);
   }
 
   @Override protected void onDestroy() {
@@ -105,25 +112,25 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
     super.onDestroy();
   }
 
-  private void initFaciliteType1() {
-    facilitesType1.setOnTouchListener(new View.OnTouchListener() {
-
-      @Override public boolean onTouch(View v, MotionEvent event) {
-        return MotionEvent.ACTION_MOVE == event.getAction();
-      }
-    });
-  }
-
-  private void initFaciliteType2() {
-    facilitesType1.setOnTouchListener(new View.OnTouchListener() {
-
-      @Override public boolean onTouch(View v, MotionEvent event) {
-        //return MotionEvent.ACTION_MOVE == event.getAction() ? true
-        //        : false;
-        return MotionEvent.ACTION_MOVE == event.getAction();
-      }
-    });
-  }
+  //private void initFaciliteType1() {
+  //  facilitesType1.setOnTouchListener(new View.OnTouchListener() {
+  //
+  //    @Override public boolean onTouch(View v, MotionEvent event) {
+  //      return MotionEvent.ACTION_MOVE == event.getAction();
+  //    }
+  //  });
+  //}
+  //
+  //private void initFaciliteType2() {
+  //  facilitesType1.setOnTouchListener(new View.OnTouchListener() {
+  //
+  //    @Override public boolean onTouch(View v, MotionEvent event) {
+  //      //return MotionEvent.ACTION_MOVE == event.getAction() ? true
+  //      //        : false;
+  //      return MotionEvent.ACTION_MOVE == event.getAction();
+  //    }
+  //  });
+  //}
 
   private void initBanner() {
     int[] size = CommonUtil.getHeightWithScreenWidth(this, 8, 3);
@@ -169,10 +176,10 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
       return;
     }
 
-    if (isIDNumberEmpty() || !RegexUtils.checkIdCard(idNumber.getText().toString().trim())) {
-      showIDNumberError();
-      return;
-    }
+    //if (isIDNumberEmpty() || !RegexUtils.checkIdCard(idNumber.getText().toString().trim())) {
+    //  showIDNumberError();
+    //  return;
+    //}
 
     if (isAddressEmpty()) {
       showAddressError();
@@ -189,18 +196,23 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
     //  return;
     //}
 
-    if (isTypeEmpty()) {
+    if (isHouseTypeEmpty()) {
       showHouseTypeError();
       return;
     }
 
-    if (isEmailEmpty() || !RegexUtils.checkEmail(Email.getText().toString().trim())) {
-      showEmailError();
+    if (isRoomTypeEmpty()) {
+      showRoomTypeError();
       return;
     }
 
-    if (isAddressEmpty()) {
-      showAddressError();
+    //if (isEmailEmpty() || !RegexUtils.checkEmail(Email.getText().toString().trim())) {
+    //  showEmailError();
+    //  return;
+    //}
+
+    if (isHouseNameEmpty()) {
+      showHouseNameError();
       return;
     }
 
@@ -234,16 +246,15 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
 
     //Log.i(TAG, "post: imgData size " + selectImgData.length());
 
-    Observable.zip(facilitesType1Adapter.getChecked(), facilitesType2Adapter.getChecked(),
-        new Func2<String, String, String>() {
-          @Override public String call(String s, String s2) {
-            return AiShangUtil.generProjectChangeParam(owner.getText().toString().trim(),
-                idNumber.getText().toString().trim(), houseAddress.getText().toString().trim(),
-                roomType.getText().toString().trim(), area.getText().toString().trim(),
-                contactsPhone.getText().toString().trim(), Email.getText().toString().trim(), s, s2,
-                "1");
-          }
-        }).subscribe(new Action1<String>() {
+    String address = province.getText() + " " + city + " " + county + " " + houseName;
+
+    String json =
+        AiShangUtil.generProjectChangeParam(owner.getText().toString().trim(), "000000000000000000",
+            address, houseType.getText().toString(), roomType.getText().toString(),
+            area.getText().toString().trim(), contactsPhone.getText().toString().trim(), "", "", "",
+            "1");
+
+    Observable.just(json).subscribe(new Action1<String>() {
       @Override public void call(String s) {
         presenter.postData(1, s);
       }
@@ -254,25 +265,40 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
     return TextUtils.isEmpty(owner.getText().toString().trim());
   }
 
-  private boolean isIDNumberEmpty() {
-    return TextUtils.isEmpty(idNumber.getText().toString().trim());
-  }
+  //private boolean isIDNumberEmpty() {
+  //  return TextUtils.isEmpty(idNumber.getText().toString().trim());
+  //}
 
   private boolean isAddressEmpty() {
-    return TextUtils.isEmpty(houseAddress.getText().toString().trim());
+
+    return layoutProvince.getTag() == null
+        || layoutCity.getTag() == null
+        || layoutCounty.getTag() == null;
   }
 
-  private boolean isTypeEmpty() {
-    return TextUtils.isEmpty(roomType.getText().toString().trim());
+  private boolean isHouseNameEmpty() {
+    return TextUtils.isEmpty(houseName.getText());
+  }
+
+  private boolean isRoomTypeEmpty() {
+
+    String type = roomType.getText().toString();
+
+    return TextUtils.isEmpty(roomType.getText()) || type.equals("请选择");
+  }
+
+  private boolean isHouseTypeEmpty() {
+    String type = houseType.getText().toString();
+    return TextUtils.isEmpty(houseType.getText()) || type.equals("请选择");
   }
 
   private boolean isAreaEmpty() {
     return TextUtils.isEmpty(area.getText().toString().trim());
   }
 
-  private boolean isEmailEmpty() {
-    return TextUtils.isEmpty(Email.getText().toString().trim());
-  }
+  //private boolean isEmailEmpty() {
+  //  return TextUtils.isEmpty(Email.getText().toString().trim());
+  //}
 
   private boolean isPhoneEmpty() {
     return TextUtils.isEmpty(contactsPhone.getText())
@@ -295,6 +321,10 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
     showError("房屋地址不能为空！");
   }
 
+  private void showHouseNameError() {
+    showError("项目名称不能为空！");
+  }
+
   private void showIDNumberError() {
     showError("身份证好有误！");
   }
@@ -304,6 +334,10 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
   }
 
   private void showHouseTypeError() {
+    showError("房屋类型不能为空！");
+  }
+
+  private void showRoomTypeError() {
     showError("户型不能为空！");
   }
 
@@ -352,11 +386,11 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
                       @Override public void call(
                           JHotelRoomFacilitesCatListResult.HotelRoomFacilitesCatListEntity entity) {
                         if (hotelRoomFacilitesCatListEntityGroupedObservable.getKey() == 1) {
-                          facilitesType1Adapter.facilites.add(entity);
-                          facilitesType1Adapter.notifyDataSetChanged();
+                          //facilitesType1Adapter.facilites.add(entity);
+                          //facilitesType1Adapter.notifyDataSetChanged();
                         } else {
-                          facilitesType2Adapter.facilites.add(entity);
-                          facilitesType2Adapter.notifyDataSetChanged();
+                          //facilitesType2Adapter.facilites.add(entity);
+                          //facilitesType2Adapter.notifyDataSetChanged();
                         }
                       }
                     });
@@ -411,6 +445,132 @@ public class ExchangeHouseActivity extends BaseActivity implements ExchangeHouse
           break;
       }
     }
+  }
+
+  @OnClick({
+      R.id.layout_province, R.id.layout_city, R.id.layout_county, R.id.layout_house_type,
+      R.id.layout_room_type
+  }) public void onClick(View view) {
+    switch (view.getId()) {
+      case R.id.layout_province:
+        showProvinceDialog();
+        break;
+      case R.id.layout_city:
+        showCityDialog();
+        break;
+      case R.id.layout_county:
+        showCountyDialog();
+        break;
+      case R.id.layout_house_type:
+        showHouseTypeDialog();
+        break;
+      case R.id.layout_room_type:
+        showRoomTypeDialog();
+        break;
+    }
+  }
+
+  private void showHouseTypeDialog() {
+
+    DialogFactory.createSingleChoiceDialog(this, R.array.house_type, -1,
+        new DialogInterface.OnClickListener() {
+          @Override public void onClick(DialogInterface dialog, int which) {
+            houseType.setText(ExchangeHouseActivity.this.getResources()
+                .getStringArray(R.array.house_type)[which]);
+            dialog.dismiss();
+          }
+        }, R.string.type_select).show();
+  }
+
+  private void showRoomTypeDialog() {
+
+    DialogFactory.createSingleChoiceDialog(this, R.array.room_type, -1,
+        new DialogInterface.OnClickListener() {
+          @Override public void onClick(DialogInterface dialog, int which) {
+            roomType.setText(
+                ExchangeHouseActivity.this.getResources().getStringArray(R.array.room_type)[which]);
+            dialog.dismiss();
+          }
+        }, R.string.type_select).show();
+  }
+
+  private void showProvinceDialog() {
+
+    final String[] strProvince = Area.loadProvince().split(",");
+    Object tag = layoutProvince.getTag();
+    final int def = tag == null ? -1 : (Integer) tag;
+
+    DialogFactory.createSingleChoiceDialog(this, strProvince, def,
+        new DialogInterface.OnClickListener() {
+          @Override public void onClick(DialogInterface dialog, int which) {
+            layoutProvince.setTag(which);
+            province.setText(strProvince[which]);
+
+            layoutCity.setTag(null);
+            city.setText("请选择");
+
+            layoutCounty.setTag(null);
+            county.setText("请选择");
+            dialog.dismiss();
+          }
+        }, "请选择").show();
+  }
+
+  private void showCityDialog() {
+    Object tagProvince = layoutProvince.getTag();
+
+    if (tagProvince == null) {
+      showError("请先选择省/直辖市级");
+      return;
+    }
+
+    final String[] strCity = Area.changeProvince((Integer) tagProvince).split(",");
+
+    Object tag = layoutCity.getTag();
+    int def = tag == null ? -1 : (Integer) tag;
+
+    DialogFactory.createSingleChoiceDialog(this, strCity, def,
+        new DialogInterface.OnClickListener() {
+          @Override public void onClick(DialogInterface dialog, int which) {
+            layoutCity.setTag(which);
+            city.setText(strCity[which]);
+
+            layoutCounty.setTag(null);
+            county.setText("请选择");
+
+            dialog.dismiss();
+          }
+        }, "请选择").show();
+  }
+
+  private void showCountyDialog() {
+    Object tagProvince = layoutProvince.getTag();
+
+    if (tagProvince == null) {
+      showError("请先选择省/直辖市级");
+      return;
+    }
+
+    Object tagCity = layoutCity.getTag();
+    if (tagCity == null) {
+      showError("请先选择市/州级");
+      return;
+    }
+
+    final String[] strCounty =
+        Area.changeCounty((Integer) tagProvince, (Integer) tagCity).split(",");
+
+    Object tag = layoutCounty.getTag();
+    int def = tag == null ? -1 : (Integer) tag;
+
+    DialogFactory.createSingleChoiceDialog(this, strCounty, def,
+        new DialogInterface.OnClickListener() {
+          @Override public void onClick(DialogInterface dialog, int which) {
+            layoutCounty.setTag(which);
+            county.setText(strCounty[which]);
+            dialog.dismiss();
+          }
+        }, "请选择").show();
   }
 
   class FaciliteAdapter extends BaseAdapter {

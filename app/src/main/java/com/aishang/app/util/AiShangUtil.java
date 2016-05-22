@@ -477,7 +477,7 @@ public class AiShangUtil {
   }
 
   public static String generProjectChangeParam(String propertyOwner, String IDNumber,
-      String houseAddress, String roomType, String area, String contactsMobile, String email,
+      String houseAddress,String houseType, String roomType, String area, String contactsMobile, String email,
       String appliancesType, String homeFurnishingType, String status) {
 
     JProjectChangeParam param = new JProjectChangeParam();
@@ -490,6 +490,7 @@ public class AiShangUtil {
     param.setEmail(email);
     param.setAppliancesType(appliancesType);
     param.setHomeFurnishingType(homeFurnishingType);
+    param.setHouseType(houseType);
     param.setStatus(status);
 
     return gson.toJson(param);

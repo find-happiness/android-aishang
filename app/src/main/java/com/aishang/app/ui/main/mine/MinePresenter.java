@@ -15,6 +15,7 @@ import com.aishang.app.ui.MyBuyAndSale.BuyAndSaleActivity;
 import com.aishang.app.ui.MyCard.TravelCardActivity;
 import com.aishang.app.ui.MyHouse.MyHouseActivity;
 import com.aishang.app.ui.MyOrder.MyOrderActivity;
+import com.aishang.app.ui.TraveServer.TraveServerActivity;
 import com.aishang.app.ui.TravelFavorites.TravelFavoritesActivity;
 import com.aishang.app.ui.about.AboutActivity;
 import com.aishang.app.ui.base.BasePresenter;
@@ -157,6 +158,14 @@ public class MinePresenter extends BasePresenter<MineMvpView> {
     Activity act = ((MineFragment) getMvpView()).getActivity();
 
     Intent intent = new Intent(act, AboutActivity.class);
+
+    act.startActivity(intent);
+  }
+
+  public void intentToTraveServer() {
+    Activity act = ((MineFragment) getMvpView()).getActivity();
+
+    Intent intent = new Intent(act, TraveServerActivity.class);
 
     act.startActivity(intent);
   }

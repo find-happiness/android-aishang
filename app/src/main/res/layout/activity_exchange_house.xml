@@ -75,7 +75,88 @@
           android:textColor="@color/text_gray"
           android:textSize="@dimen/text_body"
           />
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_margin="@dimen/spacing_medium"
+          android:orientation="vertical"
+          >
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="小爱为您准备了托管的三大福利哦"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:drawableLeft="@mipmap/circle_tu"
+            android:drawablePadding="@dimen/spacing_medium"
+            android:text="管家服务"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:lineSpacingExtra="@dimen/spacing_medium"
+            android:text="小爱提供专业的酒店管理团队，现场管理，为你提供房屋通风、房屋清洁、水电安全、物品晾晒、物品整理、四害防治、电器维护。保持房屋最佳状态，常驻常新。"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:drawableLeft="@mipmap/circle_tu"
+            android:drawablePadding="@dimen/spacing_medium"
+            android:text="换住服务"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:lineSpacingExtra="@dimen/spacing_medium"
+            android:text="小爱利用共享经济的思维理念，整合全国景区闲置度假屋，让您免费享受不同地区、不同类型的度假屋，从此度假不在住酒店，让您享受不同的人文景色、体验不同风格的家"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:drawableLeft="@mipmap/circle_tu"
+            android:drawablePadding="@dimen/spacing_medium"
+            android:text="五五分成"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:lineSpacingExtra="@dimen/spacing_medium"
+            android:text="小爱为你创造更多的增值收益，线下专业的酒店管理公司为你运营，你在享受免费度假的同时，获得丰厚的经济收益"
+            android:textColor="@color/text_gray"
+            android:textSize="@dimen/text_body"
+            />
+      </LinearLayout>
       <View
           android:layout_width="match_parent"
           android:layout_height="1dp"

@@ -291,7 +291,7 @@ public class AiShangUtil {
   public static void setWebViewContent(final WebView wv, String content) {
     content = CommonUtil.htmldecode(content);
     wv.getSettings().setDefaultTextEncodingName("utf-8");
-    wv.loadDataWithBaseURL(AiShangService.AiShangHost, content, "text/html; charset=UTF-8", null,
+    wv.loadDataWithBaseURL(AiShangService.AiShangHost, content, "text/html", "charset=UTF-8",
         null);// 这种写法可以正确解码
 
     // updateExpandable(wv);
@@ -723,8 +723,8 @@ public class AiShangUtil {
   public static String generNewsHitsParam(String memberAccount, String cookies, int newsID) {
 
     JNewsHitsParam param = new JNewsHitsParam();
-    //param.setMemberAccount(memberAccount);
-    //param.setCookie(cookies);
+    param.setMemberAccount(memberAccount);
+    param.setCookie(cookies);
     param.setNewsId(newsID);
 
     return gson.toJson(param);

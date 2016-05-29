@@ -6,13 +6,15 @@
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/spacing_medium"
     android:background="@android:color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
   <RelativeLayout
       android:id="@+id/title"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:orientation="horizontal">
+      android:orientation="horizontal"
+      >
 
     <TextView
         android:id="@+id/type"
@@ -25,7 +27,8 @@
         android:singleLine="true"
         android:textColor="@android:color/black"
         android:textSize="@dimen/text_body"
-        tools:text="三室及以上"/>
+        tools:text="三室及以上"
+        />
 
 
     <LinearLayout
@@ -33,7 +36,8 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@id/type"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        >
 
       <TextView
           android:layout_width="wrap_content"
@@ -50,6 +54,7 @@
           android:background="@drawable/tu_stroke_corner"
           android:drawableRight="@mipmap/ic_trangle"
           android:ems="5"
+          android:gravity="center_horizontal"
           android:maxLength="5"
           android:paddingBottom="@dimen/spacing_small"
           android:paddingLeft="@dimen/spacing_small"
@@ -69,12 +74,14 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginRight="@dimen/spacing_small"
-        android:gravity="center">
+        android:gravity="center"
+        >
 
       <ImageView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:background="@mipmap/ic_rotate_arrow"/>
+          android:background="@mipmap/ic_rotate_arrow"
+          />
     </RelativeLayout>
 
     <LinearLayout
@@ -82,13 +89,15 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@id/button"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        >
 
       <ImageView
           android:id="@+id/sub"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:src="@mipmap/ic_sub"/>
+          android:src="@mipmap/ic_sub"
+          />
 
       <TextView
           android:id="@+id/order_room_num"
@@ -98,13 +107,15 @@
           android:layout_marginLeft="@dimen/spacing_medium"
           android:layout_marginRight="@dimen/spacing_medium"
           android:textColor="@color/primary"
-          tools:text="11"/>
+          tools:text="11"
+          />
 
       <ImageView
           android:id="@+id/add"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:src="@mipmap/ic_add"/>
+          android:src="@mipmap/ic_add"
+          />
     </LinearLayout>
 
 
@@ -119,14 +130,16 @@
       android:layout_marginRight="@dimen/spacing_small"
       app:ael_duration="400"
       app:ael_expanded="false"
-      app:ael_orientation="vertical">
+      app:ael_orientation="vertical"
+      >
 
 
     <LinearLayout
         android:id="@+id/ll_services"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        >
 
       <ImageView
           android:id="@+id/service1"
@@ -176,7 +189,8 @@
         android:layout_alignParentRight="true"
         android:text="$300"
         android:textColor="@color/price"
-        android:textSize="@dimen/text_title"/>
+        android:textSize="@dimen/text_title"
+        />
 
     <LinearLayout
         android:id="@+id/ll_imgs"
@@ -184,7 +198,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_services"
         android:layout_marginTop="@dimen/spacing_medium"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        >
 
       <ImageView
           android:id="@+id/img_1"
@@ -192,7 +207,8 @@
           android:layout_height="90dp"
           android:layout_marginRight="@dimen/spacing_medium"
           android:scaleType="centerInside"
-          android:src="@mipmap/banner"/>
+          android:src="@mipmap/banner"
+          />
 
       <ImageView
           android:id="@+id/img_2"
@@ -200,14 +216,16 @@
           android:layout_height="90dp"
           android:layout_marginRight="@dimen/spacing_medium"
           android:scaleType="centerInside"
-          android:src="@mipmap/banner"/>
+          android:src="@mipmap/banner"
+          />
 
       <ImageView
           android:id="@+id/img_3"
           android:layout_width="160dp"
           android:layout_height="90dp"
           android:scaleType="centerInside"
-          android:src="@mipmap/banner"/>
+          android:src="@mipmap/banner"
+          />
     </LinearLayout>
 
     <LinearLayout
@@ -216,12 +234,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_imgs"
         android:layout_marginTop="@dimen/spacing_medium"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
       <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:orientation="horizontal">
+          android:orientation="horizontal"
+          >
 
         <TextView
             android:id="@+id/floors"
@@ -231,7 +251,8 @@
             android:layout_weight="1"
             android:text="$300"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/text_body"/>
+            android:textSize="@dimen/text_body"
+            />
 
         <TextView
             android:id="@+id/area"
@@ -242,7 +263,8 @@
             android:gravity="right"
             android:text="$300"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/text_body"/>
+            android:textSize="@dimen/text_body"
+            />
       </LinearLayout>
 
       <LinearLayout
@@ -250,7 +272,8 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/spacing_small"
-          android:orientation="horizontal">
+          android:orientation="horizontal"
+          >
 
         <TextView
             android:id="@+id/bedCount"
@@ -260,7 +283,8 @@
             android:layout_weight="1"
             android:text="2"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/text_body"/>
+            android:textSize="@dimen/text_body"
+            />
 
         <TextView
             android:id="@+id/bedType"
@@ -271,7 +295,8 @@
             android:gravity="right"
             android:text="$300"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/text_body"/>
+            android:textSize="@dimen/text_body"
+            />
       </LinearLayout>
 
       <TextView
@@ -282,7 +307,8 @@
           android:layout_marginTop="@dimen/spacing_small"
           android:text="$300"
           android:textColor="@android:color/black"
-          android:textSize="@dimen/text_body"/>
+          android:textSize="@dimen/text_body"
+          />
 
       <TextView
           android:id="@+id/comment"
@@ -292,7 +318,8 @@
           android:layout_marginTop="@dimen/spacing_small"
           android:text="$300"
           android:textColor="@android:color/black"
-          android:textSize="@dimen/text_body"/>
+          android:textSize="@dimen/text_body"
+          />
     </LinearLayout>
 
 
@@ -305,7 +332,8 @@
         android:layout_marginBottom="@dimen/spacing_medium"
         android:layout_marginTop="@dimen/spacing_medium"
         android:background="@color/primary"
-        android:text="@string/buy_now"
-        android:textColor="@color/white"/>
+        android:text="@string/buy_hotel"
+        android:textColor="@color/white"
+        />
   </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 </RelativeLayout>

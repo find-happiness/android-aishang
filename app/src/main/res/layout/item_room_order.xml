@@ -117,7 +117,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/spacing_small"
         android:layout_weight="1"
-        android:textColor="@color/text_gray"
+        android:textColor="@color/primary"
         android:textSize="@dimen/text_body"
         tools:text="2016-09-07"
         />

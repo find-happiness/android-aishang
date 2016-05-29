@@ -120,6 +120,7 @@ public class RoomAdapter {
     bindData(holder, defaultCat);
 
     holder.orderRoomNum.setTag(0);
+    holder.orderRoomNum.setText(0+"");
 
     holder.add.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
@@ -131,8 +132,8 @@ public class RoomAdapter {
         }
 
         if (num > 0) {
-          holder.sub.setVisibility(View.VISIBLE);
-          holder.orderRoomNum.setVisibility(View.VISIBLE);
+          //holder.sub.setVisibility(View.VISIBLE);
+          //holder.orderRoomNum.setVisibility(View.VISIBLE);
         }
       }
     });
@@ -147,14 +148,14 @@ public class RoomAdapter {
         }
 
         if (num <= 0) {
-          holder.sub.setVisibility(View.GONE);
-          holder.orderRoomNum.setVisibility(View.GONE);
+          //holder.sub.setVisibility(View.GONE);
+         //holder.orderRoomNum.setVisibility(View.GONE);
         }
       }
     });
 
-    holder.sub.setVisibility(View.GONE);
-    holder.orderRoomNum.setVisibility(View.GONE);
+    //holder.sub.setVisibility(View.GONE);
+    //holder.orderRoomNum.setVisibility(View.GONE);
 
     holder.roomCat.setText(defaultCat.getRoomCatName());
 
@@ -203,6 +204,10 @@ public class RoomAdapter {
         }
       }
     });
+
+    //if(postion == 0) {
+    //  holder.expandableLayout.setExpanded(true);
+    //}
     return roomItem;
   }
 
@@ -210,12 +215,12 @@ public class RoomAdapter {
       JHotelRoomCatListByhotelIDResult.HotelRoomCatListEntity entity) {
 
     holder.roomPrice.setText("￥" + entity.getBasicPrice());
-    holder.bedCount.setText("床数:" + entity.getBedCount());
-    holder.bedType.setText("床型:" + entity.getBedTypeName());
-    holder.maxGuest.setText("可入住人数:" + entity.getMaxGuest());
-    holder.area.setText("面积:" + entity.getTotalAreaMax() + "平方米");
-    holder.comment.setText("描述:" + entity.getComment());
-    holder.floors.setText("楼层:" + entity.getFloors());
+    holder.bedCount.setText("床数:  " + entity.getBedCount());
+    holder.bedType.setText("床型:  " + entity.getBedTypeName());
+    holder.maxGuest.setText("可入住人数:  " + entity.getMaxGuest());
+    holder.area.setText("面积:  " + entity.getTotalAreaMax() + "平方米");
+    holder.comment.setText("描述:  " + entity.getComment());
+    holder.floors.setText("楼层:  " + entity.getFloors());
 
     int i = 0;
     for (String strImgUrl : entity.getImagesList()) {
@@ -334,6 +339,10 @@ public class RoomAdapter {
             (int) viewHolder.orderRoomNum.getTag());
       }
     }).toList();
+  }
+
+  public void toggle(int index){
+    viewHolders.get(index).button.performClick();
   }
 
   private boolean checkLogin() {

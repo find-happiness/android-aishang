@@ -45,7 +45,7 @@ public class BrokerCenterAdapter extends RecyclerView.Adapter<BrokerCenterAdapte
     holder.phone.setText(item.getTelephone());
     holder.status.setText(item.getStatus());
     holder.date.setText(item.getCreateTime());
-    holder.price.setText("分佣" + item.getCommission());
+    holder.price.setText("分佣 " + item.getCommission());
 
     holder.itemView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {

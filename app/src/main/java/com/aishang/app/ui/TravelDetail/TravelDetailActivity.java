@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.http.SslError;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.AppCompatEditText;
@@ -12,6 +13,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -55,9 +57,7 @@ public class TravelDetailActivity extends BaseActivity implements TravelDetailMv
   @Bind(R.id.toolbar) Toolbar toolbar;
   @Bind(R.id.webview) WebView webview;
   @Bind(R.id.layoutRoot) SoftInputLinearLayout layoutRoot;
-
   @Inject TravelDetailPresenter presenter;
-
   @Bind(R.id.ll_action_btn_bottom) LinearLayout llActionBtnBottom;
   @Bind(R.id.et_pinglun) AppCompatEditText etPinglun;
   @Bind(R.id.pinglunContainer) RelativeLayout pinglunContainer;
@@ -208,18 +208,27 @@ public class TravelDetailActivity extends BaseActivity implements TravelDetailMv
 
   private void initWebView() {
     webview.setVisibility(WebView.VISIBLE);
-    webview.getSettings().setSupportZoom(false);
-    webview.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-    webview.getSettings().setBuiltInZoomControls(false);
-    webview.getSettings().setJavaScriptEnabled(true);
-    webview.clearCache(true);
+    //webview.getSettings().setSupportZoom(false);
+    //webview.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+   // webview.getSettings().setBuiltInZoomControls(false);
+   // webview.getSettings().setJavaScriptEnabled(true);
+   // webview.getSettings().setBlockNetworkImage(false);
+   // webview.clearCache(true);
     webview.setWebViewClient(new WebViewClient() {
       @Override public void onPageFinished(WebView view, String url) {
-        if (progress != null && progress.isShowing()) {
-          progress.dismiss();
-        }
+        super.onPageFinished(view, url);
+        //if (progress != null && progress.isShowing()) {
+        //  progress.dismiss();
+        //}
+      }
+
+      @Override
+      public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+        //super.onReceivedSslError(view, handler, error);
+        handler.proceed();
       }
     });
+
   }
 
   private void loadData() {
@@ -248,14 +257,26 @@ public class TravelDetailActivity extends BaseActivity implements TravelDetailMv
 
     if (swipeRefresh.isRefreshing()) swipeRefresh.setRefreshing(false);
 
-    AiShangUtil.setWebViewContent(webview, result.getContent());
+    //AiShangUtil.setWebViewContent(webview, result.getContent());
+
+    webview.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+    String content = CommonUtil.htmldecode(result.getContent());
+    webview.getSettings().setDefaultTextEncodingName("utf-8");
+    //wv.loadData(content, "text/html; charset=UTF-8", null);// 这种写法可以正确解码
+
+    //content = content.replaceAll("<img src=",
+    //    "<img width=\"100%\" style=\"background:url(http://ueditor.baidu.com/ueditor/lang/zh-cn/images/localimage.png) no-repeat center center;border:1px solid #ddd\" src=");
+
+    webview.loadDataWithBaseURL(AiShangService.AiShangHost, content, "text/html", "charset=UTF-8",
+        null);
+
     title.setText(result.getTitle());
     userName.setText(result.getAuthorName() + "");
   }
 
   @Override public void showDialog() {
-    progress = DialogFactory.createProgressDialog(this, R.string.listview_loading);
-    progress.show();
+    //progress = DialogFactory.createProgressDialog(this, R.string.listview_loading);
+    //progress.show();
   }
 
   @Override public void showError(String error) {
@@ -402,12 +423,11 @@ public class TravelDetailActivity extends BaseActivity implements TravelDetailMv
   }
 
   private void onclickDianZang() {
-    if (checkLogin()) {
-      String[] datas = getMemberAndCookies();
-      if (datas == null) return;
-      presenter.postNewsHits(0, AiShangUtil.generNewsHitsParam(datas[0], datas[1], newsID));
+    String[] datas = getMemberAndCookies();
+    if (datas == null) {
+      presenter.postNewsHits(0, AiShangUtil.generNewsHitsParam("", "", newsID));
     } else {
-      showLoginDialog();
+      presenter.postNewsHits(0, AiShangUtil.generNewsHitsParam(datas[0], datas[1], newsID));
     }
   }
 

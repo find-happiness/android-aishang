@@ -149,6 +149,7 @@
               android:layout_marginRight="@dimen/spacing_medium"
               android:textSize="@dimen/text_body"
               tools:text="￥300元"
+              android:textColor="@color/price"
               />
         </FrameLayout>
 
@@ -243,7 +244,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="left|top"
                 android:src="@mipmap/ic_hotel_faclilite"
                 />
 
@@ -267,7 +268,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="left|top"
                 android:src="@mipmap/ic_hotel_service"
                 />
 
@@ -291,7 +292,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="left|top"
                 android:src="@mipmap/ic_hotel_special"
                 />
 
@@ -336,7 +337,7 @@
           <ImageView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_gravity="center_vertical"
+              android:layout_gravity="left|top"
               android:layout_marginLeft="@dimen/spacing_medium"
               android:layout_marginTop="@dimen/spacing_medium"
               android:src="@mipmap/ic_hotel_rule"

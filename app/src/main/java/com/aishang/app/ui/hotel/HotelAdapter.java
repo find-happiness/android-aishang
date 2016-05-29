@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,7 +66,7 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> 
         .into(holder.imgInSale);
 
     holder.name.setText(hotel.getName());
-    holder.tese.setText(hotel.getTags());
+    holder.tese.setText(TextUtils.isEmpty(hotel.getTags()) ? "暂无描述" : hotel.getTags());
     holder.priceText.setText("￥" + hotel.getPriceText());
     holder.type.setText(hotel.getRoomDepict());
     holder.houseType.setText(hotel.getPropertyCat());

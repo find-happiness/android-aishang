@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -65,7 +66,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
+import rx.Observable;
 import rx.functions.Action1;
 
 public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpView {
@@ -503,6 +506,15 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
     }
 
     roomContainer.requestLayout();
+
+    if (roomCats.size() > 0) {
+
+      new Handler().postDelayed(new Runnable() {
+        @Override public void run() {
+          roomAdapter.toggle(0);
+        }
+      }, 100);
+    }
     //bindHotelRoom(result.getDataSet().getRoomCatList());
   }
 

@@ -269,6 +269,11 @@ public class MineFragment extends Fragment implements MineMvpView {
       mMinePresenter.intentToAbout();
     }
 
+    @OnClick(R.id.btn_trave_server) void traveServerClick() {
+      //if (checkLoginAndShowDialog()) mMinePresenter.intentToAbout();
+      mMinePresenter.intentToTraveServer();
+    }
+
     public ContentViewHolder(View view) {
       ButterKnife.bind(this, view);
     }

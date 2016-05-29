@@ -61,8 +61,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+        <com.aishang.app.widget.ImgWithText
+            android:id="@+id/btn_wo_de_fang_chang"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="@dimen/spacing_medium"
+            custom:img="@mipmap/iconfont_fangchan"
+            custom:text="@string/wo_de_fang_chang" />
 
         <com.aishang.app.widget.ImgWithText
+            android:visibility="gone"
             android:id="@+id/btn_travel_card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -71,6 +81,7 @@
             android:paddingBottom="@dimen/spacing_medium"
             custom:img="@mipmap/iconfont_lvjuka"
             custom:text="@string/travel_card" />
+
 
         <View
             android:layout_width="1dp"
@@ -128,14 +139,14 @@
             android:background="@color/line" />
 
         <com.aishang.app.widget.ImgWithText
-            android:id="@+id/btn_wo_de_fang_chang"
+            android:id="@+id/btn_trave_server"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:paddingBottom="@dimen/spacing_medium"
-            custom:img="@mipmap/iconfont_fangchan"
-            custom:text="@string/wo_de_fang_chang" />
+            custom:img="@mipmap/ic_trave_server"
+            custom:text="@string/trave_server" />
 
         <View
             android:layout_width="1dp"

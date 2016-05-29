@@ -42,6 +42,7 @@
         android:layout_marginLeft="10dp"
         android:lines="1"
         android:textSize="@dimen/text_small_body"
+        android:textColor="@color/green"
         tools:text="宜春|曦园柳镇"
         />
 

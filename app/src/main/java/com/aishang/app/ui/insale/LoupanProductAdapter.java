@@ -66,7 +66,7 @@ public class LoupanProductAdapter extends RecyclerView.Adapter<LoupanProductAdap
     final JLoupanProductListResult.Loupan loupan = loupanProducts.get(position).getLoupan();
     final JLoupanProductListResult.Product product = loupanProducts.get(position).getProduct();
 
-    holder.name.setText(loupan.getName()+"|"+ product.getTitle());
+    holder.name.setText(loupan.getName() + "|" + product.getTitle());
 
     Picasso.with(holder.getContext())
         .load(AiShangService.IMG_URL + product.getImageUrl())
@@ -74,7 +74,12 @@ public class LoupanProductAdapter extends RecyclerView.Adapter<LoupanProductAdap
         .placeholder(R.mipmap.banner)
         .into(holder.imgInSale);
 
-    holder.priceText.setText(product.getPrice() / 10000 + "万元");
+    if (product.getPrice() <= 0) {
+      holder.priceText.setText("暂无价格");
+    } else {
+      holder.priceText.setText(product.getPrice() / 10000 + "万元");
+    }
+
     holder.tese.setText(loupan.getPromotion());
     holder.address.setText(loupan.getAddress());
     holder.time.setText(loupan.getMoveInDate());

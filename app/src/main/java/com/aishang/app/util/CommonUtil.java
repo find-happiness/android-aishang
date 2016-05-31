@@ -65,6 +65,16 @@ public class CommonUtil {
     }
   }
 
+  public static String toUtf8(String str) {
+    String result = null;
+    try {
+      result = new String(str.getBytes("UTF-8"), "UTF-8");
+    } catch (UnsupportedEncodingException e) {
+      e.printStackTrace();
+    }
+    return result;
+  }
+
   public static int[] getHeightWithScreenWidth(Activity ctx, float widthRatio, float heightRatio) {
     DisplayMetrics localDisplayMetrics = new DisplayMetrics();
     ctx.getWindowManager().getDefaultDisplay().getMetrics(localDisplayMetrics);
@@ -150,11 +160,24 @@ public class CommonUtil {
     str = str.replace("&amp;", "&");
     str = str.replace("&gt;", ">");
     str = str.replace("&lt;", " <");
-    // str = str.replace("&nbsp;"," " );
+    str = str.replace("&nbsp;", " ");
     // str = str.replace( " &nbsp;","  ");
     str = str.replace("&quot;", "\"");
     str = str.replace("&#39;", "\'");
-    str = str.replace("<br/>", "\n");
+    str = str.replace("<br />", "\n");
+    return str;
+  }
+
+  public static String htmlencode(String str) {
+    if (str == null || str == "") return "";
+    str = str.replace("&", "&amp;");
+    str = str.replace(">", "&gt;");
+    str = str.replace(" <", "&lt;");
+    //str = str.replace(" " ,"&nbsp;");
+    // str = str.replace( " &nbsp;","  ");
+    str = str.replace("\"", "&quot;");
+    str = str.replace("\'", "&#39;");
+    str = str.replace("\n", "<br />");
     return str;
   }
 
@@ -226,7 +249,7 @@ public class CommonUtil {
     return bitmap;
   }
 
-  public static boolean isCanTakePhone(Context ctx){
+  public static boolean isCanTakePhone(Context ctx) {
     TelephonyManager tm = (TelephonyManager) ctx.getSystemService(Context.TELEPHONY_SERVICE);
     return tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE;
   }

@@ -111,7 +111,12 @@ import javax.inject.Inject;
         .placeholder(R.mipmap.banner)
         .into(holder.imgInSale);
 
-    holder.priceText.setText("￥" + product.getPrice() / 10000 + "万元");
+    if (product.getPrice() <= 0) {
+      holder.priceText.setText("暂无价格");
+    } else {
+      holder.priceText.setText("￥" + product.getPrice() / 10000 + "万元");
+    }
+    //holder.priceText.setText("￥" + product.getPrice() / 10000 + "万元");
     holder.address.setText(loupan.getAddress());
 
     convertView.setTag(holder);

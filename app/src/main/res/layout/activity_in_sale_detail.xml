@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layoutRoot"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
   <LinearLayout
       android:id="@+id/ll_action_button"
       android:layout_width="match_parent"
       android:layout_height="?attr/actionBarSize"
       android:layout_alignParentBottom="true"
-      android:orientation="horizontal">
+      android:orientation="horizontal"
+      >
 
     <ImageView
         android:id="@+id/take_phone"
@@ -19,19 +21,21 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:scaleType="fitXY"
         android:adjustViewBounds="true"
-        android:src="@drawable/take_phone"/>
+        android:scaleType="fitXY"
+        android:src="@drawable/take_phone"
+        />
 
     <ImageView
         android:id="@+id/take_online"
         android:layout_width="0dp"
-        android:visibility="gone"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
         android:adjustViewBounds="true"
-        android:src="@mipmap/take_online"/>
+        android:src="@mipmap/take_online"
+        android:visibility="gone"
+        />
 
     <TextView
         android:id="@+id/cantuan"
@@ -44,12 +48,14 @@
         android:text="@string/can_tuan"
         android:textColor="@android:color/white"
         android:textSize="@dimen/text_title"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        />
 
     <View
         android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:background="@color/gray"/>
+        android:background="@color/gray"
+        />
 
     <TextView
         android:id="@+id/buy"
@@ -61,7 +67,8 @@
         android:gravity="center"
         android:text="@string/buy_now"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/text_title"/>
+        android:textSize="@dimen/text_title"
+        />
 
   </LinearLayout>
 
@@ -69,14 +76,16 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_above="@id/ll_action_button"
-      android:fitsSystemWindows="true">
+      android:fitsSystemWindows="true"
+      >
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        >
 
       <android.support.design.widget.CollapsingToolbarLayout
           android:id="@+id/collapsing_toolbar"
@@ -87,7 +96,8 @@
           app:contentScrim="?attr/colorPrimary"
           app:expandedTitleMarginBottom="@dimen/spacing_medium"
           app:expandedTitleTextAppearance="@style/TextViewExpanded"
-          app:layout_scrollFlags="scroll|exitUntilCollapsed">
+          app:layout_scrollFlags="scroll|exitUntilCollapsed"
+          >
 
         <com.bigkoo.convenientbanner.ConvenientBanner
             android:id="@+id/convenientBanner"
@@ -95,14 +105,16 @@
             android:layout_height="200dp"
             app:canLoop="true"
             app:layout_collapseMode="parallax"
-            app:layout_collapseParallaxMultiplier="0.7"/>
+            app:layout_collapseParallaxMultiplier="0.7"
+            />
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_collapseMode="pin"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            />
 
       </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -115,22 +127,26 @@
         android:layout_height="match_parent"
         android:background="@android:color/white"
         android:clipToPadding="false"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
 
       <FrameLayout
           android:layout_width="match_parent"
-          android:layout_height="match_parent">
+          android:layout_height="match_parent"
+          >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingTop="@dimen/spacing_medium">
+            android:paddingTop="@dimen/spacing_medium"
+            >
 
           <LinearLayout
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:orientation="horizontal">
+              android:orientation="horizontal"
+              >
 
             <TextView
                 android:id="@+id/tv_title_name"
@@ -142,7 +158,8 @@
                 android:singleLine="true"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/text_large_body"
-                tools:text="宜春|宜春宜春宜"/>
+                tools:text="宜春|宜春宜春宜"
+                />
 
             <ImageView
                 android:id="@+id/status"
@@ -150,7 +167,55 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/spacing_large"
-                tools:src="@mipmap/icon_in_sale"/>
+                tools:src="@mipmap/icon_in_sale"
+                />
+
+          </LinearLayout>
+
+          <TextView
+              android:id="@+id/tese"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/spacing_medium"
+              android:gravity="left"
+              android:textColor="@color/primary"
+              android:textSize="@dimen/text_body"
+              />
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/spacing_medium"
+                android:gravity="left"
+                android:text="物业地址:"
+                android:textSize="@dimen/text_body"
+                />
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/spacing_small"
+                android:ellipsize="end"
+                android:ems="10"
+                android:gravity="left"
+                android:singleLine="true"
+                android:textSize="@dimen/text_body"
+                />
+
+            <TextView
+                android:id="@+id/price_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/spacing_small"
+                android:lines="1"
+                android:textColor="@color/price"
+                />
 
           </LinearLayout>
 
@@ -158,163 +223,220 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginLeft="@dimen/spacing_medium"
-              android:drawableLeft="@mipmap/line_red"
+              android:drawableLeft="@mipmap/line_blue"
+              android:drawablePadding="@dimen/spacing_small"
               android:gravity="center"
-              android:text="@string/xiang_mu_te_se_jie_shao"
-              android:textSize="@dimen/text_body"/>
+              android:text="基本信息"
+              android:textSize="@dimen/text_body"
+              />
 
           <View
               android:layout_width="match_parent"
               android:layout_height="1dp"
               android:layout_marginTop="@dimen/spacing_small"
-              android:background="@color/gray"/>
+              android:background="@color/gray"
+              />
 
           <WebView
               android:id="@+id/wv_description"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_marginTop="@dimen/spacing_medium"/>
+              android:layout_marginTop="@dimen/spacing_medium"
+              />
 
           <TextView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginLeft="@dimen/spacing_medium"
-              android:drawableLeft="@mipmap/line_red"
+              android:drawableLeft="@mipmap/line_blue"
+              android:drawablePadding="@dimen/spacing_small"
               android:gravity="center"
-              android:text="@string/loupan_detail"
-              android:textSize="@dimen/text_body"/>
+              android:text="项目介绍"
+              android:textSize="@dimen/text_body"
+              />
 
           <View
               android:layout_width="match_parent"
               android:layout_height="1dp"
               android:layout_marginTop="@dimen/spacing_small"
-              android:background="@color/gray"/>
+              android:background="@color/gray"
+              />
 
           <LinearLayout
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:orientation="vertical"
-              android:padding="@dimen/spacing_medium">
+              android:layout_marginLeft="@dimen/spacing_medium"
+              android:layout_marginRight="@dimen/spacing_medium"
+              android:orientation="horizontal"
+              >
 
-            <TextView
-                android:id="@+id/tv_address"
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_body"
-                tools:text="物业地址"/>
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/xiang_mu_cang_shu"
+                />
 
-            <TextView
-                android:id="@+id/tv_phone"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_body"
-                tools:text="售楼电话"/>
+                android:orientation="vertical"
+                >
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="@dimen/spacing_small"
+                  android:gravity="left"
+                  android:text="类        型:"
+                  android:textSize="@dimen/text_body"
+                  />
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="@dimen/spacing_small"
+                  android:gravity="left"
+                  android:text="户        型:"
+                  android:textSize="@dimen/text_body"
+                  />
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="@dimen/spacing_small"
+                  android:gravity="left"
+                  android:text="交房时间:"
+                  android:textSize="@dimen/text_body"
+                  />
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="@dimen/spacing_small"
+                  android:gravity="left"
+                  android:text="房   产  证:"
+                  android:textSize="@dimen/text_body"
+                  />
 
-            <TextView
-                android:id="@+id/tv_tourist"
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_body"
-                tools:text="所在景区"/>
+                android:orientation="vertical"
+                >
+              <TextView
+                  android:id="@+id/type"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="@dimen/spacing_small"
+                  android:gravity="left"
+                  android:text="类       型:"
+                  android:textSize="@dimen/text_body"
+                  />
+              <TextView
+                  android:id="@+id/huo_xing"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="@dimen/spacing_small"
+                  android:gravity="left"
+                  android:text="户       型:"
+                  android:textSize="@dimen/text_body"
+                  />
+              <TextView
+                  android:id="@+id/move_in_date"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="@dimen/spacing_small"
+                  android:gravity="left"
+                  android:text="交房时间:"
+                  android:textSize="@dimen/text_body"
+                  />
+              <TextView
+                  android:id="@+id/fang_chang_zeng"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginLeft="@dimen/spacing_small"
+                  android:gravity="left"
+                  android:text="房   产  证:"
+                  android:textSize="@dimen/text_body"
+                  />
 
-            <TextView
-                android:id="@+id/tv_company"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_body"
-                tools:text="开发商"/>
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_open_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_body"
-                tools:text="开盘时间"/>
-
-            <TextView
-                android:id="@+id/tv_move_in_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_body"
-                tools:text="交房时间"/>
-
-            <TextView
-                android:id="@+id/tv_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_body"
-                tools:text="市场售价"/>
-
-            <TextView
-                android:id="@+id/tv_landArea"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_body"
-                tools:text="占地面积"/>
-
-            <TextView
-                android:id="@+id/tv_buildingArea"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_body"
-                tools:text="建筑面积"/>
-
-            <TextView
-                android:id="@+id/tv_usageRatio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_body"
-                tools:text="容 积 率"/>
           </LinearLayout>
 
           <TextView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginLeft="@dimen/spacing_medium"
-              android:drawableLeft="@mipmap/line_red"
+              android:layout_marginTop="@dimen/spacing_medium"
+              android:drawableLeft="@mipmap/line_blue"
+              android:drawablePadding="@dimen/spacing_small"
               android:gravity="center"
               android:text="周边配套"
-              android:textSize="@dimen/text_body"/>
+              android:textSize="@dimen/text_body"
+              />
 
           <View
               android:layout_width="match_parent"
               android:layout_height="1dp"
               android:layout_marginTop="@dimen/spacing_small"
-              android:background="@color/gray"/>
+              android:background="@color/gray"
+              />
 
-          <WebView
-              android:id="@+id/wv_environment"
+          <LinearLayout
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="@dimen/spacing_medium"/>
+              android:layout_height="match_parent"
+              android:layout_marginLeft="@dimen/spacing_medium"
+              android:layout_marginRight="@dimen/spacing_medium"
+              android:orientation="horizontal"
+              >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/chi_he_wang_le"
+                />
+
+            <WebView
+                android:id="@+id/wv_environment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_medium"
+                />
+          </LinearLayout>
+
 
           <TextView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_marginLeft="@dimen/spacing_medium"
-              android:drawableLeft="@mipmap/line_red"
+              android:drawableLeft="@mipmap/line_blue"
               android:gravity="center"
-              android:text="项目地址"
-              android:textSize="@dimen/text_body"/>
+              android:text="交通位置"
+              android:textSize="@dimen/text_body"
+              />
 
           <View
               android:layout_width="match_parent"
               android:layout_height="1dp"
               android:layout_marginTop="@dimen/spacing_small"
-              android:background="@color/gray"/>
+              android:background="@color/gray"
+              />
 
           <com.amap.api.maps2d.MapView
               android:id="@+id/map"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_marginTop="@dimen/spacing_medium"/>
+              android:layout_marginTop="@dimen/spacing_medium"
+              />
         </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/rl_net_status"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/white">
+            android:background="@android:color/white"
+            >
 
           <com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView
               android:id="@+id/avloadingIndicatorView"
@@ -322,7 +444,8 @@
               android:layout_height="wrap_content"
               android:layout_centerInParent="true"
               app:indicator="LineScalePulseOutRapid"
-              app:indicator_color="@color/blue"/>
+              app:indicator_color="@color/blue"
+              />
 
           <TextView
               android:id="@+id/no_data_hotel"
@@ -330,7 +453,8 @@
               android:layout_height="wrap_content"
               android:layout_centerInParent="true"
               android:text="@string/no_data"
-              android:visibility="gone"/>
+              android:visibility="gone"
+              />
         </RelativeLayout>
 
       </FrameLayout>

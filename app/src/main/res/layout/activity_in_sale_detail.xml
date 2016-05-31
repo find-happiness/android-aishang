@@ -214,6 +214,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/spacing_small"
                 android:lines="1"
+
                 android:textColor="@color/price"
                 />
 

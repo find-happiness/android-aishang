@@ -4,8 +4,64 @@ package com.aishang.app.data.model;
  * Created by song on 2016/3/26.
  */
 public class JMyVacationListResult {
+
+  /**
+   * result : success
+   * summary : {"vaCount":2,"vaCreditTotal":0,"vaCreditUsed":0,"vaCreditLeft":0,"exCreditTotal":0,"exCreditUsed":0,"exCreditLeft":0,"awardTotal":1002,"awardUsed":200,"awardLeft":802}
+   * myVaList : [{"idx":0,"cardName":"全球养生旅居卡","benefit":"陶卫","signDate":"2014-12-31","hotelName":"重庆-金竹雲山|单间配套","hotelID":16,"hotelGUID":"","roomText":"1栋1单元-3-3-43","lat":0,"lng":0,"cardID":"NO.023011414","contractID":"","effectiveDate":"2015-12-31","daysYearLimit":0,"daysYearLimitExpire":"","expireDate":"2044-07-01","daysYearNormal":28,"creditTotal":0,"creditUsed":0,"creditLeft":0,"creditLimitTotal":0,"creditLimitUsed":0,"creditLimitLeft":0,"apartID":"1栋1单元-3-3-43","lengthOfService":40,"earningsTotal":16772,"earningsUsed":0,"earningsLeft":16772,"buyprice":119800,"earningsYear":0,"status":1,"type":0,"roomGUID":""},{"idx":0,"cardName":"全球养生托管卡","benefit":"陶卫","signDate":"2014-12-31","hotelName":"重庆-金竹雲山|单间配套","hotelID":16,"hotelGUID":"","roomText":"1栋1单元-3-3-43","lat":0,"lng":0,"cardID":"NO.023011412","contractID":"","effectiveDate":"2015-12-31","daysYearLimit":0,"daysYearLimitExpire":"","expireDate":"2044-07-01","daysYearNormal":28,"creditTotal":0,"creditUsed":0,"creditLeft":0,"creditLimitTotal":0,"creditLimitUsed":0,"creditLimitLeft":0,"apartID":"1栋1单元-3-3-43","lengthOfService":40,"earningsTotal":16772,"earningsUsed":0,"earningsLeft":16772,"buyprice":119800,"earningsYear":0,"status":1,"type":1,"roomGUID":"73280279-27d3-411e-9f16-81fae1d92537"}]
+   */
+
   private String result;
+  /**
+   * vaCount : 2
+   * vaCreditTotal : 0
+   * vaCreditUsed : 0
+   * vaCreditLeft : 0
+   * exCreditTotal : 0
+   * exCreditUsed : 0
+   * exCreditLeft : 0
+   * awardTotal : 1002
+   * awardUsed : 200
+   * awardLeft : 802
+   */
+
   private JMyVacationListSummary summary;
+  /**
+   * idx : 0
+   * cardName : 全球养生旅居卡
+   * benefit : 陶卫
+   * signDate : 2014-12-31
+   * hotelName : 重庆-金竹雲山|单间配套
+   * hotelID : 16
+   * hotelGUID :
+   * roomText : 1栋1单元-3-3-43
+   * lat : 0
+   * lng : 0
+   * cardID : NO.023011414
+   * contractID :
+   * effectiveDate : 2015-12-31
+   * daysYearLimit : 0
+   * daysYearLimitExpire :
+   * expireDate : 2044-07-01
+   * daysYearNormal : 28
+   * creditTotal : 0
+   * creditUsed : 0
+   * creditLeft : 0
+   * creditLimitTotal : 0
+   * creditLimitUsed : 0
+   * creditLimitLeft : 0
+   * apartID : 1栋1单元-3-3-43
+   * lengthOfService : 40
+   * earningsTotal : 16772
+   * earningsUsed : 0
+   * earningsLeft : 16772
+   * buyprice : 119800
+   * earningsYear : 0
+   * status : 1
+   * type : 0
+   * roomGUID :
+   */
+
   private JMyVacationListMyVaList[] myVaList;
 
   public String getResult() {
@@ -32,14 +88,7 @@ public class JMyVacationListResult {
     this.myVaList = myVaList;
   }
 
-  public class JMyVacationListSummary {
-    /***
-     * "vaCount": 4, "vaTotal": 0, "vaUsed": 0, "vaLeft": 0, "exTotal": 28,
-     * "exUsed": 0, "exLeft": 28 vaCount:int, vaCreditTotal:int,
-     * vaCreditUsed:int, vaCreditLeft:int, exCreditTotal:int,
-     * exCreditUsed:int, exCreditLeft:int
-     */
-
+  public static class JMyVacationListSummary {
     private int vaCount;
     private int vaCreditTotal;
     private int vaCreditUsed;
@@ -47,6 +96,9 @@ public class JMyVacationListResult {
     private int exCreditTotal;
     private int exCreditUsed;
     private int exCreditLeft;
+    private int awardTotal;
+    private int awardUsed;
+    private int awardLeft;
 
     public int getVaCount() {
       return vaCount;
@@ -103,25 +155,33 @@ public class JMyVacationListResult {
     public void setExCreditLeft(int exCreditLeft) {
       this.exCreditLeft = exCreditLeft;
     }
+
+    public int getAwardTotal() {
+      return awardTotal;
+    }
+
+    public void setAwardTotal(int awardTotal) {
+      this.awardTotal = awardTotal;
+    }
+
+    public int getAwardUsed() {
+      return awardUsed;
+    }
+
+    public void setAwardUsed(int awardUsed) {
+      this.awardUsed = awardUsed;
+    }
+
+    public int getAwardLeft() {
+      return awardLeft;
+    }
+
+    public void setAwardLeft(int awardLeft) {
+      this.awardLeft = awardLeft;
+    }
   }
 
-  public class JMyVacationListMyVaList {
-
-    /**
-     * {idx:int, cardName:string, benefit:string,
-     * signDate:string(YYYY-MM-DD), hotelName:string, hotelID:int,
-     * hotelGUID:string, lat:decimal(10,2), lng:decimal(10,2),
-     * cardID:string, contractID:string, effectiveDate:string,
-     * expireDate:string (YYYY-MM-DD), daysYearLimit:int,
-     * daysYearLimitExpire:string(YYYY-MM-DD), daysYearNormal:int,
-     * creditTotal:int, creditUsed:int, creditLeft:int,
-     * creditLimitTotal:int, creditLimitUsed:int, creditLimitLeft:int }
-     */
-
-    // private int curDays;
-    // private int usedDays;
-    // private int leftDays;
-
+  public static class JMyVacationListMyVaList {
     private int idx;
     private String cardName;
     private String benefit;
@@ -129,69 +189,39 @@ public class JMyVacationListResult {
     private String hotelName;
     private int hotelID;
     private String hotelGUID;
-    //
-    private float lat;
-    private float lng;
+    private String roomText;
+    private int lat;
+    private int lng;
     private String cardID;
     private String contractID;
     private String effectiveDate;
-    private String expireDate;
     private int daysYearLimit;
     private String daysYearLimitExpire;
+    private String expireDate;
     private int daysYearNormal;
     private int creditTotal;
     private int creditUsed;
     private int creditLeft;
     private int creditLimitTotal;
-    private int credtLimitUsed;
+    private int creditLimitUsed;
     private int creditLimitLeft;
+    private String apartID;
+    private int lengthOfService;
+    private int earningsTotal;
+    private int earningsUsed;
+    private int earningsLeft;
+    private int buyprice;
+    private int earningsYear;
+    private int status;
+    private int type;
+    private String roomGUID;
 
-    public int getCreditTotal() {
-      return creditTotal;
+    public int getIdx() {
+      return idx;
     }
 
-    public void setCreditTotal(int creditTotal) {
-      this.creditTotal = creditTotal;
-    }
-
-    public int getCreditUsed() {
-      return creditUsed;
-    }
-
-    public void setCreditUsed(int creditUsed) {
-      this.creditUsed = creditUsed;
-    }
-
-    public int getCreditLeft() {
-      return creditLeft;
-    }
-
-    public void setCreditLeft(int creditLeft) {
-      this.creditLeft = creditLeft;
-    }
-
-    public int getCreditLimitTotal() {
-      return creditLimitTotal;
-    }
-
-    public void setCreditLimitTotal(int creditLimitTotal) {
-      this.creditLimitTotal = creditLimitTotal;
-    }
-
-    public int getCredtLimitUsed() {
-      return credtLimitUsed;
-    }
-
-    public void setCredtLimitUsed(int credtLimitUsed) {
-      this.credtLimitUsed = credtLimitUsed;
-    }
-
-    public int getCreditLimitLeft() {
-      return creditLimitLeft;
-    }
-
-    public void setCreditLimitLeft(int creditLimitLeft) {
-      this.creditLimitLeft = creditLimitLeft;
+    public void setIdx(int idx) {
+      this.idx = idx;
     }
 
     public String getCardName() {
@@ -226,12 +256,44 @@ public class JMyVacationListResult {
       this.hotelName = hotelName;
     }
 
+    public int getHotelID() {
+      return hotelID;
+    }
+
+    public void setHotelID(int hotelID) {
+      this.hotelID = hotelID;
+    }
+
     public String getHotelGUID() {
       return hotelGUID;
     }
 
     public void setHotelGUID(String hotelGUID) {
       this.hotelGUID = hotelGUID;
+    }
+
+    public String getRoomText() {
+      return roomText;
+    }
+
+    public void setRoomText(String roomText) {
+      this.roomText = roomText;
+    }
+
+    public int getLat() {
+      return lat;
+    }
+
+    public void setLat(int lat) {
+      this.lat = lat;
+    }
+
+    public int getLng() {
+      return lng;
+    }
+
+    public void setLng(int lng) {
+      this.lng = lng;
     }
 
     public String getCardID() {
@@ -258,52 +320,12 @@ public class JMyVacationListResult {
       this.effectiveDate = effectiveDate;
     }
 
-    public String getExpireDate() {
-      return expireDate;
+    public int getDaysYearLimit() {
+      return daysYearLimit;
     }
 
-    public void setExpireDate(String expireDate) {
-      this.expireDate = expireDate;
-    }
-
-    public int getIdx() {
-      return idx;
-    }
-
-    public void setIdx(int idx) {
-      this.idx = idx;
-    }
-
-    public int getHotelID() {
-      return hotelID;
-    }
-
-    public void setHotelID(int hotelID) {
-      this.hotelID = hotelID;
-    }
-
-    public int getDaysYearNormal() {
-      return daysYearNormal;
-    }
-
-    public void setDaysYearNormal(int daysYearNormal) {
-      this.daysYearNormal = daysYearNormal;
-    }
-
-    public float getLat() {
-      return lat;
-    }
-
-    public void setLat(float lat) {
-      this.lat = lat;
-    }
-
-    public float getLng() {
-      return lng;
-    }
-
-    public void setLng(float lng) {
-      this.lng = lng;
+    public void setDaysYearLimit(int daysYearLimit) {
+      this.daysYearLimit = daysYearLimit;
     }
 
     public String getDaysYearLimitExpire() {
@@ -314,12 +336,148 @@ public class JMyVacationListResult {
       this.daysYearLimitExpire = daysYearLimitExpire;
     }
 
-    public int getDaysYearLimit() {
-      return daysYearLimit;
+    public String getExpireDate() {
+      return expireDate;
     }
 
-    public void setDaysYearLimit(int daysYearLimit) {
-      this.daysYearLimit = daysYearLimit;
+    public void setExpireDate(String expireDate) {
+      this.expireDate = expireDate;
+    }
+
+    public int getDaysYearNormal() {
+      return daysYearNormal;
+    }
+
+    public void setDaysYearNormal(int daysYearNormal) {
+      this.daysYearNormal = daysYearNormal;
+    }
+
+    public int getCreditTotal() {
+      return creditTotal;
+    }
+
+    public void setCreditTotal(int creditTotal) {
+      this.creditTotal = creditTotal;
+    }
+
+    public int getCreditUsed() {
+      return creditUsed;
+    }
+
+    public void setCreditUsed(int creditUsed) {
+      this.creditUsed = creditUsed;
+    }
+
+    public int getCreditLeft() {
+      return creditLeft;
+    }
+
+    public void setCreditLeft(int creditLeft) {
+      this.creditLeft = creditLeft;
+    }
+
+    public int getCreditLimitTotal() {
+      return creditLimitTotal;
+    }
+
+    public void setCreditLimitTotal(int creditLimitTotal) {
+      this.creditLimitTotal = creditLimitTotal;
+    }
+
+    public int getCreditLimitUsed() {
+      return creditLimitUsed;
+    }
+
+    public void setCreditLimitUsed(int creditLimitUsed) {
+      this.creditLimitUsed = creditLimitUsed;
+    }
+
+    public int getCreditLimitLeft() {
+      return creditLimitLeft;
+    }
+
+    public void setCreditLimitLeft(int creditLimitLeft) {
+      this.creditLimitLeft = creditLimitLeft;
+    }
+
+    public String getApartID() {
+      return apartID;
+    }
+
+    public void setApartID(String apartID) {
+      this.apartID = apartID;
+    }
+
+    public int getLengthOfService() {
+      return lengthOfService;
+    }
+
+    public void setLengthOfService(int lengthOfService) {
+      this.lengthOfService = lengthOfService;
+    }
+
+    public int getEarningsTotal() {
+      return earningsTotal;
+    }
+
+    public void setEarningsTotal(int earningsTotal) {
+      this.earningsTotal = earningsTotal;
+    }
+
+    public int getEarningsUsed() {
+      return earningsUsed;
+    }
+
+    public void setEarningsUsed(int earningsUsed) {
+      this.earningsUsed = earningsUsed;
+    }
+
+    public int getEarningsLeft() {
+      return earningsLeft;
+    }
+
+    public void setEarningsLeft(int earningsLeft) {
+      this.earningsLeft = earningsLeft;
+    }
+
+    public int getBuyprice() {
+      return buyprice;
+    }
+
+    public void setBuyprice(int buyprice) {
+      this.buyprice = buyprice;
+    }
+
+    public int getEarningsYear() {
+      return earningsYear;
+    }
+
+    public void setEarningsYear(int earningsYear) {
+      this.earningsYear = earningsYear;
+    }
+
+    public int getStatus() {
+      return status;
+    }
+
+    public void setStatus(int status) {
+      this.status = status;
+    }
+
+    public int getType() {
+      return type;
+    }
+
+    public void setType(int type) {
+      this.type = type;
+    }
+
+    public String getRoomGUID() {
+      return roomGUID;
+    }
+
+    public void setRoomGUID(String roomGUID) {
+      this.roomGUID = roomGUID;
     }
   }
 }

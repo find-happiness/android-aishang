@@ -8,6 +8,7 @@ import com.aishang.app.BoilerplateApplication;
 import com.aishang.app.data.model.JAwardDetailListV2Param;
 import com.aishang.app.data.model.JBusinessListParam;
 import com.aishang.app.data.model.JCashWithDrawApplyparam;
+import com.aishang.app.data.model.JCheckinRecordParam;
 import com.aishang.app.data.model.JCodeLoginParam;
 import com.aishang.app.data.model.JCollectParam;
 import com.aishang.app.data.model.JCommonIntegralParam;
@@ -477,8 +478,8 @@ public class AiShangUtil {
   }
 
   public static String generProjectChangeParam(String propertyOwner, String IDNumber,
-      String houseAddress,String houseType, String roomType, String area, String contactsMobile, String email,
-      String appliancesType, String homeFurnishingType, String status) {
+      String houseAddress, String houseType, String roomType, String area, String contactsMobile,
+      String email, String appliancesType, String homeFurnishingType, String status) {
 
     JProjectChangeParam param = new JProjectChangeParam();
     param.setPropertyOwner(propertyOwner);
@@ -803,5 +804,13 @@ public class AiShangUtil {
     params.setEndDate(endDate);
     params.setIsEarnings(earnings);
     return gson.toJson(params);
+  }
+
+  public static String generCheckinRecordParam(String roomGUID) {
+
+    JCheckinRecordParam param = new JCheckinRecordParam();
+    param.setRoomGUID(roomGUID);
+
+    return gson.toJson(param);
   }
 }

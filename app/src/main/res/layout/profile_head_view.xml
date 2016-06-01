@@ -140,7 +140,7 @@
             android:layout_weight="1"
             android:ems="4"
             android:gravity="center"
-            android:text="旅居劵"
+            android:text="旅居卡"
             android:textColor="@color/white"
             android:textSize="@dimen/text_body"/>
 

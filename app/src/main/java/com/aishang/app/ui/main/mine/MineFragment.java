@@ -19,11 +19,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
-import cn.sharesdk.onekeyshare.ShareCore;
 import com.aishang.app.BoilerplateApplication;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JMemberLoginResult;
-import com.aishang.app.data.model.JMemberProfileResult;
 import com.aishang.app.data.model.JMemberStatisticsResult;
 import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.ui.main.MainActivity;
@@ -81,6 +79,7 @@ public class MineFragment extends Fragment implements MineMvpView {
       headViewHolder.llActionButton.setVisibility(View.GONE);
       //headViewHolder.ivHeadDefault.setVisibility(View.GONE);
       setUserData(result);
+      loadMemberProfile();
     } else {
       headViewHolder.rlLoginAfter.setVisibility(View.GONE);
       headViewHolder.llActionButton.setVisibility(View.VISIBLE);
@@ -96,11 +95,13 @@ public class MineFragment extends Fragment implements MineMvpView {
         .placeholder(R.mipmap.ic_img_user_default)
         .into(headViewHolder.ivUserHead);
 
-    headViewHolder.tvAwardLeft.setText(data.getAwardLeft() + "");
-    headViewHolder.tvCreditLeft.setText(data.getCreditLeft() + "");
-    headViewHolder.tvMemberAccount.setText(
-        getString(R.string.member_account, data.getMemberID() + ""));
+    //headViewHolder.tvAwardLeft.setText(data.getAwardLeft() + "");
+    //headViewHolder.tvCreditLeft.setText(data.getCreditLeft() + "");
+    //headViewHolder.tvMemberAccount.setText(
+    //    getString(R.string.member_account, data.getMemberID() + ""));
     headViewHolder.tvUserName.setText(data.getMemberName());
+
+    //headViewHolder.tvLvJuQuan.setText(data.getCardNumber() + "张");
   }
 
   private void initScrollView() {
@@ -135,21 +136,7 @@ public class MineFragment extends Fragment implements MineMvpView {
       }
 
       @Override public void onPullZoomEnd() {
-        JMemberLoginResult result = ((BoilerplateApplication) BoilerplateApplication.get(
-            MineFragment.this.getActivity())).getMemberLoginResult();
-
-        String phone = ((BoilerplateApplication) BoilerplateApplication.get(
-            MineFragment.this.getActivity())).getMemberAccount();
-
-        String psw = ((BoilerplateApplication) BoilerplateApplication.get(
-            MineFragment.this.getActivity())).getMemberPsw();
-        if (result != null && !TextUtils.isEmpty(phone) && !TextUtils.isEmpty(psw)) {
-
-          String json = AiShangUtil.gennerMemberStatistics(psw, phone);
-          mMinePresenter.loadProfile(false, 2, json);
-
-          headViewHolder.loadingView.setVisibility(View.VISIBLE);
-        }
+        loadMemberProfile();
       }
     });
   }
@@ -208,7 +195,7 @@ public class MineFragment extends Fragment implements MineMvpView {
     headViewHolder.tvMemberAccount.setText(
         getString(R.string.member_account, data.getMemberID() + ""));
     //headViewHolder.tvUserName.setText(data.getMemberName());
-
+    headViewHolder.tvLvJuQuan.setText(data.getVaCardCount() + "张");
   }
 
   @Override public void showError(String error) {
@@ -227,6 +214,24 @@ public class MineFragment extends Fragment implements MineMvpView {
       return false;
     }
     return true;
+  }
+
+  private void loadMemberProfile() {
+    JMemberLoginResult result = ((BoilerplateApplication) BoilerplateApplication.get(
+        MineFragment.this.getActivity())).getMemberLoginResult();
+
+    String phone = ((BoilerplateApplication) BoilerplateApplication.get(
+        MineFragment.this.getActivity())).getMemberAccount();
+
+    String psw = ((BoilerplateApplication) BoilerplateApplication.get(
+        MineFragment.this.getActivity())).getMemberPsw();
+    if (result != null && !TextUtils.isEmpty(phone) && !TextUtils.isEmpty(psw)) {
+
+      String json = AiShangUtil.gennerMemberStatistics(psw, phone);
+      mMinePresenter.loadProfile(false, 2, json);
+
+      headViewHolder.loadingView.setVisibility(View.VISIBLE);
+    }
   }
 
   class ContentViewHolder {
@@ -299,6 +304,7 @@ public class MineFragment extends Fragment implements MineMvpView {
     @Bind(R.id.img_share) ImageView imgShare;
     @Bind(R.id.head_default) CircleImageView ivHeadDefault;
     @Bind(R.id.avloadingIndicatorView) AVLoadingIndicatorView loadingView;
+    @Bind(R.id.tv_lv_ju_quan) TextView tvLvJuQuan;
 
     @OnClick(R.id.tv_register) void registerClick() {
       mMinePresenter.intentToRegister();

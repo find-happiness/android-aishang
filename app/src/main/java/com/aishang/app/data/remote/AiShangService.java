@@ -2,6 +2,7 @@ package com.aishang.app.data.remote;
 
 import com.aishang.app.data.model.JAwardDetailListV2Result;
 import com.aishang.app.data.model.JBusinessListResult;
+import com.aishang.app.data.model.JCheckinRecordResult;
 import com.aishang.app.data.model.JCodeLoginResult;
 import com.aishang.app.data.model.JCollectResult;
 import com.aishang.app.data.model.JCommonIntegralResult;
@@ -291,6 +292,10 @@ public interface AiShangService {
 
   @Headers("connection:Keep-Alive") @GET("mobile/member/AwardDetailListV2.ashx")
   Observable<JAwardDetailListV2Result> syncAwardDetailListV2(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/member/getCheckinRecord.ashx")
+  Observable<JCheckinRecordResult> syncCheckinRecord(@Query(value = "v") int version,
       @Query(value = "q") String q);
 
   @GET("ribots") Observable<List<Ribot>> getRibots();

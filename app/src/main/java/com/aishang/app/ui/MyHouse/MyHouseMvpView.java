@@ -1,6 +1,7 @@
 package com.aishang.app.ui.MyHouse;
 
 import com.aishang.app.data.model.JMyBusinessBuyInListResult;
+import com.aishang.app.data.model.JMyVacationListResult;
 import com.aishang.app.ui.base.MvpView;
 
 /**
@@ -11,7 +12,7 @@ public interface MyHouseMvpView extends MvpView {
 
   void showEmpty();
 
-  void refreshList(JMyBusinessBuyInListResult.BuyIn[] items);
+  void refreshList(JMyVacationListResult.JMyVacationListMyVaList[] items);
 
-  void loadMoreList(JMyBusinessBuyInListResult.BuyIn[] items, int total);
+  void loadMoreList(JMyVacationListResult.JMyVacationListMyVaList[] items, int total);
 }

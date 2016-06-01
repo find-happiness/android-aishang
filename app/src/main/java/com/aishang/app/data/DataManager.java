@@ -3,6 +3,7 @@ package com.aishang.app.data;
 import android.util.Log;
 import com.aishang.app.data.model.JAwardDetailListV2Result;
 import com.aishang.app.data.model.JBusinessListResult;
+import com.aishang.app.data.model.JCheckinRecordResult;
 import com.aishang.app.data.model.JCodeLoginResult;
 import com.aishang.app.data.model.JCollectResult;
 import com.aishang.app.data.model.JCommonIntegralResult;
@@ -349,6 +350,11 @@ import com.aishang.app.util.EventPosterHelper;
 
   public Observable<JAwardDetailListV2Result> syncAwardDetailListV2(int version, String json) {
     return mAiShangService.syncAwardDetailListV2(version, json);
+  }
+
+
+  public Observable<JCheckinRecordResult> syncCheckinRecord(int version, String json) {
+    return mAiShangService.syncCheckinRecord(version, json);
   }
 
   public int firstUsage() {

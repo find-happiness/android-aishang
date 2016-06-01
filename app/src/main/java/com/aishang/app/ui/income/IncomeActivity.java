@@ -1,5 +1,7 @@
-package com.aishang.app.ui.MyHouse;
+package com.aishang.app.ui.income;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,18 +11,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import com.aishang.app.BoilerplateApplication;
 import com.aishang.app.R;
-import com.aishang.app.data.model.JBusinessListResult;
-import com.aishang.app.data.model.JMemberLoginResult;
-import com.aishang.app.data.model.JMyBusinessBuyInListResult;
+import com.aishang.app.data.model.JCheckinRecordResult;
 import com.aishang.app.data.model.JMyVacationListResult;
 import com.aishang.app.ui.base.BaseActivity;
 import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.Constants;
-import com.aishang.app.util.NetWorkType;
 import com.aishang.app.util.NetworkUtil;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -28,18 +26,29 @@ import com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import javax.inject.Inject;
 
-public class MyHouseActivity extends BaseActivity implements MyHouseMvpView {
+public class IncomeActivity extends BaseActivity implements IncomeMvpView {
 
-  @Inject MyHousePresenter presenter;
-  @Inject MyHouseAdapter adapter;
-
+  private static final String ROOM_GUID = "roomGUID";
+  @Bind(R.id.toolbar_title) TextView toolbarTitle;
   @Bind(R.id.toolbar) Toolbar toolbar;
-  @Bind(R.id.XRecyclerView) XRecyclerView mRecyclerView;
+  @Bind(R.id.XRecyclerView) com.jcodecraeer.xrecyclerview.XRecyclerView mRecyclerView;
   @Bind(R.id.avloadingIndicatorView) AVLoadingIndicatorView avloadingIndicatorView;
   @Bind(R.id.no_data_hotel) TextView noDataHotel;
   @Bind(R.id.layoutRoot) RelativeLayout layoutRoot;
+  @Inject IncomePresenter presenter;
+  @Inject IncomeAdapter adapter;
+
+  public static Intent getStartIntent(String roomGUID, Context ctx) {
+
+    Intent intent = new Intent(ctx, IncomeActivity.class);
+
+    intent.putExtra(ROOM_GUID, roomGUID);
+
+    return intent;
+  }
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -114,7 +123,7 @@ public class MyHouseActivity extends BaseActivity implements MyHouseMvpView {
     adapter.notifyDataSetChanged();
   }
 
-  @Override public void refreshList(JMyVacationListResult.JMyVacationListMyVaList[] items) {
+  @Override public void refreshList(List<JCheckinRecordResult.CheckinRecordListBean> items) {
 
     if (avloadingIndicatorView.getVisibility() == View.VISIBLE) {
       avloadingIndicatorView.setVisibility(View.GONE);
@@ -125,14 +134,13 @@ public class MyHouseActivity extends BaseActivity implements MyHouseMvpView {
     }
 
     adapter.getItems().clear();
-    adapter.getItems()
-        .addAll(new ArrayList<JMyVacationListResult.JMyVacationListMyVaList>(Arrays.asList(items)));
+    adapter.getItems().addAll(items);
     adapter.notifyDataSetChanged();
     mRecyclerView.refreshComplete();
   }
 
   @Override
-  public void loadMoreList(JMyVacationListResult.JMyVacationListMyVaList[] items, int total) {
+  public void loadMoreList(List<JCheckinRecordResult.CheckinRecordListBean> items, int total) {
 
     //if (noDataHotel.getVisibility() == View.VISIBLE) {
     //  noDataHotel.setVisibility(View.GONE);
@@ -181,7 +189,7 @@ public class MyHouseActivity extends BaseActivity implements MyHouseMvpView {
 
     mRecyclerView.addItemDecoration(
         new HorizontalDividerItemDecoration.Builder(this).colorResId(android.R.color.transparent)
-            .sizeResId(R.dimen.spacing_medium)
+            .sizeResId(R.dimen.spacing_small)
             .build());
     mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallScaleRipple);
     mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);
@@ -195,7 +203,7 @@ public class MyHouseActivity extends BaseActivity implements MyHouseMvpView {
     mRecyclerView.setLoadingMoreEnabled(false);
     mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
       @Override public void onRefresh() {
-        if (NetworkUtil.isNetworkConnected(MyHouseActivity.this)) {
+        if (NetworkUtil.isNetworkConnected(IncomeActivity.this)) {
           asynMyVacationList();
         } else {
           mRecyclerView.refreshComplete();
@@ -218,20 +226,9 @@ public class MyHouseActivity extends BaseActivity implements MyHouseMvpView {
 
   private void asynMyVacationList() {
 
-    String cookie = BoilerplateApplication.get(this).getMemberLoginResult().getData().getCookies();
-    String member = BoilerplateApplication.get(this).getMemberAccount();
-    String json = AiShangUtil.generMyVacationListParam(member, cookie, "");
+    String roomGUID = this.getIntent().getStringExtra(ROOM_GUID);
+    String json = AiShangUtil.generCheckinRecordParam(roomGUID);
 
-    presenter.loadMyVacationList(3, json);
-  }
-
-  private void checkMemberLogin() {
-
-    JMemberLoginResult result =
-        ((BoilerplateApplication) BoilerplateApplication.get(this)).getMemberLoginResult();
-
-    if (result == null) {
-
-    }
+    presenter.loadCheckinRecord(0, json);
   }
 }

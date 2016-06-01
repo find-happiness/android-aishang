@@ -1,9 +1,10 @@
-package com.aishang.app.ui.MyHouse;
+package com.aishang.app.ui.income;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import com.aishang.app.data.DataManager;
-import com.aishang.app.data.model.JMyVacationListResult;
+import com.aishang.app.data.model.JCheckinRecordResult;
 import com.aishang.app.ui.BrokerCenter.BrokerCenterActivity;
 import com.aishang.app.ui.ChangePassword.ChangePasswordActivity;
 import com.aishang.app.ui.base.BasePresenter;
@@ -17,49 +18,49 @@ import rx.schedulers.Schedulers;
 /**
  * Created by song on 2016/2/15.
  */
-public class MyHousePresenter extends BasePresenter<MyHouseMvpView> {
-
+public class IncomePresenter extends BasePresenter<IncomeMvpView> {
+  private static final String TAG = "IncomePresenter";
   private final DataManager mDataManager;
   private Subscription subscription;
 
-  @Inject public MyHousePresenter(DataManager dataManager) {
+  @Inject public IncomePresenter(DataManager dataManager) {
     mDataManager = dataManager;
   }
 
-  @Override public void attachView(MyHouseMvpView mvpView) {
+  @Override public void attachView(IncomeMvpView mvpView) {
     super.attachView(mvpView);
   }
 
-  public void loadMyVacationList(int version, String json) {
-    loadMyVacationList(false, version, json);
+  public void loadCheckinRecord(int version, String json) {
+    loadCheckinRecord(false, version, json);
   }
 
-  public void loadMyVacationList(boolean allowMemoryCacheVersion, int version, String json) {
+  public void loadCheckinRecord(boolean allowMemoryCacheVersion, int version, String json) {
     checkViewAttached();
 
     if (subscription != null && !subscription.isUnsubscribed()) {
       subscription.unsubscribe();
     }
 
-    subscription = mDataManager.syncMyVacationList(version, json)
+    subscription = mDataManager.syncCheckinRecord(version, json)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
-        .subscribe(new Subscriber<JMyVacationListResult>() {
+        .subscribe(new Subscriber<JCheckinRecordResult>() {
           @Override public void onCompleted() {
 
           }
 
           @Override public void onError(Throwable e) {
-            getMvpView().showError("网络异常");
+            Log.e(TAG, "onError: " + e.toString());
           }
 
-          @Override public void onNext(JMyVacationListResult result) {
+          @Override public void onNext(JCheckinRecordResult result) {
             if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
 
-              if (result.getMyVaList().length <= 0) {
+              if (result.getCheckinRecordList().size() <= 0) {
                 getMvpView().showEmpty();
               } else {
-                getMvpView().refreshList(result.getMyVaList());
+                getMvpView().refreshList(result.getCheckinRecordList());
               }
             } else {
               getMvpView().showError(result.getResult());

@@ -41,6 +41,7 @@ public class JMemberLoginResult implements Serializable {
     private int creditTotal;
     private int creditUsed;
     private int creditLeft;
+    private int cardNumber;
     private String lastLogin;
     private int activeMemberCount;
     private int candidateMemberCount;
@@ -49,6 +50,14 @@ public class JMemberLoginResult implements Serializable {
     private Role[] roleList;
     private int bChartAgree;
     private int memberID;
+
+    public int getCardNumber() {
+      return cardNumber;
+    }
+
+    public void setCardNumber(int cardNumber) {
+      this.cardNumber = cardNumber;
+    }
 
     public int getDealBussiness() {
       return dealBussiness;

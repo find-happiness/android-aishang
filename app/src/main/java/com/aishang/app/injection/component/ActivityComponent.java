@@ -30,6 +30,7 @@ import com.aishang.app.ui.TravelList.TravelListActivity;
 import com.aishang.app.ui.bank.BankListActivity;
 import com.aishang.app.ui.guide.GuideActivity;
 import com.aishang.app.ui.hotel.HotelListActivity;
+import com.aishang.app.ui.income.IncomeActivity;
 import com.aishang.app.ui.insaleDetail.InSaleDetailActivity;
 import com.aishang.app.ui.login.LoginActivity;
 import com.aishang.app.ui.register.RegisterActivity;
@@ -122,5 +123,8 @@ public interface ActivityComponent {
   void inject(BuyHotelActivity activity);
 
   void inject(AccountCenterActivity activity);
+
   void inject(AwardDetailFragment fragment);
+
+  void inject(IncomeActivity activity);
 }

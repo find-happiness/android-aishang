@@ -44,14 +44,9 @@ public class BrokerCenterAdapter extends RecyclerView.Adapter<BrokerCenterAdapte
     holder.name.setText(item.getName());
     holder.phone.setText(item.getTelephone());
     holder.status.setText(item.getStatus());
-    holder.date.setText(item.getCreateTime());
-    holder.price.setText("分佣 " + item.getCommission());
+    holder.date.setText(item.getCreateTime().substring(0, 10));
+    holder.price.setText(item.getCommission()+"");
 
-    holder.itemView.setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View v) {
-        //intentToDetail(holder.getContext(), hotel.getHotelID(), hotel.getName());
-      }
-    });
   }
 
   @Override public int getItemCount() {

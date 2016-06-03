@@ -422,9 +422,9 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_centerVertical="true"
-          android:layout_marginLeft="@dimen/spacing_large"
+          android:layout_marginLeft="@dimen/spacing_medium"
           android:gravity="center_vertical"
-          android:src="@mipmap/logo_main"
+          android:src="@mipmap/ic_logo_main"
           />
 
       <TextView

@@ -7,14 +7,16 @@
     android:layout_height="match_parent"
     android:background="@color/primary"
     android:paddingTop="@dimen/padding_stutas_bar"
-    tools:context="com.aishang.app.ui.MemberCenter.MemberCenterActivity">
+    tools:context="com.aishang.app.ui.MemberCenter.MemberCenterActivity"
+    >
 
   <android.support.v7.widget.Toolbar
       android:id="@+id/toolbar"
       android:layout_width="match_parent"
       android:layout_height="?attr/actionBarSize"
       android:background="@color/primary"
-      app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+      >
 
     <TextView
         android:id="@+id/toolbar_title"
@@ -23,47 +25,43 @@
         android:layout_gravity="center"
         android:text="@string/jin_ji_ren_zhong_xin"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/text_title"/>
+        android:textSize="@dimen/text_title"
+        />
   </android.support.v7.widget.Toolbar>
 
-  <LinearLayout
-      android:id="@+id/ll_tuijian"
+
+  <Button
+      android:id="@+id/btn_contacts_add"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
-      android:background="@android:color/white"
-      android:gravity="center">
-
-    <Button
-        android:id="@+id/btn_contacts_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/blue"
-        android:paddingLeft="@dimen/spacing_xlarge"
-        android:paddingRight="@dimen/spacing_xlarge"
-        android:text="推荐客户"
-        android:textColor="@android:color/white"/>
-  </LinearLayout>
+      android:background="@color/blue"
+      android:gravity="center"
+      android:text="推荐经纪人"
+      android:textColor="@android:color/white"
+      android:textSize="@dimen/text_body"
+      />
 
   <FrameLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_above="@id/ll_tuijian"
+      android:layout_above="@id/btn_contacts_add"
       android:layout_below="@+id/toolbar"
-      android:background="@android:color/white">
+      android:background="@android:color/white"
+      >
 
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/spacing_medium"
-        android:layout_marginRight="@dimen/spacing_medium">
+        >
 
     </com.jcodecraeer.xrecyclerview.XRecyclerView>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
       <com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView
           android:id="@+id/avloadingIndicatorView"
@@ -71,7 +69,8 @@
           android:layout_height="wrap_content"
           android:layout_centerInParent="true"
           app:indicator="LineScalePulseOutRapid"
-          app:indicator_color="@color/blue"/>
+          app:indicator_color="@color/blue"
+          />
 
       <TextView
           android:id="@+id/no_data_hotel"
@@ -79,7 +78,8 @@
           android:layout_height="wrap_content"
           android:layout_centerInParent="true"
           android:text="@string/no_data"
-          android:visibility="gone"/>
+          android:visibility="gone"
+          />
     </RelativeLayout>
   </FrameLayout>
 </RelativeLayout>

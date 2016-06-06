@@ -147,9 +147,9 @@
               android:layout_height="wrap_content"
               android:layout_gravity="right|center_vertical"
               android:layout_marginRight="@dimen/spacing_medium"
+              android:textColor="@color/price"
               android:textSize="@dimen/text_body"
               tools:text="￥300元"
-              android:textColor="@color/price"
               />
         </FrameLayout>
 
@@ -161,7 +161,7 @@
             android:layout_marginLeft="@dimen/spacing_medium"
             android:layout_marginTop="@dimen/spacing_medium"
             android:singleLine="true"
-            android:textColor="@color/primary"
+            android:textColor="@color/green"
             android:textSize="@dimen/text_body"
             tools:text="tag"
             />
@@ -259,6 +259,7 @@
           </LinearLayout>
 
           <LinearLayout
+              android:id="@+id/server_container"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_marginTop="@dimen/spacing_large"
@@ -283,6 +284,7 @@
           </LinearLayout>
 
           <LinearLayout
+              android:id="@+id/special_container"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:layout_marginTop="@dimen/spacing_large"
@@ -307,48 +309,56 @@
 
         </LinearLayout>
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/rules_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/line_blue"
-            android:paddingTop="@dimen/spacing_medium"
-            android:drawablePadding="@dimen/spacing_small"
-            android:paddingBottom="@dimen/spacing_medium"
-            android:gravity="left"
-            android:background="@color/white"
-            android:paddingLeft="@dimen/spacing_medium"
-            android:text="入住须知"
-            android:textSize="@dimen/text_body"
-            />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/gray"
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:background="@color/white"
+            android:orientation="vertical"
             >
-
-          <ImageView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_gravity="left|top"
-              android:layout_marginLeft="@dimen/spacing_medium"
-              android:layout_marginTop="@dimen/spacing_medium"
-              android:src="@mipmap/ic_hotel_rule"
-              />
-
-          <WebView
-              android:id="@+id/wv_rules"
+          <TextView
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:background="@color/white"
+              android:drawableLeft="@mipmap/line_blue"
+              android:drawablePadding="@dimen/spacing_small"
+              android:gravity="left"
+              android:paddingBottom="@dimen/spacing_medium"
+              android:paddingLeft="@dimen/spacing_medium"
+              android:paddingTop="@dimen/spacing_medium"
+              android:text="入住须知"
+              android:textSize="@dimen/text_body"
               />
+
+          <View
+              android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:background="@color/gray"
+              />
+
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:orientation="horizontal"
+              >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|top"
+                android:layout_marginLeft="@dimen/spacing_medium"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:src="@mipmap/ic_hotel_rule"
+                />
+
+            <WebView
+                android:id="@+id/wv_rules"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+          </LinearLayout>
         </LinearLayout>
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -391,7 +401,8 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/spacing_xlarge"/>
+            android:layout_height="@dimen/spacing_xlarge"
+            />
       </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
   </RelativeLayout>
@@ -401,7 +412,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_below="@id/toolbar"
-      android:background="@android:color/white"
+      android:background="@android:color/black"
       android:visibility="gone"
       />
 </FrameLayout>

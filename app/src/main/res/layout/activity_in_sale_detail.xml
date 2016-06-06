@@ -178,7 +178,7 @@
               android:layout_height="wrap_content"
               android:layout_marginLeft="@dimen/spacing_medium"
               android:gravity="left"
-              android:textColor="@color/primary"
+              android:textColor="@color/green"
               android:textSize="@dimen/text_body"
               />
 

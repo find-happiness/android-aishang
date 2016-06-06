@@ -531,7 +531,7 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
 
   private void asynLoupan() {
     String json =
-        AiShangUtil.generLoupanProductParam(0, 0, 0, 0, 4, 0, 0, "", 0, "", "", selectZoneID, 0, 0,
+        AiShangUtil.generLoupanProductParam(0, 0, 0, 0, 2, 0, 0, "", 0, "", "", selectZoneID, 0, 0,
             0, 0, 0, "", "", "", 0);
     mMainPresenter.loadLoupan(1, json);
   }
@@ -544,7 +544,7 @@ public class MainFmFragment extends Fragment implements MainFmMvpView {
   }
 
   private void asynTrvael() {
-    String json = AiShangUtil.generNewsParam(0, 0, 2, 1, 1, "", "", 1, 3);
+    String json = AiShangUtil.generNewsParam(0, 0, 2, 1, 1, "", "", 1, 2);
 
     mMainPresenter.loadTravel(2, json);
   }

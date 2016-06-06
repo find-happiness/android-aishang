@@ -66,9 +66,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
-import rx.Observable;
 import rx.functions.Action1;
 
 public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpView {
@@ -97,6 +95,9 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
   @Bind(R.id.view_pager) HackyViewPager viewPager;
   @Bind(R.id.take_phone) ImageView takePhone;
   @Bind(R.id.address) TextView address;
+  @Bind(R.id.server_container) LinearLayout serverContainer;
+  @Bind(R.id.special_container) LinearLayout specialContainer;
+  @Bind(R.id.rules_container) LinearLayout rulesContainer;
 
   private String hotelName;
   private int hotelID;
@@ -224,7 +225,7 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
     viewPager.clearAnimation();
 
     SmallImgModel roomImgModel = (SmallImgModel) viewPager.getTag();
-    int[] locations = roomImgModel.getLocations().get(model.getIndex());
+    int[] locations = roomImgModel.getLocations().get(model.getIndex() % 3);
     PropertyValuesHolder pvhSX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1f,
         (float) roomImgModel.getSize()[0] / (float) outMetrics.widthPixels);
     PropertyValuesHolder pvhSY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1f,
@@ -435,13 +436,18 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
       tag.setText(strTag);
     }
 
-    price.setText("￥" + result.getDataSet().getBaseInfo().getPriceText());
+    String priceText = result.getDataSet().getBaseInfo().getPriceText();
+    if (priceText.contains(".")) {
+      priceText = priceText.substring(0, priceText.indexOf("."));
+    }
+
+    price.setText("￥" + priceText);
     setGalleryImg(result);
 
     String strRules = result.getDataSet().getBaseInfo().getRules();
 
     if (TextUtils.isEmpty(strRules)) {
-      wvRules.setVisibility(View.GONE);
+      rulesContainer.setVisibility(View.GONE);
     } else {
       wvRules.setBackgroundColor(0x00000000);
       AiShangUtil.setWebViewContent(wvRules, strRules);
@@ -449,8 +455,8 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
 
     String strSpecial = result.getDataSet().getBaseInfo().getSpecial();
 
-    if (TextUtils.isEmpty(strRules)) {
-      wvSpecial.setVisibility(View.GONE);
+    if (TextUtils.isEmpty(strSpecial)) {
+      specialContainer.setVisibility(View.GONE);
     } else {
       wvSpecial.setBackgroundColor(0x00000000);
       AiShangUtil.setWebViewContent(wvSpecial, strSpecial);
@@ -658,7 +664,7 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
 
     if (hotel != null) {
       try {
-        CommonUtil.intentToCall(hotel.getDataSet().getBaseInfo().getPhone(), this);
+        CommonUtil.intentToCall("023-62976617", this);//
       } catch (Exception e) {
         Log.e(TAG, "oncliclTakePhone: " + e.toString());
       }
@@ -711,7 +717,7 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
       TextView tv = new TextView(HotelDetailActivity.this);
       tv.setText(tm.getText());
       tv.getPaint()
-          .setFlags(tm.getStatus() > 0 ? Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG : 0);
+          .setFlags(tm.getStatus() > 0 ? 0 : Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
       tv.getPaint().setAntiAlias(true);
       return tv;
     }

@@ -141,7 +141,7 @@
             android:layout_marginTop="@dimen/spacing_large"
             android:drawableLeft="@mipmap/circle_tu"
             android:drawablePadding="@dimen/spacing_medium"
-            android:text="五五分成"
+            android:text="利益共享"
             android:textColor="@color/text_gray"
             android:textSize="@dimen/text_body"
             />

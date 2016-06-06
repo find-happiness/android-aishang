@@ -67,7 +67,12 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.ViewHolder> 
 
     holder.name.setText(hotel.getName());
     holder.tese.setText(TextUtils.isEmpty(hotel.getTags()) ? "暂无描述" : hotel.getTags());
-    holder.priceText.setText("￥" + hotel.getPriceText());
+
+    String priceText = hotel.getPriceText();
+    if (priceText.contains(".")) {
+      priceText = priceText.substring(0, priceText.indexOf("."));
+    }
+    holder.priceText.setText("￥" + priceText);
     holder.type.setText(hotel.getRoomDepict());
     holder.houseType.setText(hotel.getPropertyCat());
     holder.address.setText(hotel.getAddress());

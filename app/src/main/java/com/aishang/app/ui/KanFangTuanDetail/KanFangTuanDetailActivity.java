@@ -120,12 +120,11 @@ public class KanFangTuanDetailActivity extends BaseActivity implements KanFangTu
       CommonUtil.showSnackbar("您的设备不能打电话!", layoutRoot);
       return;
     }
-
+    String phone = "023-62976097";
     if (!TextUtils.isEmpty(activityItem.getContactPhone())) {
-      CommonUtil.intentToCall(activityItem.getContactPhone(), this);
-    } else {
-      CommonUtil.showSnackbar("没有获取到电话号码!", layoutRoot);
+      phone = activityItem.getContactPhone();
     }
+    CommonUtil.intentToCall(phone, this);
   }
 
   private void initToolbar() {
@@ -169,9 +168,9 @@ public class KanFangTuanDetailActivity extends BaseActivity implements KanFangTu
 
   private void setTime() {
     time.setText(
-        activityItem.getStartTime().split(" ")[0] + "-" + activityItem.getEndTime().split(" ")[0]);
+        activityItem.getStartTime().split(" ")[0] + "至" + activityItem.getEndTime().split(" ")[0]);
     enrollTime.setText(
-        activityItem.getEnrollStartTime().split(" ")[0] + "-" + activityItem.getEnrollEndTime()
+        activityItem.getEnrollStartTime().split(" ")[0] + "至" + activityItem.getEnrollEndTime()
             .split(" ")[0]);
   }
 
@@ -202,7 +201,7 @@ public class KanFangTuanDetailActivity extends BaseActivity implements KanFangTu
     }, ads)
         //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
         .setPageIndicator(new int[] { R.mipmap.ellipse_nomal, R.mipmap.ellipse_select })
-            //设置指示器的方向
+        //设置指示器的方向
         .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
   }
 }

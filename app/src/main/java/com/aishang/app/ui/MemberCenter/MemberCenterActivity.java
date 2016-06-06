@@ -188,14 +188,14 @@ public class MemberCenterActivity extends BaseActivity
 
     memberName.setText(data.getMemberName());
 
-    dateOfBirth.setText(data.getDateOfBirth());
+    dateOfBirth.setText(data.getDateOfBirth().substring(0,10));
 
     int genderIndex = -1;
-    if(!TextUtils.isEmpty(data.getGender())){
-      try{
+    if (!TextUtils.isEmpty(data.getGender())) {
+      try {
         genderIndex = Integer.parseInt(data.getGender());
-        rlGender.setTag(genderIndex+"");
-      }catch (Exception e){
+        rlGender.setTag(genderIndex + "");
+      } catch (Exception e) {
         Log.i(TAG, "bindDataToView: " + e.toString());
       }
     }

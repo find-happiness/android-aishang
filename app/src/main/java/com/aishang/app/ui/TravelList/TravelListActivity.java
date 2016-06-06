@@ -1,24 +1,22 @@
 package com.aishang.app.ui.TravelList;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.aishang.app.R;
-import com.aishang.app.data.model.JNewsListResult;
 import com.aishang.app.data.model.JSysZoneResult;
 import com.aishang.app.data.model.News;
 import com.aishang.app.ui.base.BaseActivity;
@@ -28,13 +26,11 @@ import com.aishang.app.util.DialogFactory;
 import com.aishang.app.util.NetWorkType;
 import com.aishang.app.util.NetworkUtil;
 import com.aishang.app.util.ViewUtil;
+import com.aishang.app.widget.ClearEditText;
 import com.aishang.app.widget.SpacesItemDecoration;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView;
-import com.quinny898.library.persistentsearch.SearchBox;
-import com.quinny898.library.persistentsearch.SearchResult;
-import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -44,11 +40,12 @@ public class TravelListActivity extends BaseActivity implements TravelListMvpVie
   @Inject TravelListPresenter mPersenter;
 
   @Bind(R.id.toolbar) Toolbar toolbar;
-  @Bind(R.id.searchbox) SearchBox searchBox;
+  //@Bind(R.id.searchbox) SearchBox searchBox;
   @Bind(R.id.swipe_refresh) XRecyclerView mRecyclerView;
   @Bind(R.id.avloadingIndicatorView) AVLoadingIndicatorView avloadingIndicatorView;
   @Bind(R.id.no_data_in_sale) TextView noDataInSale;
   @Bind(R.id.layoutRoot) FrameLayout layoutRoot;
+  @Bind(R.id.edit_search) ClearEditText editSearch;
 
   private String filterWords = "";
 
@@ -76,10 +73,10 @@ public class TravelListActivity extends BaseActivity implements TravelListMvpVie
     super.onDestroy();
   }
 
-  public boolean onCreateOptionsMenu(Menu menu) {
-    MenuInflater inflater = getMenuInflater();
-    inflater.inflate(R.menu.menu_hotel, menu);
-    return true;
+
+  @Override public void onBackPressed() {
+    super.onBackPressed();
+    CommonUtil.hideSoftInput(this);
   }
 
   private void setImageSizeToAdapter() {
@@ -95,15 +92,10 @@ public class TravelListActivity extends BaseActivity implements TravelListMvpVie
     toolbar.setTitle("");
     this.setSupportActionBar(toolbar);
     toolbar.setNavigationIcon(R.mipmap.iconfont_livesvg);
+    initSearch();
     toolbar.setNavigationOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         onBackPressed();
-      }
-    });
-    toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-      @Override public boolean onMenuItemClick(MenuItem item) {
-        openSearch();
-        return true;
       }
     });
   }
@@ -149,48 +141,22 @@ public class TravelListActivity extends BaseActivity implements TravelListMvpVie
     mRecyclerView.setAdapter(adapter);
   }
 
-  public void openSearch() {
-    searchBox.revealFromMenuItem(R.id.action_search, this);
-    searchBox.setSearchListener(new SearchBox.SearchListener() {
+  private void initSearch() {
+    editSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+      @Override public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+          CommonUtil.hideSoftInput(TravelListActivity.this);
 
-      @Override public void onSearchOpened() {
-        // Use this to tint the screen
-        searchBox.setSearchString(filterWords);
-      }
+          if (!TextUtils.equals(v.getText(), filterWords)) {
+            filterWords = v.getText().toString().trim();
+            proLoad();
+          }
 
-      @Override public void onSearchClosed() {
-        // Use this to un-tint the screen
-        closeSearch();
-      }
-
-      @Override public void onSearchTermChanged(String term) {
-        // React to the search term changing
-        // Called after it has updated results
-      }
-
-      @Override public void onSearch(String searchTerm) {
-        filterWords = searchTerm;
-        proLoad();
-      }
-
-      @Override public void onSearchEmpty() {
-        if (!TextUtils.isEmpty(filterWords)) {
-          filterWords = "";
-          proLoad();
+          return true;
         }
-      }
-
-      @Override public void onResultClick(SearchResult result) {
-        //React to result being clicked
-      }
-
-      @Override public void onSearchCleared() {
+        return false;
       }
     });
-  }
-
-  protected void closeSearch() {
-    searchBox.hideCircularly(this);
   }
 
   private void proLoad() {
@@ -250,8 +216,7 @@ public class TravelListActivity extends BaseActivity implements TravelListMvpVie
     mRecyclerView.refreshComplete();
   }
 
-  @Override
-  public void loadMoreList(List<News> loupanProducts, int total) {
+  @Override public void loadMoreList(List<News> loupanProducts, int total) {
 
     if (noDataInSale.getVisibility() == View.VISIBLE) {
       noDataInSale.setVisibility(View.GONE);

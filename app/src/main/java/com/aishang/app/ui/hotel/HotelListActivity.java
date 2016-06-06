@@ -1,22 +1,20 @@
 package com.aishang.app.ui.hotel;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.speech.RecognizerIntent;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.DatePicker;
+import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -24,10 +22,8 @@ import butterknife.OnClick;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JHotelListResult;
 import com.aishang.app.data.model.JHotelPriceCatListResult;
-import com.aishang.app.data.model.JHotelRoomCatListResult;
 import com.aishang.app.data.model.JHotelStarLevelListResult;
 import com.aishang.app.data.model.JSysZoneResult;
-import com.aishang.app.data.model.JTagListParam;
 import com.aishang.app.data.model.JTagListResult;
 import com.aishang.app.ui.base.BaseActivity;
 import com.aishang.app.util.AiShangUtil;
@@ -35,17 +31,12 @@ import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.DialogFactory;
 import com.aishang.app.util.NetWorkType;
 import com.aishang.app.util.NetworkUtil;
+import com.aishang.app.widget.ClearEditText;
 import com.aishang.app.widget.SpacesItemDecoration;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView;
-import com.quinny898.library.persistentsearch.SearchBox;
-import com.quinny898.library.persistentsearch.SearchResult;
-import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -54,16 +45,17 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
   private static final String TAG = "HotelListActivity";
   private static final String ZONE_ID = "zone_id";
   private static final String FILTER_WORDS = "FilterWords";
-  @Bind(R.id.searchbox) SearchBox search;
+  //@Bind(R.id.searchbox) SearchBox search;
   @Bind(R.id.toolbar) Toolbar toolbar;
 
   @Inject HotelPresenter presenter;
-  @Bind(R.id.toolbar_title) TextView toolbarTitle;
+  //@Bind(R.id.toolbar_title) TextView toolbarTitle;
   @Bind(R.id.tv_price) TextView tvPrice;
   @Bind(R.id.swipe_refresh) XRecyclerView mRecyclerView;
   @Bind(R.id.avloadingIndicatorView) AVLoadingIndicatorView avloadingIndicatorView;
   @Bind(R.id.no_data_hotel) TextView noDataHotel;
   @Bind(R.id.layoutRoot) CoordinatorLayout layoutRoot;
+  @Bind(R.id.edit_search) ClearEditText editSearch;
 
   private int selectZoneID = 1;
   private int selectPrice;
@@ -111,17 +103,7 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
   private void initToolbar() {
     toolbar.setTitle("");
     this.setSupportActionBar(toolbar);
-    toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-      @Override public boolean onMenuItemClick(MenuItem item) {
-        Log.i(TAG, "onMenuItemClick: menu click" + item.getItemId());
-        if (!search.getSearchOpen()) {
-          openSearch();
-          return true;
-        }
-        return false;
-      }
-    });
-
+    initSearch();
     toolbar.setNavigationIcon(R.mipmap.iconfont_livesvg);
     toolbar.setNavigationOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
@@ -130,18 +112,27 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
     });
   }
 
-  @Override public void onBackPressed() {
-    if (search.getSearchOpen()) {
-      closeSearch();
-    } else {
-      super.onBackPressed();
-    }
+  private void initSearch() {
+    editSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+      @Override public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+          CommonUtil.hideSoftInput(HotelListActivity.this);
+
+          if (!TextUtils.equals(v.getText(), mFilterWords)) {
+            mFilterWords = v.getText().toString().trim();
+            proLoad();
+          }
+          return true;
+        }
+        return false;
+      }
+    });
   }
 
-  @Override public boolean onCreateOptionsMenu(Menu menu) {
-    MenuInflater inflater = getMenuInflater();
-    inflater.inflate(R.menu.menu_hotel, menu);
-    return true;
+  @Override public void onBackPressed() {
+    super.onBackPressed();
+
+    CommonUtil.hideSoftInput(HotelListActivity.this);
   }
 
   private void proLoad() {
@@ -168,75 +159,13 @@ public class HotelListActivity extends BaseActivity implements HotelMvpView {
     }
   }
 
-  public void openSearch() {
-
-    search.revealFromMenuItem(R.id.action_search, this);
-    //    for (int x = 0; x < 10; x++) {
-    //      SearchResult option = new SearchResult("Result "
-    //          + Integer.toString(x), getResources().getDrawable(
-    //          R.mipmap.ic_history));
-    //      search.addSearchable(option);
-    //    }
-    //search.setMenuListener(new SearchBox.MenuListener() {
-    //
-    //  @Override public void onMenuClick() {
-    //    // Hamburger has been clicked
-    //    Toast.makeText(HotelListActivity.this, "Menu click", Toast.LENGTH_LONG).show();
-    //  }
-    //});
-    search.setSearchListener(new SearchBox.SearchListener() {
-
-      @Override public void onSearchOpened() {
-        // Use this to tint the screen
-        search.setSearchString(TextUtils.isEmpty(mFilterWords) ? "" : mFilterWords);
-      }
-
-      @Override public void onSearchClosed() {
-        // Use this to un-tint the screen
-        closeSearch();
-      }
-
-      @Override public void onSearchTermChanged(String term) {
-        // React to the search term changing
-        // Called after it has updated results
-      }
-
-      @Override public void onSearch(String searchTerm) {
-        mFilterWords = searchTerm;
-        proLoad();
-      }
-
-      @Override public void onResultClick(SearchResult result) {
-        //React to result being clicked
-      }
-
-      @Override public void onSearchEmpty() {
-        if (!TextUtils.isEmpty(mFilterWords)) {
-          mFilterWords = "";
-          proLoad();
-        }
-      }
-
-      @Override public void onSearchCleared() {
-      }
-    });
-  }
-
   @Override protected void onDestroy() {
     super.onDestroy();
     presenter.detachView();
   }
 
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (requestCode == 1234 && resultCode == RESULT_OK) {
-      ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-      search.populateEditText(matches.get(0));
-    }
     super.onActivityResult(requestCode, resultCode, data);
-  }
-
-  protected void closeSearch() {
-    search.hideCircularly(this);
   }
 
   private void initRefreshLayout() {

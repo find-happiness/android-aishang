@@ -44,7 +44,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.ViewHold
     holder.name.setText(item.getHotelName());
     holder.roomNum.setText("房间数:" + item.getRooms());
     holder.time.setText("预约时间:" + item.getStartDate() + "至" + item.getEndDate());
-    holder.address.setText("下单时间:" + item.getCreateTime());
+    holder.address.setText("下单时间:" + item.getCreateTime().substring(0,10));
     String status = "";
     switch (item.getStatus()) {
       case 1:

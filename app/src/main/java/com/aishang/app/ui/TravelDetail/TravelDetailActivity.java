@@ -69,6 +69,7 @@ public class TravelDetailActivity extends BaseActivity implements TravelDetailMv
   @Bind(R.id.lookNum) TextView lookNum;
   @Bind(R.id.swipe_refresh) SuperSwipeRefreshLayout swipeRefresh;
   @Bind(R.id.criticismList) LinearListView criticismList;
+  @Bind(R.id.toolbar_title) TextView toolbarTitle;
 
   // Footer View
   private ProgressBar footerProgressBar;
@@ -210,10 +211,10 @@ public class TravelDetailActivity extends BaseActivity implements TravelDetailMv
     webview.setVisibility(WebView.VISIBLE);
     //webview.getSettings().setSupportZoom(false);
     //webview.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-   // webview.getSettings().setBuiltInZoomControls(false);
-   // webview.getSettings().setJavaScriptEnabled(true);
-   // webview.getSettings().setBlockNetworkImage(false);
-   // webview.clearCache(true);
+    // webview.getSettings().setBuiltInZoomControls(false);
+    // webview.getSettings().setJavaScriptEnabled(true);
+    // webview.getSettings().setBlockNetworkImage(false);
+    // webview.clearCache(true);
     webview.setWebViewClient(new WebViewClient() {
       @Override public void onPageFinished(WebView view, String url) {
         super.onPageFinished(view, url);
@@ -228,7 +229,6 @@ public class TravelDetailActivity extends BaseActivity implements TravelDetailMv
         handler.proceed();
       }
     });
-
   }
 
   private void loadData() {
@@ -271,6 +271,7 @@ public class TravelDetailActivity extends BaseActivity implements TravelDetailMv
         null);
 
     title.setText(result.getTitle());
+    toolbarTitle.setText(result.getTitle());
     userName.setText(result.getAuthorName() + "");
   }
 

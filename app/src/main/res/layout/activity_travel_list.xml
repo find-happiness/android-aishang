@@ -34,28 +34,19 @@
             android:background="@color/primary"
             >
 
-          <TextView
-              android:id="@+id/toolbar_title"
+          <com.aishang.app.widget.ClearEditText
+              android:id="@+id/edit_search"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_gravity="center"
-              android:text="@string/youji"
-              android:textColor="@android:color/white"
-              android:textSize="@dimen/text_title"
+              android:background="@drawable/bg_shape_corners"
+              android:ems="10"
+              android:hint="搜索行程游记"
+              android:imeOptions="actionSearch"
+              android:maxLength="9"
+              android:singleLine="true"
               />
         </android.support.v7.widget.Toolbar>
-
-        <com.quinny898.library.persistentsearch.SearchBox
-            android:id="@+id/searchbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="-6dp"
-            android:layout_marginRight="-6dp"
-            android:layout_marginTop="-6dp"
-            android:layout_marginBottom="-6dp"
-            android:visibility="gone"/>
 
       </RelativeLayout>
     </android.support.design.widget.AppBarLayout>

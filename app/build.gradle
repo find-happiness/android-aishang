@@ -121,7 +121,7 @@ dependencies {
   //compile 'com.github.frankiesardo:linearlistview:1.0.1@aar'
   compile project(':pullzoomview')
   // compile 'com.quinny898.library.persistentsearch:library:1.1.0-SNAPSHOT'
-  compile project(':PersistentSearchLibrary')
+  //compile project(':PersistentSearchLibrary')
   compile project(':MaterialEditTextlibrary')
   compile project(':xrecyclerview')
   compile project(':RecyclerViewPager')

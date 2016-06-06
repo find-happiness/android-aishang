@@ -19,6 +19,7 @@ import com.aishang.app.ui.TraveServer.TraveServerActivity;
 import com.aishang.app.ui.TravelFavorites.TravelFavoritesActivity;
 import com.aishang.app.ui.about.AboutActivity;
 import com.aishang.app.ui.base.BasePresenter;
+import com.aishang.app.ui.building.BuildingActivity;
 import com.aishang.app.ui.login.LoginActivity;
 import com.aishang.app.ui.register.RegisterActivity;
 import com.aishang.app.util.Constants;
@@ -134,8 +135,8 @@ public class MinePresenter extends BasePresenter<MineMvpView> {
   public void intentToCashWithDrawApply() {
     Activity act = ((MineFragment) getMvpView()).getActivity();
 
-    Intent intent = new Intent(act, CashWithDrawApplyActivity.class);
-
+    //Intent intent = new Intent(act, CashWithDrawApplyActivity.class);
+    Intent intent = BuildingActivity.getIntent("充值体现", act);
     act.startActivity(intent);
   }
 

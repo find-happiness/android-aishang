@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.aishang.app.ui.store.StoreActivity">
+
+  <android.support.design.widget.AppBarLayout
+      android:id="@+id/app_bar_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/primary"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ToolBarStyle">
+
+      <TextView
+          android:id="@+id/toolbar_title"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_gravity="center"
+          android:gravity="center_vertical"
+          android:text="商城"
+          android:textColor="@android:color/white"
+          android:textSize="@dimen/text_title"/>
+    </android.support.v7.widget.Toolbar>
+  </android.support.design.widget.AppBarLayout>
+
+  <ImageView
+      android:id="@+id/building"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/app_bar_layout"
+      android:scaleType="centerCrop"
+      android:src="@mipmap/building"/>
+
+  <Button
+      android:id="@+id/btn_back"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/building"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="@dimen/spacing_large"
+      android:background="@color/primary"
+      android:paddingLeft="@dimen/spacing_xlarge"
+      android:paddingRight="@dimen/spacing_xlarge"
+      android:text="返回上一步"
+      android:textColor="@android:color/white"/>
+</RelativeLayout>

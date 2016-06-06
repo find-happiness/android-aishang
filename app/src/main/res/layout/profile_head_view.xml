@@ -140,7 +140,7 @@
             android:layout_weight="1"
             android:ems="4"
             android:gravity="center"
-            android:text="旅居卡"
+            android:text="优惠卷"
             android:textColor="@color/white"
             android:textSize="@dimen/text_body"/>
 

@@ -25,8 +25,16 @@
         >
 
       <TextView
+          android:id="@+id/toolbar_title"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:ellipsize="marquee"
+          android:ems="8"
+          android:gravity="center"
+          android:singleLine="true"
+          android:textColor="@android:color/white"
+          android:textSize="@dimen/text_title"
           />
     </android.support.v7.widget.Toolbar>
   </android.support.design.widget.AppBarLayout>

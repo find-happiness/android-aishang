@@ -4,13 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.hotel.HotelListActivity"
+    >
 
   <android.support.design.widget.CoordinatorLayout
       android:id="@+id/layoutRoot"
       android:layout_width="match_parent"
-      android:background="@color/primary"
       android:layout_height="match_parent"
+      android:background="@color/primary"
       >
 
     <com.jcodecraeer.xrecyclerview.XRecyclerView
@@ -18,7 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
 
     </com.jcodecraeer.xrecyclerview.XRecyclerView>
 
@@ -26,7 +29,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/primary"
-        android:paddingTop="@dimen/padding_stutas_bar">
+        android:paddingTop="@dimen/padding_stutas_bar"
+        >
 
       <RelativeLayout
           android:layout_width="match_parent"
@@ -37,29 +41,24 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/primary"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            android:background="@color/primary">
+            >
 
-          <TextView
-              android:id="@+id/toolbar_title"
+          <com.aishang.app.widget.ClearEditText
+              android:id="@+id/edit_search"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_gravity="center"
-              android:text="@string/huangzujiudian"
-              android:textColor="@android:color/white"
-              android:textSize="@dimen/text_title"/>
+              android:background="@drawable/bg_shape_corners"
+              android:ems="10"
+              android:hint="搜索换住度假屋"
+              android:imeOptions="actionSearch"
+              android:maxLength="9"
+              android:singleLine="true"
+              />
         </android.support.v7.widget.Toolbar>
 
-        <com.quinny898.library.persistentsearch.SearchBox
-            android:id="@+id/searchbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="-6dp"
-            android:layout_marginRight="-6dp"
-            android:layout_marginTop="-6dp"
-            android:visibility="gone"/>
 
         <LinearLayout
             android:id="@+id/ll_sreach"
@@ -67,7 +66,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/toolbar"
             android:background="@android:color/white"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            >
 
           <TextView
               android:id="@+id/tv_position"
@@ -83,12 +83,14 @@
               android:paddingTop="10dp"
               android:text="@string/position"
               android:textColor="@android:color/black"
-              android:textSize="@dimen/text_body"/>
+              android:textSize="@dimen/text_body"
+              />
 
           <View
               android:layout_width="1dp"
               android:layout_height="match_parent"
-              android:background="@android:color/darker_gray"/>
+              android:background="@android:color/darker_gray"
+              />
 
           <TextView
               android:id="@+id/tv_price"
@@ -104,12 +106,14 @@
               android:paddingTop="10dp"
               android:text="@string/price"
               android:textColor="@android:color/black"
-              android:textSize="@dimen/text_body"/>
+              android:textSize="@dimen/text_body"
+              />
 
           <View
               android:layout_width="1dp"
               android:layout_height="match_parent"
-              android:background="@android:color/darker_gray"/>
+              android:background="@android:color/darker_gray"
+              />
 
           <TextView
               android:id="@+id/tv_star_level"
@@ -125,7 +129,8 @@
               android:paddingTop="10dp"
               android:text="@string/type"
               android:textColor="@android:color/black"
-              android:textSize="@dimen/text_body"/>
+              android:textSize="@dimen/text_body"
+              />
 
 
         </LinearLayout>
@@ -135,14 +140,16 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@id/ll_sreach"
-            android:background="@android:color/darker_gray"/>
+            android:background="@android:color/darker_gray"
+            />
       </RelativeLayout>
     </android.support.design.widget.AppBarLayout>
   </android.support.design.widget.CoordinatorLayout>
 
   <RelativeLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent">
+      android:layout_height="match_parent"
+      >
 
     <com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView
         android:id="@+id/avloadingIndicatorView"
@@ -150,7 +157,8 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         app:indicator="LineScalePulseOutRapid"
-        app:indicator_color="@color/blue"/>
+        app:indicator_color="@color/blue"
+        />
 
     <TextView
         android:id="@+id/no_data_hotel"
@@ -158,6 +166,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="@string/no_data"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        />
   </RelativeLayout>
 </FrameLayout>

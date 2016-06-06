@@ -66,7 +66,7 @@ public class TravelAdapter extends RecyclerView.Adapter<TravelAdapter.ViewHolder
     holder.reward.setText("奖金" + "");
     holder.userName.setText(
         "作者:" + (TextUtils.isEmpty(news.getUserName()) ? "" : news.getUserName()));
-    holder.localOrDate.setText(news.getDate());
+    holder.localOrDate.setText(news.getDate().substring(0,10));
 
     holder.itemView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {

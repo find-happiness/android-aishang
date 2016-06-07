@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      >
+
+    <RelativeLayout
+        android:id="@+id/card_info_contaier"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/spacing_medium"
+        android:paddingRight="@dimen/spacing_medium"
+        >
+
+      <LinearLayout
+          android:id="@+id/price_container"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:paddingBottom="@dimen/spacing_medium"
+          android:paddingTop="@dimen/spacing_large"
+          >
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:gravity="left"
+              android:singleLine="true"
+              android:text="￥"
+              android:textColor="@color/white"
+              android:textSize="@dimen/text_small_body"
+              />
+          <TextView
+              android:id="@+id/price"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:ems="3"
+              android:gravity="left"
+              android:singleLine="true"
+              android:textColor="@color/white"
+              android:textSize="@dimen/text_large_title"
+              tools:text="30000"
+              />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:gravity="left"
+            android:text="优惠券"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_body"
+            />
+      </LinearLayout>
+
+      <View
+          android:id="@+id/space_line"
+          android:layout_width="2dp"
+          android:layout_height="wrap_content"
+          android:layout_alignBottom="@id/price_container"
+          android:layout_alignTop="@+id/price_container"
+          android:layout_toRightOf="@id/price_container"
+          android:background="@color/white"
+          />
+
+      <LinearLayout
+          android:id="@+id/content_container"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerVertical="true"
+          android:layout_marginLeft="@dimen/spacing_medium"
+          android:layout_toRightOf="@id/space_line"
+          android:orientation="vertical"
+          >
+
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="3"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_body"
+            tools:text="$3000"
+            />
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:gravity="center"
+            android:text="优惠券"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_small_body"
+            />
+      </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/card_info_contaier"
+        android:background="@color/gray"
+        android:paddingBottom="@dimen/spacing_small"
+        android:paddingLeft="@dimen/spacing_medium"
+        android:paddingTop="@dimen/spacing_small"
+        android:singleLine="true"
+        android:text="使用时间:"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/text_body"
+        />
+
+  </RelativeLayout>
+</android.support.v7.widget.CardView>

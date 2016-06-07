@@ -2,6 +2,7 @@ package com.aishang.app.ui.main.mine;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import com.aishang.app.data.DataManager;
 import com.aishang.app.data.model.JMemberProfileResult;
 import com.aishang.app.data.model.JMemberStatisticsResult;
@@ -11,6 +12,7 @@ import com.aishang.app.ui.BrokerCenter.BrokerCenterActivity;
 import com.aishang.app.ui.CashWithDrawApply.CashWithDrawApplyActivity;
 import com.aishang.app.ui.ChangePassword.ChangePasswordActivity;
 import com.aishang.app.ui.MemberCenter.MemberCenterActivity;
+import com.aishang.app.ui.MemberGiftcard.MemberGiftcardActivity;
 import com.aishang.app.ui.MyBuyAndSale.BuyAndSaleActivity;
 import com.aishang.app.ui.MyCard.TravelCardActivity;
 import com.aishang.app.ui.MyHouse.MyHouseActivity;
@@ -35,6 +37,7 @@ import rx.schedulers.Schedulers;
  */
 public class MinePresenter extends BasePresenter<MineMvpView> {
 
+  private static final String TAG = "MinePresenter";
   private final DataManager mDataManager;
   private Subscription mSubscription;
   private List<Ribot> mCachedRibots;
@@ -51,7 +54,6 @@ public class MinePresenter extends BasePresenter<MineMvpView> {
     super.detachView();
     if (mSubscription != null) mSubscription.unsubscribe();
   }
-
   public void loadProfile(boolean allowMemoryCacheVersion, int version, String json) {
     checkViewAttached();
 
@@ -59,18 +61,19 @@ public class MinePresenter extends BasePresenter<MineMvpView> {
       mSubscription.unsubscribe();
     }
 
-    mSubscription = mDataManager.syncMemberStatistics(version, json)
+    mSubscription = mDataManager.sysMemberProfile(version, json)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
-        .subscribe(new Subscriber<JMemberStatisticsResult>() {
+        .subscribe(new Subscriber<JMemberProfileResult>() {
           @Override public void onCompleted() {
           }
 
           @Override public void onError(Throwable e) {
-            getMvpView().showError("网络异常:" + e.toString());
+            //getMvpView().showError("网络异常");
+            Log.e(TAG, "onError: " + e.toString() );
           }
 
-          @Override public void onNext(JMemberStatisticsResult result) {
+          @Override public void onNext(JMemberProfileResult result) {
             if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
               getMvpView().updataMember(result);
             } else {
@@ -183,6 +186,14 @@ public class MinePresenter extends BasePresenter<MineMvpView> {
     Activity act = ((MineFragment) getMvpView()).getActivity();
 
     Intent intent = new Intent(act, RegisterActivity.class);
+
+    act.startActivity(intent);
+  }
+
+  public void intentToMemberGiftcard() {
+    Activity act = ((MineFragment) getMvpView()).getActivity();
+
+    Intent intent = new Intent(act, MemberGiftcardActivity.class);
 
     act.startActivity(intent);
   }

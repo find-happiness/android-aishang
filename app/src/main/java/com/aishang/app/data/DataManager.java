@@ -21,6 +21,7 @@ import com.aishang.app.data.model.JLoupanProductDetailResult;
 import com.aishang.app.data.model.JLoupanProductListResult;
 import com.aishang.app.data.model.JLoupanProductVIPViewResult;
 import com.aishang.app.data.model.JMemberBankListResult;
+import com.aishang.app.data.model.JMemberGiftcardResult;
 import com.aishang.app.data.model.JMemberImgEditResult;
 import com.aishang.app.data.model.JMemberProfileEditResult;
 import com.aishang.app.data.model.JMemberProfileResult;
@@ -352,9 +353,12 @@ import com.aishang.app.util.EventPosterHelper;
     return mAiShangService.syncAwardDetailListV2(version, json);
   }
 
-
   public Observable<JCheckinRecordResult> syncCheckinRecord(int version, String json) {
     return mAiShangService.syncCheckinRecord(version, json);
+  }
+
+  public Observable<JMemberGiftcardResult> syncGetMemberGiftcard(int version, String json) {
+    return mAiShangService.syncGetMemberGiftcard(version, json);
   }
 
   public int firstUsage() {

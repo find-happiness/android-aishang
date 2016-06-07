@@ -25,6 +25,7 @@ import com.aishang.app.data.model.JLoupanProductVIPViewParam;
 import com.aishang.app.data.model.JMemberBankAccount;
 import com.aishang.app.data.model.JMemberBankEditParam;
 import com.aishang.app.data.model.JMemberBankListParam;
+import com.aishang.app.data.model.JMemberGiftcardParam;
 import com.aishang.app.data.model.JMemberLoginParam;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JMemberLogoutParam;
@@ -810,6 +811,15 @@ public class AiShangUtil {
 
     JCheckinRecordParam param = new JCheckinRecordParam();
     param.setRoomGUID(roomGUID);
+
+    return gson.toJson(param);
+  }
+
+  public static String generMemberGiftcardParam(String member, String cookies) {
+
+    JMemberGiftcardParam param = new JMemberGiftcardParam();
+    param.setCookie(cookies);
+    param.setMemberAccount(member);
 
     return gson.toJson(param);
   }

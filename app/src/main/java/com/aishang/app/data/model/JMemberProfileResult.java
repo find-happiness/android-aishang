@@ -36,9 +36,27 @@ public class JMemberProfileResult {
     public String qq;
     public int VIPStatus;
     public float awardLeft;
+    public int creditLeft;
+    public int cardNumber;
     public JMemberIM[] imList;
     public JMemberBankAccount[] bankAccountList;
     public JMemberAddress[] addressList;
+
+    public int getCreditLeft() {
+      return creditLeft;
+    }
+
+    public void setCreditLeft(int creditLeft) {
+      this.creditLeft = creditLeft;
+    }
+
+    public int getCardNumber() {
+      return cardNumber;
+    }
+
+    public void setCardNumber(int cardNumber) {
+      this.cardNumber = cardNumber;
+    }
 
     public int getVIPStatus() {
       return VIPStatus;
@@ -176,5 +194,4 @@ public class JMemberProfileResult {
       this.addressList = addressList;
     }
   }
-
 }

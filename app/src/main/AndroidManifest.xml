@@ -375,6 +375,11 @@
         android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
     </activity>
+    <activity
+        android:name=".ui.MemberGiftcard.MemberGiftcardActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/AppTheme">
+    </activity>
   </application>
 
 </manifest>

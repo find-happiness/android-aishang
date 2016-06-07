@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.aishang.app.ui.MemberGiftcard.MemberGiftcardActivity"
+    >
+
+  <android.support.design.widget.AppBarLayout
+      android:id="@+id/app_bar_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/primary"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ToolBarStyle"
+        >
+
+      <TextView
+          android:id="@+id/toolbar_title"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_gravity="center"
+          android:gravity="center_vertical"
+          android:text="优惠券"
+          android:textColor="@android:color/white"
+          android:textSize="@dimen/text_title"
+          />
+    </android.support.v7.widget.Toolbar>
+
+  </android.support.design.widget.AppBarLayout>
+
+  <FrameLayout
+      android:id="@+id/indicatorView"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/app_bar_layout"
+      >
+    <com.shizhefei.view.indicator.ScrollIndicatorView
+        android:id="@+id/moretab_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@android:color/white"
+        />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:background="@color/space"
+        />
+  </FrameLayout>
+
+  <android.support.v4.view.ViewPager
+      android:id="@+id/moretab_viewPager"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@id/indicatorView"
+      android:background="@color/white"
+      />
+
+</RelativeLayout>

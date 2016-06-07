@@ -14,6 +14,7 @@ import com.aishang.app.ui.HotelDetail.HotelDetailActivity;
 import com.aishang.app.ui.KanFanTuan.KanFanTuanActivity;
 import com.aishang.app.ui.KanFangTuanDetail.KanFangTuanDetailActivity;
 import com.aishang.app.ui.MemberCenter.MemberCenterActivity;
+import com.aishang.app.ui.MemberGiftcard.MemberGiftcardActivity;
 import com.aishang.app.ui.MyBuyAndSale.RentFragment;
 import com.aishang.app.ui.MyBuyAndSale.SaleFragment;
 import com.aishang.app.ui.MyCard.TravelCardActivity;
@@ -127,4 +128,6 @@ public interface ActivityComponent {
   void inject(AwardDetailFragment fragment);
 
   void inject(IncomeActivity activity);
+
+  void inject(MemberGiftcardActivity activity);
 }

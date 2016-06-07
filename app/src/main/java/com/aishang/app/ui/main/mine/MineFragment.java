@@ -22,6 +22,7 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
 import com.aishang.app.BoilerplateApplication;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JMemberLoginResult;
+import com.aishang.app.data.model.JMemberProfileResult;
 import com.aishang.app.data.model.JMemberStatisticsResult;
 import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.ui.main.MainActivity;
@@ -177,13 +178,12 @@ public class MineFragment extends Fragment implements MineMvpView {
     }
   }
 
-  @Override public void updataMember(JMemberStatisticsResult result) {
+  @Override public void updataMember(JMemberProfileResult result) {
 
-    //TODO 更改接口
     headViewHolder.loadingView.setVisibility(View.GONE);
 
     //JMemberLoginResult.Data data = result.getData();
-    JMemberStatisticsResult.Data data = result.getData();
+    JMemberProfileResult.Data data = result.getData();
     //Picasso.with(this.getActivity())
     //    .load(AiShangService.IMG_URL + data.getImageUrl())
     //    .error(R.mipmap.ic_img_user_default)
@@ -192,10 +192,16 @@ public class MineFragment extends Fragment implements MineMvpView {
 
     headViewHolder.tvAwardLeft.setText(data.getAwardLeft() + "");
     headViewHolder.tvCreditLeft.setText(data.getCreditLeft() + "");
-    headViewHolder.tvMemberAccount.setText(
-        getString(R.string.member_account, data.getMemberID() + ""));
+
+    int vipImg = R.mipmap.member_not_vip;
+
+    if (data.getVIPStatus() == 1) {
+      vipImg = R.mipmap.member_vip;
+    }
+
+    headViewHolder.tvMemberAccount.setImageResource(vipImg);
     //headViewHolder.tvUserName.setText(data.getMemberName());
-    headViewHolder.tvLvJuQuan.setText(data.getVaCardCount() + "张");
+    headViewHolder.tvLvJuQuan.setText(data.getCardNumber() + "张");
   }
 
   @Override public void showError(String error) {
@@ -217,21 +223,27 @@ public class MineFragment extends Fragment implements MineMvpView {
   }
 
   private void loadMemberProfile() {
+
     JMemberLoginResult result = ((BoilerplateApplication) BoilerplateApplication.get(
         MineFragment.this.getActivity())).getMemberLoginResult();
+    String json = AiShangUtil.generMemberProfileParam(
+        BoilerplateApplication.get(MineFragment.this.getActivity()).getMemberAccount(),
+        result.getData().getCookies());
+    mMinePresenter.loadProfile(false, 2, json);
+    headViewHolder.loadingView.setVisibility(View.VISIBLE);
 
-    String phone = ((BoilerplateApplication) BoilerplateApplication.get(
-        MineFragment.this.getActivity())).getMemberAccount();
-
-    String psw = ((BoilerplateApplication) BoilerplateApplication.get(
-        MineFragment.this.getActivity())).getMemberPsw();
-    if (result != null && !TextUtils.isEmpty(phone) && !TextUtils.isEmpty(psw)) {
-
-      String json = AiShangUtil.gennerMemberStatistics(psw, phone);
-      mMinePresenter.loadProfile(false, 2, json);
-
-      headViewHolder.loadingView.setVisibility(View.VISIBLE);
-    }
+    //String phone = ((BoilerplateApplication) BoilerplateApplication.get(
+    //    MineFragment.this.getActivity())).getMemberAccount();
+    //
+    //String psw = ((BoilerplateApplication) BoilerplateApplication.get(
+    //    MineFragment.this.getActivity())).getMemberPsw();
+    //if (result != null && !TextUtils.isEmpty(phone) && !TextUtils.isEmpty(psw)) {
+    //
+    //  String json = AiShangUtil.gennerMemberStatistics(psw, phone);
+    //  mMinePresenter.loadProfile(false, 2, json);
+    //
+    //  headViewHolder.loadingView.setVisibility(View.VISIBLE);
+    //}
   }
 
   class ContentViewHolder {
@@ -295,7 +307,7 @@ public class MineFragment extends Fragment implements MineMvpView {
   class HeadViewHolder {
     @Bind(R.id.iv_user_head) CircleImageView ivUserHead;
     @Bind(R.id.tv_user_name) TextView tvUserName;
-    @Bind(R.id.tv_member_account) TextView tvMemberAccount;
+    @Bind(R.id.tv_member_account) ImageView tvMemberAccount;
     @Bind(R.id.tv_awardLeft) TextView tvAwardLeft;
     @Bind(R.id.tv_creditLeft) TextView tvCreditLeft;
     @Bind(R.id.rl_login_after) RelativeLayout rlLoginAfter;
@@ -305,6 +317,7 @@ public class MineFragment extends Fragment implements MineMvpView {
     @Bind(R.id.head_default) CircleImageView ivHeadDefault;
     @Bind(R.id.avloadingIndicatorView) AVLoadingIndicatorView loadingView;
     @Bind(R.id.tv_lv_ju_quan) TextView tvLvJuQuan;
+    @Bind(R.id.lv_ju_quan_container) RelativeLayout lvJuQuanContainer;
 
     @OnClick(R.id.tv_register) void registerClick() {
       mMinePresenter.intentToRegister();
@@ -312,6 +325,10 @@ public class MineFragment extends Fragment implements MineMvpView {
 
     @OnClick(R.id.tv_login) void loginClick() {
       mMinePresenter.intentToLogin();
+    }
+
+    @OnClick(R.id.lv_ju_quan_container) void lvJuQuanContainerClick() {
+      mMinePresenter.intentToMemberGiftcard();
     }
 
     @OnClick(R.id.img_share) void onClickShare() {

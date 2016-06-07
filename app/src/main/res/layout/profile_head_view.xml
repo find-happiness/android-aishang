@@ -124,6 +124,7 @@
       </RelativeLayout>
 
       <RelativeLayout
+          android:id="@+id/lv_ju_quan_container"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginBottom="@dimen/spacing_medium"
@@ -195,7 +196,7 @@
           android:contentDescription="@string/app_name"
           tools:src="@mipmap/ic_img_user_default"/>
 
-      <TextView
+      <ImageView
           android:id="@+id/tv_member_account"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
@@ -204,10 +205,7 @@
           android:layout_centerHorizontal="true"
           android:layout_marginBottom="@dimen/spacing_small"
           android:layout_marginTop="2dp"
-          android:layout_toRightOf="@id/iv_user_head"
-          android:textColor="#ffffff"
-          android:textSize="16sp"
-          tools:text="qawdqwdqwdqwdwqd"/>
+          android:layout_toRightOf="@id/iv_user_head"/>
     </RelativeLayout>
 
     <com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView

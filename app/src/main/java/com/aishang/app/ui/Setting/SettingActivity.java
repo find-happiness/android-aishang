@@ -5,9 +5,11 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import butterknife.Bind;
@@ -23,10 +25,12 @@ import com.aishang.app.util.DataCleanManager;
 import com.aishang.app.util.DialogFactory;
 import com.aishang.app.util.StorageUtils;
 import com.squareup.picasso.Picasso;
+import java.io.File;
 import javax.inject.Inject;
 
 public class SettingActivity extends BaseActivity implements SettingMvpView {
-
+  private static final String TAG = "SettingActivity";
+  private static final String PICASSO_CACHE = "picasso-cache";
   @Inject SettingPresenter presenter;
 
   @Bind(R.id.toolbar) Toolbar toolbar;
@@ -70,10 +74,11 @@ public class SettingActivity extends BaseActivity implements SettingMvpView {
         R.string.clear_cache, new DialogInterface.OnClickListener() {
           @Override public void onClick(DialogInterface dialog, int which) {
 
-            //TODO clear cache
+            File cache =
+                new File(SettingActivity.this.getApplicationContext().getCacheDir(), PICASSO_CACHE);
 
-            DataCleanManager.cleanApplicationData(SettingActivity.this,
-                StorageUtils.getCacheDirectory(SettingActivity.this).getPath());
+            Log.i(TAG, "clear cache: " + cache.getPath());
+            DataCleanManager.cleanApplicationData(SettingActivity.this, cache.getPath());
           }
         }, null).show();
   }

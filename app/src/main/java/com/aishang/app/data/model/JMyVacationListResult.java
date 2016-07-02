@@ -96,9 +96,9 @@ public class JMyVacationListResult {
     private int exCreditTotal;
     private int exCreditUsed;
     private int exCreditLeft;
-    private int awardTotal;
-    private int awardUsed;
-    private int awardLeft;
+    private float awardTotal;
+    private float awardUsed;
+    private float awardLeft;
 
     public int getVaCount() {
       return vaCount;
@@ -156,7 +156,7 @@ public class JMyVacationListResult {
       this.exCreditLeft = exCreditLeft;
     }
 
-    public int getAwardTotal() {
+    public float getAwardTotal() {
       return awardTotal;
     }
 
@@ -164,7 +164,7 @@ public class JMyVacationListResult {
       this.awardTotal = awardTotal;
     }
 
-    public int getAwardUsed() {
+    public float getAwardUsed() {
       return awardUsed;
     }
 
@@ -172,7 +172,7 @@ public class JMyVacationListResult {
       this.awardUsed = awardUsed;
     }
 
-    public int getAwardLeft() {
+    public float getAwardLeft() {
       return awardLeft;
     }
 

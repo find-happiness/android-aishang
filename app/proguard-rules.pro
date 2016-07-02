@@ -1,5 +1,5 @@
 # Add project specific ProGuard rules here.
-# By default, the flags in this file are appended to flags specified
+# By default, the flaon in this file are appended to flags specified
 # in <android-sdk>/tools/proguard/proguard-android.txt
 # You can edit the include path and order by changing the proguardFiles
 # directive in build.gradle.
@@ -30,8 +30,8 @@
 }
 
 # Retrofit rules
--dontwarn retrofit.**
--keep class retrofit.** { *; }
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
 -keepattributes Signature
 -keepattributes Exceptions
 
@@ -59,14 +59,27 @@
 # Gson rules
 -keepattributes Signature
 -keep class sun.misc.Unsafe { *; }
-# TODO change to match your package model
 # Keep non static or private fields of models so Gson can find their names
--keepclassmembers class uk.co.ribot.androidboilerplate.data.model.** {
+-keepclassmembers class com.aishang.app.data.model.** {
     !static !private <fields>;
 }
-# TODO change to match your Retrofit services (only if using inner models withing the service)
+
+# Application classes that will be serialized/deserialized over Gson
+-keepclassmembers class com.aishang.app.data.model {
+   public *;private *;
+}
+-keepclasseswithmembernames class com.aishang.app.data.model {
+public *;private *;
+}
+-keepclassmembers class com.aishang.app.data.model.* {
+   public *;private *;
+}
+-keepclasseswithmembernames class com.aishang.app.data.model.* {
+public *;private *;
+}
+
 # Some models used by gson are inner classes inside the retrofit service
--keepclassmembers class uk.co.ribot.androidboilerplate.data.remote.RibotsService$** {
+-keepclassmembers class com.aishang.app.data.remote.AiShangService$** {
     !static !private <fields>;
 }
 
@@ -92,3 +105,60 @@
 -keep class android.support.design.** { *; }
 -keep interface android.support.design.** { *; }
 -keep public class android.support.design.R$* { *; }
+
+# jpush
+-dontoptimize
+-dontpreverify
+-dontwarn cn.jpush.**
+-keep class cn.jpush.** { *; }
+
+#==================gson==========================
+-dontwarn com.google.**
+-keep class com.google.gson.** {*;}
+
+#==================protobuf======================
+-dontwarn com.google.**
+-keep class com.google.protobuf.** {*;}
+
+
+
+## ----------------------------------
+##      高德地图sdk混淆
+## ----------------------------------
+-dontwarn android.support.v4.**
+-keep class android.support.v4.** { *; }
+-keep interface android.support.v4.app.** { *; }
+-keep public class * extends android.support.v4.**
+-keep public class * extends android.app.Fragment
+-dontwarn com.amap.api.**
+-dontwarn com.a.a.**
+-dontwarn com.autonavi.**
+-keep class com.amap.api.**  {*;}
+-keep class com.autonavi.**  {*;}
+-keep class com.a.a.**  {*;}
+
+## ----------------------------------
+##      sharesdk
+## ----------------------------------
+-keep class cn.sharesdk.**{*;}
+-keep class com.sina.**{*;}
+-keep class **.R$* {*;}
+-keep class **.R{*;}
+-keep class com.mob.**{*;}
+-dontwarn com.mob.**
+-dontwarn cn.sharesdk.**
+-dontwarn **.R$*
+
+## ----------------------------------
+##      recyclerviewpager
+## ----------------------------------
+-keep class com.lsjwzh.widget.recyclerviewpager.**
+-dontwarn com.lsjwzh.widget.recyclerviewpager.**
+
+## ----------------------------------
+##      ucrop
+## ----------------------------------
+-dontwarn com.yalantis.ucrop**
+-keep class com.yalantis.ucrop** { *; }
+-keep interface com.yalantis.ucrop** { *; }
+

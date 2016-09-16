@@ -2,7 +2,9 @@ package com.aishang.app.ui.BuyHotel;
 
 import android.util.Log;
 import com.aishang.app.data.DataManager;
+import com.aishang.app.data.model.JHotelRoomPriceResult;
 import com.aishang.app.data.model.JMemberProfileResult;
+import com.aishang.app.data.model.JMyVacationApplyResult;
 import com.aishang.app.data.model.JMyVacationListResult;
 import com.aishang.app.data.model.JResult;
 import com.aishang.app.ui.base.BasePresenter;
@@ -23,6 +25,7 @@ public class BuyHotelPresenter extends BasePresenter<BuyHotelMvpView> {
   private Subscription subscription;
   private Subscription subscriptionProfile;
   private Subscription subscriptionVacation;
+  private Subscription subscriptionHotelPrice;
 
   @Inject public BuyHotelPresenter(DataManager dataManager) {
     mDataManager = dataManager;
@@ -43,23 +46,27 @@ public class BuyHotelPresenter extends BasePresenter<BuyHotelMvpView> {
       subscription.unsubscribe();
     }
 
-    subscription = mDataManager.syncSubscription(version, json)
+    subscription = mDataManager.syncMyVacationApply(version, json)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeOn(Schedulers.io())
-        .subscribe(new Subscriber<JResult>() {
+        .subscribe(new Subscriber<JMyVacationApplyResult>() {
           @Override public void onCompleted() {
           }
 
           @Override public void onError(Throwable e) {
-            getMvpView().showError("网络异常");
+            Log.e(TAG, "onError: " + e.toString());
+            //getMvpView().showError("网络异常");
           }
 
-          @Override public void onNext(JResult result) {
-            if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
-              getMvpView().showSuccess();
-            } else {
-              getMvpView().showError(result.getResult());
-            }
+          @Override public void onNext(JMyVacationApplyResult result) {
+
+            getMvpView().showBuyResult(result);
+
+            //if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
+            //
+            //} else {
+            //  getMvpView().showError(result.getResult());
+            //}
           }
         });
   }
@@ -86,6 +93,35 @@ public class BuyHotelPresenter extends BasePresenter<BuyHotelMvpView> {
           @Override public void onNext(JMemberProfileResult result) {
             if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
               getMvpView().showGetProfileSuccess(result);
+            } else {
+              getMvpView().showError(result.getResult());
+            }
+          }
+        });
+  }
+
+  public void loadHotelPrice(int version, String json) {
+    checkViewAttached();
+
+    if (subscriptionHotelPrice != null && !subscriptionHotelPrice.isUnsubscribed()) {
+      subscriptionHotelPrice.unsubscribe();
+    }
+
+    subscriptionHotelPrice = mDataManager.syncHotelPrice(version, json)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(Schedulers.io())
+        .subscribe(new Subscriber<JHotelRoomPriceResult>() {
+          @Override public void onCompleted() {
+          }
+
+          @Override public void onError(Throwable e) {
+            Log.e(TAG, "onError: " + e.toString());
+            //getMvpView().showError("网络异常");
+          }
+
+          @Override public void onNext(JHotelRoomPriceResult result) {
+            if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
+              getMvpView().showHotelRoomPrice(result);
             } else {
               getMvpView().showError(result.getResult());
             }
@@ -134,5 +170,6 @@ public class BuyHotelPresenter extends BasePresenter<BuyHotelMvpView> {
     if (subscription != null) subscription.unsubscribe();
     if (subscriptionProfile != null) subscriptionProfile.unsubscribe();
     if (subscriptionVacation != null) subscriptionVacation.unsubscribe();
+    if (subscriptionHotelPrice != null) subscriptionHotelPrice.unsubscribe();
   }
 }

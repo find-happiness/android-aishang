@@ -7,15 +7,19 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.Bind;
@@ -26,19 +30,26 @@ import com.aishang.app.R;
 import com.aishang.app.data.model.HotelOrder;
 import com.aishang.app.data.model.JHotelDetailResult;
 import com.aishang.app.data.model.JHotelRoomCatListByhotelIDResult;
+import com.aishang.app.data.model.JHotelRoomPriceResult;
+import com.aishang.app.data.model.JMemberGiftcardResult;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JMemberProfileResult;
+import com.aishang.app.data.model.JMyVacationApplyResult;
 import com.aishang.app.data.model.JMyVacationListResult;
 import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.ui.base.BaseActivity;
 import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
+import com.aishang.app.util.Constants;
 import com.aishang.app.util.DialogFactory;
+import com.aishang.app.util.EventPosterHelper;
 import com.aishang.app.util.NetImageHolderView;
 import com.aishang.app.util.NetworkUtil;
-import com.aishang.app.util.NumberPickerDelegate;
+import com.aishang.app.widget.HorizontalNumberPicker;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
+import com.shizhefei.view.viewpager.SViewPager;
+import com.squareup.otto.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -47,8 +58,11 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.functions.Func2;
 
-public class BuyHotelActivity extends BaseActivity implements BuyHotelMvpView {
+public class BuyHotelActivity extends BaseActivity
+    implements BuyHotelMvpView, PaymentFragment.OnFragmentInteractionListener,
+    CardFragment.OnFragmentCardListener {
 
+  private static final String FRAGMENT_TAG_PAYMRNT = "payment";
   private static final String HOTEL = "hotel";
   private static final String ORDER = "order";
   private static final String CHECK_IN_DATE = "check_in_date";
@@ -71,11 +85,59 @@ public class BuyHotelActivity extends BaseActivity implements BuyHotelMvpView {
   @Inject BuyHotelPresenter presenter;
   ProgressDialog progressDialog;
   @Bind(R.id.card) TextView card;
+  @Bind(R.id.drawerLayout) DrawerLayout drawerLayout;
+  @Bind(R.id.view_pager) SViewPager viewPager;
+  @Bind(R.id.title_2) TextView title2;
+  @Bind(R.id.must_input2) TextView mustInput2;
+  @Bind(R.id.title_3) TextView title3;
+  @Bind(R.id.must_input3) TextView mustInput3;
+  @Bind(R.id.title_4) TextView title4;
+  @Bind(R.id.title_5) TextView title5;
+  @Bind(R.id.payment_container) LinearLayout paymentContainer;
+  @Bind(R.id.scroll) ScrollView scroll;
   private JHotelDetailResult hotel;
   private ArrayList<HotelOrder> orderList;
   private String checkInDate;
   private String checkOutDate;
   JMyVacationListResult vacationResult;
+  @Inject EventPosterHelper eventPosterHelper;
+
+  JMemberGiftcardResult.MemberGiftcardListEntity selectGift;
+  JMyVacationListResult.MemberexCardListEntity selectCard;
+
+  PAYMENT payType = PAYMENT.TONG_YONG_JI_FEN;
+
+  RoomViewHolder holder;
+
+  @Override public void onPaymentChange(PAYMENT payment) {
+    payType = payment;
+  }
+
+  @Override public void onGiftCardCardClick() {
+    drawerLayout.openDrawer(Gravity.RIGHT);
+
+    viewPager.setCurrentItem(0, false);
+  }
+
+  @Override public void onMyCardClick() {
+    drawerLayout.openDrawer(Gravity.RIGHT);
+
+    viewPager.setCurrentItem(1, false);
+  }
+
+  @Override public void defaultCard(JMyVacationListResult.MemberexCardListEntity card) {
+    onMyCarSelect(card);
+  }
+
+  public enum PAYMENT {
+
+    TONG_YONG_JI_FEN,
+    HUAN_ZU_JI_FEN,
+    ALIPAY,
+    WECHAT,
+    UNKNOW
+
+  }
 
   public static Intent getStartIntent(Context ctx, JHotelDetailResult loupan,
       ArrayList<HotelOrder> orders, String checkInDate, String checkOutDate) {
@@ -119,12 +181,57 @@ public class BuyHotelActivity extends BaseActivity implements BuyHotelMvpView {
     } else {
       checkOutDate = this.getIntent().getStringExtra(CHECK_OUT_DATE);
     }
+    initView();
 
-    initToolbar();
-    initBanner();
     bindData();
 
-    loadMemberProfile();
+    initNetwork();
+  }
+
+  @Override protected void onPause() {
+    super.onPause();
+    eventPosterHelper.getBus().unregister(this);
+  }
+
+  @Override protected void onResume() {
+    super.onResume();
+    eventPosterHelper.getBus().register(this);
+  }
+
+  private void initView() {
+    initToolbar();
+    initBanner();
+    initPayment();
+    initViewPage();
+  }
+
+  private void initViewPage() {
+
+    viewPager.setCanScroll(false);
+
+    viewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+      @Override public Fragment getItem(int position) {
+        switch (position) {
+          case 0:
+            return GiftcarFragment.newInstance(hotel.getDataSet().getBaseInfo().getHotelID());
+          case 1:
+            return CardFragment.newInstance();
+        }
+        return null;
+      }
+
+      @Override public int getCount() {
+        return 2;
+      }
+    });
+  }
+
+  private void initPayment() {
+
+    getSupportFragmentManager().beginTransaction()
+        .replace(R.id.payment_container, PaymentFragment.newInstance("abc", "abc"),
+            FRAGMENT_TAG_PAYMRNT)
+        .commit();
   }
 
   @Override protected void onSaveInstanceState(Bundle outState) {
@@ -136,19 +243,44 @@ public class BuyHotelActivity extends BaseActivity implements BuyHotelMvpView {
     super.onSaveInstanceState(outState);
   }
 
-  private void loadMemberProfile() {
+  @Override protected void onDestroy() {
+    super.onDestroy();
+
+    presenter.detachView();
+  }
+
+  @Override public void onBackPressed() {
+    if (drawerLayout.isDrawerOpen(Gravity.RIGHT)) {
+      drawerLayout.closeDrawer(Gravity.RIGHT);
+      return;
+    }
+    super.onBackPressed();
+  }
+
+  private void initNetwork() {
     if (NetworkUtil.isNetworkConnected(this)) {
       showProgressDialog();
 
-      JMemberLoginResult result = BoilerplateApplication.get(this).getMemberLoginResult();
-      String json =
-          AiShangUtil.generMemberProfileParam(BoilerplateApplication.get(this).getMemberAccount(),
-              result.getData().getCookies());
+      loadMemberProfile();
 
-      presenter.loadProfile(2, json);
+      if (orderList != null && orderList.size() > 0) {
+        JHotelRoomCatListByhotelIDResult.HotelRoomCatListEntity roomCat =
+            orderList.get(0).getRoomCat();
+        loadHotelRoomPrice(roomCat.getHotelID(), roomCat.getRoomCatID(), checkInDate, checkOutDate);
+      }
     } else {
       showError(this.getString(R.string.no_net));
     }
+  }
+
+  private void loadMemberProfile() {
+
+    JMemberLoginResult result = BoilerplateApplication.get(this).getMemberLoginResult();
+    String json =
+        AiShangUtil.generMemberProfileParam(BoilerplateApplication.get(this).getMemberAccount(),
+            result.getData().getCookies());
+
+    presenter.loadProfile(2, json);
   }
 
   private void loadVacation() {
@@ -161,6 +293,12 @@ public class BuyHotelActivity extends BaseActivity implements BuyHotelMvpView {
     } else {
       showError(this.getString(R.string.no_net));
     }
+  }
+
+  private void loadHotelRoomPrice(int hotelID, int roomCatID, String startDate, String endDate) {
+
+    presenter.loadHotelPrice(0,
+        AiShangUtil.gennerHotelRoomPriceParam(hotelID, roomCatID, startDate, endDate));
   }
 
   private void initToolbar() {
@@ -208,7 +346,7 @@ public class BuyHotelActivity extends BaseActivity implements BuyHotelMvpView {
     bindStarLevel(dataSet.getBaseInfo().getStarLevel());
     //type.setText(dataSet.getBaseInfo().get);
     address.setText(dataSet.getBaseInfo().getAddress());
-    bindRoom();
+
     //bindMyInfo();
   }
 
@@ -251,20 +389,7 @@ public class BuyHotelActivity extends BaseActivity implements BuyHotelMvpView {
           holder.roomNum.setText("" + hotelOrder.getRoomNum());
           holder.tvCheckInDate.setText(checkInDate);
           holder.tvCheckOutDate.setText(checkOutDate);
-          holder.guestNum.setText("1");
-          holder.guestNum.setTag(1);
 
-          holder.guestNum.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-              DialogFactory.createNumberPicker(act, (int) holder.guestNum.getTag(), 10, 1, "入住人数",
-                  new NumberPickerDelegate() {
-                    @Override public void OnPick(NumberPicker picker, int num) {
-                      holder.guestNum.setTag(num);
-                      holder.guestNum.setText("" + num);
-                    }
-                  }).show();
-            }
-          });
           orderContainer.addView(view);
 
           return roomcat.getBasicPrice() * hotelOrder.getRoomNum();
@@ -275,7 +400,7 @@ public class BuyHotelActivity extends BaseActivity implements BuyHotelMvpView {
         }
       }).subscribe(new Action1<Integer>() {
         @Override public void call(Integer integer) {
-          totalPrice.setText("￥" + integer.toString());
+
         }
       });
     }
@@ -311,8 +436,19 @@ public class BuyHotelActivity extends BaseActivity implements BuyHotelMvpView {
     CommonUtil.showSnackbar(error, layoutRoot);
   }
 
-  @Override public void showSuccess() {
+  @Override public void showBuyResult(JMyVacationApplyResult result) {
 
+    if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
+      if (payType == PAYMENT.TONG_YONG_JI_FEN || payType == PAYMENT.HUAN_ZU_JI_FEN) {
+
+      } else if (payType == PAYMENT.ALIPAY) {
+
+      } else if (payType == PAYMENT.WECHAT) {
+
+      }
+    } else {
+      showError(result.getResult());
+    }
   }
 
   @Override public void showGetProfileSuccess(JMemberProfileResult result) {
@@ -323,9 +459,47 @@ public class BuyHotelActivity extends BaseActivity implements BuyHotelMvpView {
       guestName.setText(result.getData().getMemberName());
       phone.setText(result.getData().getMobilePhone());
       email.setText(result.getData().getEmail());
-
-      loadVacation();
+      ((PaymentFragment) getSupportFragmentManager().findFragmentByTag(
+          FRAGMENT_TAG_PAYMRNT)).setMemberProfile(result);
+      //loadVacation();
     }
+  }
+
+  @Override public void showHotelRoomPrice(final JHotelRoomPriceResult result) {
+    dimissDialog();
+    Observable.from(orderList).first().subscribe(new Action1<HotelOrder>() {
+      @Override public void call(HotelOrder hotelOrder) {
+        final Activity act = BuyHotelActivity.this;
+
+        View view =
+            LayoutInflater.from(BuyHotelActivity.this).inflate(R.layout.item_room_order, null);
+
+        holder = new RoomViewHolder(view);
+
+        LinearLayout.LayoutParams params =
+            new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        int spacing = act.getResources().getDimensionPixelSize(R.dimen.spacing_medium);
+        params.setMargins(0, spacing, 0, 0);
+
+        view.setLayoutParams(params);
+        JHotelRoomCatListByhotelIDResult.HotelRoomCatListEntity roomcat = hotelOrder.getRoomCat();
+        JHotelRoomCatListByhotelIDResult.GRoomTypeListEntity roomType = hotelOrder.getType();
+        holder.price.setText("￥" + result.getTotalPrice());
+        holder.roomType.setText(roomType.getRoomTypeName());
+        holder.roomNum.setText("" + hotelOrder.getRoomNum());
+        holder.tvCheckInDate.setText(checkInDate);
+        holder.tvCheckOutDate.setText(checkOutDate);
+
+        orderContainer.addView(view);
+      }
+    });
+
+    totalPrice.setText("￥" + result.getTotalPrice());
+    totalPrice.setTag(result.getTotalPrice());
+
+    ((PaymentFragment) getSupportFragmentManager().findFragmentByTag(
+        FRAGMENT_TAG_PAYMRNT)).setPriceTotal(result.getTotalPrice());
   }
 
   @Override public void showGetVacationSuccess(JMyVacationListResult result) {
@@ -350,28 +524,90 @@ public class BuyHotelActivity extends BaseActivity implements BuyHotelMvpView {
         .show();
   }
 
-  @OnClick(R.id.card) public void onClick() {
+  @OnClick({ R.id.card, R.id.submint }) public void onClick(View view) {
 
-    Observable.from(vacationResult.getMyVaList())
-        .map(new Func1<JMyVacationListResult.JMyVacationListMyVaList, String>() {
-          @Override public String call(
-              JMyVacationListResult.JMyVacationListMyVaList jMyVacationListMyVaList) {
-            return jMyVacationListMyVaList.getCardID();
-          }
-        })
-        .toList()
-        .subscribe(new Action1<List<String>>() {
-          @Override public void call(final List<String> strings) {
-            DialogFactory.createSingleChoiceDialog(BuyHotelActivity.this,
-                strings.toArray(new String[strings.size()]), (int) card.getTag(),
-                new DialogInterface.OnClickListener() {
-                  @Override public void onClick(DialogInterface dialog, int which) {
-                    card.setTag(which);
-                    card.setText(strings.get(which));
-                  }
-                }, "选择旅居卡").show();
-          }
-        });
+    switch (view.getId()) {
+      case R.id.card:
+        Observable.from(vacationResult.getMyVaList())
+            .map(new Func1<JMyVacationListResult.JMyVacationListMyVaList, String>() {
+              @Override public String call(
+                  JMyVacationListResult.JMyVacationListMyVaList jMyVacationListMyVaList) {
+                return jMyVacationListMyVaList.getCardID();
+              }
+            })
+            .toList()
+            .subscribe(new Action1<List<String>>() {
+              @Override public void call(final List<String> strings) {
+                DialogFactory.createSingleChoiceDialog(BuyHotelActivity.this,
+                    strings.toArray(new String[strings.size()]), (int) card.getTag(),
+                    new DialogInterface.OnClickListener() {
+                      @Override public void onClick(DialogInterface dialog, int which) {
+                        card.setTag(which);
+                        card.setText(strings.get(which));
+                      }
+                    }, "选择旅居卡").show();
+              }
+            });
+        break;
+      case R.id.submint:
+        onSubmit();
+        break;
+    }
+  }
+
+  private void onSubmit() {
+    if (totalPrice.getTag() != null) {
+      JMemberLoginResult result = BoilerplateApplication.get(this).getMemberLoginResult();
+
+      JHotelRoomCatListByhotelIDResult.HotelRoomCatListEntity roomCat =
+          orderList.get(0).getRoomCat();
+
+      int creditByCard = payType == PAYMENT.HUAN_ZU_JI_FEN ? (int) totalPrice.getTag() : 0;
+      int guestCount = holder.numPicker.getValue();
+      presenter.postData(0,
+          AiShangUtil.generMyVacationApplyParam(BoilerplateApplication.get(this).getMemberAccount(),
+              result.getData().getCookies(), hotel.getDataSet().getBaseInfo().getName(),
+              checkInDate, checkOutDate, phone.getText().toString(), guestName.getText().toString(),
+              hotel.getDataSet().getBaseInfo().getHotelID(), roomCat.getRoomCatID(), creditByCard,
+              guestCount, payType.ordinal(), selectGift != null ? selectGift.getGUID() : "",
+              selectCard != null ? selectCard.getID() : 0, creditByCard));
+    }
+  }
+
+  @Subscribe public void onGiftcarSelect(JMemberGiftcardResult.MemberGiftcardListEntity gift) {
+
+    ((PaymentFragment) getSupportFragmentManager().findFragmentByTag(
+        FRAGMENT_TAG_PAYMRNT)).onGiftCardSelect(gift);
+
+    drawerLayout.closeDrawer(Gravity.RIGHT);
+    selectGift = gift;
+  }
+
+  @Subscribe public void onMyCarSelect(JMyVacationListResult.MemberexCardListEntity card) {
+
+    ((PaymentFragment) getSupportFragmentManager().findFragmentByTag(
+        FRAGMENT_TAG_PAYMRNT)).onMyCardSelect(card);
+
+    drawerLayout.closeDrawer(Gravity.RIGHT);
+
+    selectCard = card;
+  }
+
+  @Subscribe public void onUnselect(Integer index) {
+    drawerLayout.closeDrawer(Gravity.RIGHT);
+
+    switch (index) {
+      case 1:
+        ((PaymentFragment) getSupportFragmentManager().findFragmentByTag(
+            FRAGMENT_TAG_PAYMRNT)).onGiftCardUnselect();
+        selectGift = null;
+        break;
+      case 2:
+        ((PaymentFragment) getSupportFragmentManager().findFragmentByTag(
+            FRAGMENT_TAG_PAYMRNT)).onMyCardUnselect();
+        selectCard = null;
+        break;
+    }
   }
 
   static class RoomViewHolder {
@@ -380,7 +616,7 @@ public class BuyHotelActivity extends BaseActivity implements BuyHotelMvpView {
     @Bind(R.id.room_type) TextView roomType;
     @Bind(R.id.room_num) TextView roomNum;
     @Bind(R.id.price) TextView price;
-    @Bind(R.id.guest_num) TextView guestNum;
+    @Bind(R.id.numPicker) HorizontalNumberPicker numPicker;
 
     RoomViewHolder(View view) {
       ButterKnife.bind(this, view);

@@ -1,6 +1,7 @@
 package com.aishang.app.util;
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
@@ -18,6 +19,7 @@ import com.aishang.app.data.model.JFavoriteEditParam;
 import com.aishang.app.data.model.JHotelDetailParam;
 import com.aishang.app.data.model.JHotelListParam;
 import com.aishang.app.data.model.JHotelRoomCatListByhotelIDParam;
+import com.aishang.app.data.model.JHotelRoomPriceParam;
 import com.aishang.app.data.model.JLoupanPriceCatListParam;
 import com.aishang.app.data.model.JLoupanProductDetailParam;
 import com.aishang.app.data.model.JLoupanProductListParam;
@@ -37,6 +39,7 @@ import com.aishang.app.data.model.JMreActivityEnrollParam;
 import com.aishang.app.data.model.JMreActivityListParam;
 import com.aishang.app.data.model.JMyBusinessBuyInListParam;
 import com.aishang.app.data.model.JMyVacationApplyListParams;
+import com.aishang.app.data.model.JMyVacationApplyParam;
 import com.aishang.app.data.model.JMyVacationListParam;
 import com.aishang.app.data.model.JMyVacationListResult;
 import com.aishang.app.data.model.JNewsCriticismParam;
@@ -57,8 +60,10 @@ import com.aishang.app.data.model.JTagListParam;
 import com.aishang.app.data.remote.AiShangService;
 import com.google.gson.Gson;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by song on 2016/1/26.
@@ -343,7 +348,7 @@ public class AiShangUtil {
     param.setRecStart(recStart);
     param.setFilterStartDate(startDate);
     param.setFilerEndDate(endDate);
-    param.setFilterVACardID(cardID);
+    //param.setFilterVACardID(cardID);
     param.setStatus(status);
 
     return gson.toJson(param);
@@ -815,11 +820,63 @@ public class AiShangUtil {
     return gson.toJson(param);
   }
 
-  public static String generMemberGiftcardParam(String member, String cookies) {
+  public static String gennerHotelRoomPriceParam(int hotelID, int roomCatID, String startDate,
+      String endDate) {
+
+    JHotelRoomPriceParam param = new JHotelRoomPriceParam(hotelID, roomCatID, startDate, endDate);
+
+    return gson.toJson(param);
+  }
+
+  public static String generMemberGiftcardParam(String member, String cookies, String status,
+      String hotelID, String pageIndex, String pageSize) {
 
     JMemberGiftcardParam param = new JMemberGiftcardParam();
     param.setCookie(cookies);
     param.setMemberAccount(member);
+    param.setHotelID(hotelID);
+
+    if (!TextUtils.isEmpty(pageIndex)) param.setPageIndex(pageIndex);
+    if (!TextUtils.isEmpty(pageSize)) param.setPageSize(pageSize);
+
+    param.setStatus(status);
+
+    return gson.toJson(param);
+  }
+
+  public static String generMyVacationApplyParam(String member, String cookies, String hotelName,
+      String startDate, String endDate, String guestPhone, String gusetName, int hotelID,
+      int roomCatID, int creditByCard, int guestCount, int payType, String giftcardGUID, int cardID,
+      int credit2Use) {
+
+    JMyVacationApplyParam param = new JMyVacationApplyParam();
+    param.setCookie(cookies);
+    param.setMemberAccount(member);
+    param.setGuestComment("");
+    param.setMemberGUID("");
+    param.setCashBySelf(0);
+    param.setPriceID(0);
+    param.setRooms(1);
+    param.setPayType(payType);
+    param.setSource(1);
+    param.setHotelName(hotelName);
+    param.setStartDate(startDate);
+    param.setEndDate(endDate);
+    param.setGuestCount(guestCount);
+    param.setHotelID(hotelID);
+    param.setRoomCatID(roomCatID);
+    param.setCreditByCard(creditByCard);
+    param.setGiftcardGUID(giftcardGUID);
+    param.setGuestPhone(guestPhone);
+    param.setGusetName(gusetName);
+
+    JMyVacationApplyParam.Card card = param.new Card();
+    card.setCardID(cardID);
+    card.setCredit2Use(credit2Use);
+    card.setCardValidateYear("");
+    List<JMyVacationApplyParam.Card> cardList = new ArrayList<JMyVacationApplyParam.Card>();
+    cardList.add(card);
+    param.setUseCardList(cardList);
 
     return gson.toJson(param);
   }

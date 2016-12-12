@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,6 +30,7 @@ import com.aishang.app.util.DialogFactory;
 import com.aishang.app.util.EventPosterHelper;
 import com.aishang.app.util.ViewUtil;
 import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
+import com.github.aakira.expandablelayout.ExpandableLinearLayout;
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 import com.github.aakira.expandablelayout.Utils;
 import com.squareup.picasso.Picasso;
@@ -70,6 +72,7 @@ public class RoomAdapter {
 
     final ViewHolder holder = new ViewHolder(roomItem);
     viewHolders.add(holder);
+    //holder.expandableLayout.setInRecyclerView(true);
 
     final RoomCat item = roomCat.get(postion);
 
@@ -163,8 +166,11 @@ public class RoomAdapter {
 
     int i = 0;
     for (JHotelRoomCatListByhotelIDResult.HotelRoomCatListEntity entity : item.getCatListEntities()) {
-      strCat[i] = entity.getRoomCatName();
-      i++;
+
+      if (entity.getBasicPrice() != 0) {
+        strCat[i] = entity.getRoomCatName();
+        i++;
+      }
     }
 
     holder.roomCat.setTag(0);
@@ -181,6 +187,15 @@ public class RoomAdapter {
                 holder.roomCat.setText(cat.getRoomCatName());
                 holder.expandableLayout.setTag(cat);
                 bindData(holder, cat);
+
+                holder.expandableLayout.initLayout();
+                holder.itemView.requestLayout();
+                holder.itemView.invalidate();
+
+                holder.expandableLayout.expand();
+
+                //holder.expandableLayout.requestLayout();
+
                 dialog.dismiss();
               }
             }, "").show();
@@ -204,6 +219,19 @@ public class RoomAdapter {
         }
       }
     });
+
+    //
+    //holder.expandableLayout.getViewTreeObserver()
+    //    .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+    //      @Override public void onGlobalLayout() {
+    //
+    //        if (holder.expandableContent.getHeight() > 0) {
+    //
+    //          holder.expandableLayout.getLayoutParams().height =
+    //              holder.expandableContent.getHeight();
+    //        }
+    //      }
+    //    });
 
     //if(postion == 0) {
     //  holder.expandableLayout.setExpanded(true);
@@ -374,11 +402,15 @@ public class RoomAdapter {
     @Bind(R.id.bedType) TextView bedType;
     @Bind(R.id.maxGuest) TextView maxGuest;
     @Bind(R.id.comment) TextView comment;
-    @Bind(R.id.expandableLayout) ExpandableRelativeLayout expandableLayout;
+    @Bind(R.id.expandableLayout) ExpandableLinearLayout expandableLayout;
+    @Bind(R.id.expandableContent) RelativeLayout expandableContent;
     @Bind(R.id.buy) Button btnBuy;
+
+    View itemView;
 
     ViewHolder(View view) {
       ButterKnife.bind(this, view);
+      itemView = view;
     }
   }
 }

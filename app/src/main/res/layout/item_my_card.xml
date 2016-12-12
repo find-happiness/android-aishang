@@ -6,6 +6,7 @@
     android:layout_marginRight="@dimen/spacing_medium"
     android:foreground="?attr/selectableItemBackground"
     android:orientation="vertical"
+    android:id="@+id/cardInfoContaier"
     >
 
   <LinearLayout

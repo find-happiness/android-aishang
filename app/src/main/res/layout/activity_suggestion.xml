@@ -6,25 +6,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary"
-    android:paddingTop="@dimen/padding_stutas_bar">
+    android:paddingTop="@dimen/padding_stutas_bar"
+    >
 
   <android.support.v7.widget.Toolbar
       android:id="@+id/toolbar"
       android:layout_width="match_parent"
       android:layout_height="?attr/actionBarSize"
       android:background="@color/primary"
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
       app:theme="@style/ToolBarStyle"
-      app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+      >
 
     <TextView
         android:id="@+id/toolbar_title"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:gravity="center_vertical"
         android:layout_gravity="center"
+        android:gravity="center_vertical"
         android:text="意见反馈"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/text_title"/>
+        android:textSize="@dimen/text_title"
+        />
   </android.support.v7.widget.Toolbar>
 
   <LinearLayout
@@ -32,7 +35,8 @@
       android:layout_height="match_parent"
       android:layout_below="@id/toolbar"
       android:background="@color/gray"
-      android:orientation="vertical">
+      android:orientation="vertical"
+      >
 
     <EditText
         android:id="@+id/suggestion"
@@ -43,7 +47,8 @@
         android:ellipsize="end"
         android:gravity="start"
         android:maxLength="200"
-        android:textSize="@dimen/text_body"/>
+        android:textSize="@dimen/text_body"
+        />
 
     <TextView
         android:layout_width="match_parent"
@@ -57,7 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/spacing_large"
-        android:text="400"
+        android:text="023-62976690"
         android:textSize="@dimen/text_headline"
         />
 

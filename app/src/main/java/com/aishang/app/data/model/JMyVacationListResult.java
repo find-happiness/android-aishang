@@ -1,5 +1,7 @@
 package com.aishang.app.data.model;
 
+import java.util.List;
+
 /**
  * Created by song on 2016/3/26.
  */
@@ -63,6 +65,27 @@ public class JMyVacationListResult {
    */
 
   private JMyVacationListMyVaList[] myVaList;
+  /**
+   * excardID : 2
+   * cardNumber : NO.20160729151515
+   * integral : 2391
+   */
+
+  private List<MyexCardListEntity> myexCardList;
+  private List<?> hotelRoomCatList;
+  /**
+   * ID : 2
+   * cardNumber : NO.20160729151515
+   * memberGUID : 3b4201fd-1e1c-4525-9dda-d3074e35cc05
+   * refModel : hotel
+   * refID : 175
+   * validDate : 2017-09-01T00:00:00
+   * integral : 2391
+   * createTime : 2016-07-29T15:15:37
+   * comment : 测试
+   */
+
+  private List<MemberexCardListEntity> memberexCardList;
 
   public String getResult() {
     return result;
@@ -86,6 +109,30 @@ public class JMyVacationListResult {
 
   public void setMyVaList(JMyVacationListMyVaList[] myVaList) {
     this.myVaList = myVaList;
+  }
+
+  public List<MyexCardListEntity> getMyexCardList() {
+    return myexCardList;
+  }
+
+  public void setMyexCardList(List<MyexCardListEntity> myexCardList) {
+    this.myexCardList = myexCardList;
+  }
+
+  public List<?> getHotelRoomCatList() {
+    return hotelRoomCatList;
+  }
+
+  public void setHotelRoomCatList(List<?> hotelRoomCatList) {
+    this.hotelRoomCatList = hotelRoomCatList;
+  }
+
+  public List<MemberexCardListEntity> getMemberexCardList() {
+    return memberexCardList;
+  }
+
+  public void setMemberexCardList(List<MemberexCardListEntity> memberexCardList) {
+    this.memberexCardList = memberexCardList;
   }
 
   public static class JMyVacationListSummary {
@@ -478,6 +525,120 @@ public class JMyVacationListResult {
 
     public void setRoomGUID(String roomGUID) {
       this.roomGUID = roomGUID;
+    }
+  }
+
+  public static class MyexCardListEntity {
+    private int excardID;
+    private String cardNumber;
+    private int integral;
+
+    public int getExcardID() {
+      return excardID;
+    }
+
+    public void setExcardID(int excardID) {
+      this.excardID = excardID;
+    }
+
+    public String getCardNumber() {
+      return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+      this.cardNumber = cardNumber;
+    }
+
+    public int getIntegral() {
+      return integral;
+    }
+
+    public void setIntegral(int integral) {
+      this.integral = integral;
+    }
+  }
+
+  public static class MemberexCardListEntity {
+    private int ID;
+    private String cardNumber;
+    private String memberGUID;
+    private String refModel;
+    private String refID;
+    private String validDate;
+    private int integral;
+    private String createTime;
+    private String comment;
+
+    public int getID() {
+      return ID;
+    }
+
+    public void setID(int ID) {
+      this.ID = ID;
+    }
+
+    public String getCardNumber() {
+      return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+      this.cardNumber = cardNumber;
+    }
+
+    public String getMemberGUID() {
+      return memberGUID;
+    }
+
+    public void setMemberGUID(String memberGUID) {
+      this.memberGUID = memberGUID;
+    }
+
+    public String getRefModel() {
+      return refModel;
+    }
+
+    public void setRefModel(String refModel) {
+      this.refModel = refModel;
+    }
+
+    public String getRefID() {
+      return refID;
+    }
+
+    public void setRefID(String refID) {
+      this.refID = refID;
+    }
+
+    public String getValidDate() {
+      return validDate;
+    }
+
+    public void setValidDate(String validDate) {
+      this.validDate = validDate;
+    }
+
+    public int getIntegral() {
+      return integral;
+    }
+
+    public void setIntegral(int integral) {
+      this.integral = integral;
+    }
+
+    public String getCreateTime() {
+      return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+      this.createTime = createTime;
+    }
+
+    public String getComment() {
+      return comment;
+    }
+
+    public void setComment(String comment) {
+      this.comment = comment;
     }
   }
 }

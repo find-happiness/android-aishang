@@ -4,11 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 import com.aishang.app.data.DataManager;
-import com.aishang.app.data.model.JCodeLoginResult;
 import com.aishang.app.data.model.JMemberLoginParam;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.model.JSendCodeResult;
-import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.ui.ChangePassword.ChangePasswordActivity;
 import com.aishang.app.ui.ForgetPossword.ForgetPosswordActivity;
 import com.aishang.app.ui.base.BasePresenter;
@@ -16,20 +14,11 @@ import com.aishang.app.ui.main.MainActivity;
 import com.aishang.app.ui.register.RegisterActivity;
 
 import com.aishang.app.util.Constants;
-import com.aishang.app.util.OkHttpUtils;
 import com.google.gson.Gson;
-import java.util.HashMap;
 import javax.inject.Inject;
-import okhttp3.Cookie;
-import okhttp3.HttpUrl;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
-import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**

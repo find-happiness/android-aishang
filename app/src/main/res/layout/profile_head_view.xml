@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:layout_gravity="bottom"
     android:background="@color/primary"
-    android:gravity="top">
+    android:gravity="top"
+    >
 
   <de.hdodenhof.circleimageview.CircleImageView
       android:id="@+id/head_default"
@@ -15,14 +16,16 @@
       android:layout_centerHorizontal="true"
       android:layout_marginTop="50dp"
       android:src="@mipmap/ic_img_user_default"
-      android:visibility="gone"/>
+      android:visibility="gone"
+      />
 
   <RelativeLayout
       android:id="@+id/rl_login_after"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_alignParentBottom="true"
-      android:visibility="visible">
+      android:visibility="visible"
+      >
 
     <LinearLayout
         android:id="@+id/jen_fen"
@@ -40,7 +43,8 @@
           android:layout_height="wrap_content"
           android:layout_marginBottom="@dimen/spacing_medium"
           android:layout_weight="1"
-          android:orientation="vertical">
+          android:orientation="vertical"
+          >
 
         <TextView
             android:id="@+id/tong_yong_ji_fen"
@@ -54,7 +58,8 @@
             android:gravity="center"
             android:text="通用积分"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_body"/>
+            android:textSize="@dimen/text_body"
+            />
 
         <TextView
             android:id="@+id/tv_awardLeft"
@@ -65,7 +70,8 @@
             android:gravity="center"
             android:textColor="#ffffff"
             android:textSize="@dimen/text_body"
-            tools:text="50"/>
+            tools:text="50"
+            />
 
         <View
             android:layout_width="wrap_content"
@@ -84,7 +90,8 @@
           android:layout_height="wrap_content"
           android:layout_marginBottom="@dimen/spacing_medium"
           android:layout_weight="1"
-          android:orientation="vertical">
+          android:orientation="vertical"
+          >
 
         <TextView
             android:id="@+id/huan_zhu_ji_fen"
@@ -98,7 +105,8 @@
             android:gravity="center"
             android:text="换住积分"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_body"/>
+            android:textSize="@dimen/text_body"
+            />
 
         <TextView
             android:id="@+id/tv_creditLeft"
@@ -109,7 +117,8 @@
             android:gravity="center"
             android:textColor="#ffffff"
             android:textSize="@dimen/text_body"
-            tools:text="50"/>
+            tools:text="50"
+            />
 
         <View
             android:layout_width="wrap_content"
@@ -129,7 +138,8 @@
           android:layout_height="wrap_content"
           android:layout_marginBottom="@dimen/spacing_medium"
           android:layout_weight="1"
-          android:orientation="vertical">
+          android:orientation="vertical"
+          >
 
         <TextView
             android:id="@+id/lv_ju_quan"
@@ -143,7 +153,8 @@
             android:gravity="center"
             android:text="优惠卷"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_body"/>
+            android:textSize="@dimen/text_body"
+            />
 
         <TextView
             android:id="@+id/tv_lv_ju_quan"
@@ -154,7 +165,8 @@
             android:gravity="center"
             android:textColor="#ffffff"
             android:textSize="@dimen/text_body"
-            tools:text="50"/>
+            tools:text="50"
+            />
 
         <View
             android:layout_width="wrap_content"
@@ -175,7 +187,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/jen_fen"
         android:layout_marginBottom="@dimen/spacing_large"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        >
 
       <TextView
           android:id="@+id/tv_user_name"
@@ -186,7 +199,8 @@
           android:layout_marginTop="2dp"
           android:textColor="#ffffff"
           android:textSize="16sp"
-          tools:text="qawdqwdqwdqwdwqd"/>
+          tools:text="qawdqwdqwdqwdwqd"
+          />
 
       <de.hdodenhof.circleimageview.CircleImageView
           android:id="@+id/iv_user_head"
@@ -194,7 +208,8 @@
           android:layout_height="@dimen/head_medium"
           android:layout_toLeftOf="@id/tv_user_name"
           android:contentDescription="@string/app_name"
-          tools:src="@mipmap/ic_img_user_default"/>
+          tools:src="@mipmap/ic_img_user_default"
+          />
 
       <ImageView
           android:id="@+id/tv_member_account"
@@ -205,7 +220,8 @@
           android:layout_centerHorizontal="true"
           android:layout_marginBottom="@dimen/spacing_small"
           android:layout_marginTop="2dp"
-          android:layout_toRightOf="@id/iv_user_head"/>
+          android:layout_toRightOf="@id/iv_user_head"
+          />
     </RelativeLayout>
 
     <com.jcodecraeer.xrecyclerview.progressindicator.AVLoadingIndicatorView
@@ -229,7 +245,8 @@
       android:background="#10000000"
       android:divider="@mipmap/ic_img_line_v"
       android:dividerPadding="@dimen/spacing_medium"
-      android:showDividers="middle">
+      android:showDividers="middle"
+      >
 
     <TextView
         android:id="@+id/tv_register"
@@ -241,7 +258,8 @@
         android:padding="@dimen/spacing_large"
         android:text="注册"
         android:textColor="#ffffff"
-        android:textSize="18sp"/>
+        android:textSize="18sp"
+        />
 
     <TextView
         android:id="@+id/tv_login"
@@ -253,7 +271,8 @@
         android:padding="@dimen/spacing_large"
         android:text="登录"
         android:textColor="#ffffff"
-        android:textSize="18sp"/>
+        android:textSize="18sp"
+        />
   </LinearLayout>
 
   <RelativeLayout
@@ -261,7 +280,9 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_alignParentTop="true"
-      android:dividerPadding="16dp">
+      android:dividerPadding="16dp"
+      android:visibility="gone"
+      >
 
     <ImageView
         android:id="@+id/img_ping_lun"
@@ -270,7 +291,8 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:padding="@dimen/spacing_large"
-        android:src="@mipmap/iconfont_pinglun_big"/>
+        android:src="@mipmap/iconfont_pinglun_big"
+        />
 
     <ImageView
         android:id="@+id/img_share"
@@ -280,7 +302,8 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:padding="@dimen/spacing_large"
-        android:src="@mipmap/iconfont_fenxiang_big"/>
+        android:src="@mipmap/iconfont_fenxiang_big"
+        />
   </RelativeLayout>
 
 </RelativeLayout>

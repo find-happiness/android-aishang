@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:id="@+id/giftCard_Container"
     >
   <RelativeLayout
       android:layout_width="match_parent"
@@ -81,7 +82,7 @@
 
       <LinearLayout
           android:id="@+id/content_container"
-          android:layout_width="wrap_content"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_centerVertical="true"
           android:layout_marginLeft="@dimen/spacing_medium"
@@ -92,10 +93,10 @@
 
         <TextView
             android:id="@+id/name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="3"
-            android:gravity="center"
+            android:ellipsize="end"
+            android:gravity="left"
             android:singleLine="true"
             android:textColor="@color/white"
             android:textSize="@dimen/text_body"
@@ -106,9 +107,9 @@
             android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="left"
             android:layout_marginTop="@dimen/spacing_medium"
-            android:gravity="center"
+            android:gravity="left"
             android:text="优惠券"
             android:textColor="@color/white"
             android:textSize="@dimen/text_small_body"

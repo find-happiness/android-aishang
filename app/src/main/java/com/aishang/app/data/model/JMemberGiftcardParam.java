@@ -5,8 +5,36 @@ package com.aishang.app.data.model;
  */
 public class JMemberGiftcardParam {
 
-  public String cookie;
-  public String memberAccount;
+  /**
+   * memberAccount : 13883224451
+   * cookie : 8F2EDCF4A3C7C0C89E0F3BD413D25972
+   * pageIndex : 1
+   * pageSize : 6
+   * status :
+   */
+
+  private String memberAccount;
+  private String cookie;
+  private String pageIndex;
+  private String pageSize;
+  private String status;
+  private String hotelID;
+
+  public String getHotelID() {
+    return hotelID;
+  }
+
+  public void setHotelID(String hotelID) {
+    this.hotelID = hotelID;
+  }
+
+  public String getMemberAccount() {
+    return memberAccount;
+  }
+
+  public void setMemberAccount(String memberAccount) {
+    this.memberAccount = memberAccount;
+  }
 
   public String getCookie() {
     return cookie;
@@ -16,11 +44,27 @@ public class JMemberGiftcardParam {
     this.cookie = cookie;
   }
 
-  public String getMemberAccount() {
-    return memberAccount;
+  public String getPageIndex() {
+    return pageIndex;
   }
 
-  public void setMemberAccount(String memberAccount) {
-    this.memberAccount = memberAccount;
+  public void setPageIndex(String pageIndex) {
+    this.pageIndex = pageIndex;
+  }
+
+  public String getPageSize() {
+    return pageSize;
+  }
+
+  public void setPageSize(String pageSize) {
+    this.pageSize = pageSize;
+  }
+
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
   }
 }

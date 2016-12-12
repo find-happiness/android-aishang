@@ -492,12 +492,16 @@ public class HotelDetailActivity extends BaseActivity implements HotelDetailMvpV
       for (JHotelRoomCatListByhotelIDResult.GRoomTypeListEntity roomTypeListEntity : roomTypeListEntities) {
         if (roomCatListEntity.getRoomTypeID() == roomTypeListEntity.getRoomTypeID()) {
           RoomCat item = checkRoomCat(roomCats, roomTypeListEntity.getRoomTypeID());
-          if (item != null) {
-            item.addCatEntity(roomCatListEntity);
-          } else {
-            List<JHotelRoomCatListByhotelIDResult.HotelRoomCatListEntity> items = new ArrayList<>();
-            items.add(roomCatListEntity);
-            roomCats.add(new RoomCat(roomTypeListEntity, items));
+
+          if (roomCatListEntity.getBasicPrice() > 0) {
+            if (item != null) {
+              item.addCatEntity(roomCatListEntity);
+            } else {
+              List<JHotelRoomCatListByhotelIDResult.HotelRoomCatListEntity> items =
+                  new ArrayList<>();
+              items.add(roomCatListEntity);
+              roomCats.add(new RoomCat(roomTypeListEntity, items));
+            }
           }
         }
       }

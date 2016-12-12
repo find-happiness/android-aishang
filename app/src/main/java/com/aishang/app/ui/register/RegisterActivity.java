@@ -3,11 +3,8 @@ package com.aishang.app.ui.register;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -21,12 +18,15 @@ import com.aishang.app.ui.base.BaseActivity;
 import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.DialogFactory;
-import com.aishang.app.util.OkHttpUtils;
 import com.aishang.app.util.RegexUtils;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.cookie.CookieJarImpl;
+import com.zhy.http.okhttp.cookie.store.MemoryCookieStore;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import okhttp3.Cookie;
+import okhttp3.CookieJar;
 import okhttp3.HttpUrl;
 import rx.Observable;
 import rx.Subscriber;
@@ -85,6 +85,13 @@ public class RegisterActivity extends BaseActivity implements RegisterMvpView {
     });
   }
 
+  public void clearSession() {
+    CookieJar cookieJar = OkHttpUtils.getInstance().getOkHttpClient().cookieJar();
+    if (cookieJar instanceof CookieJarImpl) {
+      ((CookieJarImpl) cookieJar).getCookieStore().removeAll();
+    }
+  }
+
   @OnClick(R.id.btn_get_verification_code) void onGetVerificationCodeClick() {
 
     String strPhone = phone.getText().toString().trim();
@@ -93,6 +100,9 @@ public class RegisterActivity extends BaseActivity implements RegisterMvpView {
       CommonUtil.hideSoftInput(this);
       CommonUtil.showSnackbar(R.string.error_phone, layoutRoot);
     } else {
+
+      clearSession();
+
       mPresenter.checkPhone(1, AiShangUtil.generSendCodeParam(strPhone, "1", false));
 
       btnGetVerificationCode.setClickable(false);
@@ -140,9 +150,9 @@ public class RegisterActivity extends BaseActivity implements RegisterMvpView {
       return;
     }
 
-    Observable.from(OkHttpUtils.getInstance()
-        .getCookieStore()
-        .get(HttpUrl.parse(AiShangService.AiShangHost + "mobile/member/sendCode.ashx")))
+    Observable.from(
+        ((MemoryCookieStore) OkHttpUtils.getInstance().getOkHttpClient().cookieJar()).get(
+            HttpUrl.parse(AiShangService.AiShangHost + "mobile/member/sendCode.ashx")))
         .map(new Func1<Cookie, String>() {
           @Override public String call(Cookie cookie) {
             if (cookie == null) {

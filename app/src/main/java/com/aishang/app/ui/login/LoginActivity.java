@@ -1,6 +1,5 @@
 package com.aishang.app.ui.login;
 
-import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -21,20 +20,21 @@ import com.aishang.app.BoilerplateApplication;
 import com.aishang.app.R;
 import com.aishang.app.data.model.JMemberLoginResult;
 import com.aishang.app.data.remote.AiShangService;
-import com.aishang.app.injection.ApplicationContext;
 import com.aishang.app.ui.base.BaseActivity;
 import com.aishang.app.util.AiShangUtil;
 import com.aishang.app.util.CommonUtil;
 import com.aishang.app.util.Constants;
 import com.aishang.app.util.DialogFactory;
-import com.aishang.app.util.OkHttpUtils;
 import com.aishang.app.util.RegexUtils;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.cookie.CookieJarImpl;
+import com.zhy.http.okhttp.cookie.store.MemoryCookieStore;
 import javax.inject.Inject;
 import okhttp3.Cookie;
+import okhttp3.CookieJar;
 import okhttp3.HttpUrl;
 import rx.Observable;
 import rx.Subscriber;
-import rx.functions.Action1;
 import rx.functions.Func1;
 
 public class LoginActivity extends BaseActivity
@@ -176,9 +176,9 @@ public class LoginActivity extends BaseActivity
       return;
     }
 
-    Observable.from(OkHttpUtils.getInstance()
-        .getCookieStore()
-        .get(HttpUrl.parse(AiShangService.AiShangHost + "mobile/member/sendCode.ashx")))
+    Observable.from(
+        ((MemoryCookieStore) OkHttpUtils.getInstance().getOkHttpClient().cookieJar()).get(
+            HttpUrl.parse(AiShangService.AiShangHost + "mobile/member/sendCode.ashx")))
         .map(new Func1<Cookie, String>() {
           @Override public String call(Cookie cookie) {
             if (cookie == null) {
@@ -211,7 +211,15 @@ public class LoginActivity extends BaseActivity
     if (TextUtils.isEmpty(strPhone) || !RegexUtils.checkMobile(strPhone)) {
       CommonUtil.showSnackbar(R.string.error_phone, layoutRoot);
     } else {
+      clearSession();
       presenter.getVerificationCode(1, AiShangUtil.generSendCodeParam(strPhone, "2", true));
+    }
+  }
+
+  public void clearSession() {
+    CookieJar cookieJar = OkHttpUtils.getInstance().getOkHttpClient().cookieJar();
+    if (cookieJar instanceof CookieJarImpl) {
+      ((CookieJarImpl) cookieJar).getCookieStore().removeAll();
     }
   }
 

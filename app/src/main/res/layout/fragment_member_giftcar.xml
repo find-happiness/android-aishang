@@ -18,17 +18,6 @@
 
   </android.support.v7.widget.RecyclerView>
 
-
-  <TextView
-      android:id="@+id/no_data"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      android:gravity="center"
-      android:text="@string/no_data"
-      android:textColor="@color/primary"
-      android:textSize="@dimen/text_body"
-      android:visibility="gone"
-      />
+  <include layout="@layout/layout_empty_view"/>
 
 </FrameLayout>

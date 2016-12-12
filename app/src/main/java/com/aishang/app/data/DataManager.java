@@ -1,6 +1,7 @@
 package com.aishang.app.data;
 
 import android.util.Log;
+import com.aishang.app.data.model.AlipayPreModel;
 import com.aishang.app.data.model.JAwardDetailListV2Result;
 import com.aishang.app.data.model.JBusinessListResult;
 import com.aishang.app.data.model.JCheckinRecordResult;
@@ -14,6 +15,7 @@ import com.aishang.app.data.model.JHotelPriceCatListResult;
 import com.aishang.app.data.model.JHotelRoomCatListByhotelIDResult;
 import com.aishang.app.data.model.JHotelRoomCatListResult;
 import com.aishang.app.data.model.JHotelRoomFacilitesCatListResult;
+import com.aishang.app.data.model.JHotelRoomPriceResult;
 import com.aishang.app.data.model.JHotelStarLevelListResult;
 import com.aishang.app.data.model.JLoupanPriceCatListResult;
 import com.aishang.app.data.model.JLoupanProductCatListResult;
@@ -30,6 +32,7 @@ import com.aishang.app.data.model.JMreActivityDetailResult;
 import com.aishang.app.data.model.JMreActivityListResult;
 import com.aishang.app.data.model.JMyBusinessBuyInListResult;
 import com.aishang.app.data.model.JMyVacationApplyListResult;
+import com.aishang.app.data.model.JMyVacationApplyResult;
 import com.aishang.app.data.model.JMyVacationListResult;
 import com.aishang.app.data.model.JNewsDetailResult;
 import com.aishang.app.data.model.JNewsHitsResult;
@@ -55,6 +58,9 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import rx.Observable;
 import rx.functions.Action0;
 import rx.functions.Action1;
@@ -150,6 +156,14 @@ import com.aishang.app.util.EventPosterHelper;
 
   public Observable<JMemberProfileResult> sysMemberProfile(int version, String json) {
     return mAiShangService.memberProfile(version, json);
+  }
+
+  public Observable<JHotelRoomPriceResult> syncHotelPrice(int version, String json) {
+    return mAiShangService.syncHotelPrice(version, json);
+  }
+
+  public Observable<JMyVacationApplyResult> syncMyVacationApply(int version, String json) {
+    return mAiShangService.syncMyVacationApply(version, json);
   }
 
   public Observable<JMemberStatisticsResult> syncMemberStatistics(int version, String json) {
@@ -274,8 +288,8 @@ import com.aishang.app.util.EventPosterHelper;
     return mAiShangService.syncSendCode(version, json);
   }
 
-  public Observable<JResult> syncMemberNoteRegister(int version, String json,String cookie) {
-    return mAiShangService.syncMemberNoteRegister(version, json,cookie);
+  public Observable<JResult> syncMemberNoteRegister(int version, String json, String cookie) {
+    return mAiShangService.syncMemberNoteRegister(version, json, cookie);
   }
 
   public Observable<JCodeLoginResult> syncCodeLogin(Map<String, RequestBody> body) {
@@ -284,8 +298,7 @@ import com.aishang.app.util.EventPosterHelper;
 
   public Observable<JMemberLoginResult> syncCodeLogin(String cookie, String json) {
 
-
-    return mAiShangService.syncCodeLogin(cookie,json);
+    return mAiShangService.syncCodeLogin(cookie, json);
   }
 
   //public Observable<JCodeLoginResult> syncCodeLoginGet(int version, String json) {
@@ -359,6 +372,16 @@ import com.aishang.app.util.EventPosterHelper;
 
   public Observable<JMemberGiftcardResult> syncGetMemberGiftcard(int version, String json) {
     return mAiShangService.syncGetMemberGiftcard(version, json);
+  }
+
+  public Observable<String> syncAlipayModel(String seller_id, String partner,
+      String out_trade_no, String subject, String body, String total_fee, String notify_url,
+      String service, String payment_type, String _input_charset, String it_b_pay,
+      String sign_type) {
+    return mAiShangService.syncAlipayModel(
+        "http://www.51triplife.com/IosAlipay/signatures_url.aspx", seller_id, partner, out_trade_no,
+        subject, body, total_fee, notify_url, service, payment_type, _input_charset, it_b_pay,
+        sign_type);
   }
 
   public int firstUsage() {

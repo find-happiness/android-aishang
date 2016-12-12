@@ -13,6 +13,7 @@ import com.aishang.app.data.model.JHotelPriceCatListResult;
 import com.aishang.app.data.model.JHotelRoomCatListByhotelIDResult;
 import com.aishang.app.data.model.JHotelRoomCatListResult;
 import com.aishang.app.data.model.JHotelRoomFacilitesCatListResult;
+import com.aishang.app.data.model.JHotelRoomPriceResult;
 import com.aishang.app.data.model.JHotelStarLevelListResult;
 import com.aishang.app.data.model.JLoupanPriceCatListResult;
 import com.aishang.app.data.model.JLoupanProductCatListResult;
@@ -31,6 +32,7 @@ import com.aishang.app.data.model.JMreActivityListResult;
 import com.aishang.app.data.model.JMrePromResult;
 import com.aishang.app.data.model.JMyBusinessBuyInListResult;
 import com.aishang.app.data.model.JMyVacationApplyListResult;
+import com.aishang.app.data.model.JMyVacationApplyResult;
 import com.aishang.app.data.model.JMyVacationListResult;
 import com.aishang.app.data.model.JNewsDetailResult;
 import com.aishang.app.data.model.JNewsHitsResult;
@@ -45,33 +47,31 @@ import com.aishang.app.data.model.JTagListResult;
 import com.aishang.app.data.model.JUploadFileResult;
 import com.aishang.app.data.model.JVersionCheckResult;
 import com.aishang.app.data.model.Ribot;
-import com.aishang.app.util.OkHttpUtils;
-import com.aishang.app.util.gson.EmptyStringObjectAdapterFactory;
-import com.aishang.app.util.okhttp.CookieJarImpl;
-import com.aishang.app.util.okhttp.store.MemoryCookieStore;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import java.io.IOException;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.cookie.CookieJarImpl;
+import com.zhy.http.okhttp.cookie.store.MemoryCookieStore;
+import com.zhy.http.okhttp.log.LoggerInterceptor;
 import java.util.List;
 import java.util.Map;
-import okhttp3.Interceptor;
+import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.GsonConverterFactory;
 import retrofit2.Retrofit;
-import retrofit2.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 import rx.Observable;
 
 public interface AiShangService {
@@ -111,6 +111,14 @@ public interface AiShangService {
 
   @Headers("connection:Keep-Alive") @GET("mobile/member/memberProfile.ashx")
   Observable<JMemberProfileResult> memberProfile(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/hotel/hotelRoomPrice.ashx")
+  Observable<JHotelRoomPriceResult> syncHotelPrice(@Query(value = "v") int version,
+      @Query(value = "q") String q);
+
+  @Headers("connection:Keep-Alive") @GET("mobile/member/myVacationApply.ashx")
+  Observable<JMyVacationApplyResult> syncMyVacationApply(@Query(value = "v") int version,
       @Query(value = "q") String q);
 
   @Headers("connection:Keep-Alive") @GET("mobile/member/memberStatistics.ashx.ashx")
@@ -303,6 +311,14 @@ public interface AiShangService {
   Observable<JMemberGiftcardResult> syncGetMemberGiftcard(@Query(value = "v") int version,
       @Query(value = "q") String q);
 
+  @Headers("connection:Keep-Alive") @POST @FormUrlEncoded Observable<String> syncAlipayModel(
+      @Url String url, @Field("seller_id") String seller_id, @Field("partner") String partner,
+      @Field("out_trade_no") String out_trade_no, @Field("subject") String subject,
+      @Field("body") String body, @Field("total_fee") String total_fee,
+      @Field("notify_url") String notify_url, @Field("service") String service,
+      @Field("payment_type") String payment_type, @Field("_input_charset") String _input_charset,
+      @Field("it_b_pay") String it_b_pay, @Field("sign_type") String sign_type);
+
   @GET("ribots") Observable<List<Ribot>> getRibots();
 
   /******** Helper class that sets up a new services *******/
@@ -320,11 +336,25 @@ public interface AiShangService {
       //// add logging as last interceptor
       //httpClient.interceptors().add(logging);  // <-- this is the important line!
       //httpClient.cookieJar(new CookieJarImpl(new MemoryCookieStore()));
+      //HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+      //// set your desired log level
+      //logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+      OkHttpClient okHttpClient = new OkHttpClient.Builder()
+          //                .addInterceptor(new LoggerInterceptor("TAG"))
+          .connectTimeout(10000L, TimeUnit.MILLISECONDS)
+          .readTimeout(10000L, TimeUnit.MILLISECONDS)
+          .addInterceptor(new LoggerInterceptor("TAG", true))
+          .cookieJar(new CookieJarImpl(new MemoryCookieStore()))
+          //其他配置
+          .build();
+
+      OkHttpUtils.initClient(okHttpClient);
 
       Retrofit retrofit = new Retrofit.Builder().baseUrl(AiShangService.AiShangHost)
           .addConverterFactory(GsonConverterFactory.create(gson))
+
           .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-          .client(OkHttpUtils.getInstance().debug().getOkHttpClient())
+          .client(okHttpClient)
           .build();
 
       return retrofit.create(AiShangService.class);

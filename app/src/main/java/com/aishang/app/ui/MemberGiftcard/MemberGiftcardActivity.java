@@ -61,8 +61,10 @@ public class MemberGiftcardActivity extends BaseActivity implements MemberGiftca
   private IndicatorViewPager indicatorViewPager;
   ProgressDialog progressDialog;
 
-  ArrayList<JMemberGiftcardResult.MemberGiftcardListBean> memberGiftcardStatus1 = new ArrayList<>();
-  ArrayList<JMemberGiftcardResult.MemberGiftcardListBean> memberGiftcardStatus2 = new ArrayList<>();
+  ArrayList<JMemberGiftcardResult.MemberGiftcardListEntity> memberGiftcardStatus1 =
+      new ArrayList<>();
+  ArrayList<JMemberGiftcardResult.MemberGiftcardListEntity> memberGiftcardStatus2 =
+      new ArrayList<>();
 
   final String[] titles = new String[] { "未使用", "已使用" };
 
@@ -99,14 +101,14 @@ public class MemberGiftcardActivity extends BaseActivity implements MemberGiftca
   @Override public void loadMemberGiftcardSuccess(JMemberGiftcardResult result) {
     dimissDialog();
     Observable.from(result.getMemberGiftcardList())
-        .groupBy(new Func1<JMemberGiftcardResult.MemberGiftcardListBean, Integer>() {
-          @Override
-          public Integer call(JMemberGiftcardResult.MemberGiftcardListBean memberGiftcardListBean) {
+        .groupBy(new Func1<JMemberGiftcardResult.MemberGiftcardListEntity, Integer>() {
+          @Override public Integer call(
+              JMemberGiftcardResult.MemberGiftcardListEntity memberGiftcardListBean) {
             return memberGiftcardListBean.getStatus();
           }
         })
         .subscribe(
-            new Subscriber<GroupedObservable<Integer, JMemberGiftcardResult.MemberGiftcardListBean>>() {
+            new Subscriber<GroupedObservable<Integer, JMemberGiftcardResult.MemberGiftcardListEntity>>() {
               @Override public void onCompleted() {
                 Log.i(TAG, "onCompleted  ------ >: ");
 
@@ -144,10 +146,10 @@ public class MemberGiftcardActivity extends BaseActivity implements MemberGiftca
               }
 
               @Override public void onNext(
-                  final GroupedObservable<Integer, JMemberGiftcardResult.MemberGiftcardListBean> observable) {
+                  final GroupedObservable<Integer, JMemberGiftcardResult.MemberGiftcardListEntity> observable) {
 
-                observable.subscribe(new Action1<JMemberGiftcardResult.MemberGiftcardListBean>() {
-                  @Override public void call(JMemberGiftcardResult.MemberGiftcardListBean bean) {
+                observable.subscribe(new Action1<JMemberGiftcardResult.MemberGiftcardListEntity>() {
+                  @Override public void call(JMemberGiftcardResult.MemberGiftcardListEntity bean) {
                     if (observable.getKey() == 0) {
                       memberGiftcardStatus1.add(bean);
                     } else if (observable.getKey() == 1) {
@@ -208,7 +210,7 @@ public class MemberGiftcardActivity extends BaseActivity implements MemberGiftca
     String cookie = BoilerplateApplication.get(this).getMemberLoginResult().getData().getCookies();
 
     String member = BoilerplateApplication.get(this).getMemberAccount();
-    return AiShangUtil.generMemberGiftcardParam(member, cookie);
+    return AiShangUtil.generMemberGiftcardParam(member, cookie, "", "", "", "");
   }
 
   private void loadMemberGiftcard() {

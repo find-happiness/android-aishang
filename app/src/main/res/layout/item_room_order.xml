@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/spacing_small"
     android:paddingLeft="@dimen/spacing_medium"
     android:paddingRight="@dimen/spacing_medium"
     android:paddingTop="@dimen/spacing_small"
-    android:paddingBottom="@dimen/spacing_small"
-    android:orientation="vertical"
     >
 
   <LinearLayout
@@ -134,25 +135,17 @@
         android:layout_height="wrap_content"
         android:text="入住人数:"
         android:textColor="@color/text_gray"
+        android:layout_gravity="center_vertical"
         android:textSize="@dimen/text_body"
         />
-    <TextView
-        android:id="@+id/guest_num"
+    <com.aishang.app.widget.HorizontalNumberPicker
+        android:id="@+id/numPicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/spacing_small"
-        android:background="@drawable/tu_stroke_corner"
-        android:drawablePadding="@dimen/spacing_small"
-        android:drawableRight="@mipmap/ic_trangle"
-        android:ems="3"
-        android:maxLength="3"
-        android:paddingBottom="@dimen/spacing_small"
-        android:paddingLeft="@dimen/spacing_medium"
-        android:paddingTop="@dimen/spacing_small"
-        android:singleLine="true"
-        android:textColor="@color/text_gray"
-        android:textSize="@dimen/text_body"
-        tools:text="5"
-        />
+        app:maxValue="99"
+        app:minValue="1"
+        app:stepSize="1"
+        app:value="1"
+        ></com.aishang.app.widget.HorizontalNumberPicker>
   </LinearLayout>
 </LinearLayout>

@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.aishang.app.ui.login.LoginActivity;
+import com.aishang.app.util.EventPosterHelper;
 import com.squareup.otto.Bus;
 
 import javax.inject.Singleton;
@@ -17,19 +18,23 @@ import com.aishang.app.data.remote.AiShangService;
 import com.aishang.app.injection.ApplicationContext;
 import com.aishang.app.injection.module.ApplicationModule;
 
-@Singleton
-@Component(modules = ApplicationModule.class)
-public interface ApplicationComponent {
+@Singleton @Component(modules = ApplicationModule.class) public interface ApplicationComponent {
 
-    void inject(SyncService syncService);
-    void inject(LoginActivity activity);
+  void inject(SyncService syncService);
 
-    @ApplicationContext Context context();
-    Application application();
-    AiShangService ribotsService();
-    PreferencesHelper preferencesHelper();
-    DatabaseHelper databaseHelper();
-    DataManager dataManager();
-    Bus eventBus();
+  void inject(LoginActivity activity);
 
+  @ApplicationContext Context context();
+
+  Application application();
+
+  AiShangService ribotsService();
+
+  PreferencesHelper preferencesHelper();
+
+  DatabaseHelper databaseHelper();
+
+  DataManager dataManager();
+
+  Bus eventBus();
 }

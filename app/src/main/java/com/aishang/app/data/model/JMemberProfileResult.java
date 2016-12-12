@@ -36,13 +36,26 @@ public class JMemberProfileResult {
     public String qq;
     public int VIPStatus;
     public float awardLeft;
-    public int creditLeft;
+    public float creditLeft;
     public int cardNumber;
+    private int cardCredit;
     public JMemberIM[] imList;
     public JMemberBankAccount[] bankAccountList;
     public JMemberAddress[] addressList;
 
-    public int getCreditLeft() {
+    public void setCreditLeft(float creditLeft) {
+      this.creditLeft = creditLeft;
+    }
+
+    public int getCardCredit() {
+      return cardCredit;
+    }
+
+    public void setCardCredit(int cardCredit) {
+      this.cardCredit = cardCredit;
+    }
+
+    public float getCreditLeft() {
       return creditLeft;
     }
 

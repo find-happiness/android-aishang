@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,9 +33,9 @@ public class MemberGiftcarFragment extends LazyFragment {
 
   private static final String ARG_PARAM1 = "param1";
   @Bind(R.id.recyclerView) RecyclerView recyclerView;
-  @Bind(R.id.no_data) TextView noData;
+  @Bind(R.id.empty_view) RelativeLayout noData;
 
-  private List<JMemberGiftcardResult.MemberGiftcardListBean> mParam1;
+  private List<JMemberGiftcardResult.MemberGiftcardListEntity> mParam1;
 
   // The request code must be 0 or greater.
   private static final int PLUS_ONE_REQUEST_CODE = 0;
@@ -117,9 +118,9 @@ public class MemberGiftcarFragment extends LazyFragment {
 
   public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
-    List<JMemberGiftcardResult.MemberGiftcardListBean> hotels;
+    List<JMemberGiftcardResult.MemberGiftcardListEntity> hotels;
 
-    public MyAdapter(List<JMemberGiftcardResult.MemberGiftcardListBean> beanList) {
+    public MyAdapter(List<JMemberGiftcardResult.MemberGiftcardListEntity> beanList) {
       hotels = beanList;
     }
 
@@ -133,7 +134,7 @@ public class MemberGiftcarFragment extends LazyFragment {
 
       //holder.address.setText();
 
-      JMemberGiftcardResult.MemberGiftcardListBean bean = hotels.get(position);
+      JMemberGiftcardResult.MemberGiftcardListEntity bean = hotels.get(position);
       holder.price.setText(bean.getValue() + "");
       holder.name.setText(bean.getGiftName());
       holder.status.setText(bean.getStatus() == 0 ? "未使用" : "已使用");

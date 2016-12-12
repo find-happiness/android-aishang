@@ -1,5 +1,6 @@
 package com.aishang.app.ui.BuyHotel;
 
+import com.aishang.app.data.model.AlipayPreModel;
 import com.aishang.app.data.model.JHotelRoomPriceResult;
 import com.aishang.app.data.model.JMemberProfileResult;
 import com.aishang.app.data.model.JMyVacationApplyResult;
@@ -21,4 +22,6 @@ public interface BuyHotelMvpView extends MvpView {
   void showGetVacationSuccess(JMyVacationListResult result);
 
   void showVacationEmpty();
+
+  void alipaySign(String sign);
 }

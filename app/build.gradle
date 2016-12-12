@@ -27,15 +27,21 @@ android {
     release {
       storeFile file('keystore/release.jks')
       keyAlias 'aishang'
-      storePassword "$System.env.APP_KEY"
-      keyPassword "$System.env.APP_KEY"//
+      storePassword 'aishang' //$System.env.APP_KEY
+      keyPassword 'aishang' //$System.env.APP_KEY
     }
 
+    //    debug {
+    //      storeFile file('keystore/debug.keystore')
+    //      keyAlias 'androiddebugkey'
+    //      storePassword 'android'
+    //      keyPassword 'android'
+    //    }
     debug {
-      storeFile file('keystore/debug.keystore')
-      keyAlias 'androiddebugkey'
-      storePassword 'android'
-      keyPassword 'android'
+      storeFile file('keystore/release.jks')
+      keyAlias 'aishang'
+      storePassword 'aishang' //
+      keyPassword 'aishang' //$System.env.APP_KEY
     }
   }
 
@@ -85,18 +91,18 @@ play {
 
 dependencies {
   final PLAY_SERVICES_VERSION = '8.3.0'
-  final SUPPORT_LIBRARY_VERSION = '23.2.1'
-  final RETROFIT_VERSION = '2.0.0-beta3'
+  final SUPPORT_LIBRARY_VERSION = '23.4.0'
+  final RETROFIT_VERSION = '2.1.0'
   final DAGGER_VERSION = '2.0.2'
   final DEXMAKER_VERSION = '1.4'
   final HAMCREST_VERSION = '1.3'
   final ESPRESSO_VERSION = '2.2.1'
   final RUNNER_VERSION = '0.4'
-  final OKHTTP_VERSION = '3.0.1'
+  final OKHTTP_VERSION = '3.4.1'
   def daggerCompiler = "com.google.dagger:dagger-compiler:$DAGGER_VERSION"
   def jUnit = "junit:junit:4.12"
   def mockito = "org.mockito:mockito-core:1.10.19"
-  compile fileTree(dir: 'libs', include: ['*.jar'])
+  compile fileTree(include: ['*.jar'], dir: 'libs')
   // App Dependencies
   compile "com.google.android.gms:play-services-gcm:$PLAY_SERVICES_VERSION"
   compile "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
@@ -121,6 +127,7 @@ dependencies {
   //compile 'com.github.frankiesardo:linearlistview:1.0.1@aar'
   compile project(':pullzoomview')
   // compile 'com.quinny898.library.persistentsearch:library:1.1.0-SNAPSHOT'
+
   //compile project(':PersistentSearchLibrary')
   compile project(':MaterialEditTextlibrary')
   compile project(':xrecyclerview')
@@ -166,20 +173,24 @@ dependencies {
   compile "com.android.support:support-v4:$SUPPORT_LIBRARY_VERSION"
   compile files('libs/AMap_2DMap_V2.8.1_20160202.jar')
   compile files('libs/jpush-android-2.1.3.jar')
+  compile files('libs/alipaySdk-20160825.jar')
+  compile files('libs/libammsdk_3.1.1.jar')
   compile 'de.hdodenhof:circleimageview:2.0.0'
   compile 'com.squareup.picasso:picasso:2.5.2'
   compile 'com.squareup.sqlbrite:sqlbrite:0.5.0'
   compile 'com.squareup:otto:1.3.8'
-  compile 'io.reactivex:rxandroid:1.1.0'
-  compile 'io.reactivex:rxjava:1.1.0'
+  compile 'io.reactivex:rxandroid:1.2.1'
+  compile 'io.reactivex:rxjava:1.1.6'
   compile 'com.jakewharton:butterknife:7.0.1'
   compile 'com.bigkoo:convenientbanner:2.0.4'
   compile 'com.yqritc:recyclerview-flexibledivider:1.2.8'
-  compile 'com.github.aakira:expandable-layout:1.4.3@aar'
+  compile 'com.github.aakira:expandable-layout:1.6.0@aar'
   compile 'com.ms-square:expandableTextView:0.1.4'
   compile 'com.google.android.gms:play-services-gcm:8.4.0'
   compile 'com.foamtrace:photopicker:1.0'
   compile 'com.github.chrisbanes.photoview:library:1.2.4'
+  compile 'com.android.support:support-v4:23.4.0'
+  compile 'com.zhy:okhttputils:2.6.2'
 }
 
 // Log out test results to console

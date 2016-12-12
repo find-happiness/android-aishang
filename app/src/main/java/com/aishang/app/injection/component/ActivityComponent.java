@@ -4,6 +4,8 @@ import com.aishang.app.ui.AccountCenter.AccountCenterActivity;
 import com.aishang.app.ui.AccountCenter.AwardDetailFragment;
 import com.aishang.app.ui.BrokerCenter.BrokerCenterActivity;
 import com.aishang.app.ui.BuyHotel.BuyHotelActivity;
+import com.aishang.app.ui.BuyHotel.CardFragment;
+import com.aishang.app.ui.BuyHotel.GiftcarFragment;
 import com.aishang.app.ui.BuyLouPan.BuyLouPanActivity;
 import com.aishang.app.ui.CanTuan.CanTuanActivity;
 import com.aishang.app.ui.CashWithDrawApply.CashWithDrawApplyActivity;
@@ -126,6 +128,10 @@ public interface ActivityComponent {
   void inject(AccountCenterActivity activity);
 
   void inject(AwardDetailFragment fragment);
+
+  void inject(GiftcarFragment fragment);
+
+  void inject(CardFragment fragment);
 
   void inject(IncomeActivity activity);
 

@@ -2,7 +2,7 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/spacing_large"
     android:layout_marginRight="@dimen/spacing_large"
     android:orientation="vertical"
@@ -17,7 +17,8 @@
       android:background="@color/primary"
       android:orientation="horizontal"
       android:paddingBottom="@dimen/spacing_large"
-      android:paddingTop="@dimen/spacing_large">
+      android:paddingTop="@dimen/spacing_large"
+      >
 
     <ImageView
         android:id="@+id/card_type_img"
@@ -25,7 +26,8 @@
         android:layout_height="32dp"
         android:layout_marginLeft="@dimen/spacing_medium"
         android:scaleType="fitCenter"
-        android:src="@mipmap/icbc"/>
+        android:src="@mipmap/icbc"
+        />
 
 
     <TextView

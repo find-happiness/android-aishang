@@ -28,6 +28,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.os.Environment.MEDIA_MOUNTED;
 
@@ -286,6 +288,29 @@ public class CommonUtil {
     toCalendar.set(Calendar.SECOND, 0);
     toCalendar.set(Calendar.MILLISECOND, 0);
 
-    return (int) ((toCalendar.getTime().getTime() - fromCalendar.getTime().getTime()) / (1000 * 60 * 60 * 24));
+    return (int) ((toCalendar.getTime().getTime() - fromCalendar.getTime().getTime()) / (1000
+        * 60
+        * 60
+        * 24));
+  }
+
+  /**
+   * 方法名称:transStringToMap
+   * 传入参数:String 形如 username=chenziwen&password=1234
+   * 返回值:map
+   */
+  public static Map<String, String> transStringToMap(String str) {
+    Map<String, String> map = new HashMap<>();
+
+    String[] str1 = str.split("&");
+
+    for (int i = 0; i < str1.length; i++) {
+
+      String[] str2 = str1[i].split("=");
+
+      map.put(str2[0], str2[1]);
+    }
+
+    return map;
   }
 }

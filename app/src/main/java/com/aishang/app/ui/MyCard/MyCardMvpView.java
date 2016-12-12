@@ -10,7 +10,7 @@ import com.aishang.app.ui.base.MvpView;
 public interface MyCardMvpView extends MvpView {
   void showError(String error);
 
-  void refreshList(JMyVacationListResult.JMyVacationListMyVaList[] items);
+  void refreshList(JMyVacationListResult result);
 
   void showEmpty();
 

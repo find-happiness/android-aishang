@@ -40,6 +40,7 @@ public class ApplicationModule {
         return new Bus();
     }
 
+
     @Provides
     @Singleton AiShangService provideRibotsService() {
         return AiShangService.Creator.newAiShangService();

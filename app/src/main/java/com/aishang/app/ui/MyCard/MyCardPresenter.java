@@ -56,7 +56,7 @@ public class MyCardPresenter extends BasePresenter<MyCardMvpView> {
             if (result.getResult().toUpperCase().equals(Constants.RESULT_SUCCESS.toUpperCase())) {
 
               if (result.getMyVaList().length > 0) {
-                getMvpView().refreshList(result.getMyVaList());
+                getMvpView().refreshList(result);
               } else {
                 getMvpView().showEmpty();
               }

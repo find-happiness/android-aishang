@@ -95,8 +95,6 @@ public class TravelCardActivity extends BaseActivity implements MyCardMvpView {
     mRecyclerView.refreshComplete();
     adapter.getItems().clear();
     adapter.notifyDataSetChanged();
-
-
   }
 
   @Override public void refreshCompleted() {
@@ -105,7 +103,7 @@ public class TravelCardActivity extends BaseActivity implements MyCardMvpView {
     }
   }
 
-  @Override public void refreshList(JMyVacationListResult.JMyVacationListMyVaList[] items) {
+  @Override public void refreshList(JMyVacationListResult items) {
 
     if (avloadingIndicatorView.getVisibility() == View.VISIBLE) {
       avloadingIndicatorView.setVisibility(View.GONE);
@@ -117,7 +115,8 @@ public class TravelCardActivity extends BaseActivity implements MyCardMvpView {
 
     adapter.getItems().clear();
     adapter.getItems()
-        .addAll(new ArrayList<JMyVacationListResult.JMyVacationListMyVaList>(Arrays.asList(items)));
+        .addAll(new ArrayList<JMyVacationListResult.JMyVacationListMyVaList>(
+            Arrays.asList(items.getMyVaList())));
     adapter.notifyDataSetChanged();
     mRecyclerView.refreshComplete();
   }
